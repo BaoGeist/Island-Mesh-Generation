@@ -1,7 +1,7 @@
 # Assignment A2: Mesh Generator
 
   - Author #1 linofbaoze@outlook.com
-  - Author #2 [email@mcmaster.ca]
+  - Author #2 hus44@mcmaster.ca
   - Author #3 [email@mcmaster.ca]
 
 ## How to run the product
