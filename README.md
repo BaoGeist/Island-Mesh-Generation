@@ -1,12 +1,11 @@
 # Assignment A2: Mesh Generator
-
-  - Author #1 linofbaoze@outlook.com
+  - Author #1 linb44@mcmaster.ca
   - Author #2 hus44@mcmaster.ca
   - Author #3 [email@mcmaster.ca]
 
 ## How to run the product
 
-_This section needs to be edited to reflect how the user can interact with thefeature released in your project_
+_This section needs to be edited to reflect how the user can interact with the feature released in your project_
 
 ### Installation instructions
 
@@ -63,8 +62,8 @@ When you develop features and enrich the product, remember that you have first t
 
 ### Product Backlog
 
-| Id | Feature title | Who? | Start | End | Status |
-|:--:|---------------|------|-------|-----|--------|
-|    |               |      |       |     |        |
+| Id  | Feature title                                           | Who?             | Start      | End | Status |
+|:---:|---------------------------------------------------------|------------------|------------|-----|--------|
+| F01 | draw segments between vertices to visualize the squares | Baoze, Daniel    | 02.01.2023 |     | P      |
 
 
