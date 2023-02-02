@@ -10,6 +10,7 @@ import java.awt.Stroke;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
+import java.util.Arrays;
 import java.util.List;
 
 public class GraphicRenderer {
@@ -29,14 +30,17 @@ public class GraphicRenderer {
             canvas.setColor(old);
         }
         for (Structs.Segment s: aMesh.getSegmentsList()){
-            Vertex v1 = aMesh.getVerticesList().get((int) s.getV1Idx());
-            Vertex v2 = aMesh.getVerticesList().get((int) s.getV2Idx());
-            double x1 = v1.getX();
-            double y1 = v1.getY();
-            double x2 = v2.getX();
-            double y2 = v2.getY();
+            float[] vertices = extractHeadTail(s.getPropertiesList());
+            // baoze started here
+            Color segment_color = extractColor(s.getPropertiesList());
+            double x1 = vertices[0];
+            double y1 = vertices[1];
+            double x2 = vertices[2];
+            double y2 = vertices[3];
 
+            canvas.setColor(segment_color);
             canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
+
         }
     }
 
@@ -44,17 +48,45 @@ public class GraphicRenderer {
         String val = null;
         for(Property p: properties) {
             if (p.getKey().equals("rgb_color")) {
-                System.out.println(p.getValue());
+//                System.out.println(p.getValue());
                 val = p.getValue();
             }
         }
         if (val == null)
             return Color.BLACK;
         String[] raw = val.split(",");
-        int red = Integer.parseInt(raw[0]);
-        int green = Integer.parseInt(raw[1]);
-        int blue = Integer.parseInt(raw[2]);
+        int red = Integer.parseInt(raw[0].replace("[","").replace(" ", ""));
+        int green = Integer.parseInt(raw[1].replace(" ", ""));
+        int blue = Integer.parseInt(raw[2].replace("]","").replace(" ", ""));
         return new Color(red, green, blue);
+    }
+
+    private float[] extractHeadTail(List<Property> properties) {
+//        System.out.println(properties);
+        String head = null, tail = null;
+        for(Property p: properties) {
+            if (p.getKey().equals("head")) {
+//                System.out.println(p.getValue());
+                head = p.getValue();
+            }
+            if (p.getKey().equals("tail")) {
+//                System.out.println(p.getValue());
+                tail = p.getValue();
+            }
+        }
+        if (head == null || tail == null)
+            return new float[]{};
+        String[] raw_head = head.split(",");
+        String[] raw_tail = tail.split(",");
+        float[] head_tail = new float[raw_head.length*2];
+
+        for(int i = 0; i < raw_head.length; i++) {
+            head_tail[i] = Float.parseFloat(raw_head[i]);
+            head_tail[i+raw_head.length] = Float.parseFloat(raw_tail[i]);
+        }
+
+
+        return head_tail;
     }
 
 }

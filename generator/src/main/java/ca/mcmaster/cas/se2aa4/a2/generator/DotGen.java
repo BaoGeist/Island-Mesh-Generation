@@ -66,27 +66,27 @@ public class DotGen {
 
                 Property head1 = Property.newBuilder().setKey("head").setValue(String.format("%f,%f", (double)x, (double)y)).build();
                 Property tail1 = Property.newBuilder().setKey("tail").setValue(String.format("%f,%f", (double)x+square_size, (double)y)).build();
-                String new_colour1 = Arrays.toString(new int[]{(first_colour[0] + second_colour[0]/2), (first_colour[1] + second_colour[1]/2), (first_colour[1] + second_colour[1]/2)});
+                String new_colour1 = Arrays.toString(new int[]{(first_colour[0] + second_colour[0])/2, (first_colour[1] + second_colour[1])/2, (first_colour[2] + second_colour[2])/2});
                 Property color1 = Property.newBuilder().setKey("rgb_color").setValue(new_colour1).build();
                 Segment connected1 = Segment.newBuilder().addProperties(head1).addProperties(tail1).addProperties(color1).build();
 
 
                 Property head2 = Property.newBuilder().setKey("head").setValue(String.format("%f,%f", (double)x+square_size, (double)y)).build();
-                Property tail2 = Property.newBuilder().setKey("tail").setValue(String.format("%f,%f", (double)x, (double)y+square_size)).build();
-                String new_colour2 = Arrays.toString(new int[]{(second_colour[0] + third_colour[0]/2), (second_colour[1] + third_colour[1]/2), (second_colour[1] + third_colour[1]/2)});
+                Property tail2 = Property.newBuilder().setKey("tail").setValue(String.format("%f,%f", (double)x+square_size, (double)y+square_size)).build();
+                String new_colour2 = Arrays.toString(new int[]{(second_colour[0] + fourth_colour[0])/2, (second_colour[1] + fourth_colour[1])/2, (second_colour[2] + fourth_colour[2])/2});
                 Property color2 = Property.newBuilder().setKey("rgb_color").setValue(new_colour2).build();
                 Segment connected2 = Segment.newBuilder().addProperties(head2).addProperties(tail2).addProperties(color2).build();
 
 
                 Property head3 = Property.newBuilder().setKey("head").setValue(String.format("%f,%f", (double)x, (double)y+square_size)).build();
                 Property tail3 = Property.newBuilder().setKey("tail").setValue(String.format("%f,%f", (double)x+square_size, (double)y+square_size)).build();
-                String new_colour3 = Arrays.toString(new int[]{(fourth_colour[0] + third_colour[0]/2), (fourth_colour[1] + third_colour[1]/2), (fourth_colour[1] + third_colour[1]/2)});
+                String new_colour3 = Arrays.toString(new int[]{(fourth_colour[0] + third_colour[0])/2, (fourth_colour[1] + third_colour[1])/2, (fourth_colour[2] + third_colour[2])/2});
                 Property color3 = Property.newBuilder().setKey("rgb_color").setValue(new_colour3).build();
                 Segment connected3 = Segment.newBuilder().addProperties(head3).addProperties(tail3).addProperties(color3).build();
 
-                Property head4 = Property.newBuilder().setKey("head").setValue(String.format("%f,%f", (double)x+square_size, (double)y+square_size)).build();
+                Property head4 = Property.newBuilder().setKey("head").setValue(String.format("%f,%f", (double)x, (double)y+square_size)).build();
                 Property tail4 = Property.newBuilder().setKey("tail").setValue(String.format("%f,%f", (double)x, (double)y)).build();
-                String new_colour4 = Arrays.toString(new int[]{(first_colour[0] + fourth_colour[0]/2), (first_colour[1] + fourth_colour[1]/2), (first_colour[1] + fourth_colour[1]/2)});
+                String new_colour4 = Arrays.toString(new int[]{(first_colour[0] + third_colour[0])/2, (first_colour[1] + third_colour[1])/2, (first_colour[2] + third_colour[2])/2});
                 Property color4 = Property.newBuilder().setKey("rgb_color").setValue(new_colour4).build();
                 Segment connected4 = Segment.newBuilder().addProperties(head4).addProperties(tail4).addProperties(color4).build();
 
@@ -95,6 +95,10 @@ public class DotGen {
                 segments.add(connected3);
                 segments.add(connected4);
 
+                vertices.add(v1);
+                vertices.add(v2);
+                vertices.add(v3);
+                vertices.add(v4);
             }
         }
 
