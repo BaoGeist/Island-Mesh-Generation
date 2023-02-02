@@ -1,5 +1,6 @@
 package ca.mcmaster.cas.se2aa4.a2.visualizer;
 
+import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
@@ -26,6 +27,16 @@ public class GraphicRenderer {
             Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
             canvas.fill(point);
             canvas.setColor(old);
+        }
+        for (Structs.Segment s: aMesh.getSegmentsList()){
+            Vertex v1 = aMesh.getVerticesList().get((int) s.getV1Idx());
+            Vertex v2 = aMesh.getVerticesList().get((int) s.getV2Idx());
+            double x1 = v1.getX();
+            double y1 = v1.getY();
+            double x2 = v2.getX();
+            double y2 = v2.getY();
+
+            canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
         }
     }
 
