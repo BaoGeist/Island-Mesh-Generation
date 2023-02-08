@@ -62,8 +62,9 @@ When you develop features and enrich the product, remember that you have first t
 
 ### Product Backlog
 
-| Id  | Feature title                                                      | Who?             | Start      | End        | Status |
-|:---:|--------------------------------------------------------------------|------------------|------------|------------|--------|
+| Id | Feature title                                                       | Who?             | Start      | End        | Status |
+|:--:|---------------------------------------------------------------------|------------------|------------|------------|--------|
 | F01 | draw segments between vertices (coloured) to visualize the squares | Baoze, Daniel    | 02.01.2023 | 02.02.2023 | D      |
+| F02 | debug mode option on                                               | Baoze            |            |            | P      |
 
 
