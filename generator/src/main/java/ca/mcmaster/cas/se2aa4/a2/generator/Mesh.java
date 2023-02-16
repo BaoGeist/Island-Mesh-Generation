@@ -20,7 +20,6 @@ public class Mesh {
         this.grid = new ArrayList<>();
     }
 
-
     public void generate() {
         Random bag = new Random();
         // Create all the vertices
