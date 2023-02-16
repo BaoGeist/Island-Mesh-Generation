@@ -4,7 +4,6 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 
 
 public class Vertex {
-    
     private double[] coords = new double[2];
     private int[] colorCodes = new int[3];
 
