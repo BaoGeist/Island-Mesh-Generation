@@ -34,22 +34,22 @@ public class DotGen {
         // Create all the vertices
         for(int x = 0; x < width; x += square_size) {
             for(int y = 0; y < height; y += square_size) {
-                Vertex v1 = new Vertex();
+                OurVertex v1 = new OurVertex();
                 v1.makeVertex(x, y);
 
-                Vertex v2 = new Vertex();
+                OurVertex v2 = new OurVertex();
                 v2.makeVertex(x + square_size, y);
 
-                Vertex v3 = new Vertex();
+                OurVertex v3 = new OurVertex();
                 v3.makeVertex(x, y + square_size);
 
-                Vertex v4 = new Vertex();
+                OurVertex v4 = new OurVertex();
                 v4.makeVertex(x + square_size, y + square_size);
 
-                int[] first_colour = v1.get_color();
-                int[] second_colour = v2.get_color();
-                int[] third_colour = v3.get_color();
-                int[] fourth_colour = v4.get_color();
+                int[] first_colour = v1.get_color_array();
+                int[] second_colour = v2.get_color_array();
+                int[] third_colour = v3.get_color_array();
+                int[] fourth_colour = v4.get_color_array();
 
                 Property head1 = Property.newBuilder().setKey("head").setValue(String.format("%f,%f", (double)x, (double)y)).build();
                 Property tail1 = Property.newBuilder().setKey("tail").setValue(String.format("%f,%f", (double)x+square_size, (double)y)).build();

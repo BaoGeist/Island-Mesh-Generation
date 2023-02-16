@@ -1,12 +1,15 @@
 package ca.mcmaster.cas.se2aa4.a2.generator;
 import java.util.Random;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 
 
-public class Vertex {
+public class OurVertex {
     
     private double[] coords = new double[2];
     private int[] colorCodes = new int[3];
+    private String colorCode;
 
     private void set_coords(double x_coord, double y_coord) {
         coords[0] = x_coord;
@@ -25,16 +28,27 @@ public class Vertex {
         colorCodes[0] = red;
         colorCodes[1] = green;
         colorCodes[2] = blue;
+        colorCode = red + "," + green + "," + blue;
     }
 
-    public int[] get_color() {
+    public String get_color_string() {
+        return colorCode;
+    }
+
+    public int[] get_color_array() {
         return colorCodes;
     }
 
     public Vertex makeVertex(double x, double y) {
         this.set_coords(x, y);
         this.set_color();
-        return this;
+        return build_vertex();
+    }
+
+    private Vertex build_vertex() {
+        Property color = Property.newBuilder().setKey("rgb_color").setValue(this.get_color_string()).build();
+        Vertex v = Vertex.newBuilder().setX(coords[0]).setY(coords[1]).addProperties(color).build();
+        return v;
     }
         
 }
