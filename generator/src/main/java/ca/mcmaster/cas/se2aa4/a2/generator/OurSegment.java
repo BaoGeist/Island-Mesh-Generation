@@ -8,8 +8,14 @@ public class OurSegment {
     private int[] colour_code = new int[3];
     private double[] head_coord = new double[2];
     private double[] tail_coord = new double[2];
+<<<<<<< Updated upstream
     private OurVertex head_vertex;
     private OurVertex tail_vertex;
+=======
+    private double[] middle_coord = new double[2];
+    private Vertex head_vertex;
+    private Vertex tail_vertex;
+>>>>>>> Stashed changes
 
     private Segment actual_segment;
 
@@ -34,12 +40,25 @@ public class OurSegment {
         colour_code[2] = (vertex1.get_colour()[2] + vertex2.get_colour()[2]) / 2;
     }
 
+    // TODO round values inside class and not at build_segment()
+    private void set_segment_middle() {
+        middle_coord[0] = (head_coord[0] + tail_coord[0])/2;
+        middle_coord[1] = (head_coord[1] + tail_coord[1])/2;
+    }
+
     private Structs.Segment build_segment() {
-        Structs.Property segment_head_coords = Structs.Property.newBuilder().setKey("head").setValue(String.format("%f,%f", head_coord[0], head_coord[1])).build();
-        Structs.Property segment_tail_coords = Structs.Property.newBuilder().setKey("tail").setValue(String.format("%f,%f", tail_coord[0], tail_coord[1])).build();
+        Property segment_head_coords = Structs.Property.newBuilder().setKey("head").setValue(String.format("%.2f,%.2f", head_coord[0], head_coord[1])).build();
+        Property segment_tail_coords = Structs.Property.newBuilder().setKey("tail").setValue(String.format("%.2f,%.2f", tail_coord[0], tail_coord[1])).build();
+        Property segment_middle_coords = Structs.Property.newBuilder().setKey("middle").setValue(String.format("%.2f,%.2f", middle_coord[0], middle_coord[1])).build();
         String new_colour1 = Arrays.toString(colour_code);
+<<<<<<< Updated upstream
         Structs.Property color = Structs.Property.newBuilder().setKey("rgb_color").setValue(new_colour1).build();
         Segment connected1 = Segment.newBuilder().addProperties(segment_tail_coords).addProperties(segment_head_coords).addProperties(color).build();
+=======
+        Property color = Structs.Property.newBuilder().setKey("rgb_color").setValue(new_colour1).build();
+        Segment connected1 = Segment.newBuilder().addProperties(segment_tail_coords).addProperties(segment_head_coords).addProperties(segment_middle_coords).addProperties(color).build();
+        return connected1;
+>>>>>>> Stashed changes
     }
 
 }
