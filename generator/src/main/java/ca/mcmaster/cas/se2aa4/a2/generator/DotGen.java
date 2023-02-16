@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.Random;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
+//import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
@@ -34,35 +34,22 @@ public class DotGen {
         // Create all the vertices
         for(int x = 0; x < width; x += square_size) {
             for(int y = 0; y < height; y += square_size) {
-                int red = bag.nextInt(255);
-                int green = bag.nextInt(255);
-                int blue = bag.nextInt(255);
-                String colorCode = red + "," + green + "," + blue;
-                Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
-                Vertex v1 = Vertex.newBuilder().setX((double) x).setY((double) y).addProperties(color).build();
+                Vertex v1 = new Vertex();
+                v1.makeVertex(x, y);
 
-                red = bag.nextInt(255);
-                green = bag.nextInt(255);
-                blue = bag.nextInt(255);
-                colorCode = red + "," + green + "," + blue;
-                Vertex v2 = Vertex.newBuilder().setX((double) x+square_size).setY((double) y).addProperties(color).build();
+                Vertex v2 = new Vertex();
+                v2.makeVertex(x + square_size, y);
 
-                red = bag.nextInt(255);
-                green = bag.nextInt(255);
-                blue = bag.nextInt(255);
-                colorCode = red + "," + green + "," + blue;
-                Vertex v3 = Vertex.newBuilder().setX((double) x).setY((double) y+square_size).addProperties(color).build();
+                Vertex v3 = new Vertex();
+                v3.makeVertex(x, y + square_size);
 
-                red = bag.nextInt(255);
-                green = bag.nextInt(255);
-                blue = bag.nextInt(255);
-                colorCode = red + "," + green + "," + blue;
-                Vertex v4 = Vertex.newBuilder().setX((double) x+square_size).setY((double) y+square_size).addProperties(color).build();
+                Vertex v4 = new Vertex();
+                v4.makeVertex(x + square_size, y + square_size);
 
-                int[] first_colour = parse_string(v1.getProperties(0).getValue());
-                int[] second_colour = parse_string(v2.getProperties(0).getValue());
-                int[] third_colour = parse_string(v3.getProperties(0).getValue());
-                int[] fourth_colour = parse_string(v4.getProperties(0).getValue());
+                int[] first_colour = v1.get_color();
+                int[] second_colour = v2.get_color();
+                int[] third_colour = v3.get_color();
+                int[] fourth_colour = v4.get_color();
 
                 Property head1 = Property.newBuilder().setKey("head").setValue(String.format("%f,%f", (double)x, (double)y)).build();
                 Property tail1 = Property.newBuilder().setKey("tail").setValue(String.format("%f,%f", (double)x+square_size, (double)y)).build();
