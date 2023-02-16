@@ -47,7 +47,6 @@ public class Mesh {
                 Structs.Property color1 = Structs.Property.newBuilder().setKey("rgb_color").setValue(new_colour1).build();
                 Structs.Segment connected1 = Structs.Segment.newBuilder().addProperties(head1).addProperties(tail1).addProperties(color1).build();
 
-
                 Structs.Property head2 = Structs.Property.newBuilder().setKey("head").setValue(String.format("%f,%f", (double)x+square_size, (double)y)).build();
                 Structs.Property tail2 = Structs.Property.newBuilder().setKey("tail").setValue(String.format("%f,%f", (double)x+square_size, (double)y+square_size)).build();
                 String new_colour2 = Arrays.toString(new int[]{(second_colour[0] + fourth_colour[0])/2, (second_colour[1] + fourth_colour[1])/2, (second_colour[2] + fourth_colour[2])/2});
