@@ -26,15 +26,6 @@ public class OurSegment {
         return build_segment();
     }
 
-    private int[] parse_string(String parse) {
-        String[] array_return = parse.split(",", -1);
-        int[] array_return_int = new int[array_return.length];
-        for(int i = 0; i < array_return_int.length; i++) {
-            array_return_int[i] = Integer.parseInt(array_return[i]);
-        }
-        return array_return_int;
-    }
-
     private double[] get_coords(Vertex v) {
         double[] return_string = {v.getX(), v.getY()};
         return return_string;

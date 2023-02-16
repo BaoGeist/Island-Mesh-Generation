@@ -45,6 +45,12 @@ public class OurVertex {
         return build_vertex();
     }
 
+    public Vertex makeCentroidVertex(double x, double y) {
+        this.set_coords(x, y);
+        colorCode = "0,0,0";
+        return build_vertex();
+    }
+
     private Vertex build_vertex() {
         Property color = Property.newBuilder().setKey("rgb_color").setValue(this.get_color_string()).build();
         Vertex v = Vertex.newBuilder().setX(coords[0]).setY(coords[1]).addProperties(color).build();
