@@ -10,7 +10,6 @@ public class Mesh {
     private int height;
     private int square_size;
     private Structs.Vertex[][] grid;
-
     private float alpha_entry;
     private int thickness;
     private ArrayList<Structs.Vertex> vertices;
