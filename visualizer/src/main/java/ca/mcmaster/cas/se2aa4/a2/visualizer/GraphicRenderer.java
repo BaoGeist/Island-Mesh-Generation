@@ -4,6 +4,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 
 import java.awt.Graphics2D;
 import java.awt.Stroke;
@@ -41,6 +42,11 @@ public class GraphicRenderer {
             canvas.setColor(segment_color);
             canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 
+        }
+        // for polygons, also baoze struggling here
+        for (Polygon p: aMesh.getPolygonsList()) {
+            int centroid_id = extractMiddleID(p.getPropertiesList());
+            // add code to get centroid from the list and then graph it
         }
     }
 
@@ -85,8 +91,18 @@ public class GraphicRenderer {
             head_tail[i+raw_head.length] = Float.parseFloat(raw_tail[i]);
         }
 
-
         return head_tail;
+    }
+
+    private int extractMiddleID(List<Property> properties) {
+        String val = null;
+        for(Property p: properties) {
+            if (p.getKey().equals("middle_id")) {
+//                System.out.println(p.getValue());
+                val = p.getValue();
+            }
+        }
+        return Integer.parseInt(val);
     }
 
 }

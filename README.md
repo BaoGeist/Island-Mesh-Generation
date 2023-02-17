@@ -62,9 +62,13 @@ When you develop features and enrich the product, remember that you have first t
 
 ### Product Backlog
 
-| Id | Feature title                                                       | Who?             | Start      | End        | Status |
-|:--:|---------------------------------------------------------------------|------------------|------------|------------|--------|
-| F01 | draw segments between vertices (coloured) to visualize the squares | Baoze, Daniel    | 02.01.2023 | 02.02.2023 | D      |
-| F02 | debug mode option on                                               | Baoze            |            |            | P      |
+| Id | Feature title                                                       | Who?                  | Start      | End        | Status |
+|:--:|---------------------------------------------------------------------|-----------------------|------------|------------|--------|
+| F01 | draw segments between vertices (coloured) to visualize the squares | Baoze, Daniel         | 02.01.2023 | 02.02.2023 | D      |
+| F02 | debug mode option on                                               | Baoze, Alexis         | 02.16.2023 |            | P      |
+| F03 | creating a mesh (using polygons, segments, and vertices)           | Baoze, Daniel, Alexis | 02.15.2023 |            | P      |
+| F04 | producing a full mesh                                              | Daniel                |            |            | B (03) |
+| F05 | playing around with rendering                                      | Baoze                 | 02.17.2023 |            | B (04) |
+| F06 | visualization mode with rendering                                  | Alexis                | 02.17.2023 |            | B (05) |
 
 
