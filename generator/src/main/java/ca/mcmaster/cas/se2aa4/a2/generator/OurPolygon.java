@@ -11,15 +11,18 @@ import java.util.List;
 public class OurPolygon {
     Vertex middle_vertex;
     ArrayList<Segment> segments_group = new ArrayList<>();
-    ArrayList<Integer> segments_id = new ArrayList<Integer>();
+    ArrayList<Integer> segments_id = new ArrayList<>();
+    ArrayList<Integer> neighbours_id = new ArrayList<>();
     private int thickness = 1;
     private float alpha = 1;
+    private int id;
 
-    public Polygon create_polygon(Segment... segments) {
+    public Polygon create_polygon(int id_self, ArrayList<Segment> segments) {
         for(Segment segment: segments) {
             segments_group.add(segment);
             segments_id.add(extractID(segment.getPropertiesList()));
         }
+        id = id_self;
         middle_vertex = create_middle_vertex();
         return build_polygon();
     }
@@ -35,10 +38,20 @@ public class OurPolygon {
         return v.makeCentroidVertex(totalx/count, totalx/count);
     }
 
+    private String get_neighbours_id() {
+        String outputString = "";
+        for(Integer id: neighbours_id) {
+            outputString += String.valueOf(id);
+        }
+        return outputString;
+    }
+
     private Polygon build_polygon() {
         Property thicc = Property.newBuilder().setKey("thicc").setValue(Integer.toString(thickness)).build();
         Property a = Property.newBuilder().setKey("alpha").setValue(Float.toString(alpha)).build();
-        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).build();
+        Property polygon_id = Property.newBuilder().setKey("id").setValue(String.valueOf(id)).build();
+        Property neighbours_id = Property.newBuilder().setKey("neighbours").setValue(get_neighbours_id()).build();
+        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).build();
         return p;
     }
 

@@ -35,6 +35,14 @@ public class OurSegment {
         return return_string;
     }
 
+    private Vertex get_head_vertex() {
+        return head_vertex;
+    }
+
+    private Vertex get_tail_vertex() {
+        return tail_vertex;
+    }
+
 
     private void set_segment_colour(Vertex vertex1, Vertex vertex2) {
         int[] first_colour = extractColor(vertex1.getPropertiesList());
@@ -80,5 +88,17 @@ public class OurSegment {
         int green = Integer.parseInt(raw[1].replace(" ", ""));
         int blue = Integer.parseInt(raw[2].replace("]","").replace(" ", ""));
         return new int[]{red, green, blue};
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        OurSegment comparesegment = (OurSegment) obj;
+        return (head_vertex == comparesegment.get_head_vertex() && tail_vertex == comparesegment.get_tail_vertex()) || (tail_vertex == comparesegment.get_head_vertex() && head_vertex == comparesegment.get_tail_vertex());
     }
 }
