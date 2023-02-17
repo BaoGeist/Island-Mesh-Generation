@@ -5,7 +5,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Mesh {
+public class OurMesh {
     private int width;
     private int height;
     private int square_size;
@@ -15,7 +15,7 @@ public class Mesh {
     private ArrayList<Structs.Vertex> vertices;
 
     private ArrayList<Structs.Segment> segments;
-    public Mesh(int width, int height, int square_size, float alpha_entry, int thickness, ArrayList<Structs.Vertex> vertices, ArrayList<Structs.Segment> segments) {
+    public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness, ArrayList<Structs.Vertex> vertices, ArrayList<Structs.Segment> segments) {
         this.width = width;
         this.height = height;
         this.square_size = square_size;

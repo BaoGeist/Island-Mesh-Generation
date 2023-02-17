@@ -1,8 +1,10 @@
-import ca.mcmaster.cas.se2aa4.a2.generator.DotGen;
+import ca.mcmaster.cas.se2aa4.a2.generator.*;
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -11,8 +13,10 @@ public class Main {
         for(String arg: args) {
             if(arg.equals("-X")) debug = true;
         }
-        DotGen generator = new DotGen();
-        Mesh myMesh = generator.generate();
+        ArrayList<Structs.Vertex> vertices = new ArrayList<>();
+        ArrayList<Structs.Segment> segments = new ArrayList<>();
+        OurMesh ourMesh = new OurMesh(500, 500, 20, 1.00f, 1, vertices,segments);
+        Mesh myMesh = ourMesh.generate();
         MeshFactory factory = new MeshFactory();
         factory.write(myMesh, args[0]);
     }
