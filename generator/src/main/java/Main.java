@@ -9,7 +9,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
         boolean debug = false;
         for(String arg: args) {
-            if(arg.equals("-X")) debug = true;
+            if(arg.equals("-X")) {
+                debug = true;
+            }
         }
         DotGen generator = new DotGen();
         Mesh myMesh = generator.generate();

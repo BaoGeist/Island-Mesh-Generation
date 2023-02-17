@@ -4,6 +4,8 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Mesh {
 
@@ -28,15 +30,20 @@ public class Mesh {
     }
 
     public void generate() {
+        Set<OurVertex> vertices = new HashSet<>();
+        Set<OurSegment> segments = new HashSet<>();
         Random bag = new Random();
         // Create all the vertices
         for (int x = 0; x < width; x += square_size) {
             for (int y = 0; y < height; y += square_size) {
-                Vertex newVertex1 = new Vertex();
-                Vertex v1 = newVertex1.makeVertex((double)x, (double)y); // TODO - make sure these are 2 decimal places
-                Vertex v2 = newVertex1.makeVertex((double)x + square_size, (double)y);
-                Vertex v3 = newVertex1.makeVertex((double)x, (double)y + square_size);
-                Vertex v4 = newVertex1.makeVertex((double)x + square_size, (double)y + square_size);
+                OurVertex v1 = new OurVertex();
+                v1.makeVertex((double)x, (double)y); // TODO - make sure these are 2 decimal places
+                OurVertex v2 = new OurVertex();
+                v2.makeVertex((double)x + square_size, (double)y);
+                OurVertex v3 = new OurVertex();
+                v3.makeVertex((double)x, (double)y + square_size);
+                OurVertex v4 = new OurVertex();
+                v4.makeVertex((double)x + square_size, (double)y + square_size);
 
                 Structs.Property head1 = Structs.Property.newBuilder().setKey("head").setValue(String.format("%f,%f", (double)x, (double)y)).build();
                 Structs.Property tail1 = Structs.Property.newBuilder().setKey("tail").setValue(String.format("%f,%f", (double)x+square_size, (double)y)).build();
