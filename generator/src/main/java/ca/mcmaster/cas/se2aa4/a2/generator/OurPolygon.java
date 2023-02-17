@@ -30,7 +30,10 @@ public class OurPolygon {
         }
         id = id_self;
         set_color();
+<<<<<<< HEAD
         set_coords();
+=======
+>>>>>>> c20d31a (Added color to OurPolygon and used it in GraphicRenderer)
         middle_vertex = create_middle_vertex();
         return build_polygon();
     }
@@ -46,6 +49,7 @@ public class OurPolygon {
         colorCode = red + "," + green + "," + blue;
     }
 
+<<<<<<< HEAD
     private void set_coords(){
         for(Segment segment: segments_group) {
             x_coords.add(extractHeadCoords(segment.getPropertiesList())[0]);
@@ -53,6 +57,8 @@ public class OurPolygon {
         }
     }
 
+=======
+>>>>>>> c20d31a (Added color to OurPolygon and used it in GraphicRenderer)
     private Vertex create_middle_vertex() {
         int totalx = 0, totaly = 0, count = 0;
         for(Segment segment: segments_group) {
@@ -79,9 +85,13 @@ public class OurPolygon {
         Property neighbours_id = Property.newBuilder().setKey("neighbours").setValue(get_neighbours_id()).build();
         Property middle_id = Property.newBuilder().setKey("middle_id").setValue(Integer.toString(extractID(middle_vertex.getPropertiesList()))).build();
         Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
+<<<<<<< HEAD
         Property x_coords = Property.newBuilder().setKey("x_coords").setValue(this.x_coords.toString()).build();
         Property y_coords = Property.newBuilder().setKey("y_coords").setValue(this.y_coords.toString()).build();
         Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(middle_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
+=======
+        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(middle_id).addProperties(color).build();
+>>>>>>> c20d31a (Added color to OurPolygon and used it in GraphicRenderer)
         return p;
     }
 

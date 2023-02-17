@@ -47,6 +47,7 @@ public class GraphicRenderer {
 
         }
         // for polygons, also baoze struggling here
+<<<<<<< HEAD
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
             Color polygon_color = extractColor(p.getPropertiesList());
             float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
@@ -64,6 +65,10 @@ public class GraphicRenderer {
             canvas.setColor(Color.GREEN);
             canvas.fill(path);
 
+=======
+        for (Polygon p: aMesh.getPolygonsList()) {
+            Color polygon_color = extractColor(p.getPropertiesList());
+>>>>>>> c20d31a (Added color to OurPolygon and used it in GraphicRenderer)
         }
     }
 
