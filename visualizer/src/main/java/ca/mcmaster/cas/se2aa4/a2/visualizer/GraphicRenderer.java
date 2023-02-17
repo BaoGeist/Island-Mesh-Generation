@@ -84,6 +84,7 @@ public class GraphicRenderer {
             }
             path.closePath();
 
+            // TODO use actual polygon colour
             canvas.setColor(Color.GREEN);
             canvas.fill(path);
 
