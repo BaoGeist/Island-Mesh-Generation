@@ -45,8 +45,7 @@ public class GraphicRenderer {
         }
         // for polygons, also baoze struggling here
         for (Polygon p: aMesh.getPolygonsList()) {
-            int centroid_id = extractMiddleID(p.getPropertiesList());
-            // add code to get centroid from the list and then graph it
+            Color polygon_color = extractColor(p.getPropertiesList());
         }
     }
 

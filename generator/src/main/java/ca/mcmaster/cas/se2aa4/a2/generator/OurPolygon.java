@@ -6,6 +6,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class OurPolygon {
@@ -14,6 +15,8 @@ public class OurPolygon {
     ArrayList<Integer> segments_id = new ArrayList<>();
     ArrayList<Integer> neighbours_id = new ArrayList<>();
     private int thickness = 1;
+    private int[] colorCodes = new int[3];
+    private String colorCode;
     private float alpha = 1;
     private int id;
 
@@ -23,8 +26,20 @@ public class OurPolygon {
             segments_id.add(extractID(segment.getPropertiesList()));
         }
         id = id_self;
+        set_color();
         middle_vertex = create_middle_vertex();
         return build_polygon();
+    }
+
+    private void set_color() {
+        Random bag = new Random();
+        int red = bag.nextInt(255);
+        int green = bag.nextInt(255);
+        int blue = bag.nextInt(255);
+        colorCodes[0] = red;
+        colorCodes[1] = green;
+        colorCodes[2] = blue;
+        colorCode = red + "," + green + "," + blue;
     }
 
     private Vertex create_middle_vertex() {
@@ -52,7 +67,8 @@ public class OurPolygon {
         Property polygon_id = Property.newBuilder().setKey("id").setValue(String.valueOf(id)).build();
         Property neighbours_id = Property.newBuilder().setKey("neighbours").setValue(get_neighbours_id()).build();
         Property middle_id = Property.newBuilder().setKey("middle_id").setValue(Integer.toString(extractID(middle_vertex.getPropertiesList()))).build();
-        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(middle_id).build();
+        Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
+        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(middle_id).addProperties(color).build();
         return p;
     }
 
