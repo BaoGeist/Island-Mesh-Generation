@@ -48,6 +48,7 @@ public class GraphicRenderer {
         }
         // for polygons, also baoze struggling here
 <<<<<<< HEAD
+<<<<<<< HEAD
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
             Color polygon_color = extractColor(p.getPropertiesList());
             float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
@@ -69,6 +70,24 @@ public class GraphicRenderer {
         for (Polygon p: aMesh.getPolygonsList()) {
             Color polygon_color = extractColor(p.getPropertiesList());
 >>>>>>> c20d31a (Added color to OurPolygon and used it in GraphicRenderer)
+=======
+        for (Structs.Polygon p: aMesh.getPolygonsList()) {
+            Color polygon_color = extractColor(p.getPropertiesList());
+            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
+            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
+
+            Path2D.Float path = new Path2D.Float();
+            path.moveTo(x_coords[0], y_coords[0]);
+
+            for (int i = 1; i < x_coords.length; i++) {
+                path.lineTo(x_coords[i], y_coords[i]);
+            }
+            path.closePath();
+
+            canvas.setColor(Color.GREEN);
+            canvas.fill(path);
+
+>>>>>>> 8170089 (Added coordinates to OurPolygon and graphs them in GraphicRenderer and fills them in)
         }
     }
 
@@ -107,8 +126,13 @@ public class GraphicRenderer {
         float[] pro_y = new float[raw_y.length];
 
         for(int i = 0; i < raw_x.length; i++) {
+<<<<<<< HEAD
             pro_x[i] = Float.parseFloat(raw_x[i].replace("[","").replace(" ", "").replace("]",""));
             pro_y[i] = Float.parseFloat(raw_y[i].replace("[","").replace(" ", "").replace("]",""));
+=======
+            pro_x[i] = Integer.parseInt(raw_x[i]);
+            pro_y[i] = Integer.parseInt(raw_y[i]);
+>>>>>>> 8170089 (Added coordinates to OurPolygon and graphs them in GraphicRenderer and fills them in)
         }
 
         ArrayList<float[]> return_array = new ArrayList<>();
