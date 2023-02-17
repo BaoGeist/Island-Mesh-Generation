@@ -4,6 +4,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 
 import java.awt.Graphics2D;
 import java.awt.Stroke;
@@ -41,6 +42,10 @@ public class GraphicRenderer {
             canvas.setColor(segment_color);
             canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 
+        }
+        // for polygons
+        for (Polygon p: aMesh.getPolygonsList()) {
+            System.out.println();
         }
     }
 
