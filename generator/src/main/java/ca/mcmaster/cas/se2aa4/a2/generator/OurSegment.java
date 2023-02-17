@@ -24,6 +24,7 @@ public class OurSegment {
         tail_vertex = vertex2;
         head_coord = get_coords(vertex1);
         tail_coord = get_coords(vertex2);
+        set_segment_middle();
         id = IDself;
         alpha = alpha_entry;
         thickness = thickness_entry;

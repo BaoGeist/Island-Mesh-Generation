@@ -2,21 +2,28 @@ package ca.mcmaster.cas.se2aa4.a2.generator;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Mesh {
-
     private int width;
     private int height;
     private int square_size;
-
     private Structs.Vertex[][] grid;
 
-    public Mesh(int width, int height, int square_size) {
+    private float alpha_entry;
+    private int thickness;
+    private ArrayList<Structs.Vertex> vertices;
+
+    private ArrayList<Structs.Segment> segments;
+    public Mesh(int width, int height, int square_size, float alpha_entry, int thickness, ArrayList<Structs.Vertex> vertices, ArrayList<Structs.Segment> segments) {
         this.width = width;
         this.height = height;
         this.square_size = square_size;
+        this.alpha_entry = alpha_entry;
+        this.thickness = thickness;
+        this.vertices = vertices;
+        this.segments = segments;
         Structs.Vertex[][] new_grid = new Structs.Vertex[this.width][this.height];
         this.grid = new_grid;
         for(int x = 0; x < width; x += 1){
@@ -27,51 +34,38 @@ public class Mesh {
         }
     }
 
-    public void generate() {
+    public Structs.Mesh generate() {
         Random bag = new Random();
         // Create all the vertices
         for (int x = 0; x < width; x += square_size) {
             for (int y = 0; y < height; y += square_size) {
-                Vertex newVertex1 = new Vertex();
-                Vertex v1 = newVertex1.makeVertex((double)x, (double)y); // TODO - make sure these are 2 decimal places
-                Vertex v2 = newVertex1.makeVertex((double)x + square_size, (double)y);
-                Vertex v3 = newVertex1.makeVertex((double)x, (double)y + square_size);
-                Vertex v4 = newVertex1.makeVertex((double)x + square_size, (double)y + square_size);
+                OurVertex v1 = new OurVertex();
+                Structs.Vertex vertex1 = v1.makeVertex((double)x, (double)y); // TODO - make sure these are 2 decimal places
+                OurVertex v2 = new OurVertex();
+                Structs.Vertex vertex2 = v2.makeVertex((double)x + square_size, (double)y);
+                OurVertex v3 = new OurVertex();
+                Structs.Vertex vertex3 = v3.makeVertex((double)x, (double)y + square_size);
+                OurVertex v4 = new OurVertex();
+                Structs.Vertex vertex4 = v4.makeVertex((double)x + square_size, (double)y + square_size);
 
-                Structs.Property head1 = Structs.Property.newBuilder().setKey("head").setValue(String.format("%f,%f", (double)x, (double)y)).build();
-                Structs.Property tail1 = Structs.Property.newBuilder().setKey("tail").setValue(String.format("%f,%f", (double)x+square_size, (double)y)).build();
-                String new_colour1 = Arrays.toString(new int[]{(first_colour[0] + second_colour[0])/2, (first_colour[1] + second_colour[1])/2, (first_colour[2] + second_colour[2])/2});
-                Structs.Property color1 = Structs.Property.newBuilder().setKey("rgb_color").setValue(new_colour1).build();
-                Structs.Segment connected1 = Structs.Segment.newBuilder().addProperties(head1).addProperties(tail1).addProperties(color1).build();
+                OurSegment s1 = new OurSegment();
+                Structs.Segment segment1 = s1.create_segment(vertices.size(), vertices.size()+1, vertex1, vertex2, alpha_entry, thickness, segments.size());
+                OurSegment s2 = new OurSegment();
+                Structs.Segment segment2 = s2.create_segment(vertices.size()+1, vertices.size()+3, vertex2, vertex4, alpha_entry, thickness, segments.size()+1);
+                OurSegment s3 = new OurSegment();
+                Structs.Segment segment3 = s3.create_segment(vertices.size()+3, vertices.size()+2, vertex4, vertex3, alpha_entry, thickness, segments.size()+2);
+                OurSegment s4 = new OurSegment();
+                Structs.Segment segment4 = s4.create_segment(vertices.size()+2, vertices.size(), vertex3, vertex1, alpha_entry, thickness, segments.size()+3);
 
-                Structs.Property head2 = Structs.Property.newBuilder().setKey("head").setValue(String.format("%f,%f", (double)x+square_size, (double)y)).build();
-                Structs.Property tail2 = Structs.Property.newBuilder().setKey("tail").setValue(String.format("%f,%f", (double)x+square_size, (double)y+square_size)).build();
-                String new_colour2 = Arrays.toString(new int[]{(second_colour[0] + fourth_colour[0])/2, (second_colour[1] + fourth_colour[1])/2, (second_colour[2] + fourth_colour[2])/2});
-                Structs.Property color2 = Structs.Property.newBuilder().setKey("rgb_color").setValue(new_colour2).build();
-                Structs.Segment connected2 = Structs.Segment.newBuilder().addProperties(head2).addProperties(tail2).addProperties(color2).build();
+                segments.add(segment1);
+                segments.add(segment2);
+                segments.add(segment3);
+                segments.add(segment4);
 
-
-                Structs.Property head3 = Structs.Property.newBuilder().setKey("head").setValue(String.format("%f,%f", (double)x, (double)y+square_size)).build();
-                Structs.Property tail3 = Structs.Property.newBuilder().setKey("tail").setValue(String.format("%f,%f", (double)x+square_size, (double)y+square_size)).build();
-                String new_colour3 = Arrays.toString(new int[]{(fourth_colour[0] + third_colour[0])/2, (fourth_colour[1] + third_colour[1])/2, (fourth_colour[2] + third_colour[2])/2});
-                Structs.Property color3 = Structs.Property.newBuilder().setKey("rgb_color").setValue(new_colour3).build();
-                Structs.Segment connected3 = Structs.Segment.newBuilder().addProperties(head3).addProperties(tail3).addProperties(color3).build();
-
-                Structs.Property head4 = Structs.Property.newBuilder().setKey("head").setValue(String.format("%f,%f", (double)x, (double)y+square_size)).build();
-                Structs.Property tail4 = Structs.Property.newBuilder().setKey("tail").setValue(String.format("%f,%f", (double)x, (double)y)).build();
-                String new_colour4 = Arrays.toString(new int[]{(first_colour[0] + third_colour[0])/2, (first_colour[1] + third_colour[1])/2, (first_colour[2] + third_colour[2])/2});
-                Structs.Property color4 = Structs.Property.newBuilder().setKey("rgb_color").setValue(new_colour4).build();
-                Structs.Segment connected4 = Structs.Segment.newBuilder().addProperties(head4).addProperties(tail4).addProperties(color4).build();
-
-                segments.add(connected1);
-                segments.add(connected2);
-                segments.add(connected3);
-                segments.add(connected4);
-
-                vertices.add(v1);
-                vertices.add(v2);
-                vertices.add(v3);
-                vertices.add(v4);
+                vertices.add(vertex1);
+                vertices.add(vertex2);
+                vertices.add(vertex3);
+                vertices.add(vertex4);
             }
         }
         return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).build();
