@@ -40,10 +40,14 @@ public class OurSegment {
         colour_code[2] = (first_colour[2] + second_colour[2]) / 2;
     }
 
-    // TODO round values inside class and not at build_segment()
     private void set_segment_middle() {
-        middle_coord[0] = (head_coord[0] + tail_coord[0])/2;
-        middle_coord[1] = (head_coord[1] + tail_coord[1])/2;
+        int i;
+        for (i = 0; i < 2; i++) {
+            double middle_coord_placeholder = (head_coord[i] + tail_coord[i])/2;
+            String middle_coord_string = String.format("%.2f", middle_coord_placeholder);
+            middle_coord_placeholder = Double.parseDouble(middle_coord_string);
+            middle_coord[i] = middle_coord_placeholder;
+        }
     }
 
     private Structs.Segment build_segment() {
