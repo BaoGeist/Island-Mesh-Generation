@@ -128,12 +128,17 @@ public class GraphicRenderer {
 
         for(int i = 0; i < raw_x.length; i++) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             pro_x[i] = Float.parseFloat(raw_x[i].replace("[","").replace(" ", "").replace("]",""));
             pro_y[i] = Float.parseFloat(raw_y[i].replace("[","").replace(" ", "").replace("]",""));
 =======
             pro_x[i] = Integer.parseInt(raw_x[i]);
             pro_y[i] = Integer.parseInt(raw_y[i]);
 >>>>>>> 8170089 (Added coordinates to OurPolygon and graphs them in GraphicRenderer and fills them in)
+=======
+            pro_x[i] = Float.parseFloat(raw_x[i].replace("[","").replace(" ", "").replace("]",""));
+            pro_y[i] = Float.parseFloat(raw_y[i].replace("[","").replace(" ", "").replace("]",""));
+>>>>>>> f9790b3 (Added working polygons that will visualize)
         }
 
         ArrayList<float[]> return_array = new ArrayList<>();
