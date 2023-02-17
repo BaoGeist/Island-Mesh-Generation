@@ -51,7 +51,8 @@ public class OurPolygon {
         Property a = Property.newBuilder().setKey("alpha").setValue(Float.toString(alpha)).build();
         Property polygon_id = Property.newBuilder().setKey("id").setValue(String.valueOf(id)).build();
         Property neighbours_id = Property.newBuilder().setKey("neighbours").setValue(get_neighbours_id()).build();
-        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).build();
+        Property middle_id = Property.newBuilder().setKey("middle_id").setValue(Integer.toString(extractID(middle_vertex.getPropertiesList()))).build();
+        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(middle_id).build();
         return p;
     }
 
