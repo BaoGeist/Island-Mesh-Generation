@@ -17,6 +17,7 @@ public class OurPolygon {
             this.segments.add(segment);
         }
         middle_vertex = create_middle_vertex();
+        return build_segment();
     }
 
     private Vertex create_middle_vertex() {
@@ -26,7 +27,12 @@ public class OurPolygon {
             totaly += extractSegmentMiddle(segment.getPropertiesList())[1];
             count++;
         }
-        OurVertex v = new OurVertex.makeCentroidVertex(totalx/count, totalx/count);
+        OurVertex v = new OurVertex();
+        return v.makeCentroidVertex(totalx/count, totalx/count);
+    }
+
+    private Polygon build_segment() {
+
     }
 
     private int[] extractSegmentMiddle(List<Property> properties) {

@@ -10,19 +10,19 @@ public class OurSegment {
     private int[] colour_code = new int[3];
     private double[] head_coord = new double[2];
     private double[] tail_coord = new double[2];
-
     private double[] middle_coord = new double[2];
     private Vertex head_vertex;
     private Vertex tail_vertex;
-
     private Segment actual_segment;
+    private int id;
 
-    public Structs.Segment create_segment(int ID1, int ID2, Vertex vertex1, Vertex vertex2) {
+    public Structs.Segment create_segment(int ID1, int ID2, Vertex vertex1, Vertex vertex2, int IDself) {
         set_segment_colour(vertex1, vertex2);
         head_vertex = vertex1;
         tail_vertex = vertex2;
         head_coord = get_coords(vertex1);
         tail_coord = get_coords(vertex2);
+        id = IDself;
         return build_segment();
     }
 
@@ -58,7 +58,6 @@ public class OurSegment {
         Property color = Structs.Property.newBuilder().setKey("rgb_color").setValue(new_colour1).build();
         Segment connected1 = Segment.newBuilder().addProperties(segment_tail_coords).addProperties(segment_head_coords).addProperties(segment_middle_coords).addProperties(color).build();
         return connected1;
-
     }
 
     private int[] extractColor(List<Property> properties) {
