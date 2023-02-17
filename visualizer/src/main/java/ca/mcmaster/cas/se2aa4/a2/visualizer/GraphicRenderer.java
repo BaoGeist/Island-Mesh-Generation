@@ -43,9 +43,10 @@ public class GraphicRenderer {
             canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 
         }
-        // for polygons
+        // for polygons, also baoze struggling here
         for (Polygon p: aMesh.getPolygonsList()) {
-            System.out.println();
+            int centroid_id = extractMiddleID(p.getPropertiesList());
+            // add code to get centroid from the list and then graph it
         }
     }
 
@@ -90,8 +91,18 @@ public class GraphicRenderer {
             head_tail[i+raw_head.length] = Float.parseFloat(raw_tail[i]);
         }
 
-
         return head_tail;
+    }
+
+    private int extractMiddleID(List<Property> properties) {
+        String val = null;
+        for(Property p: properties) {
+            if (p.getKey().equals("middle_id")) {
+//                System.out.println(p.getValue());
+                val = p.getValue();
+            }
+        }
+        return Integer.parseInt(val);
     }
 
 }
