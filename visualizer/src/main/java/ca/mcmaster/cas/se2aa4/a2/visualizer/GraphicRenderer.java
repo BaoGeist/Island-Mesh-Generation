@@ -4,13 +4,16 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
-import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
+import org.apache.batik.ext.awt.geom.Polygon2D;
+
 
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.geom.Path2D;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,8 +47,22 @@ public class GraphicRenderer {
 
         }
         // for polygons, also baoze struggling here
-        for (Polygon p: aMesh.getPolygonsList()) {
+        for (Structs.Polygon p: aMesh.getPolygonsList()) {
             Color polygon_color = extractColor(p.getPropertiesList());
+            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
+            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
+
+            Path2D.Float path = new Path2D.Float();
+            path.moveTo(x_coords[0], y_coords[0]);
+
+            for (int i = 1; i < x_coords.length; i++) {
+                path.lineTo(x_coords[i], y_coords[i]);
+            }
+            path.closePath();
+
+            canvas.setColor(Color.GREEN);
+            canvas.fill(path);
+
         }
     }
 
@@ -64,6 +81,34 @@ public class GraphicRenderer {
         int green = Integer.parseInt(raw[1].replace(" ", ""));
         int blue = Integer.parseInt(raw[2].replace("]","").replace(" ", ""));
         return new Color(red, green, blue);
+    }
+
+    private ArrayList<float[]> extractCoords(List<Property> properties) {
+        String x_coords = null, y_coords = null;
+        for(Property p: properties) {
+            if (p.getKey().equals("x_coords")) {
+//                System.out.println(p.getValue());
+                x_coords = p.getValue();
+            }
+            if (p.getKey().equals("y_coords")) {
+//                System.out.println(p.getValue());
+                y_coords = p.getValue();
+            }
+        }
+        String[] raw_x = x_coords.split(",");
+        float[] pro_x = new float[raw_x.length];
+        String[] raw_y = y_coords.split(",");
+        float[] pro_y = new float[raw_y.length];
+
+        for(int i = 0; i < raw_x.length; i++) {
+            pro_x[i] = Integer.parseInt(raw_x[i]);
+            pro_y[i] = Integer.parseInt(raw_y[i]);
+        }
+
+        ArrayList<float[]> return_array = new ArrayList<>();
+        return_array.add(pro_x);
+        return_array.add(pro_y);
+        return return_array;
     }
 
     private float[] extractHeadTail(List<Property> properties) {

@@ -5,6 +5,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -14,6 +15,8 @@ public class OurPolygon {
     ArrayList<Segment> segments_group = new ArrayList<>();
     ArrayList<Integer> segments_id = new ArrayList<>();
     ArrayList<Integer> neighbours_id = new ArrayList<>();
+    ArrayList<Double> x_coords = new ArrayList<>();
+    ArrayList<Double> y_coords = new ArrayList<>();
     private int thickness = 1;
     private int[] colorCodes = new int[3];
     private String colorCode;
@@ -27,6 +30,7 @@ public class OurPolygon {
         }
         id = id_self;
         set_color();
+        set_coords();
         middle_vertex = create_middle_vertex();
         return build_polygon();
     }
@@ -40,6 +44,13 @@ public class OurPolygon {
         colorCodes[1] = green;
         colorCodes[2] = blue;
         colorCode = red + "," + green + "," + blue;
+    }
+
+    private void set_coords(){
+        for(Segment segment: segments_group) {
+            x_coords.add(extractHeadCoords(segment.getPropertiesList())[0]);
+            y_coords.add(extractHeadCoords(segment.getPropertiesList())[1]);
+        }
     }
 
     private Vertex create_middle_vertex() {
@@ -68,9 +79,12 @@ public class OurPolygon {
         Property neighbours_id = Property.newBuilder().setKey("neighbours").setValue(get_neighbours_id()).build();
         Property middle_id = Property.newBuilder().setKey("middle_id").setValue(Integer.toString(extractID(middle_vertex.getPropertiesList()))).build();
         Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
-        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(middle_id).addProperties(color).build();
+        Property x_coords = Property.newBuilder().setKey("x_coords").setValue(this.x_coords.toString()).build();
+        Property y_coords = Property.newBuilder().setKey("x_coords").setValue(this.y_coords.toString()).build();
+        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(middle_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
         return p;
     }
+
 
     private int[] extractSegmentMiddle(List<Property> properties) {
         String val = null;
@@ -92,6 +106,21 @@ public class OurPolygon {
             }
         }
         return Integer.parseInt(val);
+    }
+
+    private double[] extractHeadCoords(List<Property> properties) {
+        String val = null;
+        for(Property p: properties) {
+            if (p.getKey().equals("head")) {
+//                System.out.println(p.getValue());
+                val = p.getValue();
+            }
+        }
+        String[] raw = val.split(",");
+        Double x = Double.parseDouble(raw[0].replace("[","").replace(" ", ""));
+        Double y = Double.parseDouble(raw[1].replace(" ", ""));
+        int blue = Integer.parseInt(raw[2].replace("]","").replace(" ", ""));
+        return new double[]{x, y};
     }
 
     private int[] parse_string_to_array_int(String parse) {
