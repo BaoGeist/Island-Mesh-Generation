@@ -102,8 +102,8 @@ public class GraphicRenderer {
         float[] pro_y = new float[raw_y.length];
 
         for(int i = 0; i < raw_x.length; i++) {
-            pro_x[i] = Integer.parseInt(raw_x[i]);
-            pro_y[i] = Integer.parseInt(raw_y[i]);
+            pro_x[i] = Float.parseFloat(raw_x[i].replace("[","").replace(" ", "").replace("]",""));
+            pro_y[i] = Float.parseFloat(raw_y[i].replace("[","").replace(" ", "").replace("]",""));
         }
 
         ArrayList<float[]> return_array = new ArrayList<>();
