@@ -80,13 +80,13 @@ public class OurPolygon {
         Property middle_id = Property.newBuilder().setKey("middle_id").setValue(Integer.toString(extractID(middle_vertex.getPropertiesList()))).build();
         Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
         Property x_coords = Property.newBuilder().setKey("x_coords").setValue(this.x_coords.toString()).build();
-        Property y_coords = Property.newBuilder().setKey("x_coords").setValue(this.y_coords.toString()).build();
+        Property y_coords = Property.newBuilder().setKey("y_coords").setValue(this.y_coords.toString()).build();
         Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(middle_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
         return p;
     }
 
 
-    private int[] extractSegmentMiddle(List<Property> properties) {
+    private double[] extractSegmentMiddle(List<Property> properties) {
         String val = null;
         for(Property p: properties) {
             if (p.getKey().equals("middle")) {
@@ -98,7 +98,7 @@ public class OurPolygon {
     }
 
     private int extractID(List<Property> properties) {
-        String val = null;
+        String val = "0";
         for(Property p: properties) {
             if (p.getKey().equals("id")) {
 //                System.out.println(p.getValue());
@@ -119,15 +119,14 @@ public class OurPolygon {
         String[] raw = val.split(",");
         Double x = Double.parseDouble(raw[0].replace("[","").replace(" ", ""));
         Double y = Double.parseDouble(raw[1].replace(" ", ""));
-        int blue = Integer.parseInt(raw[2].replace("]","").replace(" ", ""));
         return new double[]{x, y};
     }
 
-    private int[] parse_string_to_array_int(String parse) {
+    private double[] parse_string_to_array_int(String parse) {
         String[] array_return = parse.split(",", -1);
-        int[] array_return_int = new int[array_return.length];
+        double[] array_return_int = new double[array_return.length];
         for(int i = 0; i < array_return_int.length; i++) {
-            array_return_int[i] = Integer.parseInt(array_return[i]);
+            array_return_int[i] = Double.parseDouble(array_return[i]);
         }
         return array_return_int;
     }

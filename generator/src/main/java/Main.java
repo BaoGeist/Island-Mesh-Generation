@@ -15,7 +15,8 @@ public class Main {
         }
         ArrayList<Structs.Vertex> vertices = new ArrayList<>();
         ArrayList<Structs.Segment> segments = new ArrayList<>();
-        OurMesh ourMesh = new OurMesh(500, 500, 20, 1.00f, 1, vertices,segments);
+        ArrayList<Structs.Polygon> polygons = new ArrayList<>();
+        OurMesh ourMesh = new OurMesh(500, 500, 20, 1.00f, 1, vertices,segments, polygons);
         Mesh myMesh = ourMesh.generate();
         MeshFactory factory = new MeshFactory();
         factory.write(myMesh, args[0]);

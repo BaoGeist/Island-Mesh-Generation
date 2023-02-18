@@ -13,9 +13,9 @@ public class OurMesh {
     private float alpha_entry;
     private int thickness;
     private ArrayList<Structs.Vertex> vertices;
-
     private ArrayList<Structs.Segment> segments;
-    public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness, ArrayList<Structs.Vertex> vertices, ArrayList<Structs.Segment> segments) {
+    private ArrayList<Structs.Polygon> polygons;
+    public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness, ArrayList<Structs.Vertex> vertices, ArrayList<Structs.Segment> segments, ArrayList<Structs.Polygon> polygons) {
         this.width = width;
         this.height = height;
         this.square_size = square_size;
@@ -23,6 +23,7 @@ public class OurMesh {
         this.thickness = thickness;
         this.vertices = vertices;
         this.segments = segments;
+        this.polygons = polygons;
         Structs.Vertex[][] new_grid = new Structs.Vertex[this.width][this.height];
         this.grid = new_grid;
         for(int x = 0; x < width; x += 1){
@@ -38,6 +39,8 @@ public class OurMesh {
         // Create all the vertices
         for (int x = 0; x < width; x += square_size) {
             for (int y = 0; y < height; y += square_size) {
+                ArrayList<Structs.Segment> PolygonSegments = new ArrayList<>();
+
                 OurVertex v1 = new OurVertex();
                 Structs.Vertex vertex1 = v1.makeVertex((double)x, (double)y); // TODO - make sure these are 2 decimal places
                 OurVertex v2 = new OurVertex();
@@ -56,6 +59,16 @@ public class OurMesh {
                 OurSegment s4 = new OurSegment();
                 Structs.Segment segment4 = s4.create_segment(vertices.size()+2, vertices.size(), vertex3, vertex1, alpha_entry, thickness, segments.size()+3);
 
+                PolygonSegments.add(segment1);
+                PolygonSegments.add(segment2);
+                PolygonSegments.add(segment3);
+                PolygonSegments.add(segment4);
+
+                OurPolygon p1 = new OurPolygon();
+                Structs.Polygon polygon1 = p1.create_polygon(polygons.size(), PolygonSegments);
+
+                polygons.add(polygon1);
+
                 segments.add(segment1);
                 segments.add(segment2);
                 segments.add(segment3);
@@ -67,6 +80,6 @@ public class OurMesh {
                 vertices.add(vertex4);
             }
         }
-        return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).build();
+        return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).addAllPolygons(polygons).build();
     }
 }
