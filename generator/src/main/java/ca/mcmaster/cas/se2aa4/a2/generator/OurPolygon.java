@@ -105,7 +105,7 @@ public class OurPolygon {
 >>>>>>> c20d31a (Added color to OurPolygon and used it in GraphicRenderer)
 =======
         Property x_coords = Property.newBuilder().setKey("x_coords").setValue(this.x_coords.toString()).build();
-        Property y_coords = Property.newBuilder().setKey("x_coords").setValue(this.y_coords.toString()).build();
+        Property y_coords = Property.newBuilder().setKey("y_coords").setValue(this.y_coords.toString()).build();
         Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(middle_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
 >>>>>>> 8170089 (Added coordinates to OurPolygon and graphs them in GraphicRenderer and fills them in)
         return p;
@@ -113,10 +113,14 @@ public class OurPolygon {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private double[] extractSegmentMiddle(List<Property> properties) {
 =======
     private int[] extractSegmentMiddle(List<Property> properties) {
 >>>>>>> 8170089 (Added coordinates to OurPolygon and graphs them in GraphicRenderer and fills them in)
+=======
+    private double[] extractSegmentMiddle(List<Property> properties) {
+>>>>>>> 86b4dda (new commit)
         String val = null;
         for(Property p: properties) {
             if (p.getKey().equals("middle")) {
@@ -150,6 +154,7 @@ public class OurPolygon {
         Double x = Double.parseDouble(raw[0].replace("[","").replace(" ", ""));
         Double y = Double.parseDouble(raw[1].replace(" ", ""));
 <<<<<<< HEAD
+<<<<<<< HEAD
         return new double[]{x, y};
     }
 
@@ -161,6 +166,12 @@ public class OurPolygon {
 
     private int[] parse_string_to_array_int(String parse) {
 >>>>>>> 8170089 (Added coordinates to OurPolygon and graphs them in GraphicRenderer and fills them in)
+=======
+        return new double[]{x, y};
+    }
+
+    private double[] parse_string_to_array_int(String parse) {
+>>>>>>> 86b4dda (new commit)
         String[] array_return = parse.split(",", -1);
         double[] array_return_int = new double[array_return.length];
         for(int i = 0; i < array_return_int.length; i++) {
