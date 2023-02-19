@@ -13,6 +13,10 @@ public class Main {
         // Extracting command line parameters
         String input = args[0];
         String output = args[1];
+        boolean debug = false;
+        for(String arg: args) {
+            if(arg.equals("-X")) debug = true;
+        }
         // Getting width and height for the canvas
         Structs.Mesh aMesh = new MeshFactory().read(input);
         double max_x = Double.MIN_VALUE;
