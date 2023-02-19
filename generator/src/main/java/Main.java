@@ -12,10 +12,6 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        boolean debug = false;
-        for(String arg: args) {
-            if(arg.equals("-X")) debug = true;
-        }
         ArrayList<Structs.Vertex> vertices = new ArrayList<>();
         ArrayList<Structs.Segment> segments = new ArrayList<>();
         ArrayList<Structs.Polygon> polygons = new ArrayList<>();
