@@ -14,8 +14,12 @@ public class OurMesh {
     private int thickness;
     private ArrayList<Structs.Vertex> vertices;
     private ArrayList<Structs.Segment> segments;
+<<<<<<< HEAD
     private ArrayList<Structs.Polygon> polygons;
     public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness, ArrayList<Structs.Vertex> vertices, ArrayList<Structs.Segment> segments, ArrayList<Structs.Polygon> polygons) {
+=======
+    public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness, ArrayList<Structs.Vertex> vertices, ArrayList<Structs.Segment> segments) {
+>>>>>>> 4761a8d (Copy and Paste Commit)
         this.width = width;
         this.height = height;
         this.square_size = square_size;
