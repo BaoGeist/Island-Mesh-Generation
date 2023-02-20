@@ -14,8 +14,8 @@ public class Main {
         String input = args[0];
         String output = args[1];
         boolean debug = false;
-        for(String arg: args) {
-            if(arg.equals("-X")) debug = true;
+        for (String arg: args) {
+            if (arg.equals("-X")) debug = true;
         }
         // Getting width and height for the canvas
         Structs.Mesh aMesh = new MeshFactory().read(input);
@@ -29,7 +29,12 @@ public class Main {
         Graphics2D canvas = SVGCanvas.build((int) Math.ceil(max_x), (int) Math.ceil(max_y));
         GraphicRenderer renderer = new GraphicRenderer();
         // Painting the mesh on the canvas
-        renderer.render(aMesh, canvas);
+        if (debug == false) {
+            renderer.render(aMesh, canvas); }
+        else {
+            renderer.debug(aMesh, canvas);
+            if (debug == true) System.out.println("SLAY");
+        }
         // Storing the result in an SVG file
         SVGCanvas.write(canvas, output);
         // Dump the mesh to stdout
