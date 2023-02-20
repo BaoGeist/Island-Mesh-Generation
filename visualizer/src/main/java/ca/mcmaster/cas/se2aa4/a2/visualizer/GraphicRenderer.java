@@ -47,6 +47,7 @@ public class GraphicRenderer {
 
         }
         // for polygons, also baoze struggling here
+
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
             Color polygon_color = extractColor(p.getPropertiesList());
             float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
@@ -105,7 +106,6 @@ public class GraphicRenderer {
             pro_y[i] = Float.parseFloat(raw_y[i].replace("[","").replace(" ", "").replace("]",""));
 
         }
-
         ArrayList<float[]> return_array = new ArrayList<>();
         return_array.add(pro_x);
         return_array.add(pro_y);

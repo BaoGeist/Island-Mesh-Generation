@@ -30,7 +30,6 @@ public class OurPolygon {
         }
         id = id_self;
         set_color();
-        set_coords();
         middle_vertex = create_middle_vertex();
         return build_polygon();
     }
@@ -86,7 +85,6 @@ public class OurPolygon {
     }
 
 
-
     private double[] extractSegmentMiddle(List<Property> properties) {
         String val = null;
         for(Property p: properties) {
@@ -124,7 +122,6 @@ public class OurPolygon {
     }
 
     private double[] parse_string_to_array_int(String parse) {
-
 
         String[] array_return = parse.split(",", -1);
         double[] array_return_int = new double[array_return.length];
