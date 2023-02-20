@@ -18,7 +18,7 @@ public class OurSegment {
     private float alpha;
     private int id;
 
-    public Structs.Segment create_segment(int ID1, int ID2, Vertex vertex1, Vertex vertex2, float alpha_entry, int thickness_entry, int IDself) {
+    public Structs.Segment create_segment(Vertex vertex1, Vertex vertex2, float alpha_entry, int thickness_entry, int IDself) {
         set_segment_colour(vertex1, vertex2);
         head_vertex = vertex1;
         tail_vertex = vertex2;
