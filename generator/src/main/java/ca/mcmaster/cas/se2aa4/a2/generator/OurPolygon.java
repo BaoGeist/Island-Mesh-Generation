@@ -60,7 +60,7 @@ public class OurPolygon {
             count++;
         }
         OurVertex v = new OurVertex();
-        return v.makeCentroidVertex(totalx/count, totalx/count); //todo fix.
+        return v.makeCentroidVertex(totalx/count, totalx/count, 1); //todo fix.
     }
 
     private String get_neighbours_id() {
