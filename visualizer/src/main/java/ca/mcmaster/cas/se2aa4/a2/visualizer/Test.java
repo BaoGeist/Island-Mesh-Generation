@@ -1,4 +1,4 @@
-package ca.mcmaster.cas.se2aa4.a2.generator;
+package ca.mcmaster.cas.se2aa4.a2.visualizer;
 
 import org.locationtech.jts.geom.PrecisionModel;
 import org.locationtech.jts.geom.Coordinate;
@@ -10,8 +10,9 @@ import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
-import java.awt.Color;
-import java.awt.Graphics2D;
+
+import java.awt.*;
+import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -19,8 +20,16 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-public class OurIrregular {
+public class Test {
     public static void main(String[] args) {
+
+
+        double max_x = Double.MIN_VALUE;
+        double max_y = Double.MIN_VALUE;
+        Graphics2D canvas = SVGCanvas.build((int) 500, 500);
+        Stroke stroke = new BasicStroke(0.5f);
+        canvas.setStroke(stroke);
+
         PrecisionModel newModel = new PrecisionModel(PrecisionModel.FLOATING_SINGLE);
         VoronoiDiagramBuilder newVoronoi = new VoronoiDiagramBuilder();
         System.out.println(newModel.getType());
@@ -29,12 +38,13 @@ public class OurIrregular {
         Random random = new Random();
         ArrayList<Coordinate> listCoordinates = new ArrayList<>();
 
-        for (int i = 0; i < 1; i++) {
-            double x = random.nextDouble();
-            double y = random.nextDouble();
+        for (int i = 0; i < 250; i++) {
+            double x = random.nextDouble() * 500;
+            double y = random.nextDouble() * 500;
             Coordinate randomCoordinate = new Coordinate(x, y);
             newModel.makePrecise(randomCoordinate);
             listCoordinates.add(randomCoordinate);
+            System.out.println(randomCoordinate.toString());
         }
 
         newVoronoi.setSites(listCoordinates);
@@ -42,24 +52,29 @@ public class OurIrregular {
 
 
         // Set up the image to draw the diagram on
-        BufferedImage image = new BufferedImage(500, 500, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = image.createGraphics();
-        g2d.setColor(Color.WHITE);
-        g2d.setBackground(Color.BLACK);
+        canvas.setColor(Color.BLACK);
 
         // Iterate over the Voronoi diagram cells and draw each one
+        System.out.println("searaptre");
         for (int i = 0; i < voronoiedPoints.getNumGeometries(); i++) {
             Geometry cell = voronoiedPoints.getGeometryN(i);
+            Path2D.Float path = new Path2D.Float();
+            path.moveTo(voronoiedPoints.getGeometryN(i).getCoordinates()[0].x, voronoiedPoints.getGeometryN(i).getCoordinates()[0].y);
             for (Coordinate c : cell.getCoordinates()) {
-                g2d.fillRect((int) c.x, (int) c.y, 1, 1);
+                System.out.println(c.toString());
+                double[] coordArray = new double[]{c.x, c.y};
+                path.lineTo(coordArray[0], coordArray[1]);
             }
+            path.closePath();
+            canvas.setColor(Color.GREEN);
+            canvas.draw(path);
         }
-
-        try {// retrieve image
-            File outputfile = new File("saved.png");
-            ImageIO.write(image, "png", outputfile);
+        String output = "test.svg";
+        try {
+            SVGCanvas.write(canvas, output);
         } catch (IOException e) {
             System.out.println("fuck");
         }
+
     }
 }
