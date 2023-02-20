@@ -41,6 +41,7 @@ public class OurMesh {
             for (int y = 0; y < height; y += square_size) {
                 ArrayList<Structs.Segment> PolygonSegments = new ArrayList<>();
 
+                // TODO add vertex id's
                 OurVertex v1 = new OurVertex();
                 Structs.Vertex vertex1 = v1.makeVertex((double)x, (double)y); // TODO - make sure these are 2 decimal places
                 OurVertex v2 = new OurVertex();

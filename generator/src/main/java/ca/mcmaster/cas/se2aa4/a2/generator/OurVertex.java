@@ -10,6 +10,7 @@ public class OurVertex {
     private double[] coords = new double[2];
     private int[] colorCodes = new int[3];
     private String colorCode;
+    private int id;
 
     private void set_coords(double x_coord, double y_coord) {
         coords[0] = x_coord;
@@ -39,13 +40,13 @@ public class OurVertex {
         return colorCodes;
     }
 
-    public Vertex makeVertex(double x, double y) {
+    public Vertex makeVertex(double x, double y, int id) {
         this.set_coords(x, y);
         this.set_color();
         return build_vertex();
     }
 
-    public Vertex makeCentroidVertex(double x, double y) {
+    public Vertex makeCentroidVertex(double x, double y, int id) {
         this.set_coords(x, y);
         colorCode = "0,0,0";
         return build_vertex();
