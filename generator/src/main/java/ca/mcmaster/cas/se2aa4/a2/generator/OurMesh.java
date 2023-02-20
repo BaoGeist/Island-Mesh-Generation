@@ -3,7 +3,6 @@ package ca.mcmaster.cas.se2aa4.a2.generator;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class OurMesh {
     private int width;
@@ -13,98 +12,96 @@ public class OurMesh {
     private float alpha_entry;
     private int thickness;
     private ArrayList<Structs.Vertex> vertices;
-    private ArrayList<Structs.Segment> segments;
+    private ArrayList<Structs.Segment> vertical_segments;
+    private ArrayList<Structs.Segment> horizontal_segments;
     private ArrayList<Structs.Polygon> polygons;
-    public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness, ArrayList<Structs.Vertex> vertices, ArrayList<Structs.Segment> segments, ArrayList<Structs.Polygon> polygons) {
+    public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness, ArrayList<Structs.Vertex> vertices, ArrayList<Structs.Segment> horizontal_segments, ArrayList<Structs.Segment> vertical_segments ,ArrayList<Structs.Polygon> polygons) {
         this.width = width;
         this.height = height;
         this.square_size = square_size;
         this.alpha_entry = alpha_entry;
         this.thickness = thickness;
         this.vertices = vertices;
-        this.segments = segments;
+        this.horizontal_segments = horizontal_segments;
+        this.vertical_segments = vertical_segments;
         this.polygons = polygons;
         Structs.Vertex[][] new_grid = new Structs.Vertex[this.width][this.height];
         this.grid = new_grid;
-        for(int x = 0; x < width; x += 1){
-            for (int y = 0; y < height; y += 1) {
-                Structs.Vertex vertex = Structs.Vertex.newBuilder().setX((double) x).setY((double) y).build();
-                this.grid[x][y] = vertex;
-            }
-        }
     }
 
     public Structs.Mesh generate() {
-        Random bag = new Random();
-        // Create all the vertices
-        for (int x = 0; x < width; x += square_size) {
+        // Creates all vertices and stores them in an ArrayList
+        for(int x = 0; x < width; x += square_size){
             for (int y = 0; y < height; y += square_size) {
+                OurVertex vertex = new OurVertex();
+                Structs.Vertex newVertex = vertex.makeVertex((double)x, (double)y, vertices.size());
+                vertices.add(newVertex);
+            }
+        }
+        // Creates all horizontal segments and stores them in an ArrayList
+        for (int x = 0; x+1 < width/square_size; x += 1) {
+            for (int y = 0; y < height/square_size; y += 1) {
+                OurSegment segment = new OurSegment();
+                Structs.Segment newSegment = segment.create_segment(vertices.get(y + x*20), vertices.get((y+x*20)+20), alpha_entry, thickness, horizontal_segments.size());
+                horizontal_segments.add(newSegment);
+            }
+        }
+        // Creates all vertical segments and stores them in an ArrayList
+        for (int x = 0; x < width/square_size; x += 1) {
+            for (int y = 0; y < height/square_size; y += 1) {
+                if (y != 19) {
+                    OurSegment segment = new OurSegment();
+                    Structs.Segment newSegment = segment.create_segment(vertices.get(y + x*20), vertices.get((y+x*20)+1), alpha_entry, thickness, vertical_segments.size());
+                    vertical_segments.add(newSegment);
+                }
+            }
+        }
+        // Creates all polygons
+        int iterator = 0;
+        for (int x = 0; x+1 < width/square_size; x += 1) {
+            for (int y = 0; y+1 < height/square_size; y += 1) {
+                if (x == 18 & y == 18){
+                    continue;
+                }
                 ArrayList<Structs.Segment> PolygonSegments = new ArrayList<>();
-
-                OurVertex v1 = new OurVertex();
-                Structs.Vertex vertex1 = v1.makeVertex((double)x, (double)y, vertices.size()); // TODO - make sure these are 2 decimal places
-                OurVertex v2 = new OurVertex();
-                Structs.Vertex vertex2 = v2.makeVertex((double)x + square_size, (double)y, vertices.size()+1);
-                OurVertex v3 = new OurVertex();
-                Structs.Vertex vertex3 = v3.makeVertex((double)x, (double)y + square_size, vertices.size()+2);
-                OurVertex v4 = new OurVertex();
-                Structs.Vertex vertex4 = v4.makeVertex((double)x + square_size, (double)y + square_size, vertices.size()+3);
-
-                OurSegment s1 = new OurSegment();
-                Structs.Segment segment1 = s1.create_segment(vertices.size(), vertices.size()+1, vertex1, vertex2, alpha_entry, thickness, segments.size());
-                OurSegment s2 = new OurSegment();
-                Structs.Segment segment2 = s2.create_segment(vertices.size()+1, vertices.size()+3, vertex2, vertex4, alpha_entry, thickness, segments.size()+1);
-                OurSegment s3 = new OurSegment();
-                Structs.Segment segment3 = s3.create_segment(vertices.size()+3, vertices.size()+2, vertex4, vertex3, alpha_entry, thickness, segments.size()+2);
-                OurSegment s4 = new OurSegment();
-                Structs.Segment segment4 = s4.create_segment(vertices.size()+2, vertices.size(), vertex3, vertex1, alpha_entry, thickness, segments.size()+3);
-
-                PolygonSegments.add(segment1);
-                PolygonSegments.add(segment2);
-                PolygonSegments.add(segment3);
-                PolygonSegments.add(segment4);
-
+                PolygonSegments.add(horizontal_segments.get(iterator));
+                PolygonSegments.add(horizontal_segments.get(iterator+1));
+                PolygonSegments.add(vertical_segments.get(iterator));
+                PolygonSegments.add(vertical_segments.get(iterator+20));
                 OurPolygon p1 = new OurPolygon();
                 Structs.Polygon polygon1 = p1.create_polygon(polygons.size(), PolygonSegments);
                 p1.neighbours_id = setNeighbours();
 
                 polygons.add(polygon1);
 
-                segments.add(segment1);
-                segments.add(segment2);
-                segments.add(segment3);
-                segments.add(segment4);
-
-                vertices.add(vertex1);
-                vertices.add(vertex2);
-                vertices.add(vertex3);
-                vertices.add(vertex4);
+                iterator += 1;
             }
         }
-        return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).addAllPolygons(polygons).build();
+        vertical_segments.addAll(horizontal_segments);
+        return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(vertical_segments).addAllPolygons(polygons).build();
     }
 
     private ArrayList<Integer> setNeighbours(){ // Todo - Check if this works
         ArrayList<Integer> PolygonNeighbours = new ArrayList<>();
 
         int CurrentID = polygons.size();
-        int row = CurrentID % 25;
-        int column = CurrentID / 25;
+        int row = CurrentID % 20;
+        int column = CurrentID / 20;
 
         if (column > 0){
-            PolygonNeighbours.add(CurrentID - 25); // Add left neighbour
+            PolygonNeighbours.add(CurrentID - 20); // Add left neighbour
         }
-        if (column < 24){
-            PolygonNeighbours.add(CurrentID + 25); // Add right neighbour
+        if (column < 19){
+            PolygonNeighbours.add(CurrentID + 20); // Add right neighbour
         }
         if (row > 0){
             PolygonNeighbours.add(CurrentID - 1); // Add top neighbour
         }
-        if (row < 24){
+        if (row < 19){
             PolygonNeighbours.add(CurrentID + 1); // Add bottom neighbour
         }
 
-        PolygonNeighbours.removeIf(id -> id < 0 || id > 624);
+        PolygonNeighbours.removeIf(id -> id < 0 || id > 399);
 
         return PolygonNeighbours;
     }

@@ -13,10 +13,11 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         ArrayList<Structs.Vertex> vertices = new ArrayList<>();
-        ArrayList<Structs.Segment> segments = new ArrayList<>();
+        ArrayList<Structs.Segment> horizontal_segments = new ArrayList<>();
+        ArrayList<Structs.Segment> vertical_segments = new ArrayList<>();
         ArrayList<Structs.Polygon> polygons = new ArrayList<>();
-        OurMesh ourMesh = new OurMesh(500, 500, 20, 1.00f, 1, vertices,segments, polygons);
-        Mesh myMesh = ourMesh.generate();
+        OurMesh generator = new OurMesh(500, 500, 25, 1.00f, 1, vertices,horizontal_segments, vertical_segments, polygons);
+        Mesh myMesh = generator.generate();
         MeshFactory factory = new MeshFactory();
         factory.write(myMesh, args[0]);
     }
