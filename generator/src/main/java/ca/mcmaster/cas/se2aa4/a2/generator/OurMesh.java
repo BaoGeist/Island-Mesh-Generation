@@ -41,15 +41,14 @@ public class OurMesh {
             for (int y = 0; y < height; y += square_size) {
                 ArrayList<Structs.Segment> PolygonSegments = new ArrayList<>();
 
-                // TODO add vertex id's
                 OurVertex v1 = new OurVertex();
-                Structs.Vertex vertex1 = v1.makeVertex((double)x, (double)y); // TODO - make sure these are 2 decimal places
+                Structs.Vertex vertex1 = v1.makeVertex((double)x, (double)y, vertices.size()); // TODO - make sure these are 2 decimal places
                 OurVertex v2 = new OurVertex();
-                Structs.Vertex vertex2 = v2.makeVertex((double)x + square_size, (double)y);
+                Structs.Vertex vertex2 = v2.makeVertex((double)x + square_size, (double)y, vertices.size()+1);
                 OurVertex v3 = new OurVertex();
-                Structs.Vertex vertex3 = v3.makeVertex((double)x, (double)y + square_size);
+                Structs.Vertex vertex3 = v3.makeVertex((double)x, (double)y + square_size, vertices.size()+2);
                 OurVertex v4 = new OurVertex();
-                Structs.Vertex vertex4 = v4.makeVertex((double)x + square_size, (double)y + square_size);
+                Structs.Vertex vertex4 = v4.makeVertex((double)x + square_size, (double)y + square_size, vertices.size()+3);
 
                 OurSegment s1 = new OurSegment();
                 Structs.Segment segment1 = s1.create_segment(vertices.size(), vertices.size()+1, vertex1, vertex2, alpha_entry, thickness, segments.size());
@@ -67,6 +66,7 @@ public class OurMesh {
 
                 OurPolygon p1 = new OurPolygon();
                 Structs.Polygon polygon1 = p1.create_polygon(polygons.size(), PolygonSegments);
+                p1.neighbours_id = setNeighbours();
 
                 polygons.add(polygon1);
 
@@ -82,5 +82,30 @@ public class OurMesh {
             }
         }
         return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).addAllPolygons(polygons).build();
+    }
+
+    private ArrayList<Integer> setNeighbours(){ // Todo - Check if this works
+        ArrayList<Integer> PolygonNeighbours = new ArrayList<>();
+
+        int CurrentID = polygons.size();
+        int row = CurrentID % 25;
+        int column = CurrentID / 25;
+
+        if (column > 0){
+            PolygonNeighbours.add(CurrentID - 25); // Add left neighbour
+        }
+        if (column < 24){
+            PolygonNeighbours.add(CurrentID + 25); // Add right neighbour
+        }
+        if (row > 0){
+            PolygonNeighbours.add(CurrentID - 1); // Add top neighbour
+        }
+        if (row < 24){
+            PolygonNeighbours.add(CurrentID + 1); // Add bottom neighbour
+        }
+
+        PolygonNeighbours.removeIf(id -> id < 0 || id > 624);
+
+        return PolygonNeighbours;
     }
 }
