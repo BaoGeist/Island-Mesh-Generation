@@ -66,6 +66,7 @@ public class OurMesh {
 
                 OurPolygon p1 = new OurPolygon();
                 Structs.Polygon polygon1 = p1.create_polygon(polygons.size(), PolygonSegments);
+                p1.neighbours_id = setNeighbours();
 
                 polygons.add(polygon1);
 
@@ -81,5 +82,30 @@ public class OurMesh {
             }
         }
         return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).addAllPolygons(polygons).build();
+    }
+
+    private ArrayList<Integer> setNeighbours(){ // Todo - Check if this works
+        ArrayList<Integer> PolygonNeighbours = new ArrayList<>();
+
+        int CurrentID = polygons.size();
+        int row = CurrentID % 25;
+        int column = CurrentID / 25;
+
+        if (column > 0){
+            PolygonNeighbours.add(CurrentID - 25); // Add left neighbour
+        }
+        if (column < 24){
+            PolygonNeighbours.add(CurrentID + 25); // Add right neighbour
+        }
+        if (row > 0){
+            PolygonNeighbours.add(CurrentID - 1); // Add top neighbour
+        }
+        if (row < 24){
+            PolygonNeighbours.add(CurrentID + 1); // Add bottom neighbour
+        }
+
+        PolygonNeighbours.removeIf(id -> id < 0 || id > 624);
+
+        return PolygonNeighbours;
     }
 }
