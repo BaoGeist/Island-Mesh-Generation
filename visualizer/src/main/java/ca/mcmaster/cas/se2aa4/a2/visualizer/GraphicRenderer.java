@@ -63,7 +63,6 @@ public class GraphicRenderer {
             // TODO use actual polygon colour
             canvas.setColor(Color.GREEN);
             canvas.fill(path);
-
         }
     }
 
@@ -104,6 +103,7 @@ public class GraphicRenderer {
         for(int i = 0; i < raw_x.length; i++) {
             pro_x[i] = Float.parseFloat(raw_x[i].replace("[","").replace(" ", "").replace("]",""));
             pro_y[i] = Float.parseFloat(raw_y[i].replace("[","").replace(" ", "").replace("]",""));
+
         }
 
         ArrayList<float[]> return_array = new ArrayList<>();

@@ -86,6 +86,7 @@ public class OurPolygon {
     }
 
 
+
     private double[] extractSegmentMiddle(List<Property> properties) {
         String val = null;
         for(Property p: properties) {
@@ -123,6 +124,8 @@ public class OurPolygon {
     }
 
     private double[] parse_string_to_array_int(String parse) {
+
+
         String[] array_return = parse.split(",", -1);
         double[] array_return_int = new double[array_return.length];
         for(int i = 0; i < array_return_int.length; i++) {

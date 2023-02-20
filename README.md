@@ -33,7 +33,8 @@ mosser@azrael generator %
 
 ### Visualizer
 
-To visualize an existing mesh, go the `visualizer` directory, and use `java -jar` to run the product. The product take two arguments (so far): the file containing the mesh, and the name of the file to store the visualization (as an SVG image).
+To visualize an existing mesh, go the `visualizer` directory, and use `java -jar` to run the product. The product take up to 3 arguments: the file containing the mesh, and the name of the file to store the visualization (as an SVG image).
+To enter debug mode, use `-X` as the third argument.
 
 ```
 mosser@azrael A2 % cd visualizer 
@@ -65,9 +66,9 @@ When you develop features and enrich the product, remember that you have first t
 | Id | Feature title                                                       | Who?                  | Start      | End        | Status |
 |:--:|---------------------------------------------------------------------|-----------------------|------------|------------|--------|
 | F01 | draw segments between vertices (coloured) to visualize the squares | Baoze, Daniel         | 02.01.2023 | 02.02.2023 | D      |
-| F02 | debug mode option on                                               | Baoze, Alexis         | 02.16.2023 |            | P      |
-| F03 | creating a mesh (using polygons, segments, and vertices)           | Baoze, Daniel, Alexis | 02.15.2023 |            | P      |
-| F04 | producing a full mesh                                              | Daniel                |            |            | B (03) |
+| F02 | ability to turn debug mode option on                               | Baoze, Alexis         | 02.16.2023 | 02.19.2023 | D      |
+| F03 | created  new polygons, segments, and vertices classes              | Baoze, Alexis         | 02.15.2023 | 02.17.2023 | D      |
+| F04 | produced a full mesh ADT with above F03 classes                    | Daniel                | 02.15.2023 | 02.17.2023 | D      |
 | F05 | playing around with rendering                                      | Baoze                 | 02.17.2023 |            | B (04) |
 | F06 | visualization mode with rendering                                  | Alexis                | 02.17.2023 |            | B (05) |
 
