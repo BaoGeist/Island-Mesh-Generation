@@ -89,6 +89,9 @@ public class GraphicRenderer {
 
             Color centroid = Color.RED;
             double[] centroid_coords = p.get_middle_vertex();
+            Ellipse2D point = new Ellipse2D.Double(centroid_coords[0], centroid_coords[1], THICKNESS, THICKNESS);
+            canvas.fill(point);
+            canvas.setColor(centroid);
         }
         for (Vertex v: aMesh.getVerticesList()) {
             double centre_x = v.getX() - (THICKNESS/2.0d);
