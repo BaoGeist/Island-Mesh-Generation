@@ -11,6 +11,7 @@ public class OurVertex {
     private int[] colorCodes = new int[3];
     private String colorCode;
     private int id;
+    private double[] centroid_coords = new double[2];
 
     private void set_coords(double x_coord, double y_coord) {
         coords[0] = x_coord;

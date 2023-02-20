@@ -67,6 +67,56 @@ public class GraphicRenderer {
         }
     }
 
+    public void debug(Mesh aMesh, Graphics2D canvas) {
+        canvas.setColor(Color.WHITE);
+        Stroke stroke = new BasicStroke(0.5f);
+        canvas.setStroke(stroke);
+        for (Structs.Polygon p: aMesh.getPolygonsList()) {
+            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
+            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
+
+            Path2D.Float path = new Path2D.Float();
+            path.moveTo(x_coords[0], y_coords[0]);
+
+            for (int i = 1; i < x_coords.length; i++) {
+                path.lineTo(x_coords[i], y_coords[i]);
+            }
+            path.closePath();
+
+            // TODO use actual polygon colour
+            canvas.setColor(Color.BLACK);
+            canvas.fill(path);
+
+            Color centroid = Color.RED;
+            double[] centroid_coords = p.get_middle_vertex();
+            Ellipse2D point = new Ellipse2D.Double(centroid_coords[0], centroid_coords[1], THICKNESS, THICKNESS);
+            canvas.fill(point);
+            canvas.setColor(centroid);
+        }
+        for (Vertex v: aMesh.getVerticesList()) {
+            double centre_x = v.getX() - (THICKNESS/2.0d);
+            double centre_y = v.getY() - (THICKNESS/2.0d);
+            Color old = Color.BLACK;
+            canvas.setColor(extractColor(v.getPropertiesList()));
+            Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
+            canvas.fill(point);
+            canvas.setColor(old);
+        }
+        for (Structs.Segment s: aMesh.getSegmentsList()){
+            float[] vertices = extractHeadTail(s.getPropertiesList());
+            // baoze started here
+            Color segment_color = Color.BLACK;
+            double x1 = vertices[0];
+            double y1 = vertices[1];
+            double x2 = vertices[2];
+            double y2 = vertices[3];
+
+            canvas.setColor(segment_color);
+            canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
+
+        }
+    }
+
     private Color extractColor(List<Property> properties) {
         String val = null;
         for(Property p: properties) {
