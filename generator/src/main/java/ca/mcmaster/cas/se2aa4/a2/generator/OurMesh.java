@@ -41,15 +41,14 @@ public class OurMesh {
             for (int y = 0; y < height; y += square_size) {
                 ArrayList<Structs.Segment> PolygonSegments = new ArrayList<>();
 
-                // TODO add vertex id's
                 OurVertex v1 = new OurVertex();
-                Structs.Vertex vertex1 = v1.makeVertex((double)x, (double)y); // TODO - make sure these are 2 decimal places
+                Structs.Vertex vertex1 = v1.makeVertex((double)x, (double)y, vertices.size()); // TODO - make sure these are 2 decimal places
                 OurVertex v2 = new OurVertex();
-                Structs.Vertex vertex2 = v2.makeVertex((double)x + square_size, (double)y);
+                Structs.Vertex vertex2 = v2.makeVertex((double)x + square_size, (double)y, vertices.size()+1);
                 OurVertex v3 = new OurVertex();
-                Structs.Vertex vertex3 = v3.makeVertex((double)x, (double)y + square_size);
+                Structs.Vertex vertex3 = v3.makeVertex((double)x, (double)y + square_size, vertices.size()+2);
                 OurVertex v4 = new OurVertex();
-                Structs.Vertex vertex4 = v4.makeVertex((double)x + square_size, (double)y + square_size);
+                Structs.Vertex vertex4 = v4.makeVertex((double)x + square_size, (double)y + square_size, vertices.size()+3);
 
                 OurSegment s1 = new OurSegment();
                 Structs.Segment segment1 = s1.create_segment(vertices.size(), vertices.size()+1, vertex1, vertex2, alpha_entry, thickness, segments.size());

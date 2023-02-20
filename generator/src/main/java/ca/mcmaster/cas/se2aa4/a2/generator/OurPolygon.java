@@ -60,7 +60,20 @@ public class OurPolygon {
             count++;
         }
         OurVertex v = new OurVertex();
-        return v.makeCentroidVertex(totalx/count, totalx/count);
+        return v.makeCentroidVertex((double) totalx/count, (double) totalx/count, 1);
+    }
+
+    public double[] get_middle_vertex() {
+        double[] centroid_coords = new double[2];
+        int totalx = 0, totaly = 0, count = 0;
+        for(Segment segment: segments_group) {
+            totalx += extractSegmentMiddle(segment.getPropertiesList())[0];
+            totaly += extractSegmentMiddle(segment.getPropertiesList())[1];
+            count++;
+        }
+        centroid_coords[0] = (double) totalx/count;
+        centroid_coords[1] = (double) totaly/count;
+        return centroid_coords;
     }
 
     private String get_neighbours_id() {
