@@ -48,23 +48,23 @@ public class GraphicRenderer {
         }
         // for polygons, also baoze struggling here
 
-//        for (Structs.Polygon p: aMesh.getPolygonsList()) {
-//            Color polygon_color = extractColor(p.getPropertiesList());
-//            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
-//            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
-//
-//            Path2D.Float path = new Path2D.Float();
-//            path.moveTo(x_coords[0], y_coords[0]);
-//
-//            for (int i = 1; i < x_coords.length; i++) {
-//                path.lineTo(x_coords[i], y_coords[i]);
-//            }
-//            path.closePath();
-//
-//            // TODO use actual polygon colour
-//            canvas.setColor(Color.GREEN);
-//            canvas.fill(path);
-//        }
+        for (Structs.Polygon p: aMesh.getPolygonsList()) {
+            Color polygon_color = extractColor(p.getPropertiesList());
+            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
+            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
+
+            Path2D.Float path = new Path2D.Float();
+            path.moveTo(x_coords[0], y_coords[0]);
+
+            for (int i = 1; i < x_coords.length; i++) {
+                path.lineTo(x_coords[i], y_coords[i]);
+            }
+            path.closePath();
+
+            // TODO use actual polygon colour
+            canvas.setColor(extractColor(p.getPropertiesList()));
+            canvas.fill(path);
+        }
     }
 
     private Color extractColor(List<Property> properties) {
