@@ -15,6 +15,8 @@ public class OurMesh {
     private ArrayList<Structs.Segment> vertical_segments;
     private ArrayList<Structs.Segment> horizontal_segments;
     private ArrayList<Structs.Polygon> polygons;
+
+    private ArrayList<Structs.Vertex> centroids;
     public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness, ArrayList<Structs.Vertex> vertices, ArrayList<Structs.Segment> horizontal_segments, ArrayList<Structs.Segment> vertical_segments ,ArrayList<Structs.Polygon> polygons) {
         this.width = width;
         this.height = height;
@@ -64,44 +66,47 @@ public class OurMesh {
                     continue;
                 }
                 ArrayList<Structs.Segment> PolygonSegments = new ArrayList<>();
+
                 PolygonSegments.add(horizontal_segments.get(iterator));
                 PolygonSegments.add(horizontal_segments.get(iterator+1));
                 PolygonSegments.add(vertical_segments.get(iterator));
                 PolygonSegments.add(vertical_segments.get(iterator+20));
+
                 OurPolygon p1 = new OurPolygon();
                 Structs.Polygon polygon1 = p1.create_polygon(polygons.size(), PolygonSegments);
                 p1.neighbours_id = setNeighbours();
 
+                centroids.add(p1.create_middle_vertex(polygons.size()));
                 polygons.add(polygon1);
 
                 iterator += 1;
             }
         }
         vertical_segments.addAll(horizontal_segments);
-        return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(vertical_segments).addAllPolygons(polygons).build();
+        return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllVertices(centroids).addAllSegments(vertical_segments).addAllPolygons(polygons).build();
     }
 
     private ArrayList<Integer> setNeighbours(){ // Todo - Check if this works
         ArrayList<Integer> PolygonNeighbours = new ArrayList<>();
 
         int CurrentID = polygons.size();
-        int row = CurrentID % 20;
-        int column = CurrentID / 20;
+        int row = CurrentID % 19;
+        int column = CurrentID / 19;
 
         if (column > 0){
-            PolygonNeighbours.add(CurrentID - 20); // Add left neighbour
+            PolygonNeighbours.add(CurrentID - 19); // Add left neighbour
         }
-        if (column < 19){
-            PolygonNeighbours.add(CurrentID + 20); // Add right neighbour
+        if (column < 18){
+            PolygonNeighbours.add(CurrentID + 19); // Add right neighbour
         }
         if (row > 0){
             PolygonNeighbours.add(CurrentID - 1); // Add top neighbour
         }
-        if (row < 19){
+        if (row < 18){
             PolygonNeighbours.add(CurrentID + 1); // Add bottom neighbour
         }
 
-        PolygonNeighbours.removeIf(id -> id < 0 || id > 399);
+        PolygonNeighbours.removeIf(id -> id < 0 || id > 359);
 
         return PolygonNeighbours;
     }
