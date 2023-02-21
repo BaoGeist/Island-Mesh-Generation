@@ -19,10 +19,36 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 public class Test {
+
+    private static ArrayList<Coordinate> generate_random_points() {
+        PrecisionModel newModel = new PrecisionModel(PrecisionModel.FLOATING_SINGLE);
+
+        Random random = new Random();
+        ArrayList<Coordinate> listCoordinates = new ArrayList<>();
+
+        for (int i = 0; i < 250; i++) {
+            double x = random.nextDouble() * 500;
+            double y = random.nextDouble() * 500;
+            Coordinate randomCoordinate = new Coordinate(x, y);
+            newModel.makePrecise(randomCoordinate);
+            listCoordinates.add(randomCoordinate);
+        }
+        return listCoordinates;
+    }
+
+    private static Geometry generate_voronoi(ArrayList<Coordinate> listCoordinates) {
+        VoronoiDiagramBuilder newVoronoi = new VoronoiDiagramBuilder();
+
+        GeometryFactory newFactory = new GeometryFactory();
+
+        newVoronoi.setSites(listCoordinates);
+        return newVoronoi.getDiagram(newFactory);
+    }
 
     private static double calculate_length_of_segment(Coordinate c1, Coordinate c2) {
         return Math.sqrt(Math.pow((c1.x - c2.x),2) + (Math.pow((c1.y - c2.y),2)));
@@ -52,34 +78,49 @@ public class Test {
         return new Coordinate(x_total/area, y_total/area);
     }
 
+    private static Coordinate calculate_lloyd_relaxation_single(Geometry notcell) {
+        Coordinate[] lloydcoord = notcell.getCoordinates();
+        ArrayList<Coordinate> triangle_centroids = new ArrayList<>();
+        ArrayList<Double> triangle_areas = new ArrayList<>();
+        int first_iterator = 1, second_iterator = 2;
+        while (second_iterator <= lloydcoord.length - 2) {
+            double area = calculate_area_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
+            Coordinate centroid = calculate_centroid_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
+            triangle_areas.add(area);
+            triangle_centroids.add(centroid);
+            first_iterator++;
+            second_iterator++;
+        }
+        Coordinate new_centroid = calculate_weighted_average(triangle_areas, triangle_centroids);
+        return new_centroid;
+    }
+
+    private static ArrayList<Coordinate> calculate_lloyd_relaxation_multiple(Geometry oldPoints) {
+        ArrayList<Coordinate> listVoronoied = new ArrayList<>();
+        for(int i = 0; i < oldPoints.getNumGeometries(); i++) {
+            Geometry notcell = oldPoints.getGeometryN(i);
+            Coordinate new_centroid = calculate_lloyd_relaxation_single(notcell);
+            listVoronoied.add(new_centroid);
+        }
+        return listVoronoied;
+    }
+
     private static final int THICKNESS = 3;
     public static void main(String[] args) {
 
+        ArrayList<Coordinate> listCoordinates = generate_random_points();
 
-        double max_x = Double.MIN_VALUE;
-        double max_y = Double.MIN_VALUE;
+        Geometry voronoiedPoints = generate_voronoi(listCoordinates);
+
+        for(int i = 0; i < 10; i++) {
+            listCoordinates = calculate_lloyd_relaxation_multiple(voronoiedPoints);
+            voronoiedPoints = generate_voronoi(listCoordinates);
+        }
+
+        //drawing
         Graphics2D canvas = SVGCanvas.build((int) 500, 500);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-
-        PrecisionModel newModel = new PrecisionModel(PrecisionModel.FLOATING_SINGLE);
-        VoronoiDiagramBuilder newVoronoi = new VoronoiDiagramBuilder();
-
-        GeometryFactory newFactory = new GeometryFactory();
-        Random random = new Random();
-        ArrayList<Coordinate> listCoordinates = new ArrayList<>();
-
-        for (int i = 0; i < 250; i++) {
-            double x = random.nextDouble() * 500;
-            double y = random.nextDouble() * 500;
-            Coordinate randomCoordinate = new Coordinate(x, y);
-            newModel.makePrecise(randomCoordinate);
-            listCoordinates.add(randomCoordinate);
-        }
-
-        newVoronoi.setSites(listCoordinates);
-        Geometry voronoiedPoints = newVoronoi.getDiagram(newFactory);
-
         canvas.setColor(Color.BLACK);
 
         for (int i = 0; i < voronoiedPoints.getNumGeometries(); i++) {
@@ -95,45 +136,34 @@ public class Test {
             canvas.draw(path);
         }
 
-        // lloyd relaxation
-        Geometry notcell = voronoiedPoints.getGeometryN(25);
-        Coordinate[] lloydcoord = notcell.getCoordinates();
-        ArrayList<Coordinate> triangle_centroids = new ArrayList<>();
-        ArrayList<Double> triangle_areas = new ArrayList<>();
-        int first_iterator = 1, second_iterator = 2;
-        while(second_iterator <= lloydcoord.length-2) {
-            double area = calculate_area_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
-            Coordinate centroid = calculate_centroid_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
-            triangle_areas.add(area);
-            triangle_centroids.add(centroid);
-            first_iterator++;
-            second_iterator++;
-        }
-        Coordinate new_centroid = calculate_weighted_average(triangle_areas, triangle_centroids);
-        System.out.println(new_centroid.toString());
-        Ellipse2D point2 = new Ellipse2D.Double(new_centroid.x, new_centroid.y, THICKNESS, THICKNESS);
-        canvas.setColor(Color.CYAN);
-        canvas.fill(point2);
-
-        Path2D.Float pathpath = new Path2D.Float();
-        pathpath.moveTo(notcell.getCoordinates()[0].x, voronoiedPoints.getGeometryN(0).getCoordinates()[0].y);
-        int intcounter = 0;
-        for (Coordinate c : notcell.getCoordinates()) {
-            double[] coordArray = new double[]{c.x, c.y};
-            System.out.println(Arrays.toString(coordArray));
-            pathpath.lineTo(coordArray[0], coordArray[1]);
-
-            if(intcounter != 1 && intcounter != 0 && intcounter != voronoiedPoints.getGeometryN(25).getCoordinates().length-1  && intcounter != voronoiedPoints.getGeometryN(25).getCoordinates().length-2) {
-                Ellipse2D point = new Ellipse2D.Double(c.x, c.y, THICKNESS, THICKNESS);
-                canvas.setColor(Color.CYAN);
-                canvas.fill(point);
-            }
-            intcounter++;
-
-        }
-        pathpath.closePath();
-        canvas.setColor(Color.RED);
-        canvas.draw(pathpath);
+//        // lloyd relaxation
+//        Geometry notcell = voronoiedPoints.getGeometryN(25);
+//        Coordinate new_centroid = calculate_lloyd_relaxation_single(notcell);
+//        System.out.println(new_centroid.toString());
+//        Ellipse2D point2 = new Ellipse2D.Double(new_centroid.x, new_centroid.y, THICKNESS, THICKNESS);
+//        canvas.setColor(Color.CYAN);
+//        canvas.fill(point2);
+//
+//        //
+//        Path2D.Float pathpath = new Path2D.Float();
+//        pathpath.moveTo(notcell.getCoordinates()[0].x, voronoiedPoints.getGeometryN(0).getCoordinates()[0].y);
+//        int intcounter = 0;
+//        for (Coordinate c : notcell.getCoordinates()) {
+//            double[] coordArray = new double[]{c.x, c.y};
+//            System.out.println(Arrays.toString(coordArray));
+//            pathpath.lineTo(coordArray[0], coordArray[1]);
+//
+//            if(intcounter != 1 && intcounter != 0 && intcounter != voronoiedPoints.getGeometryN(25).getCoordinates().length-1  && intcounter != voronoiedPoints.getGeometryN(25).getCoordinates().length-2) {
+//                Ellipse2D point = new Ellipse2D.Double(c.x, c.y, THICKNESS, THICKNESS);
+//                canvas.setColor(Color.CYAN);
+//                canvas.fill(point);
+//            }
+//            intcounter++;
+//
+//        }
+//        pathpath.closePath();
+//        canvas.setColor(Color.RED);
+//        canvas.draw(pathpath);
 
 
         for (Coordinate c : listCoordinates) {
