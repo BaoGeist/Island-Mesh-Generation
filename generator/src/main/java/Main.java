@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class Main {
 
+    // generate irregular and regular mesh at the same time
     public static void main(String[] args) throws IOException {
         ArrayList<Structs.Vertex> vertices = new ArrayList<>();
         ArrayList<Structs.Segment> horizontal_segments = new ArrayList<>();
@@ -21,6 +22,7 @@ public class Main {
         Mesh myMesh2 = generator2.generate();
         Mesh myMesh = generator.generate();
         MeshFactory factory = new MeshFactory();
+        // this line decides whether myMesh or myMesh2 is written
         factory.write(myMesh2, args[0]);
     }
 

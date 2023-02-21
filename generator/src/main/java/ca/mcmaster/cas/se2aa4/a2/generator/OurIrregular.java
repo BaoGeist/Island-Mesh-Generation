@@ -16,13 +16,13 @@ import java.util.Random;
 import java.util.HashMap;
 public class OurIrregular {
 
-    private static ArrayList<Coordinate> generate_random_points() {
+    private static ArrayList<Coordinate> generate_random_points(int number) {
         PrecisionModel newModel = new PrecisionModel(PrecisionModel.FLOATING_SINGLE);
 
         Random random = new Random();
         ArrayList<Coordinate> listCoordinates = new ArrayList<>();
 
-        for (int i = 0; i < 250; i++) {
+        for (int i = 0; i < number; i++) {
             double x = random.nextDouble() * 500;
             double y = random.nextDouble() * 500;
             Coordinate randomCoordinate = new Coordinate(x, y);
@@ -101,16 +101,24 @@ public class OurIrregular {
         ArrayList<Vertex> vertices = new ArrayList<>();
         ArrayList<Segment> segments = new ArrayList<>();
         ArrayList<Polygon> polygons = new ArrayList<>();
-        ArrayList<Vertex> centroids = new ArrayList<>();
 
-        ArrayList<Coordinate> listCoordinates = generate_random_points();
+        // create random points everywhere on the plane
+        ArrayList<Coordinate> listCoordinates = generate_random_points(250);
+
+
+        // voronoi diagram
         Geometry voronoiedPoints = generate_voronoi(listCoordinates);
 
-        for(int i = 0; i < 10; i++) {
+        // lloyd relaxation
+        int lloyd_number = 10;
+        for(int i = 0; i < lloyd_number; i++) {
             listCoordinates = calculate_lloyd_relaxation_multiple(voronoiedPoints);
             voronoiedPoints = generate_voronoi(listCoordinates);
         }
+        listCoordinates = calculate_lloyd_relaxation_multiple(voronoiedPoints);
 
+
+        /// creating mesh
         for(int i = 0; i < voronoiedPoints.getNumGeometries(); i++) {
             Geometry cell = voronoiedPoints.getGeometryN(i);
             ArrayList<Vertex> segment_vertices = new ArrayList<>();
@@ -119,12 +127,13 @@ public class OurIrregular {
                 OurVertex vertexFactory = new OurVertex();
                 segment_vertices.add(vertexFactory.makeVertex(cell.getCoordinates()[j].x, cell.getCoordinates()[j].y, vertices.size() + j));
             }
-            for(int j = 0; j < cell.getCoordinates().length - 1; j++) {
+            for(int j = 0; j < cell.getCoordinates().length - 2; j++) {
                 OurSegment segmentFactory = new OurSegment();
                 polygon_segments.add(segmentFactory.create_segment(segment_vertices.get(j), segment_vertices.get(j+1), 1.0f, 1, 1));
             }
             OurPolygon polygonFactory = new OurPolygon();
             // returns an ArrayList with a Polygon and Vertex (the centroid) object
+            // TODO fix this centroid vertex calculation cuz it isn't accurate (Baoze)
             ArrayList<Object> return_array = polygonFactory.create_polygon(polygons.size(), vertices.size() + cell.getCoordinates().length, polygon_segments);
             polygons.add((Structs.Polygon) return_array.get(0));
             vertices.add((Structs.Vertex) return_array.get(1));
