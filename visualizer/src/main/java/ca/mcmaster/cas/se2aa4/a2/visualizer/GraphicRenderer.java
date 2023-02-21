@@ -46,25 +46,24 @@ public class GraphicRenderer {
             canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 
         }
-        // for polygons, also baoze struggling here
-
-        for (Structs.Polygon p: aMesh.getPolygonsList()) {
-            Color polygon_color = extractColor(p.getPropertiesList());
-            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
-            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
-
-            Path2D.Float path = new Path2D.Float();
-            path.moveTo(x_coords[0], y_coords[0]);
-
-            for (int i = 1; i < x_coords.length; i++) {
-                path.lineTo(x_coords[i], y_coords[i]);
-            }
-            path.closePath();
-
-            // TODO use actual polygon colour
-            canvas.setColor(extractColor(p.getPropertiesList()));
-            canvas.fill(path);
-        }
+//        // for polygons, also baoze struggling here
+//
+//        for (Structs.Polygon p: aMesh.getPolygonsList()) {
+//            Color polygon_color = extractColor(p.getPropertiesList());
+//            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
+//            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
+//
+//            Path2D.Float path = new Path2D.Float();
+//            path.moveTo(x_coords[0], y_coords[0]);
+//
+//            for (int i = 1; i < x_coords.length; i++) {
+//                path.lineTo(x_coords[i], y_coords[i]);
+//            }
+//            path.closePath();
+//
+//            canvas.setColor(extractColor(p.getPropertiesList()));
+//            canvas.fill(path);
+//        }
     }
 
     public void debug(Mesh aMesh, Graphics2D canvas) {
@@ -83,12 +82,11 @@ public class GraphicRenderer {
             }
             path.closePath();
 
-            // TODO use actual polygon colour
             canvas.setColor(Color.BLACK);
             canvas.fill(path);
 
             Color centroid = Color.RED;
-            double[] centroid_coords = p.get_middle_vertex();
+            double[] centroid_coords = new double[]{2.0, 2.0};
             Ellipse2D point = new Ellipse2D.Double(centroid_coords[0], centroid_coords[1], THICKNESS, THICKNESS);
             canvas.fill(point);
             canvas.setColor(centroid);
@@ -115,6 +113,7 @@ public class GraphicRenderer {
             canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 
         }
+
     }
 
     private Color extractColor(List<Property> properties) {

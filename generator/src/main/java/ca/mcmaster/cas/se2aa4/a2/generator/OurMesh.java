@@ -3,6 +3,8 @@ package ca.mcmaster.cas.se2aa4.a2.generator;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class OurMesh {
     private int width;
@@ -16,7 +18,7 @@ public class OurMesh {
     private ArrayList<Structs.Segment> horizontal_segments;
     private ArrayList<Structs.Polygon> polygons;
 
-    private ArrayList<Structs.Vertex> centroids;
+    private ArrayList<Structs.Vertex> centroids = new ArrayList<>();
     public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness, ArrayList<Structs.Vertex> vertices, ArrayList<Structs.Segment> horizontal_segments, ArrayList<Structs.Segment> vertical_segments ,ArrayList<Structs.Polygon> polygons) {
         this.width = width;
         this.height = height;
@@ -59,31 +61,46 @@ public class OurMesh {
             }
         }
         // Creates all polygons
-        int iterator = 0;
+        int iteratorh = 0, iteratorv = 0;
         for (int x = 0; x+1 < width/square_size; x += 1) {
             for (int y = 0; y+1 < height/square_size; y += 1) {
-                if (x == 18 & y == 18){
-                    continue;
-                }
+//                if (x == 18 & y == 18){
+//                    continue;
+//                }
                 ArrayList<Structs.Segment> PolygonSegments = new ArrayList<>();
 
-                PolygonSegments.add(horizontal_segments.get(iterator));
-                PolygonSegments.add(horizontal_segments.get(iterator+1));
-                PolygonSegments.add(vertical_segments.get(iterator));
-                PolygonSegments.add(vertical_segments.get(iterator+20));
+                PolygonSegments.add(horizontal_segments.get(iteratorh));
+                PolygonSegments.add(horizontal_segments.get(iteratorh+1));
+                PolygonSegments.add(vertical_segments.get(iteratorv));
+                PolygonSegments.add(vertical_segments.get(iteratorv+19));
+//                System.out.println("new");
+//                System.out.println(extractID(horizontal_segments.get(iteratorh).getPropertiesList()));
+//                System.out.println(extractID(horizontal_segments.get(iteratorh+1).getPropertiesList()));
+//                System.out.println(extractID(vertical_segments.get(iteratorv).getPropertiesList()));
+//                System.out.println(extractID(vertical_segments.get(iteratorv+19).getPropertiesList()));
+//                System.out.println(Arrays.toString(extractSegmentMiddle(horizontal_segments.get(iteratorh).getPropertiesList())));
+//                System.out.println(Arrays.toString(extractSegmentMiddle(horizontal_segments.get(iteratorh+1).getPropertiesList())));
+//                System.out.println(Arrays.toString(extractSegmentMiddle(vertical_segments.get(iteratorv).getPropertiesList())));
+//                System.out.println(Arrays.toString(extractSegmentMiddle(vertical_segments.get(iteratorv+19).getPropertiesList())));
+
 
                 OurPolygon p1 = new OurPolygon();
-                Structs.Polygon polygon1 = p1.create_polygon(polygons.size(), PolygonSegments);
+
+                ArrayList<Object> return_array = p1.create_polygon(polygons.size(), vertices.size(), PolygonSegments);
+                Structs.Polygon polygon1 = (Structs.Polygon) return_array.get(0);
                 p1.neighbours_id = setNeighbours();
 
-                centroids.add(p1.create_middle_vertex(polygons.size()));
+                vertices.add((Structs.Vertex) return_array.get(1));
                 polygons.add(polygon1);
 
-                iterator += 1;
+                iteratorh++;
+                iteratorv++;
             }
+            iteratorh++;
         }
+        System.out.println(polygons.size());
         vertical_segments.addAll(horizontal_segments);
-        return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllVertices(centroids).addAllSegments(vertical_segments).addAllPolygons(polygons).build();
+        return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(vertical_segments).addAllPolygons(polygons).build();
     }
 
     private ArrayList<Integer> setNeighbours(){ // Todo - Check if this works
@@ -110,4 +127,38 @@ public class OurMesh {
 
         return PolygonNeighbours;
     }
+
+    private int extractID(List<Structs.Property> properties) {
+        String val = "0";
+        for(Structs.Property p: properties) {
+            if (p.getKey().equals("id")) {
+//                System.out.println(p.getValue());
+                val = p.getValue();
+            }
+        }
+        return Integer.parseInt(val);
+    }
+
+    public double[] extractSegmentMiddle(List<Structs.Property> properties) {
+        String val = null;
+        for(Structs.Property p: properties) {
+            if (p.getKey().equals("middle")) {
+//                System.out.println(p.getValue());
+                val = p.getValue();
+            }
+        }
+        return parse_string_to_array_int(val);
+    }
+
+    private double[] parse_string_to_array_int(String parse) {
+
+        String[] array_return = parse.split(",", -1);
+        double[] array_return_int = new double[array_return.length];
+        for(int i = 0; i < array_return_int.length; i++) {
+            array_return_int[i] = Double.parseDouble(array_return[i]);
+        }
+        return array_return_int;
+    }
+
+
 }
