@@ -46,10 +46,31 @@ public class GraphicRenderer {
             canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 
         }
-        // for polygons, also baoze struggling here
+//        // for polygons, also baoze struggling here
+//
+//        for (Structs.Polygon p: aMesh.getPolygonsList()) {
+//            Color polygon_color = extractColor(p.getPropertiesList());
+//            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
+//            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
+//
+//            Path2D.Float path = new Path2D.Float();
+//            path.moveTo(x_coords[0], y_coords[0]);
+//
+//            for (int i = 1; i < x_coords.length; i++) {
+//                path.lineTo(x_coords[i], y_coords[i]);
+//            }
+//            path.closePath();
+//
+//            canvas.setColor(extractColor(p.getPropertiesList()));
+//            canvas.fill(path);
+//        }
+    }
 
+    public void debug(Mesh aMesh, Graphics2D canvas) {
+        canvas.setColor(Color.WHITE);
+        Stroke stroke = new BasicStroke(0.5f);
+        canvas.setStroke(stroke);
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
-            Color polygon_color = extractColor(p.getPropertiesList());
             float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
             float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
 
@@ -61,10 +82,38 @@ public class GraphicRenderer {
             }
             path.closePath();
 
-            // TODO use actual polygon colour
-            canvas.setColor(Color.GREEN);
+            canvas.setColor(Color.BLACK);
             canvas.fill(path);
+
+            Color centroid = Color.RED;
+            double[] centroid_coords = new double[]{2.0, 2.0};
+            Ellipse2D point = new Ellipse2D.Double(centroid_coords[0], centroid_coords[1], THICKNESS, THICKNESS);
+            canvas.fill(point);
+            canvas.setColor(centroid);
         }
+        for (Vertex v: aMesh.getVerticesList()) {
+            double centre_x = v.getX() - (THICKNESS/2.0d);
+            double centre_y = v.getY() - (THICKNESS/2.0d);
+            Color old = Color.BLACK;
+            canvas.setColor(extractColor(v.getPropertiesList()));
+            Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
+            canvas.fill(point);
+            canvas.setColor(old);
+        }
+        for (Structs.Segment s: aMesh.getSegmentsList()){
+            float[] vertices = extractHeadTail(s.getPropertiesList());
+            // baoze started here
+            Color segment_color = Color.BLACK;
+            double x1 = vertices[0];
+            double y1 = vertices[1];
+            double x2 = vertices[2];
+            double y2 = vertices[3];
+
+            canvas.setColor(segment_color);
+            canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
+
+        }
+
     }
 
     private Color extractColor(List<Property> properties) {
@@ -96,10 +145,14 @@ public class GraphicRenderer {
                 y_coords = p.getValue();
             }
         }
+
         String[] raw_x = x_coords.split(",");
+        System.out.println(Arrays.toString(raw_x));
         float[] pro_x = new float[raw_x.length];
         String[] raw_y = y_coords.split(",");
         float[] pro_y = new float[raw_y.length];
+
+
 
         for(int i = 0; i < raw_x.length; i++) {
             pro_x[i] = Float.parseFloat(raw_x[i].replace("[","").replace(" ", "").replace("]",""));

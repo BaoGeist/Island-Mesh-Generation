@@ -12,9 +12,10 @@ public class DotGenTest {
     @Test
     public void meshIsNotNull() {
         ArrayList<Structs.Vertex> vertices = new ArrayList<>();
-        ArrayList<Structs.Segment> segments = new ArrayList<>();
+        ArrayList<Structs.Segment> horizontal_segments = new ArrayList<>();
+        ArrayList<Structs.Segment> vertical_segments = new ArrayList<>();
         ArrayList<Structs.Polygon> polygons = new ArrayList<>();
-        OurMesh generator = new OurMesh(500, 500, 20, 1.00f, 1, vertices,segments, polygons);
+        OurMesh generator = new OurMesh(500, 500, 25, 1.00f, 1, vertices,horizontal_segments, vertical_segments, polygons);
         Structs.Mesh aMesh = generator.generate();
         assertNotNull(aMesh);
     }

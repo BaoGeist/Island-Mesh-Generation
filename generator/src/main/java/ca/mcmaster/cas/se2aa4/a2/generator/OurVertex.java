@@ -11,6 +11,8 @@ public class OurVertex {
     private int[] colorCodes = new int[3];
     private String colorCode;
     private int id;
+    private double[] centroid_coords = new double[2];
+    boolean centroid_bool = false;
 
     private void set_coords(double x_coord, double y_coord) {
         coords[0] = x_coord;
@@ -48,13 +50,16 @@ public class OurVertex {
 
     public Vertex makeCentroidVertex(double x, double y, int id) {
         this.set_coords(x, y);
+//        System.out.println("x" + x + "y" + y);
         colorCode = "0,0,0";
+        centroid_bool = true;
         return build_vertex();
     }
 
     private Vertex build_vertex() {
+        Property centroid_or_nah = Property.newBuilder().setKey("centroid_or_nah").setValue(String.valueOf(centroid_bool)).build();
         Property color = Property.newBuilder().setKey("rgb_color").setValue(this.get_color_string()).build();
-        Vertex v = Vertex.newBuilder().setX(coords[0]).setY(coords[1]).addProperties(color).build();
+        Vertex v = Vertex.newBuilder().setX(coords[0]).setY(coords[1]).addProperties(color).addProperties(centroid_or_nah).build();
         return v;
     }
         
