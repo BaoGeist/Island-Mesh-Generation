@@ -86,31 +86,27 @@ public class GraphicRenderer {
             canvas.setColor(Color.BLACK);
             canvas.fill(path);
 
-            Color centroid = Color.RED;
             double[] centroid_coords = new double[]{2.0, 2.0};
             Ellipse2D point = new Ellipse2D.Double(centroid_coords[0], centroid_coords[1], THICKNESS, THICKNESS);
+            canvas.setColor(Color.RED);
             canvas.fill(point);
-            canvas.setColor(centroid);
         }
         for (Vertex v: aMesh.getVerticesList()) {
             double centre_x = v.getX() - (THICKNESS/2.0d);
             double centre_y = v.getY() - (THICKNESS/2.0d);
-            Color old = Color.BLACK;
-            canvas.setColor(extractColor(v.getPropertiesList()));
             Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
+            canvas.setColor(Color.BLACK);
             canvas.fill(point);
-            canvas.setColor(old);
         }
         for (Structs.Segment s: aMesh.getSegmentsList()){
             float[] vertices = extractHeadTail(s.getPropertiesList());
             // baoze started here
-            Color segment_color = Color.BLACK;
             double x1 = vertices[0];
             double y1 = vertices[1];
             double x2 = vertices[2];
             double y2 = vertices[3];
 
-            canvas.setColor(segment_color);
+            canvas.setColor(Color.BLACK);
             canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 
         }
@@ -136,13 +132,12 @@ public class GraphicRenderer {
 
     private ArrayList<float[]> extractCoords(List<Property> properties) {
         String x_coords = null, y_coords = null;
-        for(Property p: properties) {
+        for (Property p: properties) {
+            System.out.println(p.getKey());
             if (p.getKey().equals("x_coords")) {
-//                System.out.println(p.getValue());
                 x_coords = p.getValue();
             }
             if (p.getKey().equals("y_coords")) {
-//                System.out.println(p.getValue());
                 y_coords = p.getValue();
             }
         }
@@ -152,8 +147,6 @@ public class GraphicRenderer {
         float[] pro_x = new float[raw_x.length];
         String[] raw_y = y_coords.split(",");
         float[] pro_y = new float[raw_y.length];
-
-
 
         for(int i = 0; i < raw_x.length; i++) {
             pro_x[i] = Float.parseFloat(raw_x[i].replace("[","").replace(" ", "").replace("]",""));
