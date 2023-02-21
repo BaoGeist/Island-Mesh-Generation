@@ -23,16 +23,23 @@ public class OurPolygon {
     private float alpha = 1;
     private int id;
     private double[] centroid_coords = new double[2];
+    private Polygon actual_Polygon;
 
-    public Polygon create_polygon(int id_self, ArrayList<Segment> segments) {
+    public ArrayList<Object> create_polygon(int id_self, int centroid_index, ArrayList<Segment> segments) {
         for(Segment segment: segments) {
             segments_group.add(segment);
             segments_id.add(extractID(segment.getPropertiesList()));
         }
         id = id_self;
         set_color();
-        middle_vertex = create_middle_vertex();
-        return build_polygon();
+        set_coords();
+        create_middle_vertex(centroid_index);
+        actual_Polygon = build_polygon();
+        ArrayList<Object> return_array = new ArrayList<>();
+
+        return_array.add(actual_Polygon);
+        return_array.add(middle_vertex);
+        return return_array;
     }
 
     private void set_color() {
@@ -47,13 +54,18 @@ public class OurPolygon {
     }
 
     private void set_coords(){
-        for(Segment segment: segments_group) {
-            x_coords.add(extractHeadCoords(segment.getPropertiesList())[0]);
-            y_coords.add(extractHeadCoords(segment.getPropertiesList())[1]);
-        }
+        x_coords.add(extractHeadCoords(segments_group.get(0).getPropertiesList())[0]);
+        y_coords.add(extractHeadCoords(segments_group.get(0).getPropertiesList())[0]);
+        x_coords.add(extractHeadCoords(segments_group.get(1).getPropertiesList())[0]);
+        y_coords.add(extractHeadCoords(segments_group.get(1).getPropertiesList())[0]);
+        x_coords.add(extractTailCoords(segments_group.get(2).getPropertiesList())[0]);
+        y_coords.add(extractTailCoords(segments_group.get(2).getPropertiesList())[0]);
+        x_coords.add(extractTailCoords(segments_group.get(3).getPropertiesList())[0]);
+        y_coords.add(extractTailCoords(segments_group.get(3).getPropertiesList())[0]);
+
     }
 
-    private Vertex create_middle_vertex() {
+    private void create_middle_vertex(int id) {
         int totalx = 0, totaly = 0, count = 0;
         for(Segment segment: segments_group) {
             totalx += extractSegmentMiddle(segment.getPropertiesList())[0];
@@ -61,7 +73,7 @@ public class OurPolygon {
             count++;
         }
         OurVertex v = new OurVertex();
-        return v.makeCentroidVertex((double) totalx/count, (double) totalx/count, 1);
+        middle_vertex = v.makeCentroidVertex((double) totalx/count, (double) totaly/count, id);
     }
 
     public double[] get_middle_vertex() {
@@ -94,12 +106,12 @@ public class OurPolygon {
         Property x_coords = Property.newBuilder().setKey("x_coords").setValue(this.x_coords.toString()).build();
         Property y_coords = Property.newBuilder().setKey("y_coords").setValue(this.y_coords.toString()).build();
         Property centroid_coords = Property.newBuilder().setKey("centroid_coords").setValue(this.centroid_coords.toString()).build();
-        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(middle_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).addProperties(centroid_coords).build();
+        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
         return p;
     }
 
 
-    private double[] extractSegmentMiddle(List<Property> properties) {
+    public double[] extractSegmentMiddle(List<Property> properties) {
         String val = null;
         for(Property p: properties) {
             if (p.getKey().equals("middle")) {
@@ -125,6 +137,20 @@ public class OurPolygon {
         String val = null;
         for(Property p: properties) {
             if (p.getKey().equals("head")) {
+//                System.out.println(p.getValue());
+                val = p.getValue();
+            }
+        }
+        String[] raw = val.split(",");
+        Double x = Double.parseDouble(raw[0].replace("[","").replace(" ", ""));
+        Double y = Double.parseDouble(raw[1].replace(" ", ""));
+        return new double[]{x, y};
+    }
+
+    private double[] extractTailCoords(List<Property> properties) {
+        String val = null;
+        for(Property p: properties) {
+            if (p.getKey().equals("tail")) {
 //                System.out.println(p.getValue());
                 val = p.getValue();
             }

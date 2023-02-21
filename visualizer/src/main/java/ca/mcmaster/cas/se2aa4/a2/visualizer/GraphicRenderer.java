@@ -46,12 +46,12 @@ public class GraphicRenderer {
             canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 
         }
-        // for polygons, also baoze struggling here
-
+        // for polygons, STILL DOES NOT WORK, NOT SURE WHY
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
             Color polygon_color = extractColor(p.getPropertiesList());
             float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
             float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
+            System.out.println("heqfoieojwf");
 
             Path2D.Float path = new Path2D.Float();
             path.moveTo(x_coords[0], y_coords[0]);
@@ -59,10 +59,10 @@ public class GraphicRenderer {
             for (int i = 1; i < x_coords.length; i++) {
                 path.lineTo(x_coords[i], y_coords[i]);
             }
+            path.lineTo(x_coords[0], y_coords[0]);
             path.closePath();
 
-            // TODO use actual polygon colour
-            canvas.setColor(Color.GREEN);
+            canvas.setColor(Color.green);
             canvas.fill(path);
         }
     }
@@ -87,7 +87,7 @@ public class GraphicRenderer {
             canvas.fill(path);
 
             Color centroid = Color.RED;
-            float[] centroid_coords = extractCoords(p.getPropertiesList()).get(2);
+            double[] centroid_coords = new double[]{2.0, 2.0};
             Ellipse2D point = new Ellipse2D.Double(centroid_coords[0], centroid_coords[1], THICKNESS, THICKNESS);
             canvas.fill(point);
             canvas.setColor(centroid);
@@ -114,6 +114,7 @@ public class GraphicRenderer {
             canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 
         }
+
     }
 
     private Color extractColor(List<Property> properties) {
@@ -145,10 +146,14 @@ public class GraphicRenderer {
                 y_coords = p.getValue();
             }
         }
+
         String[] raw_x = x_coords.split(",");
+        System.out.println(Arrays.toString(raw_x));
         float[] pro_x = new float[raw_x.length];
         String[] raw_y = y_coords.split(",");
         float[] pro_y = new float[raw_y.length];
+
+
 
         for(int i = 0; i < raw_x.length; i++) {
             pro_x[i] = Float.parseFloat(raw_x[i].replace("[","").replace(" ", "").replace("]",""));
