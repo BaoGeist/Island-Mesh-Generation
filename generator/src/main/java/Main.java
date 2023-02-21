@@ -17,9 +17,11 @@ public class Main {
         ArrayList<Structs.Segment> vertical_segments = new ArrayList<>();
         ArrayList<Structs.Polygon> polygons = new ArrayList<>();
         OurMesh generator = new OurMesh(500, 500, 25, 1.00f, 1, vertices,horizontal_segments, vertical_segments, polygons);
+        OurIrregular generator2 = new OurIrregular();
+        Mesh myMesh2 = generator2.generate();
         Mesh myMesh = generator.generate();
         MeshFactory factory = new MeshFactory();
-        factory.write(myMesh, args[0]);
+        factory.write(myMesh2, args[0]);
     }
 
 }
