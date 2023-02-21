@@ -46,24 +46,25 @@ public class GraphicRenderer {
             canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 
         }
-//        // for polygons, also baoze struggling here
-//
-//        for (Structs.Polygon p: aMesh.getPolygonsList()) {
-//            Color polygon_color = extractColor(p.getPropertiesList());
-//            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
-//            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
-//
-//            Path2D.Float path = new Path2D.Float();
-//            path.moveTo(x_coords[0], y_coords[0]);
-//
-//            for (int i = 1; i < x_coords.length; i++) {
-//                path.lineTo(x_coords[i], y_coords[i]);
-//            }
-//            path.closePath();
-//
-//            canvas.setColor(extractColor(p.getPropertiesList()));
-//            canvas.fill(path);
-//        }
+        // for polygons, STILL DOES NOT WORK, NOT SURE WHY
+        for (Structs.Polygon p: aMesh.getPolygonsList()) {
+            Color polygon_color = extractColor(p.getPropertiesList());
+            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
+            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
+            System.out.println("heqfoieojwf");
+
+            Path2D.Float path = new Path2D.Float();
+            path.moveTo(x_coords[0], y_coords[0]);
+
+            for (int i = 1; i < x_coords.length; i++) {
+                path.lineTo(x_coords[i], y_coords[i]);
+            }
+            path.lineTo(x_coords[0], y_coords[0]);
+            path.closePath();
+
+            canvas.setColor(Color.green);
+            canvas.fill(path);
+        }
     }
 
     public void debug(Mesh aMesh, Graphics2D canvas) {

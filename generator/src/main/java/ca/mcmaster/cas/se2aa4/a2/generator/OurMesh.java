@@ -70,9 +70,10 @@ public class OurMesh {
                 ArrayList<Structs.Segment> PolygonSegments = new ArrayList<>();
 
                 PolygonSegments.add(horizontal_segments.get(iteratorh));
+                PolygonSegments.add(vertical_segments.get(iteratorv+19));
                 PolygonSegments.add(horizontal_segments.get(iteratorh+1));
                 PolygonSegments.add(vertical_segments.get(iteratorv));
-                PolygonSegments.add(vertical_segments.get(iteratorv+19));
+
 //                System.out.println("new");
 //                System.out.println(extractID(horizontal_segments.get(iteratorh).getPropertiesList()));
 //                System.out.println(extractID(horizontal_segments.get(iteratorh+1).getPropertiesList()));
