@@ -94,7 +94,7 @@ public class OurPolygon {
         Property x_coords = Property.newBuilder().setKey("x_coords").setValue(this.x_coords.toString()).build();
         Property y_coords = Property.newBuilder().setKey("y_coords").setValue(this.y_coords.toString()).build();
         Property centroid_coords = Property.newBuilder().setKey("centroid_coords").setValue(this.centroid_coords.toString()).build();
-        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(middle_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
+        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).setCentroidIdx(extractID(middle_vertex.getPropertiesList())).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(middle_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).addProperties(centroid_coords).build();
         return p;
     }
 
