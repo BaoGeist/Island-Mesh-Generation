@@ -83,12 +83,11 @@ public class GraphicRenderer {
             }
             path.closePath();
 
-            // TODO use actual polygon colour
             canvas.setColor(Color.BLACK);
             canvas.fill(path);
 
             Color centroid = Color.RED;
-            double[] centroid_coords = p.get_middle_vertex();
+            float[] centroid_coords = extractCoords(p.getPropertiesList()).get(2);
             Ellipse2D point = new Ellipse2D.Double(centroid_coords[0], centroid_coords[1], THICKNESS, THICKNESS);
             canvas.fill(point);
             canvas.setColor(centroid);

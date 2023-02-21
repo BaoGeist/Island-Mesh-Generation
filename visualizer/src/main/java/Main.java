@@ -33,7 +33,6 @@ public class Main {
             renderer.render(aMesh, canvas); }
         else {
             renderer.debug(aMesh, canvas);
-            if (debug == true) System.out.println("SLAY");
         }
         // Storing the result in an SVG file
         SVGCanvas.write(canvas, output);
