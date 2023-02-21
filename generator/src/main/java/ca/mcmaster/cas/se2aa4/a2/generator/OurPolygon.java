@@ -32,6 +32,7 @@ public class OurPolygon {
         }
         id = id_self;
         set_color();
+        set_coords();
         create_middle_vertex(centroid_index);
         actual_Polygon = build_polygon();
         ArrayList<Object> return_array = new ArrayList<>();
@@ -53,10 +54,15 @@ public class OurPolygon {
     }
 
     private void set_coords(){
-        for(Segment segment: segments_group) {
-            x_coords.add(extractHeadCoords(segment.getPropertiesList())[0]);
-            y_coords.add(extractHeadCoords(segment.getPropertiesList())[1]);
-        }
+        x_coords.add(extractHeadCoords(segments_group.get(0).getPropertiesList())[0]);
+        y_coords.add(extractHeadCoords(segments_group.get(0).getPropertiesList())[0]);
+        x_coords.add(extractHeadCoords(segments_group.get(1).getPropertiesList())[0]);
+        y_coords.add(extractHeadCoords(segments_group.get(1).getPropertiesList())[0]);
+        x_coords.add(extractTailCoords(segments_group.get(2).getPropertiesList())[0]);
+        y_coords.add(extractTailCoords(segments_group.get(2).getPropertiesList())[0]);
+        x_coords.add(extractTailCoords(segments_group.get(3).getPropertiesList())[0]);
+        y_coords.add(extractTailCoords(segments_group.get(3).getPropertiesList())[0]);
+
     }
 
     private void create_middle_vertex(int id) {
@@ -131,6 +137,20 @@ public class OurPolygon {
         String val = null;
         for(Property p: properties) {
             if (p.getKey().equals("head")) {
+//                System.out.println(p.getValue());
+                val = p.getValue();
+            }
+        }
+        String[] raw = val.split(",");
+        Double x = Double.parseDouble(raw[0].replace("[","").replace(" ", ""));
+        Double y = Double.parseDouble(raw[1].replace(" ", ""));
+        return new double[]{x, y};
+    }
+
+    private double[] extractTailCoords(List<Property> properties) {
+        String val = null;
+        for(Property p: properties) {
+            if (p.getKey().equals("tail")) {
 //                System.out.println(p.getValue());
                 val = p.getValue();
             }
