@@ -85,11 +85,11 @@ public class OurMesh {
 //                System.out.println(Arrays.toString(extractSegmentMiddle(vertical_segments.get(iteratorv+19).getPropertiesList())));
 
 
-                OurPolygon p1 = new OurPolygon();
+                OurPolygon polygonFactory = new OurPolygon();
 
-                ArrayList<Object> return_array = p1.create_polygon(polygons.size(), vertices.size(), PolygonSegments);
+                ArrayList<Object> return_array = polygonFactory.create_polygon(polygons.size(), vertices.size(), PolygonSegments);
                 Structs.Polygon polygon1 = (Structs.Polygon) return_array.get(0);
-                p1.neighbours_id = setNeighbours();
+                polygonFactory.neighbours_id = setNeighbours();
 
                 vertices.add((Structs.Vertex) return_array.get(1));
                 polygons.add(polygon1);
