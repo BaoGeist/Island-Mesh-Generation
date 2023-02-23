@@ -45,6 +45,7 @@ public class OurVertex {
     public Vertex makeVertex(double x, double y, int id) {
         this.set_coords(x, y);
         this.set_color();
+        centroid_bool = false;
         return build_vertex();
     }
 
