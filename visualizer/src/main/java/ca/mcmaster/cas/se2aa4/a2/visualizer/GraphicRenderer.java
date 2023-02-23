@@ -24,6 +24,24 @@ public class GraphicRenderer {
         canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
+        // for polygons, STILL DOES NOT WORK, NOT SURE WHY
+        for (Structs.Polygon p: aMesh.getPolygonsList()) {
+            Color polygon_color = extractColor(p.getPropertiesList());
+            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
+            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
+
+            Path2D.Float path = new Path2D.Float();
+            path.moveTo(x_coords[0], y_coords[0]);
+
+            for (int i = 1; i < x_coords.length; i++) {
+                path.lineTo(x_coords[i], y_coords[i]);
+            }
+            path.lineTo(x_coords[0], y_coords[0]);
+            path.closePath();
+
+            canvas.setColor(polygon_color);
+            canvas.fill(path);
+        }
         for (Vertex v: aMesh.getVerticesList()) {
             double centre_x = v.getX() - (THICKNESS/2.0d);
             double centre_y = v.getY() - (THICKNESS/2.0d);
@@ -45,25 +63,6 @@ public class GraphicRenderer {
             canvas.setColor(segment_color);
             canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 
-        }
-        // for polygons, STILL DOES NOT WORK, NOT SURE WHY
-        for (Structs.Polygon p: aMesh.getPolygonsList()) {
-            Color polygon_color = extractColor(p.getPropertiesList());
-            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
-            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
-            System.out.println("heqfoieojwf");
-
-            Path2D.Float path = new Path2D.Float();
-            path.moveTo(x_coords[0], y_coords[0]);
-
-            for (int i = 1; i < x_coords.length; i++) {
-                path.lineTo(x_coords[i], y_coords[i]);
-            }
-            path.lineTo(x_coords[0], y_coords[0]);
-            path.closePath();
-
-            canvas.setColor(Color.green);
-            canvas.fill(path);
         }
     }
 
@@ -148,7 +147,7 @@ public class GraphicRenderer {
         }
 
         String[] raw_x = x_coords.split(",");
-        System.out.println(Arrays.toString(raw_x));
+//        System.out.println(Arrays.toString(raw_x));
         float[] pro_x = new float[raw_x.length];
         String[] raw_y = y_coords.split(",");
         float[] pro_y = new float[raw_y.length];

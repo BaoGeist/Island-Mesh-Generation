@@ -50,7 +50,9 @@ public class OurPolygon {
         colorCodes[0] = red;
         colorCodes[1] = green;
         colorCodes[2] = blue;
+
         colorCode = red + "," + green + "," + blue;
+        System.out.println(colorCode);
     }
 
     private void set_coords(){
@@ -70,6 +72,7 @@ public class OurPolygon {
                 y_coords.add(extractHeadCoords(segments_group.get(i).getPropertiesList())[1]);
             }
         }
+
     }
 
     private void create_middle_vertex(int id) {
