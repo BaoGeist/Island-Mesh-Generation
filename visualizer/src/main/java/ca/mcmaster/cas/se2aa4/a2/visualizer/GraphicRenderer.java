@@ -71,7 +71,7 @@ public class GraphicRenderer {
         canvas.setColor(Color.WHITE);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-        for (Structs.Polygon p: aMesh.getPolygonsList()) {
+        for (Structs.Polygon p: aMesh.getPolygonsList()) { //polygons are drawn first as the back layer
             float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
             float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
 
@@ -91,7 +91,7 @@ public class GraphicRenderer {
             canvas.setColor(Color.RED);
             canvas.fill(point);
         }
-        for (Vertex v: aMesh.getVerticesList()) {
+        for (Vertex v: aMesh.getVerticesList()) { //vertices and segments are drawn overtop of polygons
             double centre_x = v.getX() - (THICKNESS/2.0d);
             double centre_y = v.getY() - (THICKNESS/2.0d);
             Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
@@ -100,15 +100,21 @@ public class GraphicRenderer {
         }
         for (Structs.Segment s: aMesh.getSegmentsList()){
             float[] vertices = extractHeadTail(s.getPropertiesList());
-            // baoze started here
             double x1 = vertices[0];
             double y1 = vertices[1];
             double x2 = vertices[2];
             double y2 = vertices[3];
-
             canvas.setColor(Color.BLACK);
             canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
+        }
+        for (Structs.Polygon p: aMesh.getPolygonsList()) { //neighbourhoods need to be drawn last, but they require polygons, so we repeat
+            for (Structs.Polygon q: aMesh.getPolygonsList()) {
+                int p_neighbour = extractNeighbourID(p.getPropertiesList());
+                int q_neighbour = extractNeighbourID(q.getPropertiesList());
+                if (p_neighbour == q_neighbour) {
 
+                }
+            }
         }
 
     }
@@ -186,10 +192,10 @@ public class GraphicRenderer {
         return head_tail;
     }
 
-    private int extractMiddleID(List<Property> properties) {
+    private int extractNeighbourID(List<Property> properties) {
         String val = null;
         for(Property p: properties) {
-            if (p.getKey().equals("middle_id")) {
+            if (p.getKey().equals("neighbours")) {
 //                System.out.println(p.getValue());
                 val = p.getValue();
             }
