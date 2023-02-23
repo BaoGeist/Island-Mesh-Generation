@@ -14,7 +14,7 @@ public class Main {
         // if statement determines whether irregular or regular mesh-optimized renderer are created
         // true is regular, false is irregular
 
-        if(false) {
+        if(true) {
             // Extracting command line parameters
             String input = args[0];
             String output = args[1];
