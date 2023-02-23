@@ -32,8 +32,7 @@ public class OurMesh {
         Structs.Vertex[][] new_grid = new Structs.Vertex[this.width][this.height];
         this.grid = new_grid;
     }
-
-    public Structs.Mesh generate() {
+    private void generateVertices(){
         // Creates all vertices and stores them in an ArrayList
         for(int x = 0; x < width; x += square_size){
             for (int y = 0; y < height; y += square_size) {
@@ -42,6 +41,9 @@ public class OurMesh {
                 vertices.add(newVertex);
             }
         }
+    }
+
+    private void generateSegments(){
         // Creates all horizontal segments and stores them in an ArrayList
         for (int x = 0; x+1 < width/square_size; x += 1) {
             for (int y = 0; y < height/square_size; y += 1) {
@@ -60,13 +62,13 @@ public class OurMesh {
                 }
             }
         }
+    }
+
+    private void generatePolygons(){
         // Creates all polygons
         int iteratorh = 0, iteratorv = 0;
         for (int x = 0; x+1 < width/square_size; x += 1) {
             for (int y = 0; y+1 < height/square_size; y += 1) {
-//                if (x == 18 & y == 18){
-//                    continue;
-//                }
                 ArrayList<Structs.Segment> PolygonSegments = new ArrayList<>();
 
                 PolygonSegments.add(horizontal_segments.get(iteratorh));
@@ -84,7 +86,6 @@ public class OurMesh {
 //                System.out.println(Arrays.toString(extractSegmentMiddle(vertical_segments.get(iteratorv).getPropertiesList())));
 //                System.out.println(Arrays.toString(extractSegmentMiddle(vertical_segments.get(iteratorv+19).getPropertiesList())));
 
-
                 OurPolygon polygonFactory = new OurPolygon();
 
                 ArrayList<Object> return_array = polygonFactory.create_polygon(polygons.size(), vertices.size(), PolygonSegments);
@@ -99,7 +100,13 @@ public class OurMesh {
             }
             iteratorh++;
         }
-        System.out.println(polygons.size());
+    }
+
+    public Structs.Mesh generate() {
+        generateVertices();
+        generateSegments();
+        generatePolygons();
+        //System.out.println(polygons.size());
         vertical_segments.addAll(horizontal_segments);
         return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(vertical_segments).addAllPolygons(polygons).build();
     }
