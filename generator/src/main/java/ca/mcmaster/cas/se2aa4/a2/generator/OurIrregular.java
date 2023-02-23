@@ -111,7 +111,7 @@ public class OurIrregular {
         ArrayList<Polygon> polygons = new ArrayList<>();
 
         // create random points everywhere on the plane
-        ArrayList<Coordinate> listCoordinates = generate_random_points(3);
+        ArrayList<Coordinate> listCoordinates = generate_random_points(250);
 
 
         // voronoi diagram

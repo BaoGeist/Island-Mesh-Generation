@@ -54,15 +54,22 @@ public class OurPolygon {
     }
 
     private void set_coords(){
+        // adds the first segment
         x_coords.add(extractHeadCoords(segments_group.get(0).getPropertiesList())[0]);
-        y_coords.add(extractHeadCoords(segments_group.get(0).getPropertiesList())[0]);
-        x_coords.add(extractHeadCoords(segments_group.get(1).getPropertiesList())[0]);
-        y_coords.add(extractHeadCoords(segments_group.get(1).getPropertiesList())[0]);
-        x_coords.add(extractTailCoords(segments_group.get(2).getPropertiesList())[0]);
-        y_coords.add(extractTailCoords(segments_group.get(2).getPropertiesList())[0]);
-        x_coords.add(extractTailCoords(segments_group.get(3).getPropertiesList())[0]);
-        y_coords.add(extractTailCoords(segments_group.get(3).getPropertiesList())[0]);
-
+        y_coords.add(extractHeadCoords(segments_group.get(0).getPropertiesList())[1]);
+        x_coords.add(extractTailCoords(segments_group.get(0).getPropertiesList())[0]);
+        y_coords.add(extractTailCoords(segments_group.get(0).getPropertiesList())[1]);
+        for(int i = 1; i < segments_group.size(); i++) {
+            if(x_coords.get(i) == extractHeadCoords(segments_group.get(i).getPropertiesList())[0] && y_coords.get(i) == extractHeadCoords(segments_group.get(i).getPropertiesList())[1]) {
+                x_coords.add(extractTailCoords(segments_group.get(i).getPropertiesList())[0]);
+                y_coords.add(extractTailCoords(segments_group.get(i).getPropertiesList())[1]);
+            }
+            // checks if tail of new segment is the same as the last point added, adds the head if so
+            else if (x_coords.get(i) == extractTailCoords(segments_group.get(i).getPropertiesList())[0] && y_coords.get(i) == extractTailCoords(segments_group.get(i).getPropertiesList())[1]) {
+                x_coords.add(extractHeadCoords(segments_group.get(i).getPropertiesList())[0]);
+                y_coords.add(extractHeadCoords(segments_group.get(i).getPropertiesList())[1]);
+            }
+        }
     }
 
     private void create_middle_vertex(int id) {
