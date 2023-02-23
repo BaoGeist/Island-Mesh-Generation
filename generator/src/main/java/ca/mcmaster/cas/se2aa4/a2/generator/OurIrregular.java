@@ -5,16 +5,16 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
-import org.locationtech.jts.geom.PrecisionModel;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.*;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import java.util.HashMap;
 public class OurIrregular {
+
+    private int length = 500;
+    private int width = 500;
 
     private static ArrayList<Coordinate> generate_random_points(int number) {
         PrecisionModel newModel = new PrecisionModel(PrecisionModel.FLOATING_SINGLE);
@@ -32,13 +32,21 @@ public class OurIrregular {
         return listCoordinates;
     }
 
-    private static Geometry generate_voronoi(ArrayList<Coordinate> listCoordinates) {
+    private Geometry generate_voronoi(ArrayList<Coordinate> listCoordinates) {
         VoronoiDiagramBuilder newVoronoi = new VoronoiDiagramBuilder();
 
         GeometryFactory newFactory = new GeometryFactory();
 
         newVoronoi.setSites(listCoordinates);
-        return newVoronoi.getDiagram(newFactory);
+        Geometry diagram = newVoronoi.getDiagram(newFactory);
+
+        // Create an envelope representing the 500x500 grid
+        Envelope env = new Envelope(0, width, 0, length);
+
+        // Crop the diagram to the envelope
+        diagram = diagram.intersection(newFactory.toGeometry(env));
+
+        return diagram;
     }
 
     private static double calculate_length_of_segment(Coordinate c1, Coordinate c2) {
@@ -103,7 +111,7 @@ public class OurIrregular {
         ArrayList<Polygon> polygons = new ArrayList<>();
 
         // create random points everywhere on the plane
-        ArrayList<Coordinate> listCoordinates = generate_random_points(250);
+        ArrayList<Coordinate> listCoordinates = generate_random_points(3);
 
 
         // voronoi diagram
@@ -138,7 +146,6 @@ public class OurIrregular {
             polygons.add((Structs.Polygon) return_array.get(0));
             vertices.add((Structs.Vertex) return_array.get(1));
             // TODO compute neighbourhood relationships using Delaunay's triangulation
-
             vertices.addAll(segment_vertices);
             segments.addAll(polygon_segments);
         }
