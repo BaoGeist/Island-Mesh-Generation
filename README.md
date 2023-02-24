@@ -58,7 +58,11 @@ When you develop features and enrich the product, remember that you have first t
 ## Backlog
 
 ### Definition of Done
-Our Definition of Done follows 
+Our Definition of Done includes the following criteria:
+- Testing functions reveals no defects
+- Both regular and irregular meshes generate and can be "played" around with
+- All other rubric criteria are hit from an A-tier to S-tier (hopefully)
+- Lecture Software Development concepts are applied
 
 ### Product Backlog
 

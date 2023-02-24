@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.*;
+
 public class GraphicRenderer {
 
     private static final int THICKNESS = 3;
@@ -42,6 +44,7 @@ public class GraphicRenderer {
             canvas.setColor(polygon_color);
             canvas.fill(path);
         }
+
         for (Vertex v: aMesh.getVerticesList()) {
             double centre_x = v.getX() - (THICKNESS/2.0d);
             double centre_y = v.getY() - (THICKNESS/2.0d);
@@ -51,6 +54,7 @@ public class GraphicRenderer {
             canvas.fill(point);
             canvas.setColor(old);
         }
+
         for (Structs.Segment s: aMesh.getSegmentsList()){
             float[] vertices = extractHeadTail(s.getPropertiesList());
             // baoze started here
@@ -116,91 +120,6 @@ public class GraphicRenderer {
 
     }
 
-    private Color extractColor(List<Property> properties) {
-        String val = null;
-        for(Property p: properties) {
-            if (p.getKey().equals("rgb_color")) {
-//                System.out.println(p.getValue());
-                val = p.getValue();
-            }
-        }
-        if (val == null)
-            return Color.BLACK;
-        String[] raw = val.split(",");
-        int red = Integer.parseInt(raw[0].replace("[","").replace(" ", ""));
-        int green = Integer.parseInt(raw[1].replace(" ", ""));
-        int blue = Integer.parseInt(raw[2].replace("]","").replace(" ", ""));
-        return new Color(red, green, blue);
-    }
 
-    private ArrayList<float[]> extractCoords(List<Property> properties) {
-        String x_coords = null, y_coords = null;
-        for(Property p: properties) {
-            if (p.getKey().equals("x_coords")) {
-//                System.out.println(p.getValue());
-                x_coords = p.getValue();
-            }
-            if (p.getKey().equals("y_coords")) {
-//                System.out.println(p.getValue());
-                y_coords = p.getValue();
-            }
-        }
-
-        String[] raw_x = x_coords.split(",");
-//        System.out.println(Arrays.toString(raw_x));
-        float[] pro_x = new float[raw_x.length];
-        String[] raw_y = y_coords.split(",");
-        float[] pro_y = new float[raw_y.length];
-
-
-
-        for(int i = 0; i < raw_x.length; i++) {
-            pro_x[i] = Float.parseFloat(raw_x[i].replace("[","").replace(" ", "").replace("]",""));
-            pro_y[i] = Float.parseFloat(raw_y[i].replace("[","").replace(" ", "").replace("]",""));
-
-        }
-        ArrayList<float[]> return_array = new ArrayList<>();
-        return_array.add(pro_x);
-        return_array.add(pro_y);
-        return return_array;
-    }
-
-    private float[] extractHeadTail(List<Property> properties) {
-//        System.out.println(properties);
-        String head = null, tail = null;
-        for(Property p: properties) {
-            if (p.getKey().equals("head")) {
-//                System.out.println(p.getValue());
-                head = p.getValue();
-            }
-            if (p.getKey().equals("tail")) {
-//                System.out.println(p.getValue());
-                tail = p.getValue();
-            }
-        }
-        if (head == null || tail == null)
-            return new float[]{};
-        String[] raw_head = head.split(",");
-        String[] raw_tail = tail.split(",");
-        float[] head_tail = new float[raw_head.length*2];
-
-        for(int i = 0; i < raw_head.length; i++) {
-            head_tail[i] = Float.parseFloat(raw_head[i]);
-            head_tail[i+raw_head.length] = Float.parseFloat(raw_tail[i]);
-        }
-
-        return head_tail;
-    }
-
-    private int extractMiddleID(List<Property> properties) {
-        String val = null;
-        for(Property p: properties) {
-            if (p.getKey().equals("middle_id")) {
-//                System.out.println(p.getValue());
-                val = p.getValue();
-            }
-        }
-        return Integer.parseInt(val);
-    }
 
 }
