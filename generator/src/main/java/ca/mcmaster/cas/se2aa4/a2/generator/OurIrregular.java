@@ -111,14 +111,14 @@ public class OurIrregular {
         ArrayList<Polygon> polygons = new ArrayList<>();
 
         // create random points everywhere on the plane
-        ArrayList<Coordinate> listCoordinates = generate_random_points(3);
+        ArrayList<Coordinate> listCoordinates = generate_random_points(25);
 
 
         // voronoi diagram
         Geometry voronoiedPoints = generate_voronoi(listCoordinates);
 
         // lloyd relaxation
-        int lloyd_number = 10;
+        int lloyd_number = 20;
         for(int i = 0; i < lloyd_number; i++) {
             listCoordinates = calculate_lloyd_relaxation_multiple(voronoiedPoints);
             voronoiedPoints = generate_voronoi(listCoordinates);
