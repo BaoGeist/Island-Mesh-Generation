@@ -5,6 +5,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OurMesh {
     private int width;
@@ -13,13 +14,13 @@ public class OurMesh {
     private Structs.Vertex[][] grid;
     private float alpha_entry;
     private int thickness;
-    private ArrayList<Structs.Vertex> vertices;
-    private ArrayList<Structs.Segment> vertical_segments;
-    private ArrayList<Structs.Segment> horizontal_segments;
-    private ArrayList<Structs.Polygon> polygons;
+    private ArrayList<Structs.Vertex> vertices = new ArrayList<>();
+    private ArrayList<Structs.Segment> vertical_segments = new ArrayList<>();
+    private ArrayList<Structs.Segment> horizontal_segments = new ArrayList<>();
+    private ArrayList<Structs.Polygon> polygons = new ArrayList<>();
 
     private ArrayList<Structs.Vertex> centroids = new ArrayList<>();
-    public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness, ArrayList<Structs.Vertex> vertices, ArrayList<Structs.Segment> horizontal_segments, ArrayList<Structs.Segment> vertical_segments ,ArrayList<Structs.Polygon> polygons) {
+    public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness) {
         this.width = width;
         this.height = height;
         this.square_size = square_size;
@@ -37,7 +38,11 @@ public class OurMesh {
         for(int x = 0; x < width; x += square_size){
             for (int y = 0; y < height; y += square_size) {
                 OurVertex vertex = new OurVertex();
-                Structs.Vertex newVertex = vertex.makeVertex((double)x, (double)y, vertices.size());
+                ArrayList<Object> send_array = new ArrayList<>();
+                send_array.add((float) x);
+                send_array.add((float) y);
+                ArrayList<Object> returned_array = vertex.create_geometry(vertices.size(), send_array, 1.00f, 1, 1);
+                Structs.Vertex newVertex = (Structs.Vertex) returned_array.get(0);
                 vertices.add(newVertex);
             }
         }
@@ -48,7 +53,11 @@ public class OurMesh {
         for (int x = 0; x+1 < width/square_size; x += 1) {
             for (int y = 0; y < height/square_size; y += 1) {
                 OurSegment segment = new OurSegment();
-                Structs.Segment newSegment = segment.create_segment(vertices.get(y + x*20), vertices.get((y+x*20)+20), alpha_entry, thickness, horizontal_segments.size());
+                ArrayList inputVertices = new ArrayList();
+                inputVertices.add(vertices.get(y + x*20));
+                inputVertices.add(vertices.get((y+x*20)+20));
+                ArrayList<Object> returned_array = segment.create_geometry(horizontal_segments.size(), inputVertices, alpha_entry, thickness, 1);
+                Structs.Segment newSegment = (Structs.Segment) returned_array.get(0);
                 horizontal_segments.add(newSegment);
             }
         }
@@ -57,7 +66,11 @@ public class OurMesh {
             for (int y = 0; y < height/square_size; y += 1) {
                 if (y != 19) {
                     OurSegment segment = new OurSegment();
-                    Structs.Segment newSegment = segment.create_segment(vertices.get(y + x*20), vertices.get((y+x*20)+1), alpha_entry, thickness, vertical_segments.size());
+                    ArrayList inputVertices = new ArrayList();
+                    inputVertices.add(vertices.get(y + x*20));
+                    inputVertices.add(vertices.get((y+x*20)+1));
+                    ArrayList<Object> returned_array = segment.create_geometry(vertical_segments.size(), inputVertices, alpha_entry, thickness, 1);
+                    Structs.Segment newSegment = (Structs.Segment) returned_array.get(0);
                     vertical_segments.add(newSegment);
                 }
             }
@@ -71,10 +84,10 @@ public class OurMesh {
             for (int y = 0; y+1 < height/square_size; y += 1) {
                 ArrayList<Structs.Segment> PolygonSegments = new ArrayList<>();
 
-                PolygonSegments.add(horizontal_segments.get(iteratorh));
-                PolygonSegments.add(vertical_segments.get(iteratorv+19));
-                PolygonSegments.add(horizontal_segments.get(iteratorh+1));
-                PolygonSegments.add(vertical_segments.get(iteratorv));
+                PolygonSegments.add((Structs.Segment) horizontal_segments.get(iteratorh));
+                PolygonSegments.add((Structs.Segment) vertical_segments.get(iteratorv+19));
+                PolygonSegments.add((Structs.Segment) horizontal_segments.get(iteratorh+1));
+                PolygonSegments.add((Structs.Segment) vertical_segments.get(iteratorv));
 
 //                System.out.println("new");
 //                System.out.println(extractID(horizontal_segments.get(iteratorh).getPropertiesList()));
@@ -88,7 +101,11 @@ public class OurMesh {
 
                 OurPolygon polygonFactory = new OurPolygon();
 
-                ArrayList<Object> return_array = polygonFactory.create_polygon(polygons.size(), vertices.size(), PolygonSegments);
+                ArrayList<Object> PolygonSegmentsObjects = PolygonSegments.stream()
+                        .map(s -> (Object) s)
+                        .collect(Collectors.toCollection(ArrayList::new));
+
+                ArrayList<Object> return_array = polygonFactory.create_geometry(polygons.size(), PolygonSegmentsObjects, alpha_entry, thickness, vertices.size());
                 Structs.Polygon polygon1 = (Structs.Polygon) return_array.get(0);
                 polygonFactory.neighbours_id = setNeighbours();
 
@@ -134,38 +151,6 @@ public class OurMesh {
         PolygonNeighbours.removeIf(id -> id < 0 || id > 359);
 
         return PolygonNeighbours;
-    }
-
-    private int extractID(List<Structs.Property> properties) {
-        String val = "0";
-        for(Structs.Property p: properties) {
-            if (p.getKey().equals("id")) {
-//                System.out.println(p.getValue());
-                val = p.getValue();
-            }
-        }
-        return Integer.parseInt(val);
-    }
-
-    public double[] extractSegmentMiddle(List<Structs.Property> properties) {
-        String val = null;
-        for(Structs.Property p: properties) {
-            if (p.getKey().equals("middle")) {
-//                System.out.println(p.getValue());
-                val = p.getValue();
-            }
-        }
-        return parse_string_to_array_int(val);
-    }
-
-    private double[] parse_string_to_array_int(String parse) {
-
-        String[] array_return = parse.split(",", -1);
-        double[] array_return_int = new double[array_return.length];
-        for(int i = 0; i < array_return_int.length; i++) {
-            array_return_int[i] = Double.parseDouble(array_return[i]);
-        }
-        return array_return_int;
     }
 
 

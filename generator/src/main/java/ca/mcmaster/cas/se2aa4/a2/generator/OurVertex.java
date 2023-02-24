@@ -1,11 +1,13 @@
 package ca.mcmaster.cas.se2aa4.a2.generator;
+import java.util.ArrayList;
 import java.util.Random;
-import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import java.util.stream.Collectors;
+
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 
 
-public class OurVertex {
+public class OurVertex implements OurGeometryFactory{
     
     private double[] coords = new double[2];
     private int[] colorCodes = new int[3];
@@ -19,7 +21,7 @@ public class OurVertex {
         coords[1] = y_coord;
     }
 
-    public double[] get_coords() {
+    private double[] get_coords() {
         return coords;
     }
 
@@ -34,22 +36,29 @@ public class OurVertex {
         colorCode = red + "," + green + "," + blue;
     }
 
-    public String get_color_string() {
+    private String get_color_string() {
         return colorCode;
     }
 
-    public int[] get_color_array() {
+    private int[] get_color_array() {
         return colorCodes;
     }
 
-    public Vertex makeVertex(double x, double y, int id) {
-        this.set_coords(x, y);
+    @Override
+    public ArrayList<Object> create_geometry(int idSelf, ArrayList<Object> arrayArgs, float alpha, int thickness, int misc) {
+        ArrayList<Float> coordinates = arrayArgs.stream()
+                .map(s -> (Float) s)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        this.set_coords(coordinates.get(0), coordinates.get(1));
         this.set_color();
         centroid_bool = false;
-        return build_vertex();
+        ArrayList<Object> return_array = new ArrayList<>();
+        return_array.add(build_vertex());
+        return return_array;
     }
 
-    public Vertex makeCentroidVertex(double x, double y, int id) {
+    public Vertex create_geometry_centroid(double x, double y, int id) {
         this.set_coords(x, y);
 //        System.out.println("x" + x + "y" + y);
         colorCode = "0,0,0";
