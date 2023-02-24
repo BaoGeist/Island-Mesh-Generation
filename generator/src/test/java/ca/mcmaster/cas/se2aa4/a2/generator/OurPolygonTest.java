@@ -14,31 +14,52 @@ import static org.junit.jupiter.api.Assertions.*;
 public class OurPolygonTest {
 
     @Test
-    public void create_polygon_test() {
+    public void create_geometry_polygon_test() {
         OurVertex vertexFactory = new OurVertex();
-        Vertex vertexTestOne = vertexFactory.makeVertex(0.00, 0.00, 0);
-        Vertex vertexTestTwo = vertexFactory.makeVertex(3.00, 6.00, 1);
-        Vertex vertexTestThree = vertexFactory.makeVertex(2.00, 2.00, 2);
+        ArrayList<Object> send_array = new ArrayList<>();
+        send_array.add((float) 0.00);
+        send_array.add((float) 0.00);
+        ArrayList<Object> returned_array = vertexFactory.create_geometry(0, send_array, 1.00f, 1, 1);
+        Vertex vertexTestOne = (Structs.Vertex) returned_array.get(0);
+
+        send_array.clear();
+        send_array.add((float) 3.00);
+        send_array.add((float) 6.00);
+        returned_array = vertexFactory.create_geometry(1, send_array, 1.00f, 1, 1);
+        Vertex vertexTestTwo = (Structs.Vertex) returned_array.get(0);
+
+        send_array.clear();
+        send_array.add((float) 2.00);
+        send_array.add((float) 2.00);
+        returned_array = vertexFactory.create_geometry(2, send_array, 1.00f, 1, 1);
+        Vertex vertexTestThree = (Structs.Vertex) returned_array.get(0);
 
         OurSegment segmentFactory = new OurSegment();
-        ArrayList<Vertex> inputVertex = new ArrayList<>();
+        ArrayList<Object> inputVertex = new ArrayList<>();
         inputVertex.add(vertexTestOne);
         inputVertex.add(vertexTestTwo);
-        Segment segmentTestOne = segmentFactory.create_segment(inputVertex, 1.00f, 1, 0);
+        returned_array = segmentFactory.create_geometry(0, inputVertex, 1.00f, 1, 0);
+        Segment segmentTestOne = (Structs.Segment) returned_array.get(0);
+
         inputVertex.clear();
         inputVertex.add(vertexTestTwo);
         inputVertex.add(vertexTestThree);
-        Segment segmentTestTwo = segmentFactory.create_segment(inputVertex, 1.00f, 1, 1);
+        returned_array = segmentFactory.create_geometry(1, inputVertex, 1.00f, 1, 0);
+        Segment segmentTestTwo = (Structs.Segment) returned_array.get(0);
+
         inputVertex.clear();
         inputVertex.add(vertexTestThree);
         inputVertex.add(vertexTestOne);
-        Segment segmentTestThree = segmentFactory.create_segment(inputVertex, 1.00f, 1, 2);
-        ArrayList<Segment> segmentListTest = new ArrayList<>();
+        returned_array = segmentFactory.create_geometry(2, inputVertex, 1.00f, 1, 0);
+        Segment segmentTestThree = (Structs.Segment) returned_array.get(0);
+
+        ArrayList<Object> segmentListTest = new ArrayList<>();
         segmentListTest.add(segmentTestOne);
         segmentListTest.add(segmentTestTwo);
         segmentListTest.add(segmentTestThree);
         OurPolygon polygonFactory = new OurPolygon();
-        assertNotNull(polygonFactory.create_polygon(0, 0, segmentListTest));
+        Structs.Polygon polygonTest = (Structs.Polygon) polygonFactory.create_geometry(0, segmentListTest, 1.00f, 1, 0).get(0);
+        assertNotNull(polygonTest);
 
     }
 }

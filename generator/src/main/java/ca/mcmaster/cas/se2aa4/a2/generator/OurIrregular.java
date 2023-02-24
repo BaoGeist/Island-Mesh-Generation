@@ -55,14 +55,14 @@ public class OurIrregular {
         ArrayList<Double> triangle_areas = new ArrayList<>();
         int first_iterator = 1, second_iterator = 2;
         while (second_iterator <= lloydcoord.length - 2) {
-            double area = MathManz.calculate_area_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
-            Coordinate centroid = MathManz.calculate_centroid_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
+            double area = MathUtils.calculate_area_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
+            Coordinate centroid = MathUtils.calculate_centroid_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
             triangle_areas.add(area);
             triangle_centroids.add(centroid);
             first_iterator++;
             second_iterator++;
         }
-        Coordinate new_centroid = MathManz.calculate_new_centroid(triangle_areas, triangle_centroids);
+        Coordinate new_centroid = MathUtils.calculate_new_centroid(triangle_areas, triangle_centroids);
         return new_centroid;
     }
 
