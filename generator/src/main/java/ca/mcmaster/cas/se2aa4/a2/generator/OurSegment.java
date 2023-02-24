@@ -23,6 +23,8 @@ public class OurSegment implements OurGeometryFactory{
     private float alpha;
     private int id;
 
+    private int v1id, v2id;
+
     @Override
     public ArrayList<Object> create_geometry( int idSelf, ArrayList<Object> arrayArgs, float alpha, int thickness, int misc) {
         ArrayList<Vertex> vertices = arrayArgs.stream()
@@ -38,7 +40,9 @@ public class OurSegment implements OurGeometryFactory{
         id = idSelf;
         this.alpha = alpha;
         this.thickness = thickness;
-
+        v1id = extractID(vertices.get(0).getPropertiesList());
+        System.out.println(v1id);
+        v2id = extractID(vertices.get(1).getPropertiesList());
         ArrayList<Object> return_array= new ArrayList<>();
         return_array.add(build_segment());
         return return_array;
@@ -85,19 +89,7 @@ public class OurSegment implements OurGeometryFactory{
         Property a = Property.newBuilder().setKey("alpha").setValue(Float.toString(alpha)).build();
         String new_colour1 = Arrays.toString(colour_code);
         Property color = Property.newBuilder().setKey("rgb_color").setValue(new_colour1).build();
-        Segment connected1 = Segment.newBuilder().addProperties(segment_tail_coords).addProperties(segment_head_coords).addProperties(segment_middle_coords).addProperties(color).addProperties(thicc).addProperties(a).addProperties(segment_id).build();
+        Segment connected1 = Segment.newBuilder().setV1Idx(v1id).setV2Idx(v2id).addProperties(segment_tail_coords).addProperties(segment_head_coords).addProperties(segment_middle_coords).addProperties(color).addProperties(thicc).addProperties(a).addProperties(segment_id).build();
         return connected1;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        OurSegment comparesegment = (OurSegment) obj;
-        return (head_vertex == comparesegment.get_head_vertex() && tail_vertex == comparesegment.get_tail_vertex()) || (tail_vertex == comparesegment.get_head_vertex() && head_vertex == comparesegment.get_tail_vertex());
     }
 }

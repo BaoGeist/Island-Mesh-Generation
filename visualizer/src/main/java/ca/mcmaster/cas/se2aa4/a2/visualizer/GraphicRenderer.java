@@ -3,8 +3,6 @@ package ca.mcmaster.cas.se2aa4.a2.visualizer;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
-import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
-import org.apache.batik.ext.awt.geom.Polygon2D;
 
 
 import java.awt.Graphics2D;
@@ -13,9 +11,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Path2D;
 import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.*;
 
@@ -26,11 +21,10 @@ public class GraphicRenderer {
         canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-        // for polygons, STILL DOES NOT WORK, NOT SURE WHY
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
             Color polygon_color = extractColor(p.getPropertiesList());
-            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
-            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
+            float[] x_coords = extractCoordsforPolygons(p.getPropertiesList()).get(0);
+            float[] y_coords = extractCoordsforPolygons(p.getPropertiesList()).get(1);
 
             Path2D.Float path = new Path2D.Float();
             path.moveTo(x_coords[0], y_coords[0]);
@@ -44,7 +38,17 @@ public class GraphicRenderer {
             canvas.setColor(polygon_color);
             canvas.fill(path);
         }
+        for (Structs.Segment s: aMesh.getSegmentsList()){
+            Vertex v1 = aMesh.getVertices(s.getV1Idx());
+            Vertex v2 = aMesh.getVertices(s.getV2Idx());
 
+            Color segment_color = extractColor(s.getPropertiesList());
+
+            canvas.setColor(segment_color);
+//            Stroke strokeseg = new BasicStroke(10);
+//            canvas.setStroke(strokeseg);
+            canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
+        }
         for (Vertex v: aMesh.getVerticesList()) {
             double centre_x = v.getX() - (THICKNESS/2.0d);
             double centre_y = v.getY() - (THICKNESS/2.0d);
@@ -54,16 +58,6 @@ public class GraphicRenderer {
             canvas.fill(point);
             canvas.setColor(old);
         }
-
-        for (Structs.Segment s: aMesh.getSegmentsList()){
-            Vertex v1 = aMesh.getVertices(s.getV1Idx());
-            Vertex v2 = aMesh.getVertices(s.getV2Idx());
-
-            Color segment_color = extractColor(s.getPropertiesList());
-
-            canvas.setColor(segment_color);
-            canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
-        }
     }
 
     public void debug(Mesh aMesh, Graphics2D canvas) {
@@ -71,8 +65,8 @@ public class GraphicRenderer {
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
-            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
-            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
+            float[] x_coords = extractCoordsforPolygons(p.getPropertiesList()).get(0);
+            float[] y_coords = extractCoordsforPolygons(p.getPropertiesList()).get(1);
 
             Path2D.Float path = new Path2D.Float();
             path.moveTo(x_coords[0], y_coords[0]);

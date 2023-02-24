@@ -52,6 +52,7 @@ public class OurVertex implements OurGeometryFactory{
 
         this.set_coords(coordinates.get(0), coordinates.get(1));
         this.set_color();
+        id = idSelf;
         centroid_bool = false;
         ArrayList<Object> return_array = new ArrayList<>();
         return_array.add(build_vertex());
@@ -69,7 +70,8 @@ public class OurVertex implements OurGeometryFactory{
     private Vertex build_vertex() {
         Property centroid_or_nah = Property.newBuilder().setKey("centroid_or_nah").setValue(String.valueOf(centroid_bool)).build();
         Property color = Property.newBuilder().setKey("rgb_color").setValue(this.get_color_string()).build();
-        Vertex v = Vertex.newBuilder().setX(coords[0]).setY(coords[1]).addProperties(color).addProperties(centroid_or_nah).build();
+        Property id_prop = Property.newBuilder().setKey("id").setValue(String.valueOf(id)).build();
+        Vertex v = Vertex.newBuilder().setX(coords[0]).setY(coords[1]).addProperties(color).addProperties(centroid_or_nah).addProperties(id_prop).build();
         return v;
     }
         

@@ -24,7 +24,7 @@ public class PropertyUtils {
         return new Color(red, green, blue);
     }
 
-    public static ArrayList<float[]> extractCoords(java.util.List<Structs.Property> properties) {
+    public static ArrayList<float[]> extractCoordsforPolygons(java.util.List<Structs.Property> properties) {
         String x_coords = null, y_coords = null;
         for(Structs.Property p: properties) {
             if (p.getKey().equals("x_coords")) {
