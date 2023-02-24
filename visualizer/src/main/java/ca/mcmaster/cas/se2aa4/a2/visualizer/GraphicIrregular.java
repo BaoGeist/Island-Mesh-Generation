@@ -53,16 +53,14 @@ public class GraphicIrregular {
             canvas.setColor(old);
         }
         for (Structs.Segment s: aMesh.getSegmentsList()){
-            float[] vertices = extractHeadTail(s.getPropertiesList());
-            // baoze started here
+            Vertex v1 = aMesh.getVertices(s.getV1Idx());
+            Vertex v2 = aMesh.getVertices(s.getV2Idx());
+
             Color segment_color = extractColor(s.getPropertiesList());
-            double x1 = vertices[0];
-            double y1 = vertices[1];
-            double x2 = vertices[2];
-            double y2 = vertices[3];
 
             canvas.setColor(segment_color);
-            canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
+            canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
+
 
         }
     }
@@ -102,17 +100,13 @@ public class GraphicIrregular {
             canvas.setColor(old);
         }
         for (Structs.Segment s: aMesh.getSegmentsList()){
-            float[] vertices = extractHeadTail(s.getPropertiesList());
-            // baoze started here
-            Color segment_color = Color.BLACK;
-            double x1 = vertices[0];
-            double y1 = vertices[1];
-            double x2 = vertices[2];
-            double y2 = vertices[3];
+            Vertex v1 = aMesh.getVertices(s.getV1Idx());
+            Vertex v2 = aMesh.getVertices(s.getV2Idx());
+
+            Color segment_color = extractColor(s.getPropertiesList());
 
             canvas.setColor(segment_color);
-            canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
-
+            canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
         }
 
     }
