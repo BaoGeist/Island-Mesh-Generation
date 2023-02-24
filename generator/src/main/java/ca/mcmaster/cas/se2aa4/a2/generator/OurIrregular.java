@@ -8,9 +8,9 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
-import java.util.HashMap;
+import java.util.stream.Collectors;
+
 public class OurIrregular {
 
     private int length = 500;
@@ -49,48 +49,20 @@ public class OurIrregular {
         return diagram;
     }
 
-    private static double calculate_length_of_segment(Coordinate c1, Coordinate c2) {
-        return Math.sqrt(Math.pow((c1.x - c2.x),2) + (Math.pow((c1.y - c2.y),2)));
-    }
-
-    private static double calculate_area_of_triangle(Coordinate c1, Coordinate c2, Coordinate c3) {
-        double a = calculate_length_of_segment(c1, c2);
-        double b = calculate_length_of_segment(c2, c3);
-        double c = calculate_length_of_segment(c3, c1);
-        double s = (a + b + c) / 2;
-        return Math.sqrt(s*(s-a)*(s-b)*(s-c));
-    }
-
-    private static Coordinate calculate_centroid_of_triangle(Coordinate c1, Coordinate c2, Coordinate c3) {
-        double x = (c1.x + c2.x + c3.x)/3;
-        double y = (c1.y + c2.y + c3.y)/3;
-        return new Coordinate(x, y);
-    }
-
-    private static Coordinate calculate_weighted_average(ArrayList<Double> areas, ArrayList<Coordinate> coordinates) {
-        double x_total = 0, y_total = 0, area = 0;
-        for(int i = 0; i < areas.size(); i++) {
-            area += areas.get(i);
-            x_total += coordinates.get(i).x * areas.get(i);
-            y_total += coordinates.get(i).y * areas.get(i);
-        }
-        return new Coordinate(x_total/area, y_total/area);
-    }
-
     private static Coordinate calculate_lloyd_relaxation_single(Geometry notcell) {
         Coordinate[] lloydcoord = notcell.getCoordinates();
         ArrayList<Coordinate> triangle_centroids = new ArrayList<>();
         ArrayList<Double> triangle_areas = new ArrayList<>();
         int first_iterator = 1, second_iterator = 2;
         while (second_iterator <= lloydcoord.length - 2) {
-            double area = calculate_area_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
-            Coordinate centroid = calculate_centroid_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
+            double area = MathManz.calculate_area_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
+            Coordinate centroid = MathManz.calculate_centroid_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
             triangle_areas.add(area);
             triangle_centroids.add(centroid);
             first_iterator++;
             second_iterator++;
         }
-        Coordinate new_centroid = calculate_weighted_average(triangle_areas, triangle_centroids);
+        Coordinate new_centroid = MathManz.calculate_new_centroid(triangle_areas, triangle_centroids);
         return new_centroid;
     }
 
@@ -133,16 +105,34 @@ public class OurIrregular {
             ArrayList<Segment> polygon_segments = new ArrayList<>();
             for (int j = 0; j < cell.getCoordinates().length - 1; j++) {
                 OurVertex vertexFactory = new OurVertex();
-                segment_vertices.add(vertexFactory.makeVertex(cell.getCoordinates()[j].x, cell.getCoordinates()[j].y, vertices.size() + j));
+                ArrayList<Object> send_array = new ArrayList<>();
+                send_array.add((float) cell.getCoordinates()[j].x);
+                send_array.add((float) cell.getCoordinates()[j].y);
+                ArrayList<Object> returned_array = vertexFactory.create_geometry(vertices.size() + j, send_array, 1.00f, 1, 1);
+                segment_vertices.add((Vertex) returned_array.get(0));
             }
             for(int j = 0; j < cell.getCoordinates().length - 2; j++) {
                 OurSegment segmentFactory = new OurSegment();
-                polygon_segments.add(segmentFactory.create_segment(segment_vertices.get(j), segment_vertices.get(j+1), 1.0f, 1, 1));
+                ArrayList<Vertex> inputVertex = new ArrayList<>();
+                inputVertex.add(segment_vertices.get(j));
+                inputVertex.add(segment_vertices.get(j+1));
+
+                ArrayList<Object> inputVertex_objects = inputVertex.stream()
+                        .map(s -> (Object) s)
+                        .collect(Collectors.toCollection(ArrayList::new));
+
+                ArrayList returned_array = segmentFactory.create_geometry(segment_vertices.size() + j, inputVertex_objects, 1.00f, 1, 1);
+                polygon_segments.add((Segment) returned_array.get(0));
             }
             OurPolygon polygonFactory = new OurPolygon();
             // returns an ArrayList with a Polygon and Vertex (the centroid) object
             // TODO fix this centroid vertex calculation cuz it isn't accurate (Baoze)
-            ArrayList<Object> return_array = polygonFactory.create_polygon(polygons.size(), vertices.size() + cell.getCoordinates().length, polygon_segments);
+
+            ArrayList<Object> polygon_segments_objects = polygon_segments.stream()
+                    .map(s -> (Object) s)
+                    .collect(Collectors.toCollection(ArrayList::new));
+
+            ArrayList<Object> return_array = polygonFactory.create_geometry(polygons.size(), polygon_segments_objects,  1.00f, 1, vertices.size() + cell.getCoordinates().length);
             polygons.add((Structs.Polygon) return_array.get(0));
             vertices.add((Structs.Vertex) return_array.get(1));
             // TODO compute neighbourhood relationships using Delaunay's triangulation
