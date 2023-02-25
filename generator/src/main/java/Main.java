@@ -14,12 +14,12 @@ public class Main {
     // generate irregular and regular mesh at the same time
     public static void main(String[] args) throws IOException {
         OurMesh generator = new OurMesh(500, 400, 25, 1.00f, 1);
-        OurIrregular generator2 = new OurIrregular(400, 400);
+        OurIrregular generator2 = new OurIrregular(400, 400, 200);
         Mesh myMesh2 = generator2.generate();
         Mesh myMesh = generator.generate();
         MeshFactory factory = new MeshFactory();
         // this line decides whether myMesh or myMesh2 is written
-        factory.write(myMesh, args[0]);
+        factory.write(myMesh2, args[0]);
     }
 
 }
