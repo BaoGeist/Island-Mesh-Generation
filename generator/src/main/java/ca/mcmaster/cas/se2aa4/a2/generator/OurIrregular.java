@@ -11,16 +11,15 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import ca.mcmaster.cas.se2aa4.a2.generator.GeometryContainer;
-
 public class OurIrregular {
 
+    PrecisionModel precisionModel = new PrecisionModel(PrecisionModel.FIXED);
     private int length = 500;
     private int width = 500;
 
-    private static ArrayList<Coordinate> generate_random_points(int number) {
+    private ArrayList<Coordinate> generate_random_points(int number) {
 
-        PrecisionModel newModel = new PrecisionModel(PrecisionModel.FLOATING_SINGLE);
+
 
         Random random = new Random(3);
         ArrayList<Coordinate> listCoordinates = new ArrayList<>();
@@ -29,7 +28,7 @@ public class OurIrregular {
             double x = random.nextDouble() * 500;
             double y = random.nextDouble() * 500;
             Coordinate randomCoordinate = new Coordinate(x, y);
-            newModel.makePrecise(randomCoordinate);
+            precisionModel.makePrecise(randomCoordinate);
             listCoordinates.add(randomCoordinate);
         }
         return listCoordinates;
@@ -37,11 +36,15 @@ public class OurIrregular {
 
     private Geometry generate_voronoi(ArrayList<Coordinate> listCoordinates) {
         VoronoiDiagramBuilder newVoronoi = new VoronoiDiagramBuilder();
-
         GeometryFactory newFactory = new GeometryFactory();
 
         newVoronoi.setSites(listCoordinates);
         Geometry diagram = newVoronoi.getDiagram(newFactory);
+
+
+        for(Coordinate c : diagram.getCoordinates()) {
+            precisionModel.makePrecise(c);
+        }
 
         // Create an envelope representing the 500x500 grid
         Envelope env = new Envelope(0, width, 0, length);
@@ -52,7 +55,7 @@ public class OurIrregular {
         return diagram;
     }
 
-    private static Coordinate calculate_lloyd_relaxation_single(Geometry notcell) {
+    private Coordinate calculate_lloyd_relaxation_single(Geometry notcell) {
         Coordinate[] lloydcoord = notcell.getCoordinates();
         ArrayList<Coordinate> triangle_centroids = new ArrayList<>();
         ArrayList<Double> triangle_areas = new ArrayList<>();
@@ -66,14 +69,16 @@ public class OurIrregular {
             second_iterator++;
         }
         Coordinate new_centroid = MathUtils.calculate_new_centroid(triangle_areas, triangle_centroids);
+        precisionModel.makePrecise(new_centroid);
         return new_centroid;
     }
 
-    private static ArrayList<Coordinate> calculate_lloyd_relaxation_multiple(Geometry oldPoints) {
+    private ArrayList<Coordinate> calculate_lloyd_relaxation_multiple(Geometry oldPoints) {
         ArrayList<Coordinate> listVoronoied = new ArrayList<>();
         for(int i = 0; i < oldPoints.getNumGeometries(); i++) {
             Geometry notcell = oldPoints.getGeometryN(i);
             Coordinate new_centroid = calculate_lloyd_relaxation_single(notcell);
+            precisionModel.makePrecise(new_centroid);
             listVoronoied.add(new_centroid);
         }
         return listVoronoied;
@@ -85,11 +90,12 @@ public class OurIrregular {
         ArrayList<Segment> segments = new ArrayList<>();
         ArrayList<Polygon> polygons = new ArrayList<>();
         ArrayList<Vertex> unique_vertices_object = new ArrayList<>();
+        ArrayList<Segment> unique_segments_object = new ArrayList<>();
         ArrayList<Vertex> centroids = new ArrayList<>();
 
 
         int unique_vertices_counter = 0;
-        int unique_segments = 0;
+        int unique_segments_counter = 0;
 
         GeometryContainer meshContainer = new GeometryContainer();
 
@@ -101,16 +107,15 @@ public class OurIrregular {
         Geometry voronoiedPoints = generate_voronoi(listCoordinates);
 
         // lloyd relaxation
-        int lloyd_number = 0;
+        int lloyd_number = 5;
         for(int i = 0; i < lloyd_number; i++) {
             listCoordinates = calculate_lloyd_relaxation_multiple(voronoiedPoints);
             voronoiedPoints = generate_voronoi(listCoordinates);
         }
-        listCoordinates = calculate_lloyd_relaxation_multiple(voronoiedPoints);
 
 
         /// creating mesh
-        // this look runs for each voroinoi polygon
+        // this loop runs for each voroinoi polygon
         for(int i = 0; i < voronoiedPoints.getNumGeometries(); i++) {
             Geometry cell = voronoiedPoints.getGeometryN(i);
             ArrayList<Vertex> segment_vertices = new ArrayList<>();
@@ -129,12 +134,11 @@ public class OurIrregular {
                 Vertex verified_vertex = meshContainer.check_unique_vertex( (Vertex) returned_array.get(0));
 
                 // if the created vertex and verified vertex are different, then unique_vertices increments
-                if((verified_vertex == returned_array.get((0)))) {
+                if(verified_vertex == returned_array.get(0)) {
                     unique_vertices_counter++;
                     unique_vertices_object.add(verified_vertex);
 
                 }
-
                 // all vertices are added to the vertices of the current segment
                 segment_vertices.add(verified_vertex);
             }
@@ -150,9 +154,17 @@ public class OurIrregular {
                         .map(s -> (Object) s)
                         .collect(Collectors.toCollection(ArrayList::new));
 
-                unique_segments = segment_vertices.size() + j;
-                ArrayList returned_array = segmentFactory.create_geometry(unique_segments, inputVertex_objects, 1.00f, 1, 1);
-                polygon_segments.add((Segment) returned_array.get(0));
+                unique_segments_counter++;
+                ArrayList returned_array = segmentFactory.create_geometry(unique_segments_counter, inputVertex_objects, 1.00f, 1, 1);
+                Segment verified_segment = meshContainer.check_unique_segment((Segment) returned_array.get(0), unique_vertices_object);
+
+                if(verified_segment == returned_array.get(0)) {
+                    unique_segments_counter++;
+                    unique_segments_object.add(verified_segment);
+                }
+
+                polygon_segments.add(verified_segment);
+
             }
 
             // polygon
@@ -162,14 +174,17 @@ public class OurIrregular {
                     .map(s -> (Object) s)
                     .collect(Collectors.toCollection(ArrayList::new));
 
-            ArrayList<Object> return_array = polygonFactory.create_geometry(polygons.size(), polygon_segments_objects,  1.00f, 1, vertices.size() + cell.getCoordinates().length);
+            ArrayList<Object> return_array = polygonFactory.create_geometry(polygons.size(), polygon_segments_objects,  1.00f, 1, unique_vertices_counter);
             polygons.add((Structs.Polygon) return_array.get(0));
             centroids.add((Structs.Vertex) return_array.get(1));
+
             // TODO compute neighbourhood relationships using Delaunay's triangulation
+
             vertices.addAll(segment_vertices);
             segments.addAll(polygon_segments);
+            unique_vertices_object.add((Structs.Vertex) return_array.get(1));
+            unique_vertices_counter++;
         }
-        unique_vertices_object.addAll(centroids);
         return Structs.Mesh.newBuilder().addAllVertices(unique_vertices_object).addAllSegments(segments).addAllPolygons(polygons).build();
         //polygons
 

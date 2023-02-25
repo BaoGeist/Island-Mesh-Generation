@@ -41,7 +41,6 @@ public class OurSegment implements OurGeometryFactory{
         this.alpha = alpha;
         this.thickness = thickness;
         v1id = extractID(vertices.get(0).getPropertiesList());
-        System.out.println(v1id);
         v2id = extractID(vertices.get(1).getPropertiesList());
         ArrayList<Object> return_array= new ArrayList<>();
         return_array.add(build_segment());

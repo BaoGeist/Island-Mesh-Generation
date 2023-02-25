@@ -1,11 +1,12 @@
 package ca.mcmaster.cas.se2aa4.a2.generator;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
-import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
+import org.locationtech.jts.geom.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Random;
 
 import static ca.mcmaster.cas.se2aa4.a2.generator.PropertyUtils.*;
 
@@ -22,7 +23,7 @@ public class OurPolygon implements OurGeometryFactory{
     private float alpha = 1;
     private int id;
     private double[] centroid_coords = new double[2];
-    private Polygon actual_Polygon;
+    private Structs.Polygon actual_Polygon;
 
     @Override
     public ArrayList<Object> create_geometry(int id_self, ArrayList<Object> arrayArgs, float alpha, int thickness, int misc) {
@@ -35,7 +36,7 @@ public class OurPolygon implements OurGeometryFactory{
         set_color();
         set_coords();
         int centroid_index = misc;
-        create_middle_vertex(centroid_index);
+        create_centroid(centroid_index);
         actual_Polygon = build_polygon();
         ArrayList<Object> return_array = new ArrayList<>();
 
@@ -45,11 +46,16 @@ public class OurPolygon implements OurGeometryFactory{
     }
 
     private void set_color() {
-        Random bag = new Random();
-        int red = bag.nextInt(255);
-        int green = bag.nextInt(255);
-        int blue = bag.nextInt(255);
-        colorCode = red + "," + green + "," + blue;
+        int average_red = 0;
+        int average_green = 0;
+        int average_blue = 0;
+        for(Segment s: segments_group) {
+            int[] s_color = extractColor(s.getPropertiesList());
+            average_red += s_color[0];
+            average_green += s_color[1];
+            average_blue += s_color[2];
+        }
+        colorCode = average_red/segments_group.size() + "," + average_green/segments_group.size() + "," + average_blue/segments_group.size();
     }
 
     private void set_coords(){
@@ -72,15 +78,20 @@ public class OurPolygon implements OurGeometryFactory{
 
     }
 
-    private void create_middle_vertex(int id) {
-        int totalx = 0, totaly = 0, count = 0;
-        for(Segment segment: segments_group) {
-            totalx += extractSegmentMiddle(segment.getPropertiesList())[0];
-            totaly += extractSegmentMiddle(segment.getPropertiesList())[1];
-            count++;
+    private void create_centroid(int id) {
+        int x = 0, y = 0, count = 0;
+        ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
+        for(int i = 0; i < x_coords.size(); i++) {
+            coords.add(new Coordinate(x_coords.get(i), y_coords.get(i)));
         }
-        OurVertex v = new OurVertex();
-        middle_vertex = v.create_geometry_centroid((double) totalx/count, (double) totaly/count, id);
+        coords.add(new Coordinate(x_coords.get(0), y_coords.get(0)));
+        Coordinate[] coordsArray = coords.toArray(new Coordinate[coords.size()]);
+        GeometryFactory geometryFactory = new GeometryFactory();
+        Polygon p = geometryFactory.createPolygon(coordsArray);
+        Point centroid = p.getCentroid();
+
+        OurVertex vertexFactory = new OurVertex();
+        middle_vertex = vertexFactory.create_geometry_centroid((double) centroid.getX(), (double) centroid.getY(), id);
     }
 
     public double[] get_middle_vertex() {
@@ -103,7 +114,7 @@ public class OurPolygon implements OurGeometryFactory{
         return outputString;
     }
 
-    private Polygon build_polygon() {
+    private Structs.Polygon build_polygon() {
         Property thicc = Property.newBuilder().setKey("thicc").setValue(Integer.toString(thickness)).build();
         Property a = Property.newBuilder().setKey("alpha").setValue(Float.toString(alpha)).build();
         Property polygon_id = Property.newBuilder().setKey("id").setValue(String.valueOf(id)).build();
@@ -113,7 +124,7 @@ public class OurPolygon implements OurGeometryFactory{
         Property x_coords = Property.newBuilder().setKey("x_coords").setValue(this.x_coords.toString()).build();
         Property y_coords = Property.newBuilder().setKey("y_coords").setValue(this.y_coords.toString()).build();
         Property centroid_coords = Property.newBuilder().setKey("centroid_coords").setValue(this.centroid_coords.toString()).build();
-        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
+        Structs.Polygon p = Structs.Polygon.newBuilder().addAllSegmentIdxs(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
         return p;
     }
 

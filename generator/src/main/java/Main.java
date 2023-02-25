@@ -16,10 +16,10 @@ public class Main {
         OurMesh generator = new OurMesh(500, 500, 25, 1.00f, 1);
         OurIrregular generator2 = new OurIrregular();
         Mesh myMesh2 = generator2.generate();
-//        Mesh myMesh = generator.generate();
+        Mesh myMesh = generator.generate();
         MeshFactory factory = new MeshFactory();
         // this line decides whether myMesh or myMesh2 is written
-        factory.write(myMesh2, args[0]);
+        factory.write(myMesh, args[0]);
     }
 
 }
