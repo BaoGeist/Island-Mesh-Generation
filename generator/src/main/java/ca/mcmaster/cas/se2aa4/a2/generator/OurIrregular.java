@@ -5,12 +5,12 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+import org.locationtech.jts.algorithm.ConvexHull;
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
-
 public class OurIrregular {
 
     PrecisionModel precisionModel = new PrecisionModel(PrecisionModel.FIXED);
@@ -90,6 +90,8 @@ public class OurIrregular {
     }
 
     private static final int THICKNESS = 3;
+
+
     public Mesh generate() {
         ArrayList<Vertex> vertices = new ArrayList<>();
         ArrayList<Segment> segments = new ArrayList<>();
@@ -122,16 +124,18 @@ public class OurIrregular {
         // this loop runs for each voroinoi polygon
         for(int i = 0; i < voronoiedPoints.getNumGeometries(); i++) {
             Geometry cell = voronoiedPoints.getGeometryN(i);
+            Geometry reorderedPolygon = new ConvexHull(cell).getConvexHull();
             ArrayList<Vertex> segment_vertices = new ArrayList<>();
             ArrayList<Segment> polygon_segments = new ArrayList<>();
             System.out.println("New polygon");
             // vertices
-            for (int j = 0; j < cell.getCoordinates().length - 1; j++) {
+            for (int j = 0; j < reorderedPolygon.getCoordinates().length - 1; j++) {
                 OurVertex vertexFactory = new OurVertex();
                 ArrayList<Object> send_array = new ArrayList<>();
-                send_array.add((float) cell.getCoordinates()[j].x);
-                send_array.add((float) cell.getCoordinates()[j].y);
+                send_array.add((float) reorderedPolygon.getCoordinates()[j].x);
+                send_array.add((float) reorderedPolygon.getCoordinates()[j].y);
                 System.out.println(send_array.toString());
+
                 ArrayList<Object> returned_array = vertexFactory.create_geometry(unique_vertices_counter, send_array, 1.00f, 1, 1);
 
                 // returns the created vertex if it is unique, returns an older vertex if it is not (unique in terms of coordinates)
@@ -148,7 +152,7 @@ public class OurIrregular {
             }
 
             // segments
-            for(int j = 0; j < cell.getCoordinates().length - 2; j++) {
+            for(int j = 0; j < reorderedPolygon.getCoordinates().length - 2; j++) {
                 OurSegment segmentFactory = new OurSegment();
                 ArrayList<Vertex> inputVertex = new ArrayList<>();
                 inputVertex.add(segment_vertices.get(j));
@@ -166,7 +170,6 @@ public class OurIrregular {
                     unique_segments_counter++;
                     unique_segments_object.add(verified_segment);
                 }
-
                 polygon_segments.add(verified_segment);
 
             }
@@ -179,17 +182,17 @@ public class OurIrregular {
                     .collect(Collectors.toCollection(ArrayList::new));
 
             ArrayList<Object> return_array = polygonFactory.create_geometry(polygons.size(), polygon_segments_objects,  1.00f, 1, unique_vertices_counter);
-            polygons.add((Structs.Polygon) return_array.get(0));
-            centroids.add((Structs.Vertex) return_array.get(1));
+            polygons.add((Polygon) return_array.get(0));
+            centroids.add((Vertex) return_array.get(1));
 
             // TODO compute neighbourhood relationships using Delaunay's triangulation
 
             vertices.addAll(segment_vertices);
             segments.addAll(polygon_segments);
-            unique_vertices_object.add((Structs.Vertex) return_array.get(1));
+            unique_vertices_object.add((Vertex) return_array.get(1));
             unique_vertices_counter++;
         }
-        return Structs.Mesh.newBuilder().addAllVertices(unique_vertices_object).addAllSegments(segments).addAllPolygons(polygons).build();
+        return Mesh.newBuilder().addAllVertices(unique_vertices_object).addAllSegments(segments).addAllPolygons(polygons).build();
         //polygons
 
     }

@@ -19,7 +19,7 @@ public class Main {
         Mesh myMesh = generator.generate();
         MeshFactory factory = new MeshFactory();
         // this line decides whether myMesh or myMesh2 is written
-        factory.write(myMesh, args[0]);
+        factory.write(myMesh2, args[0]);
     }
 
 }
