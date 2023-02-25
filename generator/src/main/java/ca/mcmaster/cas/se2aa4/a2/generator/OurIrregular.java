@@ -14,19 +14,21 @@ import java.util.stream.Collectors;
 public class OurIrregular {
 
     PrecisionModel precisionModel = new PrecisionModel(PrecisionModel.FIXED);
-    private int length = 500;
-    private int width = 500;
+    private int height;
+    private int width;
+
+    public OurIrregular(int width, int height){
+        this.width = width;
+        this.height = height;
+    };
 
     private ArrayList<Coordinate> generate_random_points(int number) {
-
-
-
         Random random = new Random(3);
         ArrayList<Coordinate> listCoordinates = new ArrayList<>();
 
         for (int i = 0; i < number; i++) {
-            double x = random.nextDouble() * 500;
-            double y = random.nextDouble() * 500;
+            double x = random.nextDouble() * height;
+            double y = random.nextDouble() * width;
             Coordinate randomCoordinate = new Coordinate(x, y);
             precisionModel.makePrecise(randomCoordinate);
             listCoordinates.add(randomCoordinate);
@@ -47,7 +49,7 @@ public class OurIrregular {
         }
 
         // Create an envelope representing the 500x500 grid
-        Envelope env = new Envelope(0, width, 0, length);
+        Envelope env = new Envelope(0, width, 0, height);
 
         // Crop the diagram to the envelope
         diagram = diagram.intersection(newFactory.toGeometry(env));
@@ -92,7 +94,6 @@ public class OurIrregular {
         ArrayList<Vertex> unique_vertices_object = new ArrayList<>();
         ArrayList<Segment> unique_segments_object = new ArrayList<>();
         ArrayList<Vertex> centroids = new ArrayList<>();
-
 
         int unique_vertices_counter = 0;
         int unique_segments_counter = 0;

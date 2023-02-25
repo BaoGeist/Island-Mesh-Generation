@@ -9,7 +9,7 @@ public class OurIrregularTest {
 
     @Test
     public void irregularMeshIsNotNull() {
-        OurIrregular generator = new OurIrregular();
+        OurIrregular generator = new OurIrregular(400, 400);
         Structs.Mesh aMesh = generator.generate();
         assertNotNull(aMesh);
     }

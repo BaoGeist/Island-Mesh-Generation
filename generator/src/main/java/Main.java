@@ -13,8 +13,8 @@ public class Main {
 
     // generate irregular and regular mesh at the same time
     public static void main(String[] args) throws IOException {
-        OurMesh generator = new OurMesh(500, 500, 25, 1.00f, 1);
-        OurIrregular generator2 = new OurIrregular();
+        OurMesh generator = new OurMesh(500, 400, 25, 1.00f, 1);
+        OurIrregular generator2 = new OurIrregular(400, 400);
         Mesh myMesh2 = generator2.generate();
         Mesh myMesh = generator.generate();
         MeshFactory factory = new MeshFactory();

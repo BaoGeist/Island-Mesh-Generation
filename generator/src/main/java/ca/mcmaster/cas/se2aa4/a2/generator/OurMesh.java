@@ -26,10 +26,6 @@ public class OurMesh {
         this.square_size = square_size;
         this.alpha_entry = alpha_entry;
         this.thickness = thickness;
-        this.vertices = vertices;
-        this.horizontal_segments = horizontal_segments;
-        this.vertical_segments = vertical_segments;
-        this.polygons = polygons;
         Structs.Vertex[][] new_grid = new Structs.Vertex[this.width][this.height];
         this.grid = new_grid;
     }
@@ -54,8 +50,8 @@ public class OurMesh {
             for (int y = 0; y < height/square_size; y += 1) {
                 OurSegment segment = new OurSegment();
                 ArrayList inputVertices = new ArrayList();
-                inputVertices.add(vertices.get(y + x*20));
-                inputVertices.add(vertices.get((y+x*20)+20));
+                inputVertices.add(vertices.get(y + x*height/square_size));
+                inputVertices.add(vertices.get((y+x*height/square_size)+height/square_size));
                 ArrayList<Object> returned_array = segment.create_geometry(horizontal_segments.size(), inputVertices, alpha_entry, thickness, 1);
                 Structs.Segment newSegment = (Structs.Segment) returned_array.get(0);
                 horizontal_segments.add(newSegment);
@@ -64,11 +60,11 @@ public class OurMesh {
         // Creates all vertical segments and stores them in an ArrayList
         for (int x = 0; x < width/square_size; x += 1) {
             for (int y = 0; y < height/square_size; y += 1) {
-                if (y != 19) {
+                if (y != (height/square_size - 1)) {
                     OurSegment segment = new OurSegment();
                     ArrayList inputVertices = new ArrayList();
-                    inputVertices.add(vertices.get(y + x*20));
-                    inputVertices.add(vertices.get((y+x*20)+1));
+                    inputVertices.add(vertices.get(y + x*height/square_size));
+                    inputVertices.add(vertices.get((y+x*height/square_size)+1));
                     ArrayList<Object> returned_array = segment.create_geometry(vertical_segments.size(), inputVertices, alpha_entry, thickness, 1);
                     Structs.Segment newSegment = (Structs.Segment) returned_array.get(0);
                     vertical_segments.add(newSegment);
@@ -85,7 +81,7 @@ public class OurMesh {
                 ArrayList<Structs.Segment> PolygonSegments = new ArrayList<>();
 
                 PolygonSegments.add((Structs.Segment) horizontal_segments.get(iteratorh));
-                PolygonSegments.add((Structs.Segment) vertical_segments.get(iteratorv+19));
+                PolygonSegments.add((Structs.Segment) vertical_segments.get(iteratorv+(height/square_size)-1));
                 PolygonSegments.add((Structs.Segment) horizontal_segments.get(iteratorh+1));
                 PolygonSegments.add((Structs.Segment) vertical_segments.get(iteratorv));
 
@@ -128,27 +124,27 @@ public class OurMesh {
         return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(vertical_segments).addAllPolygons(polygons).build();
     }
 
-    private ArrayList<Integer> setNeighbours(){ // Todo - Check if this works
+    private ArrayList<Integer> setNeighbours(){
         ArrayList<Integer> PolygonNeighbours = new ArrayList<>();
 
         int CurrentID = polygons.size();
-        int row = CurrentID % 19;
-        int column = CurrentID / 19;
+        int row = CurrentID % (width/square_size - 1);
+        int column = CurrentID / (height/square_size - 1);
 
         if (column > 0){
-            PolygonNeighbours.add(CurrentID - 19); // Add left neighbour
+            PolygonNeighbours.add(CurrentID - width/square_size - 1); // Add left neighbour
         }
-        if (column < 18){
-            PolygonNeighbours.add(CurrentID + 19); // Add right neighbour
+        if (column < width/square_size - 2){
+            PolygonNeighbours.add(CurrentID + width/square_size - 1); // Add right neighbour
         }
         if (row > 0){
             PolygonNeighbours.add(CurrentID - 1); // Add top neighbour
         }
-        if (row < 18){
+        if (row < width/square_size - 1){
             PolygonNeighbours.add(CurrentID + 1); // Add bottom neighbour
         }
 
-        PolygonNeighbours.removeIf(id -> id < 0 || id > 359);
+        PolygonNeighbours.removeIf(id -> id < 0 || id > width*height-1);
 
         return PolygonNeighbours;
     }

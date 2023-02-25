@@ -11,7 +11,7 @@ public class OurMeshTest {
 
     @Test
     public void meshIsNotNull() {
-        OurMesh generator = new OurMesh(500, 500, 25, 1.00f, 1);
+        OurMesh generator = new OurMesh(500, 400, 25, 1.00f, 1);
         Structs.Mesh aMesh = generator.generate();
         assertNotNull(aMesh);
     }
