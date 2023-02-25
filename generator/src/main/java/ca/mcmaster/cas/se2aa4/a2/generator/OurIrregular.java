@@ -17,9 +17,12 @@ public class OurIrregular {
     private int height;
     private int width;
 
-    public OurIrregular(int width, int height){
+    private int num_polygons;
+
+    public OurIrregular(int width, int height, int num_polygons){
         this.width = width;
         this.height = height;
+        this.num_polygons = num_polygons;
     };
 
     private ArrayList<Coordinate> generate_random_points(int number) {
@@ -101,7 +104,7 @@ public class OurIrregular {
         GeometryContainer meshContainer = new GeometryContainer();
 
         // create random points everywhere on the plane
-        ArrayList<Coordinate> listCoordinates = generate_random_points(100);
+        ArrayList<Coordinate> listCoordinates = generate_random_points(num_polygons);
 
 
         // voronoi diagram
