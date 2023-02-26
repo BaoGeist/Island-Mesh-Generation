@@ -2,19 +2,26 @@
 
 class Main
 
-class OurMesh {
+interface MeshGenerator {
+    +Mesh generator()
+}
+MeshGenerator <|-- OurIrregular: _'is a'
+
+class OurIrregular {
     -int width
-    -int height 
-    -int square_size
-    -Vertex[][] grid
-    -float alpha_entry
-    -int thickness
+    -int height
+    -int num_polygons
     -ArrayList<Vertex> vertices
-    -ArrayList<Segment> segments
     -ArrayList<Polygon> polygons
     +Mesh generate()
+    -ArrayList<Segment> segments
 }
-Main -- OurMesh
+Main -- OurIrregular
+
+interface OurGeometryFactory {
+    +ArrayList<Object> create_geometry;
+}
+OurIrregular "1" ..> "1..*" OurGeometryFactory
 
 class OurPolygon {
     -Vertex middle_vertex
@@ -24,22 +31,17 @@ class OurPolygon {
     -ArrayList<Double> x_coords
     -ArrayList<Double> y_coords
     -int thickness
-    -int[] colorCodes
     -String colorCode
     -float alpha
     -int id
-    +Polygon create_polygon()
+    +ArrayList<Object> create_geometry()
     -void set_color()
     -void set_coords()
     -Vertex create_middle_vertex()
     -String get_neighbours_id()
     -Polygon build_polygon()
-    -double[] extractSegmentMiddle()
-    -int extractID()
-    -double[] extractHeadCoords()
-    -double[] parse_string_to_array_int()
 }
-OurMesh "1" o-- "1..*" OurPolygon: _'has a'
+OurGeometryFactory <|-- OurPolygon: _'is a'
 
 together{
     Class OurSegment {
@@ -53,17 +55,16 @@ together{
         -int thickness
         -float alpha
         -int id
-        +Segment create_segment(int ID1, int ID2, Vertex vertex1, 
-        Vertex vertex2, float alpha_entry, int thickness_entry, int IDself)
+        +Segment create_segment(Vertex vertex1,Vertex vertex2,
+         float alpha_entry, int thickness_entry, int IDself)
         -double[] get_coords(Vertex v)
         -Vertex get_head_vertex()
         -Vertex get_tail_vertex()
         -void set_segment_colour()
         -void set_segment_middle()
         -Segment build_segment()
-        -int[] extractColor
-        +boolean equals(Object obj)
     }
+    OurGeometryFactory <|-- OurSegment: _'is a'
     OurPolygon "1" o-- "3..*" OurSegment: _'has a'
     OurPolygon "1" o-- "1" OurVertex: _'has a'
 
@@ -81,6 +82,7 @@ together{
         +Vertex makeCentroidVertex(double x, double y, intd)
         -Vertex build_vertex()
     }
+    OurGeometryFactory <|-- OurVertex: _'is a'
     OurSegment "1" o-- "2" OurVertex: _'has a'
 }
 

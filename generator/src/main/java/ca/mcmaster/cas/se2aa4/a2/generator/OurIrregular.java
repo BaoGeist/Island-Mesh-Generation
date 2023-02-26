@@ -11,7 +11,7 @@ import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
-public class OurIrregular {
+public class OurIrregular implements MeshGenerator{
 
     PrecisionModel precisionModel = new PrecisionModel(PrecisionModel.FIXED);
     private int height;
@@ -93,7 +93,6 @@ public class OurIrregular {
 
 
     public Mesh generate() {
-        ArrayList<Vertex> vertices = new ArrayList<>();
         ArrayList<Segment> segments = new ArrayList<>();
         ArrayList<Polygon> polygons = new ArrayList<>();
         ArrayList<Vertex> unique_vertices_object = new ArrayList<>();
@@ -127,7 +126,6 @@ public class OurIrregular {
             Geometry reorderedPolygon = new ConvexHull(cell).getConvexHull();
             ArrayList<Vertex> segment_vertices = new ArrayList<>();
             ArrayList<Segment> polygon_segments = new ArrayList<>();
-            System.out.println("New polygon");
             // vertices
             for (int j = 0; j < reorderedPolygon.getCoordinates().length - 1; j++) {
                 OurVertex vertexFactory = new OurVertex();
@@ -187,7 +185,6 @@ public class OurIrregular {
 
             // TODO compute neighbourhood relationships using Delaunay's triangulation
 
-            vertices.addAll(segment_vertices);
             segments.addAll(polygon_segments);
             unique_vertices_object.add((Vertex) return_array.get(1));
             unique_vertices_counter++;

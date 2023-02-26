@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class OurMesh {
+public class OurMesh implements MeshGenerator{
     private int width;
     private int height;
     private int square_size;
