@@ -93,7 +93,6 @@ public class OurIrregular implements MeshGenerator{
 
 
     public Mesh generate() {
-        ArrayList<Segment> segments = new ArrayList<>();
         ArrayList<Polygon> polygons = new ArrayList<>();
         ArrayList<Vertex> unique_vertices_object = new ArrayList<>();
         ArrayList<Segment> unique_segments_object = new ArrayList<>();
@@ -185,11 +184,10 @@ public class OurIrregular implements MeshGenerator{
 
             // TODO compute neighbourhood relationships using Delaunay's triangulation
 
-            segments.addAll(polygon_segments);
             unique_vertices_object.add((Vertex) return_array.get(1));
             unique_vertices_counter++;
         }
-        return Mesh.newBuilder().addAllVertices(unique_vertices_object).addAllSegments(segments).addAllPolygons(polygons).build();
+        return Mesh.newBuilder().addAllVertices(unique_vertices_object).addAllSegments(unique_segments_object).addAllPolygons(polygons).build();
         //polygons
 
     }

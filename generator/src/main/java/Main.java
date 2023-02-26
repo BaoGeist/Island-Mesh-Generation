@@ -15,28 +15,27 @@ public class Main {
         int width = Integer.parseInt(args[2]);
         int height = Integer.parseInt(args[3]);
 
-        if (args[1].equals("regular")){
+        switch(MeshGeneratorEnum.valueOf(args[1])) {
+            case regular:
+                int square_size = Integer.parseInt(args[4]);
+                float alpha_entry = Float.parseFloat(args[5]);
+                int thickness = Integer.parseInt(args[6]);
 
-            int square_size = Integer.parseInt(args[4]);
-            float alpha_entry = Float.parseFloat(args[5]);
-            int thickness = Integer.parseInt(args[6]);
+                OurMesh generator = new OurMesh(width, height, square_size, alpha_entry, thickness);
+                Mesh myMesh = generator.generate();
 
-            OurMesh generator = new OurMesh(width, height, square_size, alpha_entry, thickness);
-            Mesh myMesh = generator.generate();
+                factory.write(myMesh, args[0]);
+                break;
+            case irregular:
+                int num_polygons = Integer.parseInt(args[4]);
 
-            factory.write(myMesh, args[0]);
+                OurIrregular generator2 = new OurIrregular(width, height, num_polygons);
+                Mesh myMesh2 = generator2.generate();
 
-        } else if (args[1].equals("irregular")){
-
-            int num_polygons = Integer.parseInt(args[4]);
-
-            OurIrregular generator2 = new OurIrregular(width, height, num_polygons);
-            Mesh myMesh2 = generator2.generate();
-
-            factory.write(myMesh2, args[0]);
-
-        } else {
-            System.out.println("Invalid command, please generate a 'regular' or 'irregular' mesh");
+                factory.write(myMesh2, args[0]);
+                break;
+            default:
+                System.out.println("Invalid command, please generate a 'regular' or 'irregular' mesh");
         }
     }
 
