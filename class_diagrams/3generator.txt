@@ -1,6 +1,9 @@
 @startuml
 
-class Main
+class Main {
+    -int width
+    -int height
+}
 
 interface MeshGenerator {
     +Mesh generator()
@@ -30,7 +33,8 @@ together{
         -String colorCode
         -float alpha
         -int id
-        +ArrayList<Object> create_geometry()
+        +ArrayList<Object> create_geometry(int idSelf,
+        ArrayList<Object> arrayArgs, float alpha, int thickness, int misc)
         -Vertex create_middle_vertex()
     }
     OurGeometryFactory <|-- OurPolygon: _'is a'
@@ -41,8 +45,8 @@ together{
         -int[] colour_code
         -Vertex head_vertex
         -Vertex tail_vertex
-        +ArrayList<Object> create_geometry(Vertex vertex1,Vertex vertex2,
-         float alpha_entry, int thickness_entry, int IDself)
+        +ArrayList<Object> create_geometry(int idSelf, ArrayList<Object> arrayArgs, float alpha,
+        int thickness, int misc)
     }
     OurGeometryFactory <|-- OurSegment: _'is a'
     OurIrregular "1" o-- "0..*" OurSegment: _'has a'
@@ -53,14 +57,35 @@ together{
         -double[] coords
         -String colorCode
         -int id
-        +Vertex create_geometry(double x, double y, int id)
-        +Vertex create_geometry_centroid(double x, double y, intd)
+        +Vertex create_geometry(int idSelf, ArrayList<Object> arrayArgs,
+         float alpha, int thickness, int misc)
+        +Vertex create_geometry_centroid(double x, double y, int id)
     }
     OurGeometryFactory <|-- OurVertex: _'is a'
     OurSegment "1" o-- "2" OurVertex: _'has a'
     OurIrregular "1" o-- "0..*" OurVertex: _'has a'
+
+    class PropertyUtils {
+        +double[] extractSegmentMiddle
+        +double[] parse_string_to_array_int
+        +int extractID
+        +double[] extractHeadCoords
+        +double[] extractTailCoords
+        +int[] extractColor
+    }
+    PropertyUtils <|.. OurSegment
+    PropertyUtils <|.. OurPolygon
 }
 
+
+
+class MathUtils {
+    #double calculate_new_centroid
+    #double calculate_centroid_of_triangle
+    #Coordinate calculate_area_of_triangle
+    #Coordinate calculate_length_if_segment
+}
+MathUtils <|.. OurIrregular
 
 
 @enduml
