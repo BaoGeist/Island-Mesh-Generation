@@ -1,16 +1,17 @@
 package ca.mcmaster.cas.se2aa4.a2.generator;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
-import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
+import org.locationtech.jts.geom.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+
+import static ca.mcmaster.cas.se2aa4.a2.generator.PropertyUtils.*;
 
 
-public class OurPolygon {
+public class OurPolygon implements OurGeometryFactory{
     Vertex middle_vertex;
     ArrayList<Segment> segments_group = new ArrayList<>();
     ArrayList<Integer> segments_id = new ArrayList<>();
@@ -18,22 +19,24 @@ public class OurPolygon {
     ArrayList<Double> x_coords = new ArrayList<>();
     ArrayList<Double> y_coords = new ArrayList<>();
     private int thickness = 1;
-    private int[] colorCodes = new int[3];
-    private String colorCode;
+    private String colorCode = "";
     private float alpha = 1;
     private int id;
     private double[] centroid_coords = new double[2];
-    private Polygon actual_Polygon;
+    private Structs.Polygon actual_Polygon;
 
-    public ArrayList<Object> create_polygon(int id_self, int centroid_index, ArrayList<Segment> segments) {
-        for(Segment segment: segments) {
-            segments_group.add(segment);
-            segments_id.add(extractID(segment.getPropertiesList()));
+    @Override
+    public ArrayList<Object> create_geometry(int id_self, ArrayList<Object> arrayArgs, float alpha, int thickness, int misc) {
+        for(Object arg: arrayArgs) {
+            Segment segmented = (Segment) arg;
+            segments_group.add(segmented);
+            segments_id.add(extractID(segmented.getPropertiesList()));
         }
         id = id_self;
         set_color();
         set_coords();
-        create_middle_vertex(centroid_index);
+        int centroid_index = misc;
+        create_centroid(centroid_index);
         actual_Polygon = build_polygon();
         ArrayList<Object> return_array = new ArrayList<>();
 
@@ -43,16 +46,16 @@ public class OurPolygon {
     }
 
     private void set_color() {
-        Random bag = new Random();
-        int red = bag.nextInt(255);
-        int green = bag.nextInt(255);
-        int blue = bag.nextInt(255);
-        colorCodes[0] = red;
-        colorCodes[1] = green;
-        colorCodes[2] = blue;
-
-        colorCode = red + "," + green + "," + blue;
-        System.out.println(colorCode);
+        int average_red = 0;
+        int average_green = 0;
+        int average_blue = 0;
+        for(Segment s: segments_group) {
+            int[] s_color = extractColor(s.getPropertiesList());
+            average_red += s_color[0];
+            average_green += s_color[1];
+            average_blue += s_color[2];
+        }
+        colorCode = average_red/segments_group.size() + "," + average_green/segments_group.size() + "," + average_blue/segments_group.size();
     }
 
     private void set_coords(){
@@ -75,15 +78,20 @@ public class OurPolygon {
 
     }
 
-    private void create_middle_vertex(int id) {
-        int totalx = 0, totaly = 0, count = 0;
-        for(Segment segment: segments_group) {
-            totalx += extractSegmentMiddle(segment.getPropertiesList())[0];
-            totaly += extractSegmentMiddle(segment.getPropertiesList())[1];
-            count++;
+    private void create_centroid(int id) {
+        int x = 0, y = 0, count = 0;
+        ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
+        for(int i = 0; i < x_coords.size(); i++) {
+            coords.add(new Coordinate(x_coords.get(i), y_coords.get(i)));
         }
-        OurVertex v = new OurVertex();
-        middle_vertex = v.makeCentroidVertex((double) totalx/count, (double) totaly/count, id);
+        coords.add(new Coordinate(x_coords.get(0), y_coords.get(0)));
+        Coordinate[] coordsArray = coords.toArray(new Coordinate[coords.size()]);
+        GeometryFactory geometryFactory = new GeometryFactory();
+        Polygon p = geometryFactory.createPolygon(coordsArray);
+        Point centroid = p.getCentroid();
+
+        OurVertex vertexFactory = new OurVertex();
+        middle_vertex = vertexFactory.create_geometry_centroid((double) centroid.getX(), (double) centroid.getY(), id);
     }
 
     public double[] get_middle_vertex() {
@@ -106,7 +114,7 @@ public class OurPolygon {
         return outputString;
     }
 
-    private Polygon build_polygon() {
+    private Structs.Polygon build_polygon() {
         Property thicc = Property.newBuilder().setKey("thicc").setValue(Integer.toString(thickness)).build();
         Property a = Property.newBuilder().setKey("alpha").setValue(Float.toString(alpha)).build();
         Property polygon_id = Property.newBuilder().setKey("id").setValue(String.valueOf(id)).build();
@@ -116,70 +124,13 @@ public class OurPolygon {
         Property x_coords = Property.newBuilder().setKey("x_coords").setValue(this.x_coords.toString()).build();
         Property y_coords = Property.newBuilder().setKey("y_coords").setValue(this.y_coords.toString()).build();
         Property centroid_coords = Property.newBuilder().setKey("centroid_coords").setValue(this.centroid_coords.toString()).build();
+<<<<<<< HEAD
         Property segment_ids = Property.newBuilder().setKey("segment_ids").setValue(this.segments_id.toString()).build();
         Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).addProperties(centroid_coords).addProperties(segment_ids).build();
+=======
+        Structs.Polygon p = Structs.Polygon.newBuilder().addAllSegmentIdxs(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
+>>>>>>> 9485a7ac44e1a7b9b6839ab4bd58f89681d66f68
         return p;
-    }
-
-
-    public double[] extractSegmentMiddle(List<Property> properties) {
-        String val = null;
-        for(Property p: properties) {
-            if (p.getKey().equals("middle")) {
-//                System.out.println(p.getValue());
-                val = p.getValue();
-            }
-        }
-        return parse_string_to_array_int(val);
-    }
-
-    private int extractID(List<Property> properties) {
-        String val = "0";
-        for(Property p: properties) {
-            if (p.getKey().equals("id")) {
-//                System.out.println(p.getValue());
-                val = p.getValue();
-            }
-        }
-        return Integer.parseInt(val);
-    }
-
-    private double[] extractHeadCoords(List<Property> properties) {
-        String val = null;
-        for(Property p: properties) {
-            if (p.getKey().equals("head")) {
-//                System.out.println(p.getValue());
-                val = p.getValue();
-            }
-        }
-        String[] raw = val.split(",");
-        Double x = Double.parseDouble(raw[0].replace("[","").replace(" ", ""));
-        Double y = Double.parseDouble(raw[1].replace(" ", ""));
-        return new double[]{x, y};
-    }
-
-    private double[] extractTailCoords(List<Property> properties) {
-        String val = null;
-        for(Property p: properties) {
-            if (p.getKey().equals("tail")) {
-//                System.out.println(p.getValue());
-                val = p.getValue();
-            }
-        }
-        String[] raw = val.split(",");
-        Double x = Double.parseDouble(raw[0].replace("[","").replace(" ", ""));
-        Double y = Double.parseDouble(raw[1].replace(" ", ""));
-        return new double[]{x, y};
-    }
-
-    private double[] parse_string_to_array_int(String parse) {
-
-        String[] array_return = parse.split(",", -1);
-        double[] array_return_int = new double[array_return.length];
-        for(int i = 0; i < array_return_int.length; i++) {
-            array_return_int[i] = Double.parseDouble(array_return[i]);
-        }
-        return array_return_int;
     }
 
 

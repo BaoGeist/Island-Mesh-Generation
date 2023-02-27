@@ -5,28 +5,35 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+import org.locationtech.jts.algorithm.ConvexHull;
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
-import java.util.HashMap;
-public class OurIrregular {
+import java.util.stream.Collectors;
+public class OurIrregular implements MeshGenerator{
 
-    private int length = 500;
-    private int width = 500;
+    PrecisionModel precisionModel = new PrecisionModel(PrecisionModel.FIXED);
+    private int height;
+    private int width;
 
-    private static ArrayList<Coordinate> generate_random_points(int number) {
-        PrecisionModel newModel = new PrecisionModel(PrecisionModel.FLOATING_SINGLE);
+    private int num_polygons;
 
-        Random random = new Random();
+    public OurIrregular(int width, int height, int num_polygons){
+        this.width = width;
+        this.height = height;
+        this.num_polygons = num_polygons;
+    };
+
+    private ArrayList<Coordinate> generate_random_points(int number) {
+        Random random = new Random(3);
         ArrayList<Coordinate> listCoordinates = new ArrayList<>();
 
         for (int i = 0; i < number; i++) {
-            double x = random.nextDouble() * 500;
-            double y = random.nextDouble() * 500;
+            double x = random.nextDouble() * height;
+            double y = random.nextDouble() * width;
             Coordinate randomCoordinate = new Coordinate(x, y);
-            newModel.makePrecise(randomCoordinate);
+            precisionModel.makePrecise(randomCoordinate);
             listCoordinates.add(randomCoordinate);
         }
         return listCoordinates;
@@ -34,14 +41,18 @@ public class OurIrregular {
 
     private Geometry generate_voronoi(ArrayList<Coordinate> listCoordinates) {
         VoronoiDiagramBuilder newVoronoi = new VoronoiDiagramBuilder();
-
         GeometryFactory newFactory = new GeometryFactory();
 
         newVoronoi.setSites(listCoordinates);
         Geometry diagram = newVoronoi.getDiagram(newFactory);
 
+
+        for(Coordinate c : diagram.getCoordinates()) {
+            precisionModel.makePrecise(c);
+        }
+
         // Create an envelope representing the 500x500 grid
-        Envelope env = new Envelope(0, width, 0, length);
+        Envelope env = new Envelope(0, width, 0, height);
 
         // Crop the diagram to the envelope
         diagram = diagram.intersection(newFactory.toGeometry(env));
@@ -49,107 +60,134 @@ public class OurIrregular {
         return diagram;
     }
 
-    private static double calculate_length_of_segment(Coordinate c1, Coordinate c2) {
-        return Math.sqrt(Math.pow((c1.x - c2.x),2) + (Math.pow((c1.y - c2.y),2)));
-    }
-
-    private static double calculate_area_of_triangle(Coordinate c1, Coordinate c2, Coordinate c3) {
-        double a = calculate_length_of_segment(c1, c2);
-        double b = calculate_length_of_segment(c2, c3);
-        double c = calculate_length_of_segment(c3, c1);
-        double s = (a + b + c) / 2;
-        return Math.sqrt(s*(s-a)*(s-b)*(s-c));
-    }
-
-    private static Coordinate calculate_centroid_of_triangle(Coordinate c1, Coordinate c2, Coordinate c3) {
-        double x = (c1.x + c2.x + c3.x)/3;
-        double y = (c1.y + c2.y + c3.y)/3;
-        return new Coordinate(x, y);
-    }
-
-    private static Coordinate calculate_weighted_average(ArrayList<Double> areas, ArrayList<Coordinate> coordinates) {
-        double x_total = 0, y_total = 0, area = 0;
-        for(int i = 0; i < areas.size(); i++) {
-            area += areas.get(i);
-            x_total += coordinates.get(i).x * areas.get(i);
-            y_total += coordinates.get(i).y * areas.get(i);
-        }
-        return new Coordinate(x_total/area, y_total/area);
-    }
-
-    private static Coordinate calculate_lloyd_relaxation_single(Geometry notcell) {
+    private Coordinate calculate_lloyd_relaxation_single(Geometry notcell) {
         Coordinate[] lloydcoord = notcell.getCoordinates();
         ArrayList<Coordinate> triangle_centroids = new ArrayList<>();
         ArrayList<Double> triangle_areas = new ArrayList<>();
         int first_iterator = 1, second_iterator = 2;
         while (second_iterator <= lloydcoord.length - 2) {
-            double area = calculate_area_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
-            Coordinate centroid = calculate_centroid_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
+            double area = MathUtils.calculate_area_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
+            Coordinate centroid = MathUtils.calculate_centroid_of_triangle(lloydcoord[0], lloydcoord[first_iterator], lloydcoord[second_iterator]);
             triangle_areas.add(area);
             triangle_centroids.add(centroid);
             first_iterator++;
             second_iterator++;
         }
-        Coordinate new_centroid = calculate_weighted_average(triangle_areas, triangle_centroids);
+        Coordinate new_centroid = MathUtils.calculate_new_centroid(triangle_areas, triangle_centroids);
+        precisionModel.makePrecise(new_centroid);
         return new_centroid;
     }
 
-    private static ArrayList<Coordinate> calculate_lloyd_relaxation_multiple(Geometry oldPoints) {
+    private ArrayList<Coordinate> calculate_lloyd_relaxation_multiple(Geometry oldPoints) {
         ArrayList<Coordinate> listVoronoied = new ArrayList<>();
         for(int i = 0; i < oldPoints.getNumGeometries(); i++) {
             Geometry notcell = oldPoints.getGeometryN(i);
             Coordinate new_centroid = calculate_lloyd_relaxation_single(notcell);
+            precisionModel.makePrecise(new_centroid);
             listVoronoied.add(new_centroid);
         }
         return listVoronoied;
     }
 
     private static final int THICKNESS = 3;
+
+
     public Mesh generate() {
-        ArrayList<Vertex> vertices = new ArrayList<>();
-        ArrayList<Segment> segments = new ArrayList<>();
         ArrayList<Polygon> polygons = new ArrayList<>();
+        ArrayList<Vertex> unique_vertices_object = new ArrayList<>();
+        ArrayList<Segment> unique_segments_object = new ArrayList<>();
+        ArrayList<Vertex> centroids = new ArrayList<>();
+
+        int unique_vertices_counter = 0;
+        int unique_segments_counter = 0;
+
+        GeometryContainer meshContainer = new GeometryContainer();
 
         // create random points everywhere on the plane
-        ArrayList<Coordinate> listCoordinates = generate_random_points(250);
+        ArrayList<Coordinate> listCoordinates = generate_random_points(num_polygons);
 
 
         // voronoi diagram
         Geometry voronoiedPoints = generate_voronoi(listCoordinates);
 
         // lloyd relaxation
-        int lloyd_number = 10;
+        int lloyd_number = 5;
         for(int i = 0; i < lloyd_number; i++) {
             listCoordinates = calculate_lloyd_relaxation_multiple(voronoiedPoints);
             voronoiedPoints = generate_voronoi(listCoordinates);
         }
-        listCoordinates = calculate_lloyd_relaxation_multiple(voronoiedPoints);
 
 
         /// creating mesh
+        // this loop runs for each voroinoi polygon
         for(int i = 0; i < voronoiedPoints.getNumGeometries(); i++) {
             Geometry cell = voronoiedPoints.getGeometryN(i);
+            Geometry reorderedPolygon = new ConvexHull(cell).getConvexHull();
             ArrayList<Vertex> segment_vertices = new ArrayList<>();
             ArrayList<Segment> polygon_segments = new ArrayList<>();
-            for (int j = 0; j < cell.getCoordinates().length - 1; j++) {
+            // vertices
+            for (int j = 0; j < reorderedPolygon.getCoordinates().length - 1; j++) {
                 OurVertex vertexFactory = new OurVertex();
-                segment_vertices.add(vertexFactory.makeVertex(cell.getCoordinates()[j].x, cell.getCoordinates()[j].y, vertices.size() + j));
+                ArrayList<Object> send_array = new ArrayList<>();
+                send_array.add((float) reorderedPolygon.getCoordinates()[j].x);
+                send_array.add((float) reorderedPolygon.getCoordinates()[j].y);
+                System.out.println(send_array.toString());
+
+                ArrayList<Object> returned_array = vertexFactory.create_geometry(unique_vertices_counter, send_array, 1.00f, 1, 1);
+
+                // returns the created vertex if it is unique, returns an older vertex if it is not (unique in terms of coordinates)
+                Vertex verified_vertex = meshContainer.check_unique_vertex( (Vertex) returned_array.get(0));
+
+                // if the created vertex and verified vertex are different, then unique_vertices increments
+                if(verified_vertex == returned_array.get(0)) {
+                    unique_vertices_counter++;
+                    unique_vertices_object.add(verified_vertex);
+
+                }
+                // all vertices are added to the vertices of the current segment
+                segment_vertices.add(verified_vertex);
             }
-            for(int j = 0; j < cell.getCoordinates().length - 2; j++) {
+
+            // segments
+            for(int j = 0; j < reorderedPolygon.getCoordinates().length - 2; j++) {
                 OurSegment segmentFactory = new OurSegment();
-                polygon_segments.add(segmentFactory.create_segment(segment_vertices.get(j), segment_vertices.get(j+1), 1.0f, 1, 1));
+                ArrayList<Vertex> inputVertex = new ArrayList<>();
+                inputVertex.add(segment_vertices.get(j));
+                inputVertex.add(segment_vertices.get(j+1));
+
+                ArrayList<Object> inputVertex_objects = inputVertex.stream()
+                        .map(s -> (Object) s)
+                        .collect(Collectors.toCollection(ArrayList::new));
+
+                unique_segments_counter++;
+                ArrayList returned_array = segmentFactory.create_geometry(unique_segments_counter, inputVertex_objects, 1.00f, 1, 1);
+                Segment verified_segment = meshContainer.check_unique_segment((Segment) returned_array.get(0), unique_vertices_object);
+
+                if(verified_segment == returned_array.get(0)) {
+                    unique_segments_counter++;
+                    unique_segments_object.add(verified_segment);
+                }
+                polygon_segments.add(verified_segment);
+
             }
+
+            // polygon
             OurPolygon polygonFactory = new OurPolygon();
             // returns an ArrayList with a Polygon and Vertex (the centroid) object
-            // TODO fix this centroid vertex calculation cuz it isn't accurate (Baoze)
-            ArrayList<Object> return_array = polygonFactory.create_polygon(polygons.size(), vertices.size() + cell.getCoordinates().length, polygon_segments);
-            polygons.add((Structs.Polygon) return_array.get(0));
-            vertices.add((Structs.Vertex) return_array.get(1));
+            ArrayList<Object> polygon_segments_objects = polygon_segments.stream()
+                    .map(s -> (Object) s)
+                    .collect(Collectors.toCollection(ArrayList::new));
+
+            ArrayList<Object> return_array = polygonFactory.create_geometry(polygons.size(), polygon_segments_objects,  1.00f, 1, unique_vertices_counter);
+            polygons.add((Polygon) return_array.get(0));
+            centroids.add((Vertex) return_array.get(1));
+
             // TODO compute neighbourhood relationships using Delaunay's triangulation
-            vertices.addAll(segment_vertices);
-            segments.addAll(polygon_segments);
+
+            unique_vertices_object.add((Vertex) return_array.get(1));
+            unique_vertices_counter++;
         }
-        return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).addAllPolygons(polygons).build();
+        return Mesh.newBuilder().addAllVertices(unique_vertices_object).addAllSegments(unique_segments_object).addAllPolygons(polygons).build();
         //polygons
 
     }

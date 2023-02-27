@@ -10,11 +10,15 @@ class OurMesh {
     -float alpha_entry
     -int thickness
     -ArrayList<Vertex> vertices
-    -ArrayList<Segment> segments
     -ArrayList<Polygon> polygons
     +Mesh generate()
+    -ArrayList<Segment> segments
 }
 Main -- OurMesh
+
+interface OurGeometryFactory {
+    +ArrayList<Object> create_geometry;
+}
 
 class OurPolygon {
     -Vertex middle_vertex

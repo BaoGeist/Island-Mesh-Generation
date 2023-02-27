@@ -58,18 +58,28 @@ When you develop features and enrich the product, remember that you have first t
 ## Backlog
 
 ### Definition of Done
-
--- Insert here your definition of done for your features --
+Our Definition of Done includes the following criteria:
+- Testing functions reveals no defects
+- Both regular and irregular meshes generate and can be "played" around with
+- All other rubric criteria are hit from an A-tier to S-tier (hopefully)
+- Lecture Software Development concepts are applied
 
 ### Product Backlog
 
-| Id | Feature title                                                       | Who?                  | Start      | End        | Status |
-|:--:|---------------------------------------------------------------------|-----------------------|------------|------------|--------|
-| F01 | draw segments between vertices (coloured) to visualize the squares | Baoze, Daniel         | 02.01.2023 | 02.02.2023 | D      |
-| F02 | ability to turn debug mode option on                               | Baoze, Alexis         | 02.16.2023 | 02.19.2023 | D      |
-| F03 | created  new polygons, segments, and vertices classes              | Baoze, Alexis         | 02.15.2023 | 02.17.2023 | D      |
-| F04 | produced a full mesh ADT with above F03 classes                    | Daniel                | 02.15.2023 | 02.17.2023 | D      |
-| F05 | playing around with rendering                                      | Baoze                 | 02.17.2023 |            | B (04) |
-| F06 | visualization mode with rendering                                  | Alexis                | 02.17.2023 |            | B (05) |
+| Id | Feature title                                                                 | Who?                  | Start      | End        | Status |
+|:--:|-------------------------------------------------------------------------------|-----------------------|------------|------------|--------|
+| F01 | draw segments between vertices (coloured) to visualize the squares           | Baoze, Daniel         | 02.01.2023 | 02.02.2023 | D      |
+| F02 | ability to turn debug mode option on                                         | Baoze, Alexis         | 02.16.2023 | 02.19.2023 | D      |
+| F03 | created  new polygons, segments, and vertices classes                        | Baoze, Alexis         | 02.15.2023 | 02.17.2023 | D      |
+| F04 | produced a full mesh ADT with above F03 classes                              | Daniel                | 02.15.2023 | 02.17.2023 | D      |
+| F05 | playing around with rendering                                                | Baoze                 | 02.17.2023 |            | B (04) |
+| F06 | visualization mode with rendering                                            | Alexis                | 02.17.2023 |            | B (05) |
+| F07 | generate random points in a precision model, one for each expected Polygon   | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
+| F08 | generate first voronoi diagram with above points                             | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
+| F09 | compute lloyd relaxation on said points                                      | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
+| F10 | crop the mesh to expected size, and keep centroids within the space          | Daniel                | 02.23.2023 | 02.20.2023 | D      |
+| F11 | find neighbourhood relations with Delaunay's triangulation                   | Alexis                |            |            | D      |
+| F12 | comput convex hull to reorder irregular polygon segments                     | Daniel                |            |            | D      |
+
 
 

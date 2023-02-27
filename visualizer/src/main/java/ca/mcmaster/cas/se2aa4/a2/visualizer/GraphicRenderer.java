@@ -3,8 +3,6 @@ package ca.mcmaster.cas.se2aa4.a2.visualizer;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
-import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
-import org.apache.batik.ext.awt.geom.Polygon2D;
 
 
 import java.awt.Graphics2D;
@@ -13,9 +11,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Path2D;
 import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
+import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.*;
 
 public class GraphicRenderer {
 
@@ -24,11 +21,10 @@ public class GraphicRenderer {
         canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-        // for polygons, STILL DOES NOT WORK, NOT SURE WHY
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
             Color polygon_color = extractColor(p.getPropertiesList());
-            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
-            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
+            float[] x_coords = extractCoordsforPolygons(p.getPropertiesList()).get(0);
+            float[] y_coords = extractCoordsforPolygons(p.getPropertiesList()).get(1);
 
             Path2D.Float path = new Path2D.Float();
             path.moveTo(x_coords[0], y_coords[0]);
@@ -42,6 +38,17 @@ public class GraphicRenderer {
             canvas.setColor(polygon_color);
             canvas.fill(path);
         }
+        for (Structs.Segment s: aMesh.getSegmentsList()){
+            Vertex v1 = aMesh.getVertices(s.getV1Idx());
+            Vertex v2 = aMesh.getVertices(s.getV2Idx());
+
+            Color segment_color = extractColor(s.getPropertiesList());
+
+            canvas.setColor(segment_color);
+//            Stroke strokeseg = new BasicStroke(10);
+//            canvas.setStroke(strokeseg);
+            canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
+        }
         for (Vertex v: aMesh.getVerticesList()) {
             double centre_x = v.getX() - (THICKNESS/2.0d);
             double centre_y = v.getY() - (THICKNESS/2.0d);
@@ -51,28 +58,21 @@ public class GraphicRenderer {
             canvas.fill(point);
             canvas.setColor(old);
         }
-        for (Structs.Segment s: aMesh.getSegmentsList()){
-            float[] vertices = extractHeadTail(s.getPropertiesList());
-            // baoze started here
-            Color segment_color = extractColor(s.getPropertiesList());
-            double x1 = vertices[0];
-            double y1 = vertices[1];
-            double x2 = vertices[2];
-            double y2 = vertices[3];
-
-            canvas.setColor(segment_color);
-            canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
-
-        }
     }
 
     public void debug(Mesh aMesh, Graphics2D canvas) {
         canvas.setColor(Color.WHITE);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
+<<<<<<< HEAD
         for (Structs.Polygon p: aMesh.getPolygonsList()) { //polygons are drawn first as the back layer
             float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
             float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
+=======
+        for (Structs.Polygon p: aMesh.getPolygonsList()) {
+            float[] x_coords = extractCoordsforPolygons(p.getPropertiesList()).get(0);
+            float[] y_coords = extractCoordsforPolygons(p.getPropertiesList()).get(1);
+>>>>>>> 9485a7ac44e1a7b9b6839ab4bd58f89681d66f68
 
             Path2D.Float path = new Path2D.Float();
             path.moveTo(x_coords[0], y_coords[0]);
@@ -98,129 +98,19 @@ public class GraphicRenderer {
             canvas.fill(point);
         }
         for (Structs.Segment s: aMesh.getSegmentsList()){
-            float[] vertices = extractHeadTail(s.getPropertiesList());
-            double x1 = vertices[0];
-            double y1 = vertices[1];
-            double x2 = vertices[2];
-            double y2 = vertices[3];
-            canvas.setColor(Color.BLACK);
-            canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
-        }
-        for (Structs.Polygon p: aMesh.getPolygonsList()) { //neighbourhoods need to be drawn last, but they require polygons, so we repeat
-            canvas.setColor(Color.GRAY);
-            for (Structs.Polygon q: aMesh.getPolygonsList()) {
-                int p_neighbour = extractNeighbourID(p.getPropertiesList());
-                int q_neighbour = extractNeighbourID(q.getPropertiesList());
-                if (p_neighbour == q_neighbour) { //this confirms that the two polygons are neighbours
-                    int[] lines_p = new int[50];
-                    int[] lines_q = new int[50];
-                    lines_p = extractSegmentIDs(p.getPropertiesList());
-                    lines_q = extractSegmentIDs(q.getPropertiesList());
-                    for (int i = 0; i < 50; i++) {
-                        for (int j = 0; j < 50; j++) {
-                            if (lines_p[i] == lines_q[j]) {
-                                for (Structs.Segment s: aMesh.getSegmentsList()) {
-                                    if (extractSegID(s.getPropertiesList()) == lines_p[i]) {
-                                        float[] vertices = extractHeadTail(s.getPropertiesList());
-                                        double x1 = vertices[0];
-                                        double y1 = vertices[1];
-                                        double x2 = vertices[2];
-                                        double y2 = vertices[3];
-                                        canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            Vertex v1 = aMesh.getVertices(s.getV1Idx());
+            Vertex v2 = aMesh.getVertices(s.getV2Idx());
+
+            Color segment_color = extractColor(s.getPropertiesList());
+
+            canvas.setColor(segment_color);
+            canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
+
         }
 
     }
 
-    private Color extractColor(List<Property> properties) {
-        String val = null;
-        for(Property p: properties) {
-            if (p.getKey().equals("rgb_color")) {
-//                System.out.println(p.getValue());
-                val = p.getValue();
-            }
-        }
-        if (val == null)
-            return Color.BLACK;
-        String[] raw = val.split(",");
-        int red = Integer.parseInt(raw[0].replace("[","").replace(" ", ""));
-        int green = Integer.parseInt(raw[1].replace(" ", ""));
-        int blue = Integer.parseInt(raw[2].replace("]","").replace(" ", ""));
-        return new Color(red, green, blue);
-    }
 
-    private ArrayList<float[]> extractCoords(List<Property> properties) {
-        String x_coords = null, y_coords = null;
-        for (Property p: properties) {
-            System.out.println(p.getKey());
-            if (p.getKey().equals("x_coords")) {
-                x_coords = p.getValue();
-            }
-            if (p.getKey().equals("y_coords")) {
-                y_coords = p.getValue();
-            }
-        }
-
-        String[] raw_x = x_coords.split(",");
-//        System.out.println(Arrays.toString(raw_x));
-        float[] pro_x = new float[raw_x.length];
-        String[] raw_y = y_coords.split(",");
-        float[] pro_y = new float[raw_y.length];
-
-        for(int i = 0; i < raw_x.length; i++) {
-            pro_x[i] = Float.parseFloat(raw_x[i].replace("[","").replace(" ", "").replace("]",""));
-            pro_y[i] = Float.parseFloat(raw_y[i].replace("[","").replace(" ", "").replace("]",""));
-
-        }
-        ArrayList<float[]> return_array = new ArrayList<>();
-        return_array.add(pro_x);
-        return_array.add(pro_y);
-        return return_array;
-    }
-
-    private float[] extractHeadTail(List<Property> properties) {
-//        System.out.println(properties);
-        String head = null, tail = null;
-        for(Property p: properties) {
-            if (p.getKey().equals("head")) {
-//                System.out.println(p.getValue());
-                head = p.getValue();
-            }
-            if (p.getKey().equals("tail")) {
-//                System.out.println(p.getValue());
-                tail = p.getValue();
-            }
-        }
-        if (head == null || tail == null)
-            return new float[]{};
-        String[] raw_head = head.split(",");
-        String[] raw_tail = tail.split(",");
-        float[] head_tail = new float[raw_head.length*2];
-
-        for(int i = 0; i < raw_head.length; i++) {
-            head_tail[i] = Float.parseFloat(raw_head[i]);
-            head_tail[i+raw_head.length] = Float.parseFloat(raw_tail[i]);
-        }
-
-        return head_tail;
-    }
-
-    private int extractNeighbourID(List<Property> properties) {
-        String val = null;
-        for(Property p: properties) {
-            if (p.getKey().equals("neighbours")) {
-//                System.out.println(p.getValue());
-                val = p.getValue();
-            }
-        }
-        return Integer.parseInt(val);
-    }
 
     private int[] extractSegmentIDs(List<Property> properties) { //applicable for polygons
         String val = null;

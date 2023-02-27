@@ -1,0 +1,91 @@
+@startuml
+
+class Main {
+    -int width
+    -int height
+}
+
+interface MeshGenerator {
+    +Mesh generator()
+}
+MeshGenerator <|-- OurIrregular: _'is a'
+
+class OurIrregular {
+    -int width
+    -int height
+    -int num_polygons
+    -ArrayList<Vertex> unique_vertices
+    -ArrayList<Segment> unique_segments
+    -ArrayList<Polygon> polygons
+    +Mesh generate()
+}
+Main -- OurIrregular
+
+interface OurGeometryFactory {
+    +ArrayList<Object> create_geometry;
+}
+
+together{
+    class OurPolygon {
+        -Vertex centroid
+        -ArrayList<Segment> segments_group
+        -ArrayList<Integer> neighbours_id
+        -String colorCode
+        -float alpha
+        -int id
+        +ArrayList<Object> create_geometry(int idSelf,
+        ArrayList<Object> arrayArgs, float alpha, int thickness, int misc)
+        -Vertex create_middle_vertex()
+    }
+    OurGeometryFactory <|-- OurPolygon: _'is a'
+    OurIrregular "1" o-- "0..*" OurPolygon: _'has a'
+
+
+    Class OurSegment {
+        -int[] colour_code
+        -Vertex head_vertex
+        -Vertex tail_vertex
+        +ArrayList<Object> create_geometry(int idSelf, ArrayList<Object> arrayArgs, float alpha,
+        int thickness, int misc)
+    }
+    OurGeometryFactory <|-- OurSegment: _'is a'
+    OurIrregular "1" o-- "0..*" OurSegment: _'has a'
+    OurPolygon "1" o-- "3..*" OurSegment: _'has a'
+    OurPolygon "1" o-- "1" OurVertex: _'has a'
+
+    class OurVertex {
+        -double[] coords
+        -String colorCode
+        -int id
+        +Vertex create_geometry(int idSelf, ArrayList<Object> arrayArgs,
+         float alpha, int thickness, int misc)
+        +Vertex create_geometry_centroid(double x, double y, int id)
+    }
+    OurGeometryFactory <|-- OurVertex: _'is a'
+    OurSegment "1" o-- "2" OurVertex: _'has a'
+    OurIrregular "1" o-- "0..*" OurVertex: _'has a'
+
+    class PropertyUtils {
+        +double[] extractSegmentMiddle
+        +double[] parse_string_to_array_int
+        +int extractID
+        +double[] extractHeadCoords
+        +double[] extractTailCoords
+        +int[] extractColor
+    }
+    PropertyUtils <|.. OurSegment
+    PropertyUtils <|.. OurPolygon
+}
+
+
+
+class MathUtils {
+    #double calculate_new_centroid
+    #double calculate_centroid_of_triangle
+    #Coordinate calculate_area_of_triangle
+    #Coordinate calculate_length_if_segment
+}
+MathUtils <|.. OurIrregular
+
+
+@enduml
