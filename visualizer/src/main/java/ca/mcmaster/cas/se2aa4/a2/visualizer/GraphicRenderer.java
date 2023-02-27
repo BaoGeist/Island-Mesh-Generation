@@ -61,18 +61,12 @@ public class GraphicRenderer {
     }
 
     public void debug(Mesh aMesh, Graphics2D canvas) {
-        canvas.setColor(Color.WHITE);
+        canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-<<<<<<< HEAD
         for (Structs.Polygon p: aMesh.getPolygonsList()) { //polygons are drawn first as the back layer
-            float[] x_coords = extractCoords(p.getPropertiesList()).get(0);
-            float[] y_coords = extractCoords(p.getPropertiesList()).get(1);
-=======
-        for (Structs.Polygon p: aMesh.getPolygonsList()) {
             float[] x_coords = extractCoordsforPolygons(p.getPropertiesList()).get(0);
             float[] y_coords = extractCoordsforPolygons(p.getPropertiesList()).get(1);
->>>>>>> 9485a7ac44e1a7b9b6839ab4bd58f89681d66f68
 
             Path2D.Float path = new Path2D.Float();
             path.moveTo(x_coords[0], y_coords[0]);
@@ -84,34 +78,38 @@ public class GraphicRenderer {
 
             canvas.setColor(Color.BLACK);
             canvas.fill(path);
-
+            /* 
             double[] centroid_coords = new double[]{2.0, 2.0};
             Ellipse2D point = new Ellipse2D.Double(centroid_coords[0], centroid_coords[1], THICKNESS, THICKNESS);
             canvas.setColor(Color.BLACK);
             canvas.fill(point);
+            */
         }
         for (Vertex v: aMesh.getVerticesList()) { //vertices and segments are drawn overtop of polygons
             double centre_x = v.getX() - (THICKNESS/2.0d);
             double centre_y = v.getY() - (THICKNESS/2.0d);
             Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
-            canvas.setColor(Color.BLACK);
+            boolean centroid_or_nah = extractCentroid(v.getPropertiesList());
+            if (centroid_or_nah == true) {
+                canvas.setColor(Color.RED);
+            }
+            else {
+                canvas.setColor(Color.BLACK);
+            }
             canvas.fill(point);
         }
         for (Structs.Segment s: aMesh.getSegmentsList()){
             Vertex v1 = aMesh.getVertices(s.getV1Idx());
             Vertex v2 = aMesh.getVertices(s.getV2Idx());
 
-            Color segment_color = extractColor(s.getPropertiesList());
-
-            canvas.setColor(segment_color);
+            canvas.setColor(Color.BLACK);
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
 
         }
 
     }
 
-
-
+    /*
     private int[] extractSegmentIDs(List<Property> properties) { //applicable for polygons
         String val = null;
         for (Property p: properties) {
@@ -137,6 +135,6 @@ public class GraphicRenderer {
         int segment;
         segment = Integer.parseInt(val);
         return segment;
-    }
+    } */
 
 }

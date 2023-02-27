@@ -94,4 +94,14 @@ public class PropertyUtils {
         return Integer.parseInt(val);
     }
 
+    public static boolean extractCentroid(List<Structs.Property> properties) {
+        String val = null;
+        for (Structs.Property p: properties) {
+            if (p.getKey().equals("centroid_or_nah")) {
+                val = p.getValue();
+            }
+        }
+        return Boolean.parseBoolean(val);
+    }
+
 }

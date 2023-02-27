@@ -124,12 +124,8 @@ public class OurPolygon implements OurGeometryFactory{
         Property x_coords = Property.newBuilder().setKey("x_coords").setValue(this.x_coords.toString()).build();
         Property y_coords = Property.newBuilder().setKey("y_coords").setValue(this.y_coords.toString()).build();
         Property centroid_coords = Property.newBuilder().setKey("centroid_coords").setValue(this.centroid_coords.toString()).build();
-<<<<<<< HEAD
         Property segment_ids = Property.newBuilder().setKey("segment_ids").setValue(this.segments_id.toString()).build();
-        Polygon p = Polygon.newBuilder().addAllSegmentIdxs(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).addProperties(centroid_coords).addProperties(segment_ids).build();
-=======
         Structs.Polygon p = Structs.Polygon.newBuilder().addAllSegmentIdxs(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
->>>>>>> 9485a7ac44e1a7b9b6839ab4bd58f89681d66f68
         return p;
     }
 
