@@ -113,6 +113,7 @@ public class OurMesh implements MeshGenerator{
             }
             iteratorh++;
         }
+
     }
 
     public Structs.Mesh generate() {
@@ -124,7 +125,7 @@ public class OurMesh implements MeshGenerator{
         return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(vertical_segments).addAllPolygons(polygons).build();
     }
 
-    private ArrayList<Integer> setNeighbours(){
+    private ArrayList<ArrayList<Integer>> setNeighbours(){
         ArrayList<Integer> PolygonNeighbours = new ArrayList<>();
 
         int CurrentID = polygons.size();
