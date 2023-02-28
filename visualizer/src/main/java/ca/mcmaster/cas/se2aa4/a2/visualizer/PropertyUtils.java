@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PropertyUtils {
-    public static Color extractColor(java.util.List<Structs.Property> properties) {
+    protected static Color extractColor(java.util.List<Structs.Property> properties) {
         String val = null;
         for(Structs.Property p: properties) {
             if (p.getKey().equals("rgb_color")) {
@@ -24,7 +24,7 @@ public class PropertyUtils {
         return new Color(red, green, blue);
     }
 
-    public static ArrayList<float[]> extractCoordsforPolygons(java.util.List<Structs.Property> properties) {
+    protected static ArrayList<float[]> extractCoordsforPolygons(java.util.List<Structs.Property> properties) {
         String x_coords = null, y_coords = null;
         for(Structs.Property p: properties) {
             if (p.getKey().equals("x_coords")) {
@@ -54,44 +54,6 @@ public class PropertyUtils {
         return_array.add(pro_x);
         return_array.add(pro_y);
         return return_array;
-    }
-
-    public static float[] extractHeadTail(java.util.List<Structs.Property> properties) {
-//        System.out.println(properties);
-        String head = null, tail = null;
-        for(Structs.Property p: properties) {
-            if (p.getKey().equals("head")) {
-//                System.out.println(p.getValue());
-                head = p.getValue();
-            }
-            if (p.getKey().equals("tail")) {
-//                System.out.println(p.getValue());
-                tail = p.getValue();
-            }
-        }
-        if (head == null || tail == null)
-            return new float[]{};
-        String[] raw_head = head.split(",");
-        String[] raw_tail = tail.split(",");
-        float[] head_tail = new float[raw_head.length*2];
-
-        for(int i = 0; i < raw_head.length; i++) {
-            head_tail[i] = Float.parseFloat(raw_head[i]);
-            head_tail[i+raw_head.length] = Float.parseFloat(raw_tail[i]);
-        }
-
-        return head_tail;
-    }
-
-    public static int extractMiddleID(List<Structs.Property> properties) {
-        String val = null;
-        for(Structs.Property p: properties) {
-            if (p.getKey().equals("middle_id")) {
-//                System.out.println(p.getValue());
-                val = p.getValue();
-            }
-        }
-        return Integer.parseInt(val);
     }
 
 }

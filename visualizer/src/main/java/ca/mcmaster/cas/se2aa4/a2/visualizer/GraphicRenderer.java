@@ -44,7 +44,7 @@ public class GraphicRenderer {
 
             Color segment_color = extractColor(s.getPropertiesList());
 
-            canvas.setColor(segment_color);
+            canvas.setColor(Color.black);
 //            Stroke strokeseg = new BasicStroke(10);
 //            canvas.setStroke(strokeseg);
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());

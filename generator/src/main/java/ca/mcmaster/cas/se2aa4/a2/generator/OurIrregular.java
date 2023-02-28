@@ -131,7 +131,6 @@ public class OurIrregular implements MeshGenerator{
                 ArrayList<Object> send_array = new ArrayList<>();
                 send_array.add((float) reorderedPolygon.getCoordinates()[j].x);
                 send_array.add((float) reorderedPolygon.getCoordinates()[j].y);
-                System.out.println(send_array.toString());
 
                 ArrayList<Object> returned_array = vertexFactory.create_geometry(unique_vertices_counter, send_array, 1.00f, 1, 1);
 
