@@ -29,7 +29,6 @@ public class GeometryContainer {
                 float float_y_old = (float) old_vertex.getY();
 
                 if(double_equals(float_x_new, float_x_old) && double_equals(float_y_new, float_y_old)) {
-                    System.out.println("this triggers here");
                     return old_vertex;
                 }
             }
@@ -52,7 +51,6 @@ public class GeometryContainer {
             old_segment_vertices.add(all_vertices.get(s_old.getV1Idx()));
             old_segment_vertices.add(all_vertices.get(s_old.getV1Idx()));
             if(new_segment_vertices.equals(old_segment_vertices)) {
-                System.out.println("duppy");
                 return s_old;
             }
         }

@@ -89,16 +89,6 @@ public class OurMesh implements MeshGenerator{
                 PolygonSegments.add((Structs.Segment) horizontal_segments.get(iteratorh+1));
                 PolygonSegments.add((Structs.Segment) vertical_segments.get(iteratorv));
 
-//                System.out.println("new");
-//                System.out.println(extractID(horizontal_segments.get(iteratorh).getPropertiesList()));
-//                System.out.println(extractID(horizontal_segments.get(iteratorh+1).getPropertiesList()));
-//                System.out.println(extractID(vertical_segments.get(iteratorv).getPropertiesList()));
-//                System.out.println(extractID(vertical_segments.get(iteratorv+19).getPropertiesList()));
-//                System.out.println(Arrays.toString(extractSegmentMiddle(horizontal_segments.get(iteratorh).getPropertiesList())));
-//                System.out.println(Arrays.toString(extractSegmentMiddle(horizontal_segments.get(iteratorh+1).getPropertiesList())));
-//                System.out.println(Arrays.toString(extractSegmentMiddle(vertical_segments.get(iteratorv).getPropertiesList())));
-//                System.out.println(Arrays.toString(extractSegmentMiddle(vertical_segments.get(iteratorv+19).getPropertiesList())));
-
                 OurPolygon polygonFactory = new OurPolygon();
 
                 ArrayList<Object> PolygonSegmentsObjects = PolygonSegments.stream()
@@ -109,6 +99,7 @@ public class OurMesh implements MeshGenerator{
                 Structs.Polygon polygon1 = (Structs.Polygon) return_array.get(0);
                 polygon_neighbors.add(setNeighbours());
 
+
                 vertices.add((Structs.Vertex) return_array.get(1));
                 polygons.add(polygon1);
 
@@ -118,13 +109,14 @@ public class OurMesh implements MeshGenerator{
             iteratorh++;
         }
         polygonswithneighbours = OurPolygon.set_all_polygons(polygons, polygon_neighbors);
+        System.out.println(polygon_neighbors);
     }
 
     public Structs.Mesh generate() {
         generateVertices();
         generateSegments();
         generatePolygons();
-        //System.out.println(polygons.size());
+
         vertical_segments.addAll(horizontal_segments);
         return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(vertical_segments).addAllPolygons(polygonswithneighbours).build();
     }
@@ -150,7 +142,6 @@ public class OurMesh implements MeshGenerator{
         }
 
         PolygonNeighbours.removeIf(id -> id < 0 || id > width*height-1);
-
         return PolygonNeighbours;
     }
 
