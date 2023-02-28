@@ -20,6 +20,8 @@ public class OurMesh implements MeshGenerator{
     private ArrayList<Structs.Polygon> polygons = new ArrayList<>();
 
     private ArrayList<Structs.Vertex> centroids = new ArrayList<>();
+
+    private ArrayList<ArrayList<Integer>> polygon_neighbors = new ArrayList<>();
     public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness) {
         this.width = width;
         this.height = height;
@@ -103,7 +105,7 @@ public class OurMesh implements MeshGenerator{
 
                 ArrayList<Object> return_array = polygonFactory.create_geometry(polygons.size(), PolygonSegmentsObjects, alpha_entry, thickness, vertices.size());
                 Structs.Polygon polygon1 = (Structs.Polygon) return_array.get(0);
-                polygonFactory.neighbours_id = setNeighbours();
+                polygon_neighbors.add(setNeighbours());
 
                 vertices.add((Structs.Vertex) return_array.get(1));
                 polygons.add(polygon1);
