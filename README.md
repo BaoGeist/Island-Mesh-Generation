@@ -5,7 +5,7 @@
 
 ## How to run the product
 
-_This section needs to be edited to reflect how the user can interact with the feature released in your project_
+Read below, pay attention to the generator section
 
 ### Installation instructions
 
@@ -21,13 +21,22 @@ After installation, you'll find an application named `generator.jar` in the `gen
 
 ### Generator
 
-To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes one single argument (so far), the name of the file where the generated mesh will be stored as binary.
+To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes up to 6 arguments, the name of the file where the generated mesh will be stored as binary, `regular` or `irregular` to determine what kind of mesh is built, an integer value for the width of the mesh, and an integer value for the height of the mesh. If a regular mesh is created 3 additional arguments follow: an integer value for square sizes, float value for transparency, and finally int value for thickness of segments. If a irregular mesh is created, 1 additional argument follows: an interger value for number of polygons to be created.
 
-The following will create a regular mesh with 
+The following will create a regular 500x500 mesh with 25 vertice square length, 1.00f transparency, and 1 thickness. These are the default values for a regular mesh as well.
 
 ```
 mosser@azrael A2 % cd generator 
-mosser@azrael generator % java -jar generator.jar sample.mesh 
+mosser@azrael generator % java -jar generator.jar sample.mesh irregular 500 500 25 1.00f 1
+mosser@azrael generator % ls -lh sample.mesh
+-rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
+mosser@azrael generator % 
+```
+
+The following will create an irregular 500x500 mesh with 200 polygons
+```
+mosser@azrael A2 % cd generator 
+mosser@azrael generator % java -jar generator.jar sample.mesh irregular 500 500 200
 mosser@azrael generator % ls -lh sample.mesh
 -rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
 mosser@azrael generator % 
@@ -75,7 +84,7 @@ Our Definition of Done includes the following criteria:
 | F03 | created  new polygons, segments, and vertices classes                        | Baoze, Alexis         | 02.15.2023 | 02.17.2023 | D      |
 | F04 | produced a full mesh ADT with above F03 classes                              | Daniel                | 02.15.2023 | 02.17.2023 | D      |
 | F05 | playing around with rendering                                                | Baoze                 | 02.17.2023 |            | B (04) |
-| F06 | visualization mode with rendering                                            | Alexis                | 02.17.2023 |            | P     |
+| F06 | visualization mode with rendering                                            | Alexis                | 02.17.2023 |            | B (05) |
 | F07 | generate random points in a precision model, one for each expected Polygon   | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
 | F08 | generate first voronoi diagram with above points                             | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
 | F09 | compute lloyd relaxation on said points                                      | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
