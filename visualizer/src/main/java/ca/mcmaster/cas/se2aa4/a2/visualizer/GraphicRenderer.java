@@ -78,12 +78,6 @@ public class GraphicRenderer {
 
             canvas.setColor(Color.BLACK);
             canvas.fill(path);
-            /* 
-            double[] centroid_coords = new double[]{2.0, 2.0};
-            Ellipse2D point = new Ellipse2D.Double(centroid_coords[0], centroid_coords[1], THICKNESS, THICKNESS);
-            canvas.setColor(Color.BLACK);
-            canvas.fill(point);
-            */
         }
         for (Vertex v: aMesh.getVerticesList()) { //vertices and segments are drawn overtop of polygons
             double centre_x = v.getX() - (THICKNESS/2.0d);
@@ -106,35 +100,34 @@ public class GraphicRenderer {
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
 
         }
-
-    }
-
-    /*
-    private int[] extractSegmentIDs(List<Property> properties) { //applicable for polygons
-        String val = null;
-        for (Property p: properties) {
-            if (p.getKey().equals("segment_ids")) {
-                val = p.getValue();
+        for (Structs.Polygon p: aMesh.getPolygonsList()) { //neighbourhoods need to be drawn last, but they require polygons, so we repeat
+            canvas.setColor(Color.GRAY);
+            for (Structs.Polygon q: aMesh.getPolygonsList()) {
+                int p_neighbour = extractNeighbourID(p.getPropertiesList());
+                int q_neighbour = extractNeighbourID(q.getPropertiesList());
+                if (p_neighbour == q_neighbour) { //this confirms that the two polygons are neighbours
+                    int[] lines_p = new int[50];
+                    int[] lines_q = new int[50];
+                    lines_p = extractSegmentIDs(p.getPropertiesList());
+                    lines_q = extractSegmentIDs(q.getPropertiesList());
+                    for (int i = 0; i < 50; i++) {
+                        for (int j = 0; j < 50; j++) {
+                            if (lines_p[i] == lines_q[j]) {
+                                for (Structs.Segment s: aMesh.getSegmentsList()) {
+                                    if (extractSegID(s.getPropertiesList()) == lines_p[i]) {
+                                        float[] vertices = extractHeadTail(s.getPropertiesList());
+                                        double x1 = vertices[0];
+                                        double y1 = vertices[1];
+                                        double x2 = vertices[2];
+                                        double y2 = vertices[3];
+                                        canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
-        String[] segments = val.split(",");
-        int[] lines = new int[segments.length];
-        for(int i = 0; i < lines.length; i++) {
-            lines[i] = Integer.parseInt(segments[i]);
-        }
-        return lines;
     }
-
-    private int extractSegID(List<Property> properties) { //similar to above but only applicable for segments
-        String val = null;
-        for (Property p: properties) {
-            if (p.getKey().equals("segment_id")) {
-                val = p.getValue();
-            }
-        }
-        int segment;
-        segment = Integer.parseInt(val);
-        return segment;
-    } */
-
 }

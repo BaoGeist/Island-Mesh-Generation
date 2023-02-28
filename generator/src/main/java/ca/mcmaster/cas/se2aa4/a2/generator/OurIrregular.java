@@ -7,6 +7,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import org.locationtech.jts.algorithm.ConvexHull;
 import org.locationtech.jts.geom.*;
+import org.locationtech.jts.triangulate.DelaunayTriangulationBuilder;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 import java.util.ArrayList;
 import java.util.Random;
@@ -88,6 +89,8 @@ public class OurIrregular implements MeshGenerator{
         }
         return listVoronoied;
     }
+
+
 
     private static final int THICKNESS = 3;
 
@@ -182,13 +185,17 @@ public class OurIrregular implements MeshGenerator{
             polygons.add((Polygon) return_array.get(0));
             centroids.add((Vertex) return_array.get(1));
 
-            // TODO compute neighbourhood relationships using Delaunay's triangulation
+            //Delaunay's triangulation
+            DelaunayTriangulationBuilder delaunay = new DelaunayTriangulationBuilder();
+            ArrayList<Vertex> delcentroids = new ArrayList<>();
+            //delaunay.setSites(centroids);
 
             unique_vertices_object.add((Vertex) return_array.get(1));
             unique_vertices_counter++;
         }
         return Mesh.newBuilder().addAllVertices(unique_vertices_object).addAllSegments(unique_segments_object).addAllPolygons(polygons).build();
         //polygons
+
 
     }
 }

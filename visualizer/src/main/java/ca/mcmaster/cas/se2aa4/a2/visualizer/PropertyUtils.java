@@ -104,4 +104,43 @@ public class PropertyUtils {
         return Boolean.parseBoolean(val);
     }
 
+    public static int extractNeighbourID(List<Structs.Property> properties) {
+        String val = null;
+        for(Structs.Property p: properties) {
+            if (p.getKey().equals("neighbours")) {
+                val = p.getValue();
+                System.out.println("bruh");
+            }
+        }
+        return Integer.parseInt(val);
+    }
+
+
+    public static int[] extractSegmentIDs(List<Structs.Property> properties) { //applicable for polygons
+        String val = null;
+        for (Structs.Property p: properties) {
+            if (p.getKey().equals("segment_ids")) {
+                val = p.getValue();
+            }
+        }
+        String[] segments = val.split(",");
+        int[] lines = new int[segments.length];
+        for(int i = 0; i < lines.length; i++) {
+            lines[i] = Integer.parseInt(segments[i]);
+        }
+        return lines;
+    }
+
+    public static int extractSegID(List<Structs.Property> properties) { //similar to above but only applicable for segments
+        String val = null;
+        for (Structs.Property p: properties) {
+            if (p.getKey().equals("segment_id")) {
+                val = p.getValue();
+            }
+        }
+        int segment;
+        segment = Integer.parseInt(val);
+        return segment;
+    }
+
 }
