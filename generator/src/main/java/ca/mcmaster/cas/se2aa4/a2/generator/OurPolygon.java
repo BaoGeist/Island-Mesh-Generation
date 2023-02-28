@@ -123,13 +123,12 @@ public class OurPolygon implements OurGeometryFactory{
         Property thicc = Property.newBuilder().setKey("thicc").setValue(Integer.toString(thickness)).build();
         Property a = Property.newBuilder().setKey("alpha").setValue(Float.toString(alpha)).build();
         Property polygon_id = Property.newBuilder().setKey("id").setValue(String.valueOf(id)).build();
-        Property neighbours_id = Property.newBuilder().setKey("neighbours").setValue(get_neighbours_id()).build();
         Property middle_id = Property.newBuilder().setKey("middle_id").setValue(Integer.toString(extractID(middle_vertex.getPropertiesList()))).build();
         Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
         Property x_coords = Property.newBuilder().setKey("x_coords").setValue(this.x_coords.toString()).build();
         Property y_coords = Property.newBuilder().setKey("y_coords").setValue(this.y_coords.toString()).build();
         Property centroid_coords = Property.newBuilder().setKey("centroid_coords").setValue(this.centroid_coords.toString()).build();
-        Structs.Polygon p = Structs.Polygon.newBuilder().addAllSegmentIdxs(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
+        Structs.Polygon p = Structs.Polygon.newBuilder().addAllSegmentIdxs(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
         return p;
     }
 

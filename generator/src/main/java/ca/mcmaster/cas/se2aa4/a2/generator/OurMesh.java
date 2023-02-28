@@ -22,6 +22,8 @@ public class OurMesh implements MeshGenerator{
     private ArrayList<Structs.Vertex> centroids = new ArrayList<>();
 
     private ArrayList<ArrayList<Integer>> polygon_neighbors = new ArrayList<>();
+
+    private ArrayList<Structs.Polygon> polygonswithneighbours;
     public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness) {
         this.width = width;
         this.height = height;
@@ -115,7 +117,7 @@ public class OurMesh implements MeshGenerator{
             }
             iteratorh++;
         }
-
+        polygonswithneighbours = OurPolygon.set_all_polygons(polygons, polygon_neighbors);
     }
 
     public Structs.Mesh generate() {
@@ -124,10 +126,10 @@ public class OurMesh implements MeshGenerator{
         generatePolygons();
         //System.out.println(polygons.size());
         vertical_segments.addAll(horizontal_segments);
-        return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(vertical_segments).addAllPolygons(polygons).build();
+        return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(vertical_segments).addAllPolygons(polygonswithneighbours).build();
     }
 
-    private ArrayList<ArrayList<Integer>> setNeighbours(){
+    private ArrayList<Integer> setNeighbours(){
         ArrayList<Integer> PolygonNeighbours = new ArrayList<>();
 
         int CurrentID = polygons.size();
