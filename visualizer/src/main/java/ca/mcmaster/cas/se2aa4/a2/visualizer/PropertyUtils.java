@@ -56,4 +56,99 @@ public class PropertyUtils {
         return return_array;
     }
 
+    public static float[] extractHeadTail(java.util.List<Structs.Property> properties) {
+//        System.out.println(properties);
+        String head = null, tail = null;
+        for(Structs.Property p: properties) {
+            if (p.getKey().equals("head")) {
+//                System.out.println(p.getValue());
+                head = p.getValue();
+            }
+            if (p.getKey().equals("tail")) {
+//                System.out.println(p.getValue());
+                tail = p.getValue();
+            }
+        }
+        if (head == null || tail == null)
+            return new float[]{};
+        String[] raw_head = head.split(",");
+        String[] raw_tail = tail.split(",");
+        float[] head_tail = new float[raw_head.length*2];
+
+        for(int i = 0; i < raw_head.length; i++) {
+            head_tail[i] = Float.parseFloat(raw_head[i]);
+            head_tail[i+raw_head.length] = Float.parseFloat(raw_tail[i]);
+        }
+
+        return head_tail;
+    }
+
+    public static int extractMiddleID(List<Structs.Property> properties) {
+        String val = null;
+        for(Structs.Property p: properties) {
+            if (p.getKey().equals("middle_id")) {
+//                System.out.println(p.getValue());
+                val = p.getValue();
+            }
+        }
+        return Integer.parseInt(val);
+    }
+
+    public static boolean extractCentroid(List<Structs.Property> properties) {
+        String val = null;
+        for (Structs.Property p: properties) {
+            if (p.getKey().equals("centroid_or_nah")) {
+                val = p.getValue();
+            }
+        }
+        return Boolean.parseBoolean(val);
+    }
+
+    public static double extractNeighbourID(List<Structs.Property> properties) {
+        String val = null;
+        for(Structs.Property p: properties) {
+            if (p.getKey().equals("neighbours")) {
+                val = p.getValue();
+                System.out.println(val);
+            }
+        }
+        return Double.parseDouble(val);
+    }
+
+
+    public static ArrayList<Integer> extractSegmentIDs(List<Structs.Property> properties) { //applicable for polygons
+        String val = null;
+        for (Structs.Property p: properties) {
+            if (p.getKey().equals("segments_id")) {
+                val = p.getValue();
+                System.out.println(val);
+            }
+        }
+        String[] segments = val.split(",");
+        ArrayList<Integer> lines = new ArrayList<>();
+        for(int i = 0; i < segments.length; i++) {
+            String temp = segments[i];
+            String temp2 = "";
+            for (int j = 0; j < segments[i].length(); j++) {
+                if ((int) temp.charAt(j) >= 48 && (int) temp.charAt(j) <= 57) {
+                    temp2 += temp.charAt(j);
+                    System.out.println(temp2);
+                }
+                }
+            lines.add(Integer.parseInt(temp2));
+        }
+        return lines;
+    }
+
+    public static int extractSegID(List<Structs.Property> properties) { //similar to above but only applicable for segments
+        String val = null;
+        for (Structs.Property p: properties) {
+            if (p.getKey().equals("id")) {
+                val = p.getValue();
+            }
+        }
+        int segment;
+        segment = Integer.parseInt(val);
+        return segment;
+    }
 }
