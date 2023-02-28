@@ -23,7 +23,9 @@ After installation, you'll find an application named `generator.jar` in the `gen
 
 To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes up to 6 arguments, the name of the file where the generated mesh will be stored as binary, `regular` or `irregular` to determine what kind of mesh is built, an integer value for the width of the mesh, and an integer value for the height of the mesh. If a regular mesh is created 3 additional arguments follow: an integer value for square sizes, float value for transparency, and finally int value for thickness of segments. If a irregular mesh is created, 1 additional argument follows: an interger value for number of polygons to be created.
 
-The following will create a regular 500x500 mesh with 25 vertice square length, 1.00f transparency, and 1 thickness. These are the default values for a regular mesh as well.
+The following will create a regular 500x500 mesh with 25 vertice square length, 1.00f transparency, and 1 thickness. These are the default values for a regular mesh as well. 
+
+If a mesh is ran with a square length that is not a factor of the width OR length, the code will not run.
 
 ```
 mosser@azrael A2 % cd generator 
