@@ -80,7 +80,7 @@ Our Definition of Done includes the following criteria:
 | Id | Feature title                                                                 | Who?                  | Start      | End        | Status |
 |:--:|-------------------------------------------------------------------------------|-----------------------|------------|------------|--------|
 | F01 | draw segments between vertices (coloured) to visualize the squares           | Baoze, Daniel         | 02.01.2023 | 02.02.2023 | D      |
-| F02 | ability to turn debug mode option on                                         | Baoze, Alexis         | 02.16.2023 | 02.19.2023 | D      |
+| F02 | ability to turn debug mode option on                                         | Baoze, Alexis         | 02.16.2023 |            | I      |
 | F03 | created  new polygons, segments, and vertices classes                        | Baoze, Alexis         | 02.15.2023 | 02.17.2023 | D      |
 | F04 | produced a full mesh ADT with above F03 classes                              | Daniel                | 02.15.2023 | 02.17.2023 | D      |
 | F05 | playing around with rendering                                                | Baoze                 | 02.17.2023 |            | B (04) |

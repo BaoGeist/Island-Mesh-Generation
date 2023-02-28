@@ -18,11 +18,7 @@ public class OurMesh implements MeshGenerator{
     private ArrayList<Structs.Segment> vertical_segments = new ArrayList<>();
     private ArrayList<Structs.Segment> horizontal_segments = new ArrayList<>();
     private ArrayList<Structs.Polygon> polygons = new ArrayList<>();
-
-    private ArrayList<Structs.Vertex> centroids = new ArrayList<>();
-
     private ArrayList<ArrayList<Integer>> polygon_neighbors = new ArrayList<>();
-
     private ArrayList<Structs.Polygon> polygonswithneighbours;
     public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness) {
         this.width = width;
