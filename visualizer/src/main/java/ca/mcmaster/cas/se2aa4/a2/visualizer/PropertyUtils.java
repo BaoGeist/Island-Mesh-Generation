@@ -151,5 +151,4 @@ public class PropertyUtils {
         segment = Integer.parseInt(val);
         return segment;
     }
-
 }
