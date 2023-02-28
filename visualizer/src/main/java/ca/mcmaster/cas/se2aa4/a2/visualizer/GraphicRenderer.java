@@ -11,6 +11,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Path2D;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 
 import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.*;
 
@@ -103,18 +104,18 @@ public class GraphicRenderer {
         for (Structs.Polygon p: aMesh.getPolygonsList()) { //neighbourhoods need to be drawn last, but they require polygons, so we repeat
             canvas.setColor(Color.GRAY);
             for (Structs.Polygon q: aMesh.getPolygonsList()) {
-                int p_neighbour = extractNeighbourID(p.getPropertiesList());
-                int q_neighbour = extractNeighbourID(q.getPropertiesList());
+                double p_neighbour = extractNeighbourID(p.getPropertiesList());
+                double q_neighbour = extractNeighbourID(q.getPropertiesList());
                 if (p_neighbour == q_neighbour) { //this confirms that the two polygons are neighbours
-                    int[] lines_p = new int[50];
-                    int[] lines_q = new int[50];
+                    ArrayList<Integer> lines_p = new ArrayList<Integer>();
+                    ArrayList<Integer> lines_q = new ArrayList<Integer>();
                     lines_p = extractSegmentIDs(p.getPropertiesList());
                     lines_q = extractSegmentIDs(q.getPropertiesList());
-                    for (int i = 0; i < 50; i++) {
-                        for (int j = 0; j < 50; j++) {
-                            if (lines_p[i] == lines_q[j]) {
+                    for (int i = 0; i < lines_p.size(); i++) {
+                        for (int j = 0; j < lines_q.size(); j++) {
+                            if (lines_p.get(i) == lines_q.get(i)) {
                                 for (Structs.Segment s: aMesh.getSegmentsList()) {
-                                    if (extractSegID(s.getPropertiesList()) == lines_p[i]) {
+                                    if (extractSegID(s.getPropertiesList()) == lines_p.get(i)) {
                                         float[] vertices = extractHeadTail(s.getPropertiesList());
                                         double x1 = vertices[0];
                                         double y1 = vertices[1];

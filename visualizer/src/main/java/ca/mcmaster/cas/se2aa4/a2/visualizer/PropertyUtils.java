@@ -104,29 +104,38 @@ public class PropertyUtils {
         return Boolean.parseBoolean(val);
     }
 
-    public static int extractNeighbourID(List<Structs.Property> properties) {
+    public static double extractNeighbourID(List<Structs.Property> properties) {
         String val = null;
         for(Structs.Property p: properties) {
             if (p.getKey().equals("neighbours")) {
                 val = p.getValue();
-                System.out.println("bruh");
+                System.out.println(val);
             }
         }
-        return Integer.parseInt(val);
+        return Double.parseDouble(val);
     }
 
 
-    public static int[] extractSegmentIDs(List<Structs.Property> properties) { //applicable for polygons
+    public static ArrayList<Integer> extractSegmentIDs(List<Structs.Property> properties) { //applicable for polygons
         String val = null;
         for (Structs.Property p: properties) {
-            if (p.getKey().equals("segment_ids")) {
+            if (p.getKey().equals("segments_id")) {
                 val = p.getValue();
+                System.out.println(val);
             }
         }
         String[] segments = val.split(",");
-        int[] lines = new int[segments.length];
-        for(int i = 0; i < lines.length; i++) {
-            lines[i] = Integer.parseInt(segments[i]);
+        ArrayList<Integer> lines = new ArrayList<>();
+        for(int i = 0; i < segments.length; i++) {
+            String temp = segments[i];
+            String temp2 = "";
+            for (int j = 0; j < segments[i].length(); j++) {
+                if ((int) temp.charAt(j) >= 48 && (int) temp.charAt(j) <= 57) {
+                    temp2 += temp.charAt(j);
+                    System.out.println(temp2);
+                }
+                }
+            lines.add(Integer.parseInt(temp2));
         }
         return lines;
     }
@@ -134,7 +143,7 @@ public class PropertyUtils {
     public static int extractSegID(List<Structs.Property> properties) { //similar to above but only applicable for segments
         String val = null;
         for (Structs.Property p: properties) {
-            if (p.getKey().equals("segment_id")) {
+            if (p.getKey().equals("id")) {
                 val = p.getValue();
             }
         }

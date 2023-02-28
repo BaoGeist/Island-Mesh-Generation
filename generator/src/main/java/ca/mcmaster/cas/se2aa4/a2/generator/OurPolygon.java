@@ -127,8 +127,8 @@ public class OurPolygon implements OurGeometryFactory{
         Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
         Property x_coords = Property.newBuilder().setKey("x_coords").setValue(this.x_coords.toString()).build();
         Property y_coords = Property.newBuilder().setKey("y_coords").setValue(this.y_coords.toString()).build();
-        Property centroid_coords = Property.newBuilder().setKey("centroid_coords").setValue(this.centroid_coords.toString()).build();
-        Structs.Polygon p = Structs.Polygon.newBuilder().addAllSegmentIdxs(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
+        Property segments_id = Property.newBuilder().setKey("segments_id").setValue(this.segments_id.toString()).build();
+        Structs.Polygon p = Structs.Polygon.newBuilder().addProperties(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
         return p;
     }
 
