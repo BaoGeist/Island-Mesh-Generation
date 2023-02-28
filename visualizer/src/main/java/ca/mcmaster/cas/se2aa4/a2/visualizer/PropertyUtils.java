@@ -83,17 +83,6 @@ public class PropertyUtils {
         return head_tail;
     }
 
-    public static int extractMiddleID(List<Structs.Property> properties) {
-        String val = null;
-        for(Structs.Property p: properties) {
-            if (p.getKey().equals("middle_id")) {
-//                System.out.println(p.getValue());
-                val = p.getValue();
-            }
-        }
-        return Integer.parseInt(val);
-    }
-
     public static boolean extractCentroid(List<Structs.Property> properties) {
         String val = null;
         for (Structs.Property p: properties) {

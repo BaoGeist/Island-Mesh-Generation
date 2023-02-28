@@ -21,6 +21,13 @@ class OurIrregular {
 }
 Main -- OurIrregular
 
+enum MeshGeneratorEnum {
+    regular
+    irregular
+}
+Main -- MeshGeneratorEnum
+
+
 interface OurGeometryFactory {
     +ArrayList<Object> create_geometry;
 }
@@ -62,7 +69,7 @@ together{
         +Vertex create_geometry_centroid(double x, double y, int id)
     }
     OurGeometryFactory <|-- OurVertex: _'is a'
-    OurSegment "1" o-- "2" OurVertex: _'has a'
+    OurSegment "0,1" o-- "2" OurVertex: _'has a'
     OurIrregular "1" o-- "0..*" OurVertex: _'has a'
 
     class PropertyUtils {

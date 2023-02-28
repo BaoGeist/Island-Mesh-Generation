@@ -7,10 +7,17 @@ class GraphicRenderer {
     +void render(Mesh aMesh, Graphics2D canvas)
     +void debug(Mesh aMesh, Graphics2D canvas)
 }
+Main -- GraphicRenderer
 
 class PropertyUtils {
     #Color extractColor()
-    #ArrayList<float[]> extractCoordsforPolygons(Peroperty properties)
+    #ArrayList<float[]> extractCoordsforPolygons(Property properties)
+    #float[] extractHeadTail(Property properties)
+    #boolean extractCentroid(Property properties)
+    #double extractNeighbourID(Property properties)
+    #ArrayList<Integer> extractSegmentIDs(Property properties)
+    #int extractSegID
 }
+PropertyUtils <|.. GraphicRenderer
 
 @enduml

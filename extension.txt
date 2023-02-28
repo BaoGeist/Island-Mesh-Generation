@@ -1,0 +1,10 @@
+- CLI and multiple arguments
+- Debug mode
+- Delaunay Triangulation
+- Refactoring
+- Additional Testing
+- Supporting invariants
+- Neighbourhoods
+- Defaults
+- Commenting
+- README updates with the above
