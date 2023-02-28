@@ -1,0 +1,16 @@
+@startuml
+
+class Main
+
+class GraphicRenderer {
+    -int THICKNESS
+    +void render(Mesh aMesh, Graphics2D canvas)
+    +void debug(Mesh aMesh, Graphics2D canvas)
+}
+
+class PropertyUtils {
+    #Color extractColor()
+    #ArrayList<float[]> extractCoordsforPolygons(Peroperty properties)
+}
+
+@enduml

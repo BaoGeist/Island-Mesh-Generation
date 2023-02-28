@@ -111,7 +111,7 @@ public class OurPolygon implements OurGeometryFactory{
         for(int i = 0; i < no_neighbours_polygons.size(); i++) {
             String outputString = "";
             for(Integer id: all_neighbours.get(i)) {
-                outputString += String.valueOf(id);
+                outputString += String.valueOf(id) + ',';
             }
             Property neighbours_id = Property.newBuilder().setKey("neighbours").setValue(outputString).build();
             return_polygons.add(Structs.Polygon.newBuilder(no_neighbours_polygons.get(i)).addProperties(neighbours_id).build());

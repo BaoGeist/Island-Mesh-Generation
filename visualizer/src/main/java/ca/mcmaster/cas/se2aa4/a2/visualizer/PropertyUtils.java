@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PropertyUtils {
-    public static Color extractColor(java.util.List<Structs.Property> properties) {
+    protected static Color extractColor(java.util.List<Structs.Property> properties) {
         String val = null;
         for(Structs.Property p: properties) {
             if (p.getKey().equals("rgb_color")) {
@@ -24,7 +24,7 @@ public class PropertyUtils {
         return new Color(red, green, blue);
     }
 
-    public static ArrayList<float[]> extractCoordsforPolygons(java.util.List<Structs.Property> properties) {
+    protected static ArrayList<float[]> extractCoordsforPolygons(java.util.List<Structs.Property> properties) {
         String x_coords = null, y_coords = null;
         for(Structs.Property p: properties) {
             if (p.getKey().equals("x_coords")) {
@@ -151,5 +151,4 @@ public class PropertyUtils {
         segment = Integer.parseInt(val);
         return segment;
     }
-
 }

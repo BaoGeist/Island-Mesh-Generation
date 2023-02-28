@@ -66,12 +66,12 @@ together{
     OurIrregular "1" o-- "0..*" OurVertex: _'has a'
 
     class PropertyUtils {
-        +double[] extractSegmentMiddle
-        +double[] parse_string_to_array_int
-        +int extractID
-        +double[] extractHeadCoords
-        +double[] extractTailCoords
-        +int[] extractColor
+        #double[] extractSegmentMiddle
+        #double[] parse_string_to_array_int
+        #int extractID
+        #double[] extractHeadCoords
+        #double[] extractTailCoords
+        #int[] extractColor
     }
     PropertyUtils <|.. OurSegment
     PropertyUtils <|.. OurPolygon

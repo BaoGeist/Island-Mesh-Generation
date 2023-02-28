@@ -12,14 +12,14 @@ public class Main {
 
         MeshFactory factory = new MeshFactory();
 
-        int width = Integer.parseInt(args[2]);
-        int height = Integer.parseInt(args[3]);
+        int width = (args.length > 2) ? Integer.parseInt(args[2]): 500;
+        int height = (args.length > 3) ? Integer.parseInt(args[3]): 500;
 
         switch(MeshGeneratorEnum.valueOf(args[1])) {
             case regular:
-                int square_size = Integer.parseInt(args[4]);
-                float alpha_entry = Float.parseFloat(args[5]);
-                int thickness = Integer.parseInt(args[6]);
+                int square_size = (args.length > 4) ? Integer.parseInt(args[4]) : 25;
+                float alpha_entry = (args.length > 5) ? Float.parseFloat(args[5]) : 1.00f;
+                int thickness = (args.length > 6) ? Integer.parseInt(args[6]) : 1;
 
                 OurMesh generator = new OurMesh(width, height, square_size, alpha_entry, thickness);
                 Mesh myMesh = generator.generate();
@@ -27,7 +27,7 @@ public class Main {
                 factory.write(myMesh, args[0]);
                 break;
             case irregular:
-                int num_polygons = Integer.parseInt(args[4]);
+                int num_polygons = (args.length > 4) ? Integer.parseInt(args[4]) : 200;
 
                 OurIrregular generator2 = new OurIrregular(width, height, num_polygons);
                 Mesh myMesh2 = generator2.generate();
