@@ -86,7 +86,7 @@ Our Definition of Done includes the following criteria:
 | F03 | created  new polygons, segments, and vertices classes                        | Baoze, Alexis         | 02.15.2023 | 02.17.2023 | D      |
 | F04 | produced a full mesh ADT with above F03 classes                              | Daniel                | 02.15.2023 | 02.17.2023 | D      |
 | F05 | playing around with rendering                                                | Baoze                 | 02.17.2023 | 02.17.2023 | D      |
-| F06 | visualization mode with rendering                                            | Alexis, Daniel        | 02.17.2023 |            | B (05) |
+| F06 | visualization mode with rendering                                            | Alexis, Daniel        | 02.17.2023 |            | I      |
 | F07 | generate random points in a precision model, one for each expected Polygon   | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
 | F08 | generate first voronoi diagram with above points                             | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
 | F09 | compute lloyd relaxation on said points                                      | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
