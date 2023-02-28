@@ -106,25 +106,29 @@ public class OurPolygon implements OurGeometryFactory{
         return centroid_coords;
     }
 
-    private String get_neighbours_id() {
-        String outputString = "";
-        for(Integer id: neighbours_id) {
-            outputString += String.valueOf(id);
+    public static ArrayList<Structs.Polygon> set_all_polygons(ArrayList<Structs.Polygon> no_neighbours_polygons, ArrayList<ArrayList<Integer>> all_neighbours) {
+        ArrayList<Structs.Polygon> return_polygons = new ArrayList<>();
+        for(int i = 0; i < no_neighbours_polygons.size(); i++) {
+            String outputString = "";
+            for(Integer id: all_neighbours.get(i)) {
+                outputString += String.valueOf(id);
+            }
+            Property neighbours_id = Property.newBuilder().setKey("neighbours").setValue(outputString).build();
+            return_polygons.add(Structs.Polygon.newBuilder(no_neighbours_polygons.get(i)).addProperties(neighbours_id).build());
         }
-        return outputString;
+        return return_polygons;
     }
 
     private Structs.Polygon build_polygon() {
         Property thicc = Property.newBuilder().setKey("thicc").setValue(Integer.toString(thickness)).build();
         Property a = Property.newBuilder().setKey("alpha").setValue(Float.toString(alpha)).build();
         Property polygon_id = Property.newBuilder().setKey("id").setValue(String.valueOf(id)).build();
-        Property neighbours_id = Property.newBuilder().setKey("neighbours").setValue(this.get_neighbours_id()).build();
         Property middle_id = Property.newBuilder().setKey("middle_id").setValue(Integer.toString(extractID(middle_vertex.getPropertiesList()))).build();
         Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
         Property x_coords = Property.newBuilder().setKey("x_coords").setValue(this.x_coords.toString()).build();
         Property y_coords = Property.newBuilder().setKey("y_coords").setValue(this.y_coords.toString()).build();
-        Property segment_ids = Property.newBuilder().setKey("segment_ids").setValue(this.segments_id.toString()).build();
-        Structs.Polygon p = Structs.Polygon.newBuilder().addAllSegmentIdxs(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(neighbours_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
+        Property centroid_coords = Property.newBuilder().setKey("centroid_coords").setValue(this.centroid_coords.toString()).build();
+        Structs.Polygon p = Structs.Polygon.newBuilder().addAllSegmentIdxs(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
         return p;
     }
 
