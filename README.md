@@ -14,7 +14,7 @@ This product is handled by Maven, as a multi-module project. We assume here that
 To install the different tooling on your computer, simply run:
 
 ```
-mosser@azrael A2 % mvn install
+mosser@azrael A2 % mvn clean install
 ```
 
 After installation, you'll find an application named `generator.jar` in the `generator` directory, and a file named `visualizer.jar` in the `visualizer` one. 
@@ -23,9 +23,11 @@ After installation, you'll find an application named `generator.jar` in the `gen
 
 To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes one single argument (so far), the name of the file where the generated mesh will be stored as binary.
 
+The following will create a regular mesh with 
+
 ```
 mosser@azrael A2 % cd generator 
-mosser@azrael generator % java -jar generator.jar sample.mesh
+mosser@azrael generator % java -jar generator.jar sample.mesh 
 mosser@azrael generator % ls -lh sample.mesh
 -rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
 mosser@azrael generator % 
@@ -77,9 +79,11 @@ Our Definition of Done includes the following criteria:
 | F07 | generate random points in a precision model, one for each expected Polygon   | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
 | F08 | generate first voronoi diagram with above points                             | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
 | F09 | compute lloyd relaxation on said points                                      | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
-| F10 | crop the mesh to expected size, and keep centroids within the space          | Daniel                | 02.23.2023 | 02.20.2023 | D      |
-| F11 | find neighbourhood relations with Delaunay's triangulation                   | Alexis                |            |            | D      |
-| F12 | comput convex hull to reorder irregular polygon segments                     | Daniel                |            |            | D      |
+| F10 | crop the mesh to expected size, and keep centroids within the space          | Daniel                | 02.20.2023 | 02.20.2023 | D      |
+| F11 | find neighbourhood relations with Delaunay's triangulation                   | Alexis, Daniel        | 02.27.2023 |            | I      |
+| F12 | compute convex hull to reorder irregular polygon segments                    | Daniel                | 02.23.2023 | 02.23.2023 | D      |
+| F13 | CLI                                                                          | Alexis, Daniel, Baoze | 02.25.2023 | 02.27.2023 | D      |
+| F14 | 
 
 
 
