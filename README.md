@@ -85,16 +85,15 @@ Our Definition of Done includes the following criteria:
 | F02 | ability to turn debug mode option on                                         | Baoze, Alexis         | 02.16.2023 | 02.19.2023 | D      |
 | F03 | created  new polygons, segments, and vertices classes                        | Baoze, Alexis         | 02.15.2023 | 02.17.2023 | D      |
 | F04 | produced a full mesh ADT with above F03 classes                              | Daniel                | 02.15.2023 | 02.17.2023 | D      |
-| F05 | playing around with rendering                                                | Baoze                 | 02.17.2023 |            | B (04) |
-| F06 | visualization mode with rendering                                            | Alexis                | 02.17.2023 |            | B (05) |
+| F05 | playing around with rendering                                                | Baoze                 | 02.17.2023 | 02.17.2023 | D      |
+| F06 | visualization mode with rendering                                            | Alexis, Daniel        | 02.17.2023 |            | B (05) |
 | F07 | generate random points in a precision model, one for each expected Polygon   | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
 | F08 | generate first voronoi diagram with above points                             | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
 | F09 | compute lloyd relaxation on said points                                      | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
 | F10 | crop the mesh to expected size, and keep centroids within the space          | Daniel                | 02.20.2023 | 02.20.2023 | D      |
 | F11 | find neighbourhood relations with Delaunay's triangulation                   | Alexis, Daniel        | 02.27.2023 |            | I      |
 | F12 | compute convex hull to reorder irregular polygon segments                    | Daniel                | 02.23.2023 | 02.23.2023 | D      |
-| F13 | CLI                                                                          | Alexis, Daniel, Baoze | 02.25.2023 | 02.27.2023 | D      |
-| F14 | 
+| F13 | CLI (help different modifications)                                           | Alexis, Daniel, Baoze | 02.25.2023 |            | I      |
 
 
 
