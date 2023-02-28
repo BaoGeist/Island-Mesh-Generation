@@ -11,6 +11,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Path2D;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 
 import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.*;
 
@@ -61,10 +62,10 @@ public class GraphicRenderer {
     }
 
     public void debug(Mesh aMesh, Graphics2D canvas) {
-        canvas.setColor(Color.WHITE);
+        canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-        for (Structs.Polygon p: aMesh.getPolygonsList()) {
+        for (Structs.Polygon p: aMesh.getPolygonsList()) { //polygons are drawn first as the back layer
             float[] x_coords = extractCoordsforPolygons(p.getPropertiesList()).get(0);
             float[] y_coords = extractCoordsforPolygons(p.getPropertiesList()).get(1);
 
@@ -78,35 +79,56 @@ public class GraphicRenderer {
 
             canvas.setColor(Color.BLACK);
             canvas.fill(path);
-
-            Color centroid = Color.RED;
-            double[] centroid_coords = new double[]{2.0, 2.0};
-            Ellipse2D point = new Ellipse2D.Double(centroid_coords[0], centroid_coords[1], THICKNESS, THICKNESS);
-            canvas.fill(point);
-            canvas.setColor(centroid);
         }
-        for (Vertex v: aMesh.getVerticesList()) {
+        for (Vertex v: aMesh.getVerticesList()) { //vertices and segments are drawn overtop of polygons
             double centre_x = v.getX() - (THICKNESS/2.0d);
             double centre_y = v.getY() - (THICKNESS/2.0d);
-            Color old = Color.BLACK;
-            canvas.setColor(extractColor(v.getPropertiesList()));
             Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
+            boolean centroid_or_nah = extractCentroid(v.getPropertiesList());
+            if (centroid_or_nah == true) {
+                canvas.setColor(Color.RED);
+            }
+            else {
+                canvas.setColor(Color.BLACK);
+            }
             canvas.fill(point);
-            canvas.setColor(old);
         }
         for (Structs.Segment s: aMesh.getSegmentsList()){
             Vertex v1 = aMesh.getVertices(s.getV1Idx());
             Vertex v2 = aMesh.getVertices(s.getV2Idx());
 
-            Color segment_color = extractColor(s.getPropertiesList());
-
-            canvas.setColor(segment_color);
+            canvas.setColor(Color.BLACK);
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
 
         }
-
+        for (Structs.Polygon p: aMesh.getPolygonsList()) { //neighbourhoods need to be drawn last, but they require polygons, so we repeat
+            canvas.setColor(Color.GRAY);
+            for (Structs.Polygon q: aMesh.getPolygonsList()) {
+                double p_neighbour = extractNeighbourID(p.getPropertiesList());
+                double q_neighbour = extractNeighbourID(q.getPropertiesList());
+                if (p_neighbour == q_neighbour) { //this confirms that the two polygons are neighbours
+                    ArrayList<Integer> lines_p = new ArrayList<Integer>();
+                    ArrayList<Integer> lines_q = new ArrayList<Integer>();
+                    lines_p = extractSegmentIDs(p.getPropertiesList());
+                    lines_q = extractSegmentIDs(q.getPropertiesList());
+                    for (int i = 0; i < lines_p.size(); i++) {
+                        for (int j = 0; j < lines_q.size(); j++) {
+                            if (lines_p.get(i) == lines_q.get(i)) {
+                                for (Structs.Segment s: aMesh.getSegmentsList()) {
+                                    if (extractSegID(s.getPropertiesList()) == lines_p.get(i)) {
+                                        float[] vertices = extractHeadTail(s.getPropertiesList());
+                                        double x1 = vertices[0];
+                                        double y1 = vertices[1];
+                                        double x2 = vertices[2];
+                                        double y2 = vertices[3];
+                                        canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-
-
-
 }
