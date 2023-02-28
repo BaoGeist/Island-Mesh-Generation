@@ -110,7 +110,7 @@ public class OurIrregular implements MeshGenerator{
         Geometry voronoiedPoints = generate_voronoi(listCoordinates);
 
         // lloyd relaxation
-        int lloyd_number = 5;
+        int lloyd_number = 2000;
         for(int i = 0; i < lloyd_number; i++) {
             listCoordinates = calculate_lloyd_relaxation_multiple(voronoiedPoints);
             voronoiedPoints = generate_voronoi(listCoordinates);
