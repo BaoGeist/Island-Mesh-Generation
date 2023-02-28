@@ -1,9 +1,6 @@
 @startuml
 
-class Main {
-    -int width
-    -int height
-}
+class Main
 
 interface MeshGenerator {
     +Mesh generator()

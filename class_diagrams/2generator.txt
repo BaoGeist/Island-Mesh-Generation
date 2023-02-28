@@ -4,86 +4,56 @@ class Main
 
 class OurMesh {
     -int width
-    -int height 
+    -int height
     -int square_size
-    -Vertex[][] grid
     -float alpha_entry
     -int thickness
     -ArrayList<Vertex> vertices
     -ArrayList<Polygon> polygons
+    -ArrayList<Segment> vertical_segments
+    -ArrayList<Segment> horizontal_segments
+    -ArrayList<ArrayList<Integer>> polygon_neighbors
+    -ArrayList<Polygon> polygonswithneighbours
+    +OurMesh(int width, int height, int square_size, float alpha_entry, int thickness)
     +Mesh generate()
-    -ArrayList<Segment> segments
+    -void generateVertices()
+    -void generateSegments()
+    -void generatePolygons()
+    -ArrayList<Integer> setNeighbours()
 }
 Main -- OurMesh
 
-interface OurGeometryFactory {
-    +ArrayList<Object> create_geometry;
-}
-
 class OurPolygon {
-    -Vertex middle_vertex
+    -Vertex centroid
     -ArrayList<Segment> segments_group
-    -ArrayList<Integer> segments_id
     -ArrayList<Integer> neighbours_id
-    -ArrayList<Double> x_coords
-    -ArrayList<Double> y_coords
-    -int thickness
-    -int[] colorCodes
     -String colorCode
     -float alpha
     -int id
-    +Polygon create_polygon()
-    -void set_color()
-    -void set_coords()
+    +ArrayList<Object> create_geometry(int idSelf,
+    ArrayList<Object> arrayArgs, float alpha, int thickness, int misc)
     -Vertex create_middle_vertex()
-    -String get_neighbours_id()
-    -Polygon build_polygon()
-    -double[] extractSegmentMiddle()
-    -int extractID()
-    -double[] extractHeadCoords()
-    -double[] parse_string_to_array_int()
 }
 OurMesh "1" o-- "1..*" OurPolygon: _'has a'
 
 together{
     Class OurSegment {
         -int[] colour_code
-        -double[] head_coord
-        -double[] tail_coord
-        -double[] middle_coord
         -Vertex head_vertex
         -Vertex tail_vertex
-        -Segment actual_segment
-        -int thickness
-        -float alpha
-        -int id
-        +Segment create_segment(int ID1, int ID2, Vertex vertex1, 
-        Vertex vertex2, float alpha_entry, int thickness_entry, int IDself)
-        -double[] get_coords(Vertex v)
-        -Vertex get_head_vertex()
-        -Vertex get_tail_vertex()
-        -void set_segment_colour()
-        -void set_segment_middle()
-        -Segment build_segment()
-        -int[] extractColor
-        +boolean equals(Object obj)
+        +ArrayList<Object> create_geometry(int idSelf, ArrayList<Object> arrayArgs, float alpha,
+        int thickness, int misc)
     }
     OurPolygon "1" o-- "3..*" OurSegment: _'has a'
     OurPolygon "1" o-- "1" OurVertex: _'has a'
 
     class OurVertex {
         -double[] coords
-        -int[] colorCodes
         -String colorCode
         -int id
-        -void set_coords(double x_coord, double y_coord)
-        -double[] get_coords()
-        -void set_color()
-        +String get_color_string()
-        +int[] get_color_array()
-        +Vertex makeVertex(double x, double y, int id)
-        +Vertex makeCentroidVertex(double x, double y, intd)
-        -Vertex build_vertex()
+        +Vertex create_geometry(int idSelf, ArrayList<Object> arrayArgs,
+         float alpha, int thickness, int misc)
+        +Vertex create_geometry_centroid(double x, double y, int id)
     }
     OurSegment "1" o-- "2" OurVertex: _'has a'
 }
