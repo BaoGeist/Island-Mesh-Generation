@@ -35,6 +35,8 @@ class OurPolygon {
     -Vertex create_middle_vertex()
 }
 OurMesh "1" o-- "1..*" OurPolygon: _'has a'
+OurMesh "1" o-- "1..*" OurVertex: _'has a'
+OurMesh "1" o-- "1..*" OurSegment: _'has a'
 
 together{
     Class OurSegment {
@@ -44,7 +46,7 @@ together{
         +ArrayList<Object> create_geometry(int idSelf, ArrayList<Object> arrayArgs, float alpha,
         int thickness, int misc)
     }
-    OurPolygon "1" o-- "3..*" OurSegment: _'has a'
+    OurPolygon "1" o-- "4" OurSegment: _'has a'
     OurPolygon "1" o-- "1" OurVertex: _'has a'
 
     class OurVertex {
@@ -55,7 +57,7 @@ together{
          float alpha, int thickness, int misc)
         +Vertex create_geometry_centroid(double x, double y, int id)
     }
-    OurSegment "1" o-- "2" OurVertex: _'has a'
+    OurSegment "0,1" o-- "2" OurVertex: _'has a'
 }
 
 

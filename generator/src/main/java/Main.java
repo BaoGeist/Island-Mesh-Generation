@@ -1,41 +1,154 @@
 import ca.mcmaster.cas.se2aa4.a2.generator.*;
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+import org.apache.commons.cli.*;
 import java.io.IOException;
 
 public class Main {
 
     // generate irregular and regular mesh at the same time
-    // standard command line call - java -jar generator.jar sample.mesh regular 500 500 25 1.00f 1
-    // standard CLI call for irregular - java -jar generator.jar sample.mesh irregular 500 500 200
-    public static void main(String[] args) throws IOException {
+    // standard command line call - java -jar generator.jar -mf sample.mesh -mv regular -w 500 -h 500 -ss 25 -o 1.00f -t 1
+    // standard CLI call for irregular - java -jar generator.jar -mf sample.mesh -mv irregular -w 500 -h 500 -num 200
+    public static void main(String[] args) throws IOException, ParseException {
 
         MeshFactory factory = new MeshFactory();
 
-        int width = (args.length > 2) ? Integer.parseInt(args[2]): 500;
-        int height = (args.length > 3) ? Integer.parseInt(args[3]): 500;
+        Option mesh = Option.builder("mf")
+                .argName("mesh_file")
+                .hasArg()
+                .required(true)
+                .desc("file for writing mesh to")
+                .build();
 
-        switch(MeshGeneratorEnum.valueOf(args[1])) {
-            case regular:
-                int square_size = (args.length > 4) ? Integer.parseInt(args[4]) : 25;
-                float alpha_entry = (args.length > 5) ? Float.parseFloat(args[5]) : 1.00f;
-                int thickness = (args.length > 6) ? Integer.parseInt(args[6]) : 1;
+        Option meshversion = Option.builder("mv")
+                .argName("mesh_version")
+                .hasArg()
+                .required(true)
+                .desc("which mesh is built - regular or irregular")
+                .build();
 
-                OurMesh generator = new OurMesh(width, height, square_size, alpha_entry, thickness);
-                Mesh myMesh = generator.generate();
+        Option width  = Option.builder("w")
+                .argName("width")
+                .hasArg()
+                .desc("width of mesh")
+                .build();
 
-                factory.write(myMesh, args[0]);
-                break;
-            case irregular:
-                int num_polygons = (args.length > 4) ? Integer.parseInt(args[4]) : 200;
+        Option height = Option.builder("h")
+                .argName("height")
+                .hasArg()
+                .desc("height of mesh")
+                .build();
 
-                OurIrregular generator2 = new OurIrregular(width, height, num_polygons);
-                Mesh myMesh2 = generator2.generate();
+        Option square_size = Option.builder("ss")
+                .argName("square_size")
+                .hasArg()
+                .desc("size of the lengths of the squares being built")
+                .build();
 
-                factory.write(myMesh2, args[0]);
-                break;
-            default:
-                System.out.println("Invalid command, please generate a 'regular' or 'irregular' mesh");
+        Option opacity = Option.builder("o")
+                .argName("opacity")
+                .hasArg()
+                .desc("Opacity of polygons")
+                .build();
+
+        Option thickness = Option.builder("t")
+                .argName("thickness")
+                .hasArg()
+                .desc("thickess of lines")
+                .build();
+
+        Option num_of_polygons = Option.builder("num")
+                .argName("num_of_polygons")
+                .hasArg()
+                .desc("number of polygons generated")
+                .build();
+
+        Options options = new Options();
+
+        options.addOption(mesh);
+        options.addOption(meshversion);
+        options.addOption(width);
+        options.addOption(height);
+        options.addOption(square_size);
+        options.addOption(opacity);
+        options.addOption(thickness);
+        options.addOption(num_of_polygons);
+
+        CommandLineParser parser = new DefaultParser();
+
+        try {
+            // parse the command line arguments
+            CommandLine line = parser.parse(options, args);
+            String meshfile = line.getOptionValue("mf");
+
+            if(line.hasOption("mf")) {
+                int widthInt;
+                int heightInt;
+
+                if(line.hasOption("w")){
+                    widthInt = Integer.parseInt(line.getOptionValue("w"));
+                } else {
+                    widthInt = 500;
+                }
+
+                if(line.hasOption("h")){
+                    heightInt = Integer.parseInt(line.getOptionValue("h"));
+                } else {
+                    heightInt = 500;
+                }
+
+                if(line.hasOption("mv")){
+
+                    String version = line.getOptionValue("mv");
+
+                    if(version.equals("regular")){
+
+                        int square_sizeInt;
+                        if(line.hasOption("ss")){
+                            square_sizeInt = Integer.parseInt(line.getOptionValue("ss"));
+                        } else {
+                            square_sizeInt = 25;
+                        }
+
+                        float opacityFloat;
+                        if(line.hasOption("o")){
+                            opacityFloat = Float.parseFloat(line.getOptionValue("o"));
+                        } else {
+                            opacityFloat = 1.00f;
+                        }
+
+                        int thicknessInt;
+                        if(line.hasOption("t")){
+                            thicknessInt = Integer.parseInt(line.getOptionValue("t"));
+                        } else {
+                            thicknessInt = 1;
+                        }
+
+                        OurMesh generator = new OurMesh(widthInt, heightInt, square_sizeInt, opacityFloat, thicknessInt);
+                        Mesh myMesh = generator.generate();
+                        factory.write(myMesh, meshfile);
+
+                    } else if (version.equals("irregular")){
+
+                        int num_polygons;
+                        if (line.hasOption("num")){
+                            num_polygons = Integer.parseInt(line.getOptionValue("num"));
+                        } else {
+                            num_polygons = 200;
+                        }
+
+                        OurIrregular generator2 = new OurIrregular(widthInt, heightInt, num_polygons);
+                        Mesh myMesh2 = generator2.generate();
+                        factory.write(myMesh2, meshfile);
+
+                    } else {
+                        System.err.println("Parsing failed. Reason: No meshversion passed");
+                    }
+                }
+            }
+        }
+        catch (ParseException exp) {
+            System.err.println("Parsing failed.  Reason: " + exp.getMessage());
         }
     }
 

@@ -21,7 +21,7 @@ After installation, you'll find an application named `generator.jar` in the `gen
 
 ### Generator
 
-To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes up to 6 arguments, the name of the file where the generated mesh will be stored as binary, `regular` or `irregular` to determine what kind of mesh is built, an integer value for the width of the mesh, and an integer value for the height of the mesh. If a regular mesh is created 3 additional arguments follow: an integer value for square sizes, float value for transparency, and finally int value for thickness of segments. If a irregular mesh is created, 1 additional argument follows: an interger value for number of polygons to be created.
+To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes up to 6 arguments, the name of the file where the generated mesh will be stored as binary with the option `-mv`, `regular` or `irregular` to determine what kind of mesh is built with the option `-mv`, an integer value for the width of the mesh with the option `-w`, and an integer value for the height of the mesh with the option `-h`. If a regular mesh is created 3 additional arguments follow: an integer value for square sizes `-ss`, float value for transparency `-o`, and finally int value for thickness of segments `-t`. If a irregular mesh is created, 1 additional argument follows: an integer value for number of polygons to be created `-num`.
 
 The following will create a regular 500x500 mesh with 25 vertice square length, 1.00f transparency, and 1 thickness. These are the default values for a regular mesh as well. 
 
@@ -29,7 +29,7 @@ If a mesh is ran with a square length that is not a factor of the width OR lengt
 
 ```
 mosser@azrael A2 % cd generator 
-mosser@azrael generator % java -jar generator.jar sample.mesh irregular 500 500 25 1.00f 1
+mosser@azrael generator % java -jar generator.jar -mf sample.mesh -mv regular -w 500 -h 500 -ss 25 -o 1.00f -t 1
 mosser@azrael generator % ls -lh sample.mesh
 -rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
 mosser@azrael generator % 
@@ -38,7 +38,7 @@ mosser@azrael generator %
 The following will create an irregular 500x500 mesh with 200 polygons
 ```
 mosser@azrael A2 % cd generator 
-mosser@azrael generator % java -jar generator.jar sample.mesh irregular 500 500 200
+mosser@azrael generator % java -jar generator.jar -mf sample.mesh -mv irregular -w 500 -w 500 -num 200
 mosser@azrael generator % ls -lh sample.mesh
 -rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
 mosser@azrael generator % 
@@ -93,7 +93,7 @@ Our Definition of Done includes the following criteria:
 | F10 | crop the mesh to expected size, and keep centroids within the space          | Daniel                | 02.20.2023 | 02.20.2023 | D      |
 | F11 | find neighbourhood relations with Delaunay's triangulation                   | Alexis, Daniel        | 02.27.2023 |            | I      |
 | F12 | compute convex hull to reorder irregular polygon segments                    | Daniel                | 02.23.2023 | 02.23.2023 | D      |
-| F13 | CLI (help different modifications)                                           | Alexis, Daniel, Baoze | 02.25.2023 |            | I      |
+| F13 | CLI (help different modifications)                                           | Alexis, Daniel, Baoze | 02.25.2023 | 03.01.2023 | D      |
 
 
 
