@@ -1,5 +1,6 @@
 package ca.mcmaster.cas.se2aa4.a2.generator;
 
+import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
@@ -11,9 +12,12 @@ import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
+
+import static ca.mcmaster.cas.se2aa4.a2.generator.DelaunayTriangulator.triangulate;
+
 public class OurIrregular implements MeshGenerator{
 
-    PrecisionModel precisionModel = new PrecisionModel(PrecisionModel.FIXED);
+    PrecisionModel precisionModel = new PrecisionModel(10);
     private int height;
     private int width;
     private int num_polygons;
@@ -182,16 +186,15 @@ public class OurIrregular implements MeshGenerator{
 
             ArrayList<Object> return_array = polygonFactory.create_geometry(polygons.size(), polygon_segments_objects,  1.00f, 1, unique_vertices_counter);
             polygons.add((Polygon) return_array.get(0));
+            meshContainer.add_polygons((Polygon) return_array.get(0));
             centroids.add((Vertex) return_array.get(1));
-
-            //Delaunay's triangulation
-            DelaunayTriangulationBuilder delaunay = new DelaunayTriangulationBuilder();
-            ArrayList<Vertex> delcentroids = new ArrayList<>();
-            //delaunay.setSites(centroids);
 
             unique_vertices_object.add((Vertex) return_array.get(1));
             unique_vertices_counter++;
         }
-        return Mesh.newBuilder().addAllVertices(unique_vertices_object).addAllSegments(unique_segments_object).addAllPolygons(polygons).build();
+        ArrayList<ArrayList<Integer>> polygons_neighbours = triangulate(centroids, polygons, meshContainer, precisionModel);
+        ArrayList<Structs.Polygon> polygonswithneighbours = OurPolygon.set_all_polygons(polygons, polygons_neighbours);
+        System.out.println(polygonswithneighbours.size());
+        return Mesh.newBuilder().addAllVertices(unique_vertices_object).addAllSegments(unique_segments_object).addAllPolygons(polygonswithneighbours).build();
         }
 }

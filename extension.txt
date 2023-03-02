@@ -2,7 +2,7 @@
 - Debug mode *Finished*
 - Delaunay Triangulation *finished*
 - Refactoring
-- Additional Testing
+- Additional Testing *finished in baoze's brain*
 - Supporting invariants
 - Neighbourhoods *finished*
 - Defaults *finished*

@@ -93,26 +93,24 @@ public class PropertyUtils {
         return Boolean.parseBoolean(val);
     }
 
-    public static ArrayList<Double> extractNeighbourID(List<Structs.Property> properties) {
+    public static ArrayList<Integer> extractNeighbourID(List<Structs.Property> properties) {
         String val = null;
         for(Structs.Property p: properties) {
             if (p.getKey().equals("neighbours")) {
                 val = p.getValue();
-                //System.out.println(val);
             }
         }
         String[] neighbours = val.split(",");
-        ArrayList<Double> nums = new ArrayList<>();
+        ArrayList<Integer> nums = new ArrayList<>();
         for(int i = 0; i < neighbours.length; i++) {
             String temp = neighbours[i];
             String temp2 = "";
             for (int j = 0; j < neighbours[i].length(); j++) {
                 if ((int) temp.charAt(j) >= 48 && (int) temp.charAt(j) <= 57) {
                     temp2 += temp.charAt(j);
-                    //System.out.println(temp2);
                 }
                 }
-            nums.add(Double.parseDouble(temp2));
+            nums.add(Integer.parseInt(temp2));
         }
         return nums;
     }

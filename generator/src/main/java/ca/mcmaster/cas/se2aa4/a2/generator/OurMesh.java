@@ -33,8 +33,8 @@ public class OurMesh implements MeshGenerator{
     }
     private void generateVertices(){
         // Creates all vertices and stores them in an ArrayList
-        for(int x = 0; x < width; x += square_size){
-            for (int y = 0; y < height; y += square_size) {
+        for(int x = 0; x <= width; x += square_size){
+            for (int y = 0; y <= height; y += square_size) {
                 OurVertex vertex = new OurVertex();
                 ArrayList<Object> send_array = new ArrayList<>();
                 send_array.add((float) x);
@@ -48,8 +48,8 @@ public class OurMesh implements MeshGenerator{
 
     private void generateSegments(){
         // Creates all horizontal segments and stores them in an ArrayList
-        for (int x = 0; x+1 < width/square_size; x += 1) {
-            for (int y = 0; y < height/square_size; y += 1) {
+        for (int x = 0; x+1 < (width+square_size)/square_size; x += 1) {
+            for (int y = 0; y < (height+square_size)/square_size; y += 1) {
                 OurSegment segment = new OurSegment();
                 ArrayList inputVertices = new ArrayList();
                 inputVertices.add(vertices.get(y + x*height/square_size));
@@ -60,13 +60,13 @@ public class OurMesh implements MeshGenerator{
             }
         }
         // Creates all vertical segments and stores them in an ArrayList
-        for (int x = 0; x < width/square_size; x += 1) {
-            for (int y = 0; y < height/square_size; y += 1) {
-                if (y != (height/square_size - 1)) {
+        for (int x = 0; x < (width+square_size)/square_size; x += 1) {
+            for (int y = 0; y < (height+square_size)/square_size; y += 1) {
+                if (y != ((height+square_size)/square_size - 1)) {
                     OurSegment segment = new OurSegment();
                     ArrayList inputVertices = new ArrayList();
-                    inputVertices.add(vertices.get(y + x*height/square_size));
-                    inputVertices.add(vertices.get((y+x*height/square_size)+1));
+                    inputVertices.add(vertices.get(y + x*(height+square_size)/square_size));
+                    inputVertices.add(vertices.get((y+x*(height+square_size)/square_size)+1));
                     ArrayList<Object> returned_array = segment.create_geometry(vertical_segments.size(), inputVertices, alpha_entry, thickness, 1);
                     Structs.Segment newSegment = (Structs.Segment) returned_array.get(0);
                     vertical_segments.add(newSegment);
@@ -78,8 +78,8 @@ public class OurMesh implements MeshGenerator{
     private void generatePolygons(){
         // Creates all polygons by calling the horizontal and vertical segments of a polygon
         int iteratorh = 0, iteratorv = 0;
-        for (int x = 0; x+1 < width/square_size; x += 1) {
-            for (int y = 0; y+1 < height/square_size; y += 1) {
+        for (int x = 0; x+1 < (width+square_size)/square_size; x += 1) {
+            for (int y = 0; y+1 < (height+square_size)/square_size; y += 1) {
                 ArrayList<Structs.Segment> PolygonSegments = new ArrayList<>();
 
                 PolygonSegments.add((Structs.Segment) horizontal_segments.get(iteratorh));

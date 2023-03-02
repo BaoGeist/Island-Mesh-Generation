@@ -74,6 +74,7 @@ public class Main {
             CommandLine line = parser.parse(options, args);
             String meshfile = line.getOptionValue("mf");
 
+
             if(line.hasOption("mf")) {
                 int sideInt;
 
@@ -93,6 +94,11 @@ public class Main {
                         int square_sizeInt;
                         if(line.hasOption("ss")){
                             square_sizeInt = Integer.parseInt(line.getOptionValue("ss"));
+                            if (sideInt%square_sizeInt != 0){
+                                System.out.println("ur a bonobo. That's not a square.");
+                                sideInt -= sideInt%square_sizeInt;
+                                System.out.println("But its ok :). We fixed it for you. You are welcome.");
+                            }
                         } else {
                             square_sizeInt = 25;
                         }

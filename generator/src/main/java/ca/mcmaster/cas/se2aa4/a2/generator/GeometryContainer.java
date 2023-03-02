@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Coordinates;
+
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
@@ -13,6 +17,7 @@ import static ca.mcmaster.cas.se2aa4.a2.generator.PropertyUtils.*;
 public class GeometryContainer {
     ArrayList<Vertex> vertices = new ArrayList<Vertex>();
     ArrayList<Segment> segments = new ArrayList<Segment>();
+    ArrayList<Structs.Polygon> polygons = new ArrayList<>();
     final double uncertainty = 0.005;
 
     private boolean double_equals(float d1, float d2) { return (Math.abs(d1-d2) < uncertainty); }
@@ -57,6 +62,34 @@ public class GeometryContainer {
         segments.add(new_segment);
         return new_segment;
 
+    }
+    public void add_polygons(Structs.Polygon p) {
+        polygons.add(p);
+    }
+
+    public Vertex return_vertex_from_coordinate(Coordinate coordinate) {
+        double targetX = coordinate.getX();
+        double targetY = coordinate.getY();
+        for(Vertex v: vertices) {
+            if(Math.abs(v.getX()-targetX) < 1 && Math.abs(v.getY()-targetY) < 1) {
+                System.out.println("found");
+                return v;
+            }
+
+        }
+        System.out.println("fuck");
+        return vertices.get(0);
+    }
+
+    public int return_polygon_id_from_centroid_coordinate(Coordinate coordinate) {
+        for(Structs.Polygon p: polygons) {
+            double[] centroid = extractCentroidCoords(p.getPropertiesList());
+            if(Math.abs(coordinate.getX() - centroid[0]) < 0.01 && Math.abs(coordinate.getY() - centroid[1]) < 0.01) {
+                return extractID(p.getPropertiesList());
+            }
+        }
+        System.out.println("nothing");
+        return -1;
     }
 
 }
