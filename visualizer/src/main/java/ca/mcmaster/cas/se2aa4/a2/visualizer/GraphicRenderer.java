@@ -80,6 +80,19 @@ public class GraphicRenderer {
             canvas.setColor(Color.BLACK);
             canvas.fill(path);
         }
+
+        for (Structs.Polygon p: aMesh.getPolygonsList()) {
+            Structs.Vertex v1 = aMesh.getVerticesList().get(p.getCentroidIdx());
+            for(Integer index: p.getNeighborIdxsList()) {
+                Structs.Polygon neighbour = aMesh.getPolygonsList().get(index);
+                Structs.Vertex v2 = aMesh.getVerticesList().get(neighbour.getCentroidIdx());
+                System.out.println(neighbour.getCentroidIdx());
+
+                canvas.setColor(Color.gray);
+                canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
+            }
+        }
+
         for (Vertex v: aMesh.getVerticesList()) { //vertices and segments are drawn overtop of polygons
             double centre_x = v.getX() - (THICKNESS/2.0d);
             double centre_y = v.getY() - (THICKNESS/2.0d);
@@ -89,7 +102,7 @@ public class GraphicRenderer {
                 canvas.setColor(Color.RED);
             }
             else {
-                canvas.setColor(Color.BLACK);
+                canvas.setColor(Color.BLUE);
             }
             canvas.fill(point);
         }
@@ -97,44 +110,9 @@ public class GraphicRenderer {
             Vertex v1 = aMesh.getVertices(s.getV1Idx());
             Vertex v2 = aMesh.getVertices(s.getV2Idx());
 
-            canvas.setColor(Color.BLACK);
+            canvas.setColor(Color.GREEN);
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
 
-        }
-        for (Structs.Polygon p: aMesh.getPolygonsList()) { //neighbourhoods need to be drawn last, but they require polygons, so we repeat
-            canvas.setColor(Color.GRAY);
-            for (Structs.Polygon q: aMesh.getPolygonsList()) {
-                ArrayList<Double> p_neighbour = new ArrayList<Double>();
-                ArrayList<Double> q_neighbour = new ArrayList<Double>();
-                p_neighbour = extractNeighbourID(p.getPropertiesList());
-                q_neighbour = extractNeighbourID(q.getPropertiesList());
-                for (Double d: p_neighbour) {
-                    for (Double e: q_neighbour) {
-                        if (d == e) { //this confirms that the two polygons are neighbours
-                            ArrayList<Integer> lines_p = new ArrayList<Integer>();
-                            ArrayList<Integer> lines_q = new ArrayList<Integer>();
-                            lines_p = extractSegmentIDs(p.getPropertiesList());
-                            lines_q = extractSegmentIDs(q.getPropertiesList());
-                            for (int i = 0; i < lines_p.size(); i++) {
-                                for (int j = 0; j < lines_q.size(); j++) {
-                                    if (lines_p.get(i) == lines_q.get(j)) {
-                                        for (Structs.Segment s: aMesh.getSegmentsList()) {
-                                            if (extractSegID(s.getPropertiesList()) == lines_p.get(i)) {
-                                                float[] vertices = extractHeadTail(s.getPropertiesList());
-                                                double x1 = vertices[0];
-                                                double y1 = vertices[1];
-                                                double x2 = vertices[2];
-                                                double y2 = vertices[3];
-                                                canvas.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 }

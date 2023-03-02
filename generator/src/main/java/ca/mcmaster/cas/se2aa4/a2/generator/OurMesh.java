@@ -20,6 +20,8 @@ public class OurMesh implements MeshGenerator{
     private ArrayList<Structs.Polygon> polygons = new ArrayList<>();
     private ArrayList<ArrayList<Integer>> polygon_neighbors = new ArrayList<>();
     private ArrayList<Structs.Polygon> polygonswithneighbours;
+
+    //Constructor for OurMesh
     public OurMesh(int width, int height, int square_size, float alpha_entry, int thickness) {
         this.width = width;
         this.height = height;
@@ -74,7 +76,7 @@ public class OurMesh implements MeshGenerator{
     }
 
     private void generatePolygons(){
-        // Creates all polygons
+        // Creates all polygons by calling the horizontal and vertical segments of a polygon
         int iteratorh = 0, iteratorv = 0;
         for (int x = 0; x+1 < width/square_size; x += 1) {
             for (int y = 0; y+1 < height/square_size; y += 1) {
@@ -93,11 +95,11 @@ public class OurMesh implements MeshGenerator{
 
                 ArrayList<Object> return_array = polygonFactory.create_geometry(polygons.size(), PolygonSegmentsObjects, alpha_entry, thickness, vertices.size());
                 Structs.Polygon polygon1 = (Structs.Polygon) return_array.get(0);
+                polygons.add(polygon1);
                 polygon_neighbors.add(setNeighbours());
 
 
                 vertices.add((Structs.Vertex) return_array.get(1));
-                polygons.add(polygon1);
 
                 iteratorh++;
                 iteratorv++;
@@ -105,9 +107,9 @@ public class OurMesh implements MeshGenerator{
             iteratorh++;
         }
         polygonswithneighbours = OurPolygon.set_all_polygons(polygons, polygon_neighbors);
-        System.out.println(polygon_neighbors);
     }
 
+    // Function to generate our mesh
     public Structs.Mesh generate() {
         generateVertices();
         generateSegments();
@@ -117,29 +119,29 @@ public class OurMesh implements MeshGenerator{
         return Structs.Mesh.newBuilder().addAllVertices(vertices).addAllSegments(vertical_segments).addAllPolygons(polygonswithneighbours).build();
     }
 
-    private ArrayList<Integer> setNeighbours(){
+    //Method that sets neighbors of each polygon for debug mode
+    private ArrayList<Integer> setNeighbours() {
         ArrayList<Integer> PolygonNeighbours = new ArrayList<>();
 
-        int CurrentID = polygons.size();
-        int row = CurrentID % (width/square_size - 1);
-        int column = CurrentID / (height/square_size - 1);
+        int CurrentID = polygons.size()-1;
+        int row = CurrentID % ((width - square_size)/ square_size);
+        int column = CurrentID / ((height - square_size) / square_size);
 
-        if (column > 0){
-            PolygonNeighbours.add(CurrentID - width/square_size - 1); // Add left neighbour
+        if (column > 0) {
+            PolygonNeighbours.add(CurrentID - (width - square_size) / square_size); // Add left neighbour
         }
-        if (column < width/square_size - 2){
-            PolygonNeighbours.add(CurrentID + width/square_size - 1); // Add right neighbour
+        if (column < (width - square_size)/ square_size - 1) {
+            PolygonNeighbours.add(CurrentID + (width - square_size) / square_size); // Add right neighbour
         }
-        if (row > 0){
+        if (row > 0) {
             PolygonNeighbours.add(CurrentID - 1); // Add top neighbour
         }
-        if (row < width/square_size - 1){
+        if (row < (height - square_size) / square_size - 1) {
             PolygonNeighbours.add(CurrentID + 1); // Add bottom neighbour
         }
 
-        PolygonNeighbours.removeIf(id -> id < 0 || id > width*height-1);
+        PolygonNeighbours.removeIf(id -> id < 0 || id > width * height - 1);
+
         return PolygonNeighbours;
     }
-
-
 }

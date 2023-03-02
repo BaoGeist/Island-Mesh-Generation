@@ -21,7 +21,7 @@ After installation, you'll find an application named `generator.jar` in the `gen
 
 ### Generator
 
-To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes up to 6 arguments, the name of the file where the generated mesh will be stored as binary with the option `-mv`, `regular` or `irregular` to determine what kind of mesh is built with the option `-mv`, an integer value for the width of the mesh with the option `-w`, and an integer value for the height of the mesh with the option `-h`. If a regular mesh is created 3 additional arguments follow: an integer value for square sizes `-ss`, float value for transparency `-o`, and finally int value for thickness of segments `-t`. If a irregular mesh is created, 1 additional argument follows: an integer value for number of polygons to be created `-num`.
+To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes up to 6 arguments, the name of the file where the generated mesh will be stored as binary with the option `-mv`, `regular` or `irregular` to determine what kind of mesh is built with the option `-mv`, and an integer value for the length of the side of the mesh with the option `-s`. If a regular mesh is created 3 additional arguments follow: an integer value for square sizes `-ss`, float value for transparency `-o`, and finally int value for thickness of segments `-t`. If a irregular mesh is created, 1 additional argument follows: an integer value for number of polygons to be created `-num`.
 
 The following will create a regular 500x500 mesh with 25 vertice square length, 1.00f transparency, and 1 thickness. These are the default values for a regular mesh as well. 
 
@@ -29,7 +29,7 @@ If a mesh is ran with a square length that is not a factor of the width OR lengt
 
 ```
 mosser@azrael A2 % cd generator 
-mosser@azrael generator % java -jar generator.jar -mf sample.mesh -mv regular -w 500 -h 500 -ss 25 -o 1.00f -t 1
+mosser@azrael generator % java -jar generator.jar -mf sample.mesh -mv regular -s 500 -ss 25 -o 1.00f -t 1
 mosser@azrael generator % ls -lh sample.mesh
 -rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
 mosser@azrael generator % 
@@ -38,7 +38,7 @@ mosser@azrael generator %
 The following will create an irregular 500x500 mesh with 200 polygons
 ```
 mosser@azrael A2 % cd generator 
-mosser@azrael generator % java -jar generator.jar -mf sample.mesh -mv irregular -w 500 -w 500 -num 200
+mosser@azrael generator % java -jar generator.jar -mf sample.mesh -mv irregular -s 500 -num 200
 mosser@azrael generator % ls -lh sample.mesh
 -rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
 mosser@azrael generator % 
@@ -46,12 +46,12 @@ mosser@azrael generator %
 
 ### Visualizer
 
-To visualize an existing mesh, go the `visualizer` directory, and use `java -jar` to run the product. The product take up to 3 arguments: the file containing the mesh, and the name of the file to store the visualization (as an SVG image).
+To visualize an existing mesh, go the `visualizer` directory, and use `java -jar` to run the product. The product take up to 3 arguments: the file containing the mesh with the option `-mf`, and the name of the file to store the visualization (as an SVG image) with the option `-of`.
 To enter debug mode, use `-X` as the third argument.
 
 ```
 mosser@azrael A2 % cd visualizer 
-mosser@azrael visualizer % java -jar visualizer.jar ../generator/sample.mesh sample.svg
+mosser@azrael visualizer % java -jar visualizer.jar -mf ../generator/sample.mesh -of sample.svg
 
 ... (lots of debug information printed to stdout) ...
 
@@ -82,7 +82,7 @@ Our Definition of Done includes the following criteria:
 | Id | Feature title                                                                 | Who?                  | Start      | End        | Status |
 |:--:|-------------------------------------------------------------------------------|-----------------------|------------|------------|--------|
 | F01 | draw segments between vertices (coloured) to visualize the squares           | Baoze, Daniel         | 02.01.2023 | 02.02.2023 | D      |
-| F02 | ability to turn debug mode option on                                         | Baoze, Alexis         | 02.16.2023 |            | I      |
+| F02 | ability to turn debug mode option on                                         | Baoze, Alexis         | 02.16.2023 | 03.01.2023 | D      |
 | F03 | created  new polygons, segments, and vertices classes                        | Baoze, Alexis         | 02.15.2023 | 02.17.2023 | D      |
 | F04 | produced a full mesh ADT with above F03 classes                              | Daniel                | 02.15.2023 | 02.17.2023 | D      |
 | F05 | playing around with rendering                                                | Baoze                 | 02.17.2023 | 02.17.2023 | D      |

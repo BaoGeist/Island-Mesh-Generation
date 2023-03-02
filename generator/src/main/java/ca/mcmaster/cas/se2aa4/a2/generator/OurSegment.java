@@ -60,7 +60,6 @@ public class OurSegment implements OurGeometryFactory{
         return tail_vertex;
     }
 
-
     private void set_segment_colour(Vertex vertex1, Vertex vertex2) {
         int[] first_colour = extractColor(vertex1.getPropertiesList());
         int[] second_colour = extractColor(vertex2.getPropertiesList());

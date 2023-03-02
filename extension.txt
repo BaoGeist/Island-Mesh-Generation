@@ -1,10 +1,10 @@
-- CLI and multiple arguments
-- Debug mode
-- Delaunay Triangulation
+- CLI and multiple arguments *finished*
+- Debug mode *Finished*
+- Delaunay Triangulation *finished*
 - Refactoring
 - Additional Testing
 - Supporting invariants
-- Neighbourhoods
-- Defaults
+- Neighbourhoods *finished*
+- Defaults *finished*
 - Commenting
 - README updates with the above

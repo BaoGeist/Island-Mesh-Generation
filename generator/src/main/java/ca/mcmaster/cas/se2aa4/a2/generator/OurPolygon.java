@@ -22,9 +22,11 @@ public class OurPolygon implements OurGeometryFactory{
     private String colorCode = "";
     private float alpha = 1;
     private int id;
-    private double[] centroid_coords = new double[2];
+    private ArrayList<Double> centroid_coords = new ArrayList<>();
     private Structs.Polygon actual_Polygon;
+    private int centroid_index;
 
+    //Uses the geometry factory inferface to create a polygon geometry
     @Override
     public ArrayList<Object> create_geometry(int id_self, ArrayList<Object> arrayArgs, float alpha, int thickness, int misc) {
         for(Object arg: arrayArgs) {
@@ -35,7 +37,7 @@ public class OurPolygon implements OurGeometryFactory{
         id = id_self;
         set_color();
         set_coords();
-        int centroid_index = misc;
+        centroid_index = misc;
         create_centroid(centroid_index);
         actual_Polygon = build_polygon();
         ArrayList<Object> return_array = new ArrayList<>();
@@ -45,6 +47,7 @@ public class OurPolygon implements OurGeometryFactory{
         return return_array;
     }
 
+    //Sets the color of the polygon
     private void set_color() {
         int average_red = 0;
         int average_green = 0;
@@ -88,33 +91,23 @@ public class OurPolygon implements OurGeometryFactory{
         Coordinate[] coordsArray = coords.toArray(new Coordinate[coords.size()]);
         GeometryFactory geometryFactory = new GeometryFactory();
         Polygon p = geometryFactory.createPolygon(coordsArray);
-        Point centroid = p.getCentroid();
+        Coordinate centroid = p.getCentroid().getCoordinate();
+
+        PrecisionModel precisionModel = new PrecisionModel(10);
+        precisionModel.makePrecise(centroid);
 
         OurVertex vertexFactory = new OurVertex();
-        middle_vertex = vertexFactory.create_geometry_centroid((double) centroid.getX(), (double) centroid.getY(), id);
-    }
 
-    public double[] get_middle_vertex() {
-        int totalx = 0, totaly = 0, count = 0;
-        for(Segment segment: segments_group) {
-            totalx += extractSegmentMiddle(segment.getPropertiesList())[0];
-            totaly += extractSegmentMiddle(segment.getPropertiesList())[1];
-            count++;
-        }
-        this.centroid_coords[0] = (double) totalx/count;
-        this.centroid_coords[1] = (double) totaly/count;
-        return centroid_coords;
+        this.centroid_coords.add((Double) centroid.getX());
+        this.centroid_coords.add((Double) centroid.getY());
+
+        middle_vertex = vertexFactory.create_geometry_centroid((double) centroid.getX(), (double) centroid.getY(), id);
     }
 
     public static ArrayList<Structs.Polygon> set_all_polygons(ArrayList<Structs.Polygon> no_neighbours_polygons, ArrayList<ArrayList<Integer>> all_neighbours) {
         ArrayList<Structs.Polygon> return_polygons = new ArrayList<>();
         for(int i = 0; i < no_neighbours_polygons.size(); i++) {
-            String outputString = "";
-            for(Integer id: all_neighbours.get(i)) {
-                outputString += String.valueOf(id) + ',';
-            }
-            Property neighbours_id = Property.newBuilder().setKey("neighbours").setValue(outputString).build();
-            return_polygons.add(Structs.Polygon.newBuilder(no_neighbours_polygons.get(i)).addProperties(neighbours_id).build());
+            return_polygons.add(Structs.Polygon.newBuilder(no_neighbours_polygons.get(i)).addAllNeighborIdxs(all_neighbours.get(i)).build());
         }
         return return_polygons;
     }
@@ -128,7 +121,8 @@ public class OurPolygon implements OurGeometryFactory{
         Property x_coords = Property.newBuilder().setKey("x_coords").setValue(this.x_coords.toString()).build();
         Property y_coords = Property.newBuilder().setKey("y_coords").setValue(this.y_coords.toString()).build();
         Property segments_id = Property.newBuilder().setKey("segments_id").setValue(this.segments_id.toString()).build();
-        Structs.Polygon p = Structs.Polygon.newBuilder().addProperties(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(color).addProperties(x_coords).addProperties(y_coords).build();
+        Property centroidcoord = Property.newBuilder().setKey("centroid_coords").setValue(this.centroid_coords.toString()).build();
+        Structs.Polygon p = Structs.Polygon.newBuilder().addProperties(color).setCentroidIdx(centroid_index).addAllNeighborIdxs(neighbours_id).addProperties(segments_id).addProperties(middle_id).addProperties(thicc).addProperties(a).addProperties(polygon_id).addProperties(x_coords).addProperties(y_coords).addProperties(centroidcoord).build();
         return p;
     }
 

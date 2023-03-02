@@ -61,6 +61,7 @@ public class OurVertex implements OurGeometryFactory{
 
     public Vertex create_geometry_centroid(double x, double y, int id) {
         this.set_coords(x, y);
+        this.id = id;
 //        System.out.println("x" + x + "y" + y);
         colorCode = "0,0,0";
         centroid_bool = true;

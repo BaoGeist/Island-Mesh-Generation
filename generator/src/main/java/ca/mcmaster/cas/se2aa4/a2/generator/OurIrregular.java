@@ -16,15 +16,16 @@ public class OurIrregular implements MeshGenerator{
     PrecisionModel precisionModel = new PrecisionModel(PrecisionModel.FIXED);
     private int height;
     private int width;
-
     private int num_polygons;
 
+    //Constructor method
     public OurIrregular(int width, int height, int num_polygons){
         this.width = width;
         this.height = height;
         this.num_polygons = num_polygons;
     };
 
+    //Method to generate random points for the voronoi diagram
     private ArrayList<Coordinate> generate_random_points(int number) {
         Random random = new Random(3);
         ArrayList<Coordinate> listCoordinates = new ArrayList<>();
@@ -39,13 +40,13 @@ public class OurIrregular implements MeshGenerator{
         return listCoordinates;
     }
 
+    //Method that generates the voronoi diagram
     private Geometry generate_voronoi(ArrayList<Coordinate> listCoordinates) {
         VoronoiDiagramBuilder newVoronoi = new VoronoiDiagramBuilder();
         GeometryFactory newFactory = new GeometryFactory();
 
         newVoronoi.setSites(listCoordinates);
         Geometry diagram = newVoronoi.getDiagram(newFactory);
-
 
         for(Coordinate c : diagram.getCoordinates()) {
             precisionModel.makePrecise(c);
@@ -60,6 +61,7 @@ public class OurIrregular implements MeshGenerator{
         return diagram;
     }
 
+    //Calculates the new coordinates after applying lloyd relaxation
     private Coordinate calculate_lloyd_relaxation_single(Geometry notcell) {
         Coordinate[] lloydcoord = notcell.getCoordinates();
         ArrayList<Coordinate> triangle_centroids = new ArrayList<>();
@@ -78,6 +80,7 @@ public class OurIrregular implements MeshGenerator{
         return new_centroid;
     }
 
+    //Calculates a list of Voronoi points after lloyd relaxation is applied
     private ArrayList<Coordinate> calculate_lloyd_relaxation_multiple(Geometry oldPoints) {
         ArrayList<Coordinate> listVoronoied = new ArrayList<>();
         for(int i = 0; i < oldPoints.getNumGeometries(); i++) {
@@ -89,11 +92,9 @@ public class OurIrregular implements MeshGenerator{
         return listVoronoied;
     }
 
-
-
     private static final int THICKNESS = 3;
 
-
+    // OurMesh generator
     public Mesh generate() {
         ArrayList<Polygon> polygons = new ArrayList<>();
         ArrayList<Vertex> unique_vertices_object = new ArrayList<>();
@@ -192,8 +193,5 @@ public class OurIrregular implements MeshGenerator{
             unique_vertices_counter++;
         }
         return Mesh.newBuilder().addAllVertices(unique_vertices_object).addAllSegments(unique_segments_object).addAllPolygons(polygons).build();
-        //polygons
-
-
-    }
+        }
 }
