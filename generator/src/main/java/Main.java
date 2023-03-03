@@ -7,7 +7,7 @@ import java.io.IOException;
 public class Main {
 
     // generate irregular and regular mesh at the same time
-    // standard command line call - java -jar generator.jar -mf sample.mesh -mv regular -s 500 -ss 25 -o 1.00f -t 1
+    // standard command line call - java -jar generator.jar -mf sample.mesh -mv regular -s 500 -ss 25 -t 1
     // standard CLI call for irregular - java -jar generator.jar -mf sample.mesh -mv irregular -w 500 -h 500 -num 200
     public static void main(String[] args) throws IOException, ParseException {
 
@@ -39,18 +39,6 @@ public class Main {
                 .desc("size of the lengths of the squares being built")
                 .build();
 
-        Option opacity = Option.builder("o")
-                .argName("opacity")
-                .hasArg()
-                .desc("Opacity of polygons")
-                .build();
-
-        Option thickness = Option.builder("t")
-                .argName("thickness")
-                .hasArg()
-                .desc("thickess of lines")
-                .build();
-
         Option num_of_polygons = Option.builder("num")
                 .argName("num_of_polygons")
                 .hasArg()
@@ -63,16 +51,21 @@ public class Main {
                 .desc("Relaxation level")
                 .build();
 
+        Option help = Option.builder("h")
+                .argName("help")
+                .hasArg(false)
+                .desc("help")
+                .build();
+
         Options options = new Options();
 
         options.addOption(mesh);
         options.addOption(meshversion);
         options.addOption(width);
         options.addOption(square_size);
-        options.addOption(opacity);
-        options.addOption(thickness);
         options.addOption(num_of_polygons);
         options.addOption(lloyd_num);
+        options.addOption(help);
 
         CommandLineParser parser = new DefaultParser();
 
@@ -81,10 +74,13 @@ public class Main {
             CommandLine line = parser.parse(options, args);
             String meshfile = line.getOptionValue("mf");
 
+            if(line.hasOption("h")){
+                HelpFormatter formatter = new HelpFormatter();
+                formatter.printHelp("ant", options);
+            }
 
             if(line.hasOption("mf")) {
                 int sideInt;
-
 
                 if(line.hasOption("s")){
                     sideInt = Integer.parseInt(line.getOptionValue("s"));
@@ -110,21 +106,7 @@ public class Main {
                             square_sizeInt = 25;
                         }
 
-                        float opacityFloat;
-                        if(line.hasOption("o")){
-                            opacityFloat = Float.parseFloat(line.getOptionValue("o"));
-                        } else {
-                            opacityFloat = 1.00f;
-                        }
-
-                        int thicknessInt;
-                        if(line.hasOption("t")){
-                            thicknessInt = Integer.parseInt(line.getOptionValue("t"));
-                        } else {
-                            thicknessInt = 1;
-                        }
-
-                        OurMesh generator = new OurMesh(sideInt, sideInt, square_sizeInt, opacityFloat, thicknessInt);
+                        OurMesh generator = new OurMesh(sideInt, sideInt, square_sizeInt,1, 1);
                         Mesh myMesh = generator.generate();
                         factory.write(myMesh, meshfile);
 

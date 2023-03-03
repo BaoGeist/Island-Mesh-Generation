@@ -8,7 +8,6 @@ public class MathUtils {
     protected static double calculate_length_of_segment(Coordinate c1, Coordinate c2) {
         return Math.sqrt(Math.pow((c1.x - c2.x),2) + (Math.pow((c1.y - c2.y),2)));
     }
-
     protected static double calculate_area_of_triangle(Coordinate c1, Coordinate c2, Coordinate c3) {
         double a = calculate_length_of_segment(c1, c2);
         double b = calculate_length_of_segment(c2, c3);

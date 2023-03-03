@@ -13,16 +13,11 @@ public class OurVertex implements OurGeometryFactory{
     private int[] colorCodes = new int[3];
     private String colorCode;
     private int id;
-    private double[] centroid_coords = new double[2];
     boolean centroid_bool = false;
 
     private void set_coords(double x_coord, double y_coord) {
         coords[0] = x_coord;
         coords[1] = y_coord;
-    }
-
-    private double[] get_coords() {
-        return coords;
     }
 
     private void set_color() {
@@ -40,12 +35,9 @@ public class OurVertex implements OurGeometryFactory{
         return colorCode;
     }
 
-    private int[] get_color_array() {
-        return colorCodes;
-    }
-
+    //Uses create_geometry interface to create a non-centroid vertices
     @Override
-    public ArrayList<Object> create_geometry(int idSelf, ArrayList<Object> arrayArgs, float alpha, int thickness, int misc) {
+    public ArrayList<Object> create_geometry(int idSelf, ArrayList<Object> arrayArgs,float alpha ,int thickness, int misc) {
         ArrayList<Float> coordinates = arrayArgs.stream()
                 .map(s -> (Float) s)
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -62,7 +54,6 @@ public class OurVertex implements OurGeometryFactory{
     public Vertex create_geometry_centroid(double x, double y, int id) {
         this.set_coords(x, y);
         this.id = id;
-//        System.out.println("x" + x + "y" + y);
         colorCode = "0,0,0";
         centroid_bool = true;
         return build_vertex();

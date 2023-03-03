@@ -7,7 +7,6 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import org.locationtech.jts.algorithm.ConvexHull;
 import org.locationtech.jts.geom.*;
-import org.locationtech.jts.triangulate.DelaunayTriangulationBuilder;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 import java.util.ArrayList;
 import java.util.Random;
@@ -141,7 +140,7 @@ public class OurIrregular implements MeshGenerator{
                 send_array.add((float) reorderedPolygon.getCoordinates()[j].x);
                 send_array.add((float) reorderedPolygon.getCoordinates()[j].y);
 
-                ArrayList<Object> returned_array = vertexFactory.create_geometry(unique_vertices_counter, send_array, 1.00f, 1, 1);
+                ArrayList<Object> returned_array = vertexFactory.create_geometry(unique_vertices_counter, send_array, 1, 1, 1);
 
                 // returns the created vertex if it is unique, returns an older vertex if it is not (unique in terms of coordinates)
                 Vertex verified_vertex = meshContainer.check_unique_vertex( (Vertex) returned_array.get(0));
@@ -194,9 +193,9 @@ public class OurIrregular implements MeshGenerator{
             unique_vertices_object.add((Vertex) return_array.get(1));
             unique_vertices_counter++;
         }
+        // Generates neighboring relations to all polygons after polygons have been created
         ArrayList<ArrayList<Integer>> polygons_neighbours = triangulate(centroids, polygons, meshContainer, precisionModel);
         ArrayList<Structs.Polygon> polygonswithneighbours = OurPolygon.set_all_polygons(polygons, polygons_neighbours);
-        System.out.println(polygonswithneighbours.size());
         return Mesh.newBuilder().addAllVertices(unique_vertices_object).addAllSegments(unique_segments_object).addAllPolygons(polygonswithneighbours).build();
         }
 }

@@ -21,15 +21,17 @@ After installation, you'll find an application named `generator.jar` in the `gen
 
 ### Generator
 
-To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes up to 6 arguments, the name of the file where the generated mesh will be stored as binary with the option `-mv`, `regular` or `irregular` to determine what kind of mesh is built with the option `-mv`, and an integer value for the length of the side of the mesh with the option `-s`. If a regular mesh is created 3 additional arguments follow: an integer value for square sizes `-ss`, float value for transparency `-o`, and finally int value for thickness of segments `-t`. If a irregular mesh is created, 2 additional arguments follow: an integer value for number of polygons to be created `-num` and the relaxation level `-ln`.
+To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes up to 6 arguments, the name of the file where the generated mesh will be stored as binary with the option `-mv`, `regular` or `irregular` to determine what kind of mesh is built with the option `-mv`, and an integer value for the length of the side of the mesh with the option `-s`. If a regular mesh is created 1 additional argument follows: an integer value for square sizes `-ss`. If a irregular mesh is created, 2 additional arguments follow: an integer value for number of polygons to be created `-num` and the relaxation level `-ln`.
 
-The following will create a regular 500x500 mesh with 25 vertice square length, 1.00f transparency, and 1 thickness. These are the default values for a regular mesh as well. 
+The following will create a regular 500x500 mesh with 25 vertice square length. These are the default values for a regular mesh as well. 
 
 If a mesh is ran with a square length that is not a factor of the width OR length, the code will not run.
 
+If help is needed with the CLI, please use `-h` after `-mf` and `-mv`, as they are required arguments.
+
 ```
 mosser@azrael A2 % cd generator 
-mosser@azrael generator % java -jar generator.jar -mf sample.mesh -mv regular -s 500 -ss 25 -o 1.00f -t 1
+mosser@azrael generator % java -jar generator.jar -mf sample.mesh -mv regular -s 500 -ss 25
 mosser@azrael generator % ls -lh sample.mesh
 -rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
 mosser@azrael generator % 
@@ -48,6 +50,7 @@ mosser@azrael generator %
 
 To visualize an existing mesh, go the `visualizer` directory, and use `java -jar` to run the product. The product take up to 3 arguments: the file containing the mesh with the option `-mf`, and the name of the file to store the visualization (as an SVG image) with the option `-of`.
 To enter debug mode, use `-X` as the third argument.
+For help, use `-h` after `-mf` and `-of`
 
 ```
 mosser@azrael A2 % cd visualizer 
@@ -86,12 +89,12 @@ Our Definition of Done includes the following criteria:
 | F03 | created  new polygons, segments, and vertices classes                        | Baoze, Alexis         | 02.15.2023 | 02.17.2023 | D      |
 | F04 | produced a full mesh ADT with above F03 classes                              | Daniel                | 02.15.2023 | 02.17.2023 | D      |
 | F05 | playing around with rendering                                                | Baoze                 | 02.17.2023 | 02.17.2023 | D      |
-| F06 | visualization mode with rendering                                            | Alexis, Daniel        | 02.17.2023 |            | I      |
+| F06 | visualization mode with rendering                                            | Alexis, Daniel        | 02.17.2023 | 03.02.2023 | D      |
 | F07 | generate random points in a precision model, one for each expected Polygon   | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
 | F08 | generate first voronoi diagram with above points                             | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
 | F09 | compute lloyd relaxation on said points                                      | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
 | F10 | crop the mesh to expected size, and keep centroids within the space          | Daniel                | 02.20.2023 | 02.20.2023 | D      |
-| F11 | find neighbourhood relations with Delaunay's triangulation                   | Alexis, Daniel        | 02.27.2023 |            | I      |
+| F11 | find neighbourhood relations with Delaunay's triangulation                   | Alexis, Daniel, Baoze | 02.27.2023 | 03.02.2023 | D      |
 | F12 | compute convex hull to reorder irregular polygon segments                    | Daniel                | 02.23.2023 | 02.23.2023 | D      |
 | F13 | CLI (help different modifications)                                           | Alexis, Daniel, Baoze | 02.25.2023 | 03.01.2023 | D      |
 

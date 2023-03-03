@@ -5,7 +5,6 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import org.locationtech.jts.geom.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static ca.mcmaster.cas.se2aa4.a2.generator.PropertyUtils.*;
@@ -28,7 +27,7 @@ public class OurPolygon implements OurGeometryFactory{
 
     //Uses the geometry factory inferface to create a polygon geometry
     @Override
-    public ArrayList<Object> create_geometry(int id_self, ArrayList<Object> arrayArgs, float alpha, int thickness, int misc) {
+    public ArrayList<Object> create_geometry(int id_self, ArrayList<Object> arrayArgs, float alpha,int thickness, int misc) {
         for(Object arg: arrayArgs) {
             Segment segmented = (Segment) arg;
             segments_group.add(segmented);
@@ -78,7 +77,6 @@ public class OurPolygon implements OurGeometryFactory{
                 y_coords.add(extractHeadCoords(segments_group.get(i).getPropertiesList())[1]);
             }
         }
-
     }
 
     private void create_centroid(int id) {
@@ -104,6 +102,7 @@ public class OurPolygon implements OurGeometryFactory{
         middle_vertex = vertexFactory.create_geometry_centroid((double) centroid.getX(), (double) centroid.getY(), id);
     }
 
+    // Receives all polygons and neighboring segments, and outputs a new set of polygons
     public static ArrayList<Structs.Polygon> set_all_polygons(ArrayList<Structs.Polygon> no_neighbours_polygons, ArrayList<ArrayList<Integer>> all_neighbours) {
         ArrayList<Structs.Polygon> return_polygons = new ArrayList<>();
         for(int i = 0; i < no_neighbours_polygons.size(); i++) {

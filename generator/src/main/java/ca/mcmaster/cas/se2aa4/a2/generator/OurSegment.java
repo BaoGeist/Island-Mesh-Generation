@@ -6,7 +6,6 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static ca.mcmaster.cas.se2aa4.a2.generator.PropertyUtils.*;
@@ -25,8 +24,9 @@ public class OurSegment implements OurGeometryFactory{
 
     private int v1id, v2id;
 
+    // Creates a segment using create_geometry interface
     @Override
-    public ArrayList<Object> create_geometry( int idSelf, ArrayList<Object> arrayArgs, float alpha, int thickness, int misc) {
+    public ArrayList<Object> create_geometry( int idSelf, ArrayList<Object> arrayArgs, float alpha ,int thickness, int misc) {
         ArrayList<Vertex> vertices = arrayArgs.stream()
                 .map(s -> (Vertex) s)
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -50,14 +50,6 @@ public class OurSegment implements OurGeometryFactory{
     private double[] get_coords(Vertex v) {
         double[] return_string = {v.getX(), v.getY()};
         return return_string;
-    }
-
-    private Vertex get_head_vertex() {
-        return head_vertex;
-    }
-
-    private Vertex get_tail_vertex() {
-        return tail_vertex;
     }
 
     private void set_segment_colour(Vertex vertex1, Vertex vertex2) {

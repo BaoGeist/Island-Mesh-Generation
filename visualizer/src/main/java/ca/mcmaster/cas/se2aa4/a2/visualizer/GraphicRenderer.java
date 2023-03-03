@@ -18,10 +18,14 @@ import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.*;
 public class GraphicRenderer {
 
     private static final int THICKNESS = 3;
+
+    // renders our mesh
     public void render(Mesh aMesh, Graphics2D canvas) {
         canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
+
+        // Draws all polygons
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
             Color polygon_color = extractColor(p.getPropertiesList());
             float[] x_coords = extractCoordsforPolygons(p.getPropertiesList()).get(0);
@@ -39,6 +43,7 @@ public class GraphicRenderer {
             canvas.setColor(polygon_color);
             canvas.fill(path);
         }
+        // Draws all segments
         for (Structs.Segment s: aMesh.getSegmentsList()){
             Vertex v1 = aMesh.getVertices(s.getV1Idx());
             Vertex v2 = aMesh.getVertices(s.getV2Idx());
@@ -48,6 +53,7 @@ public class GraphicRenderer {
             canvas.setColor(segment_color);
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
         }
+        //Draws all vertices
         for (Vertex v: aMesh.getVerticesList()) {
             double centre_x = v.getX() - (THICKNESS/2.0d);
             double centre_y = v.getY() - (THICKNESS/2.0d);
@@ -59,11 +65,13 @@ public class GraphicRenderer {
         }
     }
 
+    //Debug mode
     public void debug(Mesh aMesh, Graphics2D canvas) {
         canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-        for (Structs.Polygon p: aMesh.getPolygonsList()) { //polygons are drawn first as the back layer
+        for (Structs.Polygon p: aMesh.getPolygonsList()) {
+            //polygons are drawn first as the back layer
             float[] x_coords = extractCoordsforPolygons(p.getPropertiesList()).get(0);
             float[] y_coords = extractCoordsforPolygons(p.getPropertiesList()).get(1);
 
@@ -91,7 +99,8 @@ public class GraphicRenderer {
             }
         }
 
-        for (Vertex v: aMesh.getVerticesList()) { //vertices and segments are drawn overtop of polygons
+        for (Vertex v: aMesh.getVerticesList()) {
+            //vertices and segments are drawn overtop of polygons
             double centre_x = v.getX() - (THICKNESS/2.0d);
             double centre_y = v.getY() - (THICKNESS/2.0d);
             Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);

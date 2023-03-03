@@ -32,16 +32,29 @@ public class Main {
                 .desc("Activate Debug mode")
                 .build();
 
+        Option help = Option.builder("h")
+                .argName("help")
+                .hasArg(false)
+                .desc("help")
+                .build();
+
         Options options = new Options();
 
         options.addOption(input);
         options.addOption(output);
         options.addOption(debug);
+        options.addOption(help);
 
         CommandLineParser parser = new DefaultParser();
 
         try {
             CommandLine line = parser.parse(options, args);
+
+            if(line.hasOption("h")){
+                HelpFormatter formatter = new HelpFormatter();
+                formatter.printHelp("ant", options);
+            }
+
             if (line.hasOption("mf")){
                 if (line.hasOption("of")){
                     // Getting width and height for the canvas
