@@ -57,6 +57,12 @@ public class Main {
                 .desc("number of polygons generated")
                 .build();
 
+        Option lloyd_num = Option.builder("ln")
+                .argName("Lloyd Number")
+                .hasArg()
+                .desc("Relaxation level")
+                .build();
+
         Options options = new Options();
 
         options.addOption(mesh);
@@ -66,6 +72,7 @@ public class Main {
         options.addOption(opacity);
         options.addOption(thickness);
         options.addOption(num_of_polygons);
+        options.addOption(lloyd_num);
 
         CommandLineParser parser = new DefaultParser();
 
@@ -130,7 +137,14 @@ public class Main {
                             num_polygons = 200;
                         }
 
-                        OurIrregular generator2 = new OurIrregular(sideInt, sideInt, num_polygons);
+                        int lloyd_number;
+                        if (line.hasOption("ln")){
+                            lloyd_number = Integer.parseInt(line.getOptionValue("ln"));
+                        } else {
+                            lloyd_number = 5;
+                        }
+
+                        OurIrregular generator2 = new OurIrregular(sideInt, sideInt, num_polygons, lloyd_number);
                         Mesh myMesh2 = generator2.generate();
                         factory.write(myMesh2, meshfile);
 

@@ -22,11 +22,14 @@ public class OurIrregular implements MeshGenerator{
     private int width;
     private int num_polygons;
 
+    private int lloyd_number;
+
     //Constructor method
-    public OurIrregular(int width, int height, int num_polygons){
+    public OurIrregular(int width, int height, int num_polygons, int lloyd_number){
         this.width = width;
         this.height = height;
         this.num_polygons = num_polygons;
+        this.lloyd_number = lloyd_number;
     };
 
     //Method to generate random points for the voronoi diagram
@@ -118,7 +121,6 @@ public class OurIrregular implements MeshGenerator{
         Geometry voronoiedPoints = generate_voronoi(listCoordinates);
 
         // lloyd relaxation
-        int lloyd_number = 5;
         for(int i = 0; i < lloyd_number; i++) {
             listCoordinates = calculate_lloyd_relaxation_multiple(voronoiedPoints);
             voronoiedPoints = generate_voronoi(listCoordinates);

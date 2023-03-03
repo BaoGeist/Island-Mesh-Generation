@@ -21,7 +21,7 @@ After installation, you'll find an application named `generator.jar` in the `gen
 
 ### Generator
 
-To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes up to 6 arguments, the name of the file where the generated mesh will be stored as binary with the option `-mv`, `regular` or `irregular` to determine what kind of mesh is built with the option `-mv`, and an integer value for the length of the side of the mesh with the option `-s`. If a regular mesh is created 3 additional arguments follow: an integer value for square sizes `-ss`, float value for transparency `-o`, and finally int value for thickness of segments `-t`. If a irregular mesh is created, 1 additional argument follows: an integer value for number of polygons to be created `-num`.
+To run the generator, go to the `generator` directory, and use `java -jar` to run the product. The product takes up to 6 arguments, the name of the file where the generated mesh will be stored as binary with the option `-mv`, `regular` or `irregular` to determine what kind of mesh is built with the option `-mv`, and an integer value for the length of the side of the mesh with the option `-s`. If a regular mesh is created 3 additional arguments follow: an integer value for square sizes `-ss`, float value for transparency `-o`, and finally int value for thickness of segments `-t`. If a irregular mesh is created, 2 additional arguments follow: an integer value for number of polygons to be created `-num` and the relaxation level `-ln`.
 
 The following will create a regular 500x500 mesh with 25 vertice square length, 1.00f transparency, and 1 thickness. These are the default values for a regular mesh as well. 
 
@@ -35,10 +35,10 @@ mosser@azrael generator % ls -lh sample.mesh
 mosser@azrael generator % 
 ```
 
-The following will create an irregular 500x500 mesh with 200 polygons
+The following will create an irregular 500x500 mesh with 200 polygons with a relaxation level of 5
 ```
 mosser@azrael A2 % cd generator 
-mosser@azrael generator % java -jar generator.jar -mf sample.mesh -mv irregular -s 500 -num 200
+mosser@azrael generator % java -jar generator.jar -mf sample.mesh -mv irregular -s 500 -num 200 -ln 5
 mosser@azrael generator % ls -lh sample.mesh
 -rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
 mosser@azrael generator % 
