@@ -33,7 +33,7 @@ public class OurIrregular implements MeshGenerator{
 
     //Method to generate random points for the voronoi diagram
     private ArrayList<Coordinate> generate_random_points(int number) {
-        Random random = new Random(3);
+        Random random = new Random();
         ArrayList<Coordinate> listCoordinates = new ArrayList<>();
 
         for (int i = 0; i < number; i++) {
