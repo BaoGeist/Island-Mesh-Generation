@@ -3,6 +3,7 @@ package ca.mcmaster.cas.se2aa4.a2.visualizer;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
+import ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils;
 
 import java.awt.Graphics2D;
 import java.awt.Stroke;
@@ -28,8 +29,8 @@ public class GraphicRenderer {
 
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
             //polygons are drawn first as the back layer
-            float[] x_coords = extractCoordsforPolygons(p.getPropertiesList()).get(0);
-            float[] y_coords = extractCoordsforPolygons(p.getPropertiesList()).get(1);
+            float[] x_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(0);
+            float[] y_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(1);
 
             Path2D.Float path = new Path2D.Float();
             path.moveTo(x_coords[0], y_coords[0]);
@@ -103,9 +104,9 @@ public class GraphicRenderer {
 
         // Draws all polygons
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
-            Color polygon_color = extractColor(p.getPropertiesList());
-            float[] x_coords = extractCoordsforPolygons(p.getPropertiesList()).get(0);
-            float[] y_coords = extractCoordsforPolygons(p.getPropertiesList()).get(1);
+            Color polygon_color = PropertyUtils.extractColor(p.getPropertiesList());
+            float[] x_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(0);
+            float[] y_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(1);
 
             Path2D.Float path = new Path2D.Float();
             path.moveTo(x_coords[0], y_coords[0]);
@@ -124,7 +125,7 @@ public class GraphicRenderer {
             Vertex v1 = aMesh.getVertices(s.getV1Idx());
             Vertex v2 = aMesh.getVertices(s.getV2Idx());
 
-            Color segment_color = extractColor(s.getPropertiesList());
+            Color segment_color = PropertyUtils.extractColor(s.getPropertiesList());
 
             canvas.setColor(Color.GRAY);
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
@@ -134,7 +135,7 @@ public class GraphicRenderer {
             double centre_x = v.getX() - (THICKNESS/2.0d);
             double centre_y = v.getY() - (THICKNESS/2.0d);
             Color old = canvas.getColor();
-            canvas.setColor(extractColor(v.getPropertiesList()));
+            canvas.setColor(PropertyUtils.extractColor(v.getPropertiesList()));
             Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
             canvas.fill(point);
             canvas.setColor(Color.BLACK);
@@ -148,8 +149,8 @@ public class GraphicRenderer {
         canvas.setStroke(stroke);
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
             //polygons are drawn first as the back layer
-            float[] x_coords = extractCoordsforPolygons(p.getPropertiesList()).get(0);
-            float[] y_coords = extractCoordsforPolygons(p.getPropertiesList()).get(1);
+            float[] x_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(0);
+            float[] y_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(1);
 
             Path2D.Float path = new Path2D.Float();
             path.moveTo(x_coords[0], y_coords[0]);
