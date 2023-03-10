@@ -1,4 +1,4 @@
-package ca.mcmaster.cas.se2aa4.a2.generator;
+package ca.mcmaster.cas.se2aa4.a2.generator.ADT;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -7,7 +7,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 
 
-public class OurVertex implements OurGeometryFactory{
+public class OurVertex implements OurGeometryFactory {
     
     private double[] coords = new double[2];
     private int[] colorCodes = new int[3];

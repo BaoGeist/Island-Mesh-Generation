@@ -1,5 +1,6 @@
-package ca.mcmaster.cas.se2aa4.a2.generator;
+package ca.mcmaster.cas.se2aa4.a2.generator.ADT;
 
+import ca.mcmaster.cas.se2aa4.a2.generator.Utils.MathUtils;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
@@ -12,9 +13,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import static ca.mcmaster.cas.se2aa4.a2.generator.DelaunayTriangulator.triangulate;
+import static ca.mcmaster.cas.se2aa4.a2.generator.Neighborhood.DelaunayTriangulator.triangulate;
 
-public class OurIrregular implements MeshGenerator{
+public class OurIrregular implements MeshGenerator {
 
     PrecisionModel precisionModel = new PrecisionModel(10);
     private int height;

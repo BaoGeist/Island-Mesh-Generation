@@ -1,4 +1,4 @@
-package ca.mcmaster.cas.se2aa4.a2.generator;
+package ca.mcmaster.cas.se2aa4.a2.generator.ADT;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import static ca.mcmaster.cas.se2aa4.a2.generator.PropertyUtils.*;
+import static ca.mcmaster.cas.se2aa4.a2.generator.Utils.PropertyUtils.*;
 
-public class OurSegment implements OurGeometryFactory{
+public class OurSegment implements OurGeometryFactory {
     private int[] colour_code = new int[3];
     private double[] head_coord = new double[2];
     private double[] tail_coord = new double[2];

@@ -73,7 +73,7 @@ public class Main {
                         //Turn on debug mode
                         renderer.debug(aMesh, canvas);
                     } else {
-                        renderer.render(aMesh, canvas);
+                        renderer.renderLagoon(aMesh, canvas);
                     }
                     // Storing the result in an SVG file
                     SVGCanvas.write(canvas, line.getOptionValue("of"));

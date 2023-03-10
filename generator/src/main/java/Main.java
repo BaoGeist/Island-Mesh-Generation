@@ -1,4 +1,5 @@
-import ca.mcmaster.cas.se2aa4.a2.generator.*;
+import ca.mcmaster.cas.se2aa4.a2.generator.ADT.OurIrregular;
+import ca.mcmaster.cas.se2aa4.a2.generator.ADT.OurMesh;
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import org.apache.commons.cli.*;
@@ -8,7 +9,7 @@ public class Main {
 
     // generate irregular and regular mesh at the same time
     // standard command line call - java -jar generator.jar -mf sample.mesh -mv regular -s 500 -ss 25 -t 1
-    // standard CLI call for irregular - java -jar generator.jar -mf sample.mesh -mv irregular -w 500 -h 500 -num 200
+    // standard CLI call for irregular - java -jar -w 500 -h 500 -num 200
     public static void main(String[] args) throws IOException, ParseException {
 
         MeshFactory factory = new MeshFactory();
@@ -116,7 +117,7 @@ public class Main {
                         if (line.hasOption("num")){
                             num_polygons = Integer.parseInt(line.getOptionValue("num"));
                         } else {
-                            num_polygons = 200;
+                            num_polygons = 1000;
                         }
 
                         int lloyd_number;

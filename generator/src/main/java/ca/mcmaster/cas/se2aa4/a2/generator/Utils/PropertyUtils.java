@@ -1,4 +1,4 @@
-package ca.mcmaster.cas.se2aa4.a2.generator;
+package ca.mcmaster.cas.se2aa4.a2.generator.Utils;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.*;
@@ -9,7 +9,7 @@ import java.util.Optional;
 public class PropertyUtils {
 
     // Extracts IDs for all our geometries
-    protected static int extractID(List<Structs.Property> properties) {
+    public static int extractID(List<Structs.Property> properties) {
         String val = "0";
         for(Structs.Property p: properties) {
             if (p.getKey().equals("id")) {
@@ -20,7 +20,7 @@ public class PropertyUtils {
     }
 
     // Extracts heads vertex for a segment
-    protected static double[] extractHeadCoords(List<Structs.Property> properties) {
+    public static double[] extractHeadCoords(List<Structs.Property> properties) {
         String val = null;
         for(Structs.Property p: properties) {
             if (p.getKey().equals("head")) {
@@ -34,7 +34,7 @@ public class PropertyUtils {
     }
 
     //Extracts tail coordinate for building a segment
-    protected static double[] extractTailCoords(List<Structs.Property> properties) {
+    public static double[] extractTailCoords(List<Structs.Property> properties) {
         String val = null;
         for(Structs.Property p: properties) {
             if (p.getKey().equals("tail")) {
@@ -47,7 +47,7 @@ public class PropertyUtils {
         return new double[]{x, y};
     }
 
-    protected static int[] extractColor(List<Structs.Property> properties) {
+    public static int[] extractColor(List<Structs.Property> properties) {
         String val = null;
         for(Structs.Property p: properties) {
             if (p.getKey().equals("rgb_color")) {
@@ -63,7 +63,7 @@ public class PropertyUtils {
 
 
     // Extracts an ArrayList of coordinates from Polygon
-    protected static ArrayList<float[]> extractCoordsforPolygons(java.util.List<Structs.Property> properties) {
+    public static ArrayList<float[]> extractCoordsforPolygons(java.util.List<Structs.Property> properties) {
         String x_coords = null, y_coords = null;
         for(Structs.Property p: properties) {
             if (p.getKey().equals("x_coords")) {

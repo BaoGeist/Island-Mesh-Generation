@@ -1,4 +1,4 @@
-package ca.mcmaster.cas.se2aa4.a2.generator;
+package ca.mcmaster.cas.se2aa4.a2.generator.ADT;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
@@ -7,10 +7,10 @@ import org.locationtech.jts.geom.*;
 
 import java.util.ArrayList;
 
-import static ca.mcmaster.cas.se2aa4.a2.generator.PropertyUtils.*;
+import static ca.mcmaster.cas.se2aa4.a2.generator.Utils.PropertyUtils.*;
 
 
-public class OurPolygon implements OurGeometryFactory{
+public class OurPolygon implements OurGeometryFactory {
     Vertex middle_vertex;
     ArrayList<Segment> segments_group = new ArrayList<>();
     ArrayList<Integer> segments_id = new ArrayList<>();

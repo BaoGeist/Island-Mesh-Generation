@@ -1,4 +1,4 @@
-package ca.mcmaster.cas.se2aa4.a2.generator;
+package ca.mcmaster.cas.se2aa4.a2.generator.ADT;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,7 +9,7 @@ import org.locationtech.jts.geom.Coordinate;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 
-import static ca.mcmaster.cas.se2aa4.a2.generator.PropertyUtils.*;
+import static ca.mcmaster.cas.se2aa4.a2.generator.Utils.PropertyUtils.*;
 
 public class GeometryContainer {
     ArrayList<Vertex> vertices = new ArrayList<Vertex>();

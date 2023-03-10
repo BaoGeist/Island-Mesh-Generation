@@ -54,7 +54,7 @@ For help, use `-h` after `-mf` and `-of`
 
 ```
 mosser@azrael A2 % cd visualizer 
-mosser@azrael visualizer % java -jar visualizer.jar -mf ../generator/sample.mesh -of sample.svg
+mosser@azrael visualizer % generator.jar -mf sample.mesh -mv irregular
 
 ... (lots of debug information printed to stdout) ...
 

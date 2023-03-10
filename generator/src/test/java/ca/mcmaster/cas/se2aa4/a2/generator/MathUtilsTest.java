@@ -7,7 +7,7 @@ import org.locationtech.jts.geom.Polygon;
 
 
 
-import static ca.mcmaster.cas.se2aa4.a2.generator.MathUtils.*;
+import static ca.mcmaster.cas.se2aa4.a2.generator.Utils.MathUtils.*;
 import static org.locationtech.jts.algorithm.Centroid.getCentroid;
 
 public class MathUtilsTest {

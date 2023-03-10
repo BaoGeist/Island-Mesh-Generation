@@ -1,13 +1,14 @@
 package ca.mcmaster.cas.se2aa4.a2.generator;
 
+import ca.mcmaster.cas.se2aa4.a2.generator.ADT.OurPolygon;
+import ca.mcmaster.cas.se2aa4.a2.generator.ADT.OurSegment;
+import ca.mcmaster.cas.se2aa4.a2.generator.ADT.OurVertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import org.junit.jupiter.api.Test;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

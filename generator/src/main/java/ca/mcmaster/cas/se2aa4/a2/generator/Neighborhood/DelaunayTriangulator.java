@@ -1,5 +1,6 @@
-package ca.mcmaster.cas.se2aa4.a2.generator;
+package ca.mcmaster.cas.se2aa4.a2.generator.Neighborhood;
 
+import ca.mcmaster.cas.se2aa4.a2.generator.ADT.GeometryContainer;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.triangulate.DelaunayTriangulationBuilder;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static ca.mcmaster.cas.se2aa4.a2.generator.PropertyUtils.*;
+import static ca.mcmaster.cas.se2aa4.a2.generator.Utils.PropertyUtils.*;
 
 public class DelaunayTriangulator {
 

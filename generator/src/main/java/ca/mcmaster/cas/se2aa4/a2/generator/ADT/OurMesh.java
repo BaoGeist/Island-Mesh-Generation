@@ -1,11 +1,11 @@
-package ca.mcmaster.cas.se2aa4.a2.generator;
+package ca.mcmaster.cas.se2aa4.a2.generator.ADT;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class OurMesh implements MeshGenerator{
+public class OurMesh implements MeshGenerator {
     private int width;
     private int height;
     private int square_size;
