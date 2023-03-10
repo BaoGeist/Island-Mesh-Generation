@@ -1,4 +1,4 @@
-package ca.mcmaster.cas.se2aa4.a2.generator;
+package ca.mcmaster.cas.se2aa4.a2.generator.UtilsTest;
 
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.Coordinate;
