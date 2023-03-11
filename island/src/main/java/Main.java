@@ -8,6 +8,8 @@ import java.io.IOException;
 
 public class Main {
 
+    // sample run "java -jar island.jar -mf temp.mesh -of temp.svg"
+
     public static void main(String[] args) throws IOException {
         Option input = Option.builder("mf")
                 .argName("mesh_file")

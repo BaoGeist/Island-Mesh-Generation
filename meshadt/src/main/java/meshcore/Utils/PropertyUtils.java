@@ -102,4 +102,14 @@ public class PropertyUtils {
         Double y = Double.parseDouble(raw[1].replace("[","").replace(" ", "").replace("]",""));
         return new double[]{x, y};
     }
+
+    public static boolean extractBoolean(List<Structs.Property> properties) {
+        boolean val = false;
+        for(Structs.Property p: properties) {
+            if (p.getKey().equals("centroid_or_nah")) {
+                val = Boolean.getBoolean(p.getValue());
+            }
+        }
+        return val;
+    }
 }
