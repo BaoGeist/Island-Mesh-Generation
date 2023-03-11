@@ -82,21 +82,31 @@ Our Definition of Done includes the following criteria:
 
 ### Product Backlog
 
-| Id | Feature title                                                                 | Who?                  | Start      | End        | Status |
-|:--:|-------------------------------------------------------------------------------|-----------------------|------------|------------|--------|
-| F01 | draw segments between vertices (coloured) to visualize the squares           | Baoze, Daniel         | 02.01.2023 | 02.02.2023 | D      |
-| F02 | ability to turn debug mode option on                                         | Baoze, Alexis         | 02.16.2023 | 03.01.2023 | D      |
-| F03 | created  new polygons, segments, and vertices classes                        | Baoze, Alexis         | 02.15.2023 | 02.17.2023 | D      |
-| F04 | produced a full mesh ADT with above F03 classes                              | Daniel                | 02.15.2023 | 02.17.2023 | D      |
-| F05 | playing around with rendering                                                | Baoze                 | 02.17.2023 | 02.17.2023 | D      |
-| F06 | visualization mode with rendering                                            | Alexis, Daniel        | 02.17.2023 | 03.02.2023 | D      |
-| F07 | generate random points in a precision model, one for each expected Polygon   | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
-| F08 | generate first voronoi diagram with above points                             | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
-| F09 | compute lloyd relaxation on said points                                      | Baoze                 | 02.20.2023 | 02.20.2023 | D      |
-| F10 | crop the mesh to expected size, and keep centroids within the space          | Daniel                | 02.20.2023 | 02.20.2023 | D      |
-| F11 | find neighbourhood relations with Delaunay's triangulation                   | Alexis, Daniel, Baoze | 02.27.2023 | 03.02.2023 | D      |
-| F12 | compute convex hull to reorder irregular polygon segments                    | Daniel                | 02.23.2023 | 02.23.2023 | D      |
-| F13 | CLI (help different modifications)                                           | Alexis, Daniel, Baoze | 02.25.2023 | 03.01.2023 | D      |
+| Id  | Feature title                                                           | Who?                  | Start      | End        | Status |
+|:---:|-------------------------------------------------------------------------|-----------------------|------------|------------|--------|
+| F01 | Initial Island Generation for Step 1                                    | Daniel                | 03.05.2023 | 03.10.2023 | D      |
+| F02 | Generates a shaped island (circle)                                      | Baoze, Alexis, Daniel | 03.10.2023 |            | P      |
+| F03 | Generates multiple shapes of island (stars, rectangle)                  | Baoze, Alexis, Daniel |            |            | P      |
+| F04 | Generate island with plains elevation profile                           | Baoze, Alexis, Daniel |            |            | P      |
+| F05 | Generate island with random humidity values for tiles                   | Baoze, Alexis, Daniel |            |            | P      |
+| F06 | Generate island with more elevation profiles (volcanic, mountains)      | Baoze, Alexis, Daniel |            |            | P      |
+| F07 | Integrate reproducibility/seeds                                         | Baoze                 |            |            | P      |
+| F08 | Generate a lake at a random point                                       | Baoze                 |            |            | P      |
+| F09 | Generate multiple lakes with CLI input                                  | Baoze                 |            |            | P      |
+| F10 | Generate a river at a random point                                      | Daniel                |            |            | P      |
+| F11 | Generate multiple rivers                                                | Daniel                |            |            | P      |
+| F12 | Calculate river discharge, show changes                                 | Daniel                |            |            | P      |
+| F13 | Generate aquifers                                                       | Baoze                 |            |            | P      |
+| F14 | Calculate soil absorption with soil profile input                       | Daniel                |            |            | P      |
+| F15 | Generate biomes based on humidity + temperature                         | Alexis                |            |            | P      |
+| F16 | Generate islands based on Whittaker diagrams + CLI                      | Alexis                |            |            | P      |
+| F17 | Generate resources based on biome                                       | Daniel, Baoze         |            |            | P      |
+| F18 | Generate resources based on biome + humidity + elevation                | Daniel, Baoze         |            |            | P      |
+| F19 | Generate heatmap for one parameter(i.e. humidity)                       | Daniel, Baoze         |            |            | P      |
+| F20 | Generate heatmap for all parameters (humidity, elevation, resources)    | Daniel, Baoze         |            |            | P      |
+
+
+
 
 
 
