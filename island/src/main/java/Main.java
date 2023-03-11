@@ -1,5 +1,6 @@
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import islandADT.IslandGenerator;
 import org.apache.commons.cli.*;
 
 import java.awt.*;
@@ -61,7 +62,8 @@ public class Main {
                         max_x = (Double.compare(max_x, v.getX()) < 0? v.getX(): max_x);
                         max_y = (Double.compare(max_y, v.getY()) < 0? v.getY(): max_y);
                     }
-
+                    IslandGenerator islandGenerator = new IslandGenerator();
+                    islandGenerator.create_island(aMesh);
                 }
             }
         } catch (ParseException exp){
