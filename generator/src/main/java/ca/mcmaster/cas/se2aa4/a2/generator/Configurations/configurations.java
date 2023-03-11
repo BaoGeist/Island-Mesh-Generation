@@ -1,18 +1,16 @@
-import meshcore.ADT.OurIrregular;
-import meshcore.ADT.OurMesh;
+package ca.mcmaster.cas.se2aa4.a2.generator.Configurations;
+
+import ca.mcmaster.cas.se2aa4.a2.generator.ADT.OurIrregular;
+import ca.mcmaster.cas.se2aa4.a2.generator.ADT.OurMesh;
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
-import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import org.apache.commons.cli.*;
 
 import java.io.IOException;
 
-public class Main {
+public class configurations {
 
-    // generate irregular and regular mesh at the same time
-    // standard command line call - java -jar generator.jar -mf sample.mesh -mv regular -s 500 -ss 25 -t 1
-    // standard CLI call for irregular - java -jar -w 500 -h 500 -num 200
-    public static void main(String[] args) throws IOException, ParseException {
-
+    public static void runConfig(String[] args) {
         MeshFactory factory = new MeshFactory();
 
         Option mesh = Option.builder("mf")
@@ -109,7 +107,7 @@ public class Main {
                         }
 
                         OurMesh generator = new OurMesh(sideInt, sideInt, square_sizeInt,1, 1);
-                        Mesh myMesh = generator.generate();
+                        Structs.Mesh myMesh = generator.generate();
                         factory.write(myMesh, meshfile);
 
                     } else if (version.equals("irregular")){
@@ -129,7 +127,7 @@ public class Main {
                         }
 
                         OurIrregular generator2 = new OurIrregular(sideInt, sideInt, num_polygons, lloyd_number);
-                        Mesh myMesh2 = generator2.generate();
+                        Structs.Mesh myMesh2 = generator2.generate();
                         factory.write(myMesh2, meshfile);
 
                     } else {
@@ -140,6 +138,8 @@ public class Main {
         }
         catch (ParseException exp) {
             System.err.println("Parsing failed.  Reason: " + exp.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
