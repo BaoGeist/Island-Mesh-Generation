@@ -1,7 +1,6 @@
 package islandADT.Extracter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.OurPolygonIsland;
 import islandADT.Wrappers.PolygonWrapper;
 import meshcore.Utils.PropertyUtils;
 

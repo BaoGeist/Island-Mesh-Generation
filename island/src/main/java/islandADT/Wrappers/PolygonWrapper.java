@@ -1,5 +1,7 @@
 package islandADT.Wrappers;
 
+import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,4 +20,5 @@ public class PolygonWrapper {
     public int get_id() {return this.id_polygon;}
 
     public List<Integer> get_neighbours() {return this.neighbours;}
+
 }
