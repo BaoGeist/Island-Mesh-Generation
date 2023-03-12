@@ -13,7 +13,6 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Ellipse2D;
 
 import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.*;
-import static ca.mcmaster.cas.se2aa4.a2.generator.Utils.PropertyUtils.*;
 
 public class GraphicRenderer {
 
@@ -118,7 +117,7 @@ public class GraphicRenderer {
             path.lineTo(x_coords[0], y_coords[0]);
             path.closePath();
 
-            canvas.setColor(Color.white);
+            canvas.setColor(polygon_color);
             canvas.fill(path);
         }
         // Draws all segments

@@ -11,14 +11,14 @@ public class SetPolygonTypes {
     private double center_x = 250;
     private double center_y = 250;
 
-    private void set_tile_type(GeometryContainer geometryContainer) {
+    public void set_tile_type(GeometryContainer geometryContainer) {
         try {
             Map<Integer, PolygonWrapper> PolygonList = geometryContainer.get_polygons();
 
             for (PolygonWrapper p: PolygonList.values()){
                 TileTypeWrapper ocean = new TileTypeWrapper(Ocean);
                 TileTypeWrapper sand = new TileTypeWrapper(Sand);
-                TileTypeWrapper land = new TileTypeWrapper(Sand);
+                TileTypeWrapper land = new TileTypeWrapper(Land);
                 TileTypeWrapper lagoon = new TileTypeWrapper(Lagoon);
 
                 double[] centroid_coords = geometryContainer.get_vertices().get(p.getId_centroid()).getCoords();

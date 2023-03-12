@@ -14,8 +14,9 @@ public class OurPolygonExporter implements Exporter<PolygonWrapper, Structs.Poly
         List<Integer> segments = p.getSegments_group();
         List<Integer> neighbours = p.getNeighbours();
         OurPolygonIsland polygonIslandFactory = new OurPolygonIsland();
+        List<float[]> coords = p.getX_y_coords();
         TileTypeWrapper tileType = p.getTileType();
         // refactor ourpolygon to not need alpha or thickness
-        return polygonIslandFactory.create_geometry(segments, tileType, centroid, neighbours);
+        return polygonIslandFactory.create_geometry(segments, tileType, centroid, neighbours, coords);
     }
 }

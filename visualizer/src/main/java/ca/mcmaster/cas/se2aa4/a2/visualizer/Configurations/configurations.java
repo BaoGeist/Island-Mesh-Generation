@@ -1,7 +1,5 @@
 package ca.mcmaster.cas.se2aa4.a2.visualizer.Configurations;
 
-import ca.mcmaster.cas.se2aa4.a2.generator.ADT.OurIrregular;
-import ca.mcmaster.cas.se2aa4.a2.generator.ADT.OurMesh;
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.GraphicRenderer;
@@ -77,7 +75,7 @@ public class configurations {
                         //Turn on debug mode
                         renderer.debug(aMesh, canvas);
                     } else {
-                        renderer.renderLagoon(aMesh, canvas);
+                        renderer.render(aMesh, canvas);
                     }
                     // Storing the result in an SVG file
                     SVGCanvas.write(canvas, line.getOptionValue("of"));

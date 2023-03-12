@@ -16,7 +16,6 @@ public class PolygonExtracter implements Extracter<Structs.Polygon, PolygonWrapp
         int centroid_id = oldPolygon.getCentroidIdx();
         List<Integer> segments = oldPolygon.getSegmentIdxsList();
         PolygonWrapper newPolygon = new PolygonWrapper(id_polygon, x_y_coords, neighbours, centroid_id, segments);
-
         //TODO generate this elsewhere
         TileTypeWrapper tileTypeWrapper = new TileTypeWrapper(TileTypeWrapper.TileType.Ocean);
         newPolygon.setTileType(tileTypeWrapper);

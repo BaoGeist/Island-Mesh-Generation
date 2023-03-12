@@ -36,18 +36,6 @@
             <artifactId>2aa4.mesh.meshadt</artifactId>
             <version>1.0</version>
         </dependency>
-        <dependency>
-            <groupId>io.github.ace-design</groupId>
-            <artifactId>2aa4.mesh.meshadt</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.github.ace-design</groupId>
-            <artifactId>2aa4.mesh.generator</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <build>
