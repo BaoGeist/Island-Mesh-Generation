@@ -33,16 +33,16 @@ public class MeshExporter implements Exporter<GeometryContainer, Structs.Mesh> {
         for(Map.Entry<Integer, SegmentWrapper> entry: segments.entrySet()) {
             Integer key = entry.getKey();
             SegmentWrapper p = entry.getValue();
-            System.out.println(key + " = " + key);
-            System.out.println(p.get_id());
+//            System.out.println(key + " = " + key);
+//            System.out.println(p.get_id());
             segments_output.add((Structs.Segment) segmentExporter.export(entry.getValue()));
         }
 
         for(Map.Entry<Integer, VertexWrapper> entry: vertices.entrySet()) {
             Integer key = entry.getKey();
             VertexWrapper p = entry.getValue();
-            System.out.println(key + " = " + key);
-            System.out.println(p.get_id());
+//            System.out.println(key + " = " + key);
+//            System.out.println(p.get_id());
             vertices_output.add((Structs.Vertex) vertexExporter.export(entry.getValue()));
         }
         return Structs.Mesh.newBuilder().addAllPolygons(polygons_output).addAllSegments(segments_output).addAllVertices(vertices_output).build();

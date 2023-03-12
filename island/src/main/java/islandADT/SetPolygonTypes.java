@@ -15,12 +15,12 @@ public class SetPolygonTypes {
         try {
             Map<Integer, PolygonWrapper> PolygonList = geometryContainer.get_polygons();
 
-            for (PolygonWrapper p: PolygonList.values()){
-                TileTypeWrapper ocean = new TileTypeWrapper(Ocean);
-                TileTypeWrapper sand = new TileTypeWrapper(Sand);
-                TileTypeWrapper land = new TileTypeWrapper(Land);
-                TileTypeWrapper lagoon = new TileTypeWrapper(Lagoon);
+            TileTypeWrapper ocean = new TileTypeWrapper(Ocean);
+            TileTypeWrapper sand = new TileTypeWrapper(Sand);
+            TileTypeWrapper land = new TileTypeWrapper(Land);
+            TileTypeWrapper lagoon = new TileTypeWrapper(Lagoon);
 
+            for (PolygonWrapper p: PolygonList.values()){
                 double[] centroid_coords = geometryContainer.get_vertices().get(p.getId_centroid()).getCoords();
                 double distance = Math.sqrt(Math.pow(center_x - centroid_coords[0], 2) + Math.pow(center_y - centroid_coords[1], 2));
 
@@ -33,14 +33,19 @@ public class SetPolygonTypes {
                 } else {
                     p.setTileType(ocean);
                 }
+            }
 
-                for (int i = 0; i < p.get_neighbours().size(); i++){
-                    PolygonWrapper neighbor = PolygonList.get(p.get_neighbours().get(i));
-                    if (neighbor.getTileType().equals(ocean) || neighbor.getTileType().equals(lagoon)){
-                        p.setTileType(sand);
-                    };
+            for (PolygonWrapper p: PolygonList.values()){
+                if (p.getTileType() == land){
+                    for (int i = 0; i < p.get_neighbours().size(); i++){
+                        PolygonWrapper neighbor = PolygonList.get(p.get_neighbours().get(i));
+                        if (neighbor.getTileType() == ocean || neighbor.getTileType() == lagoon){
+                            p.setTileType(sand);
+                        };
+                    }
                 }
             }
+
         } catch (Exception e) {
             System.out.println("cool");
         }
