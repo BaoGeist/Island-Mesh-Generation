@@ -3,9 +3,8 @@ package islandADT.Wrappers;
 public class TileTypeWrapper {
 
     public enum TileType {
-        Lagoon, Ocean
+        Lagoon, Ocean, Sand, Land
     }
-
 
     private TileType tileType;
     private int[] color = new int[3];
@@ -16,18 +15,27 @@ public class TileTypeWrapper {
     }
 
     //TODO find better ways to implement this
-    //TODO set the rigth colours
     private void color_decide() {
         switch (tileType) {
             case Lagoon:
-                color[0] = 76;
-                color[1] = 183;
-                color[2] = 165;
+                color[0] = 1;
+                color[1] = 120;
+                color[2] = 144;
                 break;
             case Ocean:
                 color[0] = 0;
-                color[1] = 105;
-                color[2] = 148;
+                color[1] = 86;
+                color[2] = 161;
+                break;
+            case Sand:
+                color[0] = 194;
+                color[1] = 178;
+                color[2] = 128;
+                break;
+            case Land:
+                color[0] = 124;
+                color[1] = 252;
+                color[2] = 0;
                 break;
             default:
                 color[0] = 0;

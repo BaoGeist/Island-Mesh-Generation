@@ -1,44 +1,46 @@
 package islandADT;
 
-import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.Extracter.PolygonExtracter;
 import islandADT.Wrappers.PolygonWrapper;
+import islandADT.Wrappers.TileTypeWrapper;
 
-import java.util.List;
 import java.util.Map;
 
-import static islandADT.IslandTileEnum.*;
-import static meshcore.Utils.PropertyUtils.extractCentroidCoords;
+import static islandADT.Wrappers.TileTypeWrapper.TileType.*;
 
 public class SetPolygonTypes {
     private double center_x = 250;
     private double center_y = 250;
 
-    private void set_tile_type(PolygonWrapper polygon, GeometryContainer geometryContainer) {
+    private void set_tile_type(GeometryContainer geometryContainer) {
         try {
-//            Map<Integer, PolygonWrapper> PolygonList = geometryContainer.get_polygons();
-//
-//            double[] centroid_coords = extractCentroidCoords(PolygonExtracter.extractProperties(polygon));
-//            double distance = Math.sqrt(Math.pow(center_x - centroid_coords[0], 2) + Math.pow(center_y - centroid_coords[1], 2));
-//            Structs.Property tile_type;
-//
-//            if (distance <= 150){
-//                if (distance <= 50){
-//                    tile_type = Structs.Property.newBuilder().setKey("tile_type").setValue(String.valueOf(LAGOON)).build();
-//                } else {
-//                    tile_type = Structs.Property.newBuilder().setKey("tile_type").setValue(String.valueOf(LAND)).build();
-//                }
-//            } else {
-//                tile_type = Structs.Property.newBuilder().setKey("tile_type").setValue(String.valueOf(OCEAN)).build();
-//            }
-//
-//            for (int i = 0; i < polygon.get_neighbours().size(); i++){
-//                PolygonWrapper neighbor = PolygonList.get(polygon.get_neighbours().get(i));
-//                // get tile type of neighbor
-//                // if tile type of neighbor == OCEAN or LAGOON
-//                // tile_type = Structs.Property.newBuilder().setKey("tile_type").setValue(String.valueOf(SAND)).build();
-//            }
-//            Structs.Polygon.newBuilder(polygon).addProperties(tile_type);
+            Map<Integer, PolygonWrapper> PolygonList = geometryContainer.get_polygons();
+
+            for (PolygonWrapper p: PolygonList.values()){
+                TileTypeWrapper ocean = new TileTypeWrapper(Ocean);
+                TileTypeWrapper sand = new TileTypeWrapper(Sand);
+                TileTypeWrapper land = new TileTypeWrapper(Sand);
+                TileTypeWrapper lagoon = new TileTypeWrapper(Lagoon);
+
+                double[] centroid_coords = geometryContainer.get_vertices().get(p.getId_centroid()).getCoords();
+                double distance = Math.sqrt(Math.pow(center_x - centroid_coords[0], 2) + Math.pow(center_y - centroid_coords[1], 2));
+
+                if (distance <= 150){
+                    if (distance <= 50){
+                        p.setTileType(lagoon);
+                    } else {
+                        p.setTileType(land);
+                    }
+                } else {
+                    p.setTileType(ocean);
+                }
+
+                for (int i = 0; i < p.get_neighbours().size(); i++){
+                    PolygonWrapper neighbor = PolygonList.get(p.get_neighbours().get(i));
+                    if (neighbor.getTileType().equals(ocean) || neighbor.getTileType().equals(lagoon)){
+                        p.setTileType(sand);
+                    };
+                }
+            }
         } catch (Exception e) {
             System.out.println("cool");
         }
