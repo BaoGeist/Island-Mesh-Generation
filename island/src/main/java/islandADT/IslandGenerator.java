@@ -12,10 +12,10 @@ public class IslandGenerator {
 
     public void create_island(Structs.Mesh m) {
         // creates a new extracter
-        MeshExtracter extracter = new MeshExtracter();
+        Extracter extracter = new MeshExtracter();
 
         // gets a geometry container with hashsets of all geometries
-        GeometryContainer geometryContainer = extracter.extract(m);
+        GeometryContainer geometryContainer = (GeometryContainer) extracter.extract(m);
 
         Map<Integer, PolygonWrapper> test_map = geometryContainer.get_polygons();
 
