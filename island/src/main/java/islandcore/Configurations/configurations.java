@@ -4,7 +4,7 @@ import org.apache.commons.cli.*;
 
 public class configurations {
     public static void runConfig(String[] args) {
-
+        System.out.println("Running islandcore.Configurations");
         Option mesh = Option.builder("i")
                 .argName("input_file")
                 .hasArg()

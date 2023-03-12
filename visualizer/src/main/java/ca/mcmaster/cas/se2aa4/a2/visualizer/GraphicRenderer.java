@@ -101,9 +101,10 @@ public class GraphicRenderer {
         canvas.setColor(Color.WHITE);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-
-        // Draws all polygons
+//TODO add coordinates to polygon
+//         Draws all polygons
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
+
             Color polygon_color = PropertyUtils.extractColor(p.getPropertiesList());
             float[] x_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(0);
             float[] y_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(1);

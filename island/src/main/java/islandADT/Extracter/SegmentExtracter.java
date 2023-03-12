@@ -1,6 +1,7 @@
 package islandADT.Extracter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import islandADT.Wrappers.SegmentTypeWrapper;
 import islandADT.Wrappers.SegmentWrapper;
 import meshcore.Utils.PropertyUtils;
 
@@ -10,6 +11,10 @@ public class SegmentExtracter implements Extracter<Structs.Segment, SegmentWrapp
         int v1id = oldSegment.getV1Idx();
         int v2id = oldSegment.getV2Idx();
         SegmentWrapper newSegment = new SegmentWrapper(id_segment, v1id, v2id);
+
+        //TODO generate this elsewhere
+        SegmentTypeWrapper segmentTypeWrapper = new SegmentTypeWrapper(SegmentTypeWrapper.SegmentType.Water);
+        newSegment.setSegmentTypeWrapper(segmentTypeWrapper);
         return newSegment;
     }
 }

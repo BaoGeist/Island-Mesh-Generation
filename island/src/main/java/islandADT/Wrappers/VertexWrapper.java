@@ -14,4 +14,12 @@ public class VertexWrapper {
 
     //TODO make this an interface if needed
     public int get_id() {return this.id_vertex;};
+
+    public boolean isCentroid_vertex() {
+        return centroid_vertex;
+    }
+
+    public double[] getCoords() {
+        return coords;
+    }
 }
