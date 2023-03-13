@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.Map;
 
 public class IslandGenerator {
-
     public void create_island(Structs.Mesh m) {
         // creates a new extracter
         Extracter extracter = new MeshExtracter();
@@ -20,6 +19,7 @@ public class IslandGenerator {
         // gets a geometry container with hashsets of all geometries
         GeometryContainer geometryContainer = (GeometryContainer) extracter.extract(m);
 
+        // circle island shape
         SetPolygonTypes setter = new SetPolygonTypes();
         setter.set_tile_type(geometryContainer);
 
