@@ -3,7 +3,8 @@ package islandADT;
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import islandADT.Elevation.ElevationFixture;
-import islandADT.Elevation.PlainsElevationFixture;
+import islandADT.Elevation.CraterElevationFixture;
+import islandADT.Elevation.VolcanicElevationFixture;
 import islandADT.Exporter.Exporter;
 import islandADT.Exporter.MeshExporter;
 import islandADT.Extracter.Extracter;
@@ -26,7 +27,7 @@ public class IslandGenerator {
         setter.set_tile_type(geometryContainer);
 
         // elevation setting
-        ElevationFixture elevationfixture = new PlainsElevationFixture();
+        ElevationFixture elevationfixture = new VolcanicElevationFixture();
         elevationfixture.set_elevation(geometryContainer);
 
         // exporting

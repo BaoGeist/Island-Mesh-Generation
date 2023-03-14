@@ -88,7 +88,7 @@ Our Definition of Done includes the following criteria:
 | F02 | Generates a shaped island (circle)                                   | Baoze, Alexis, Daniel | 03.10.2023 |            | P      |
 | F03 | Generates multiple shapes of island (stars, rectangle)               | Baoze, Alexis, Daniel |            |            | B(F02) |
 | F04 | Generate island with plains elevation profile                        | Baoze, Alexis, Daniel | 03.14.2023 | 03.14.2023 | D      |
-| F05 | Generate island with random humidity values for tiles                | Baoze, Alexis, Daniel |            |            | P      |
+| F05 | Generate island with random humidity values for tiles                | Baoze, Alexis, Daniel | 03.14.2023 | 03.14.2023 | D      |
 | F06 | Generate island with more elevation profiles (volcanic, mountains)   | Baoze, Alexis, Daniel |            |            | B(F04) |
 | F07 | Integrate reproducibility/seeds                                      | Baoze                 |            |            | P      |
 | F08 | Generate a lake at a random point                                    | Baoze                 |            |            | P      |
