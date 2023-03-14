@@ -6,14 +6,12 @@ import islandADT.Exporter.Exporter;
 import islandADT.Exporter.MeshExporter;
 import islandADT.Extracter.Extracter;
 import islandADT.Extracter.MeshExtracter;
-import islandADT.Wrappers.PolygonWrapper;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class IslandGenerator {
 
-    public void create_island(Structs.Mesh m) {
+    public void create_island(Structs.Mesh m, String islandShape) {
         // creates a new extracter
         Extracter extracter = new MeshExtracter();
 
@@ -21,7 +19,7 @@ public class IslandGenerator {
         GeometryContainer geometryContainer = (GeometryContainer) extracter.extract(m);
 
         SetPolygonTypes setter = new SetPolygonTypes();
-        setter.set_tile_type(geometryContainer);
+        setter.set_tile_type(geometryContainer, islandShape);
 
         // exporting
         Exporter finalExporter = new MeshExporter();

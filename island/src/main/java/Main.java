@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Main {
 
-    // sample run "java -jar island.jar -mf temp.mesh -of temp.svg"
+    // sample run "java -jar island.jar -mf temp.mesh -of temp.svg -shape oval"
 
     public static void main(String[] args) throws IOException {
         Option input = Option.builder("mf")
@@ -23,6 +23,13 @@ public class Main {
                 .hasArg()
                 .required(true)
                 .desc("Mesh output file SVG")
+                .build();
+
+        Option shape = Option.builder("shape")
+                .argName("Island Shape")
+                .hasArg()
+                .required(true)
+                .desc("Shape of generated island")
                 .build();
 
         Option debug = Option.builder("X")
@@ -41,6 +48,7 @@ public class Main {
 
         options.addOption(input);
         options.addOption(output);
+        options.addOption(shape);
         options.addOption(debug);
         options.addOption(help);
 
@@ -53,11 +61,18 @@ public class Main {
                 HelpFormatter formatter = new HelpFormatter();
                 formatter.printHelp("ant", options);
             }
+            String IslandShape;
+            if (line.hasOption("shape")){
+                IslandShape = line.getOptionValue("shape");
+            } else {
+                IslandShape = "circle";
+            }
 
             if (line.hasOption("mf")){
                 if (line.hasOption("of")){
                     // Getting width and height for the canvas
                     Structs.Mesh aMesh = new MeshFactory().read(line.getOptionValue("mf"));
+
                     double max_x = Double.MIN_VALUE;
                     double max_y = Double.MIN_VALUE;
                     for (Structs.Vertex v: aMesh.getVerticesList()) {
@@ -65,7 +80,7 @@ public class Main {
                         max_y = (Double.compare(max_y, v.getY()) < 0? v.getY(): max_y);
                     }
                     IslandGenerator islandGenerator = new IslandGenerator();
-                    islandGenerator.create_island(aMesh);
+                    islandGenerator.create_island(aMesh, IslandShape);
                 }
             }
         } catch (ParseException exp){
