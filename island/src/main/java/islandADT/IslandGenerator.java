@@ -18,6 +18,7 @@ public class IslandGenerator {
         // gets a geometry container with hashsets of all geometries
         GeometryContainer geometryContainer = (GeometryContainer) extracter.extract(m);
 
+        // circle island shape
         SetPolygonTypes setter = new SetPolygonTypes();
         setter.set_tile_type(geometryContainer, islandShape);
 
