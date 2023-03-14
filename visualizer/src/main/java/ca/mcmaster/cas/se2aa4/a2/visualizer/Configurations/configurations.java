@@ -3,6 +3,7 @@ package ca.mcmaster.cas.se2aa4.a2.visualizer.Configurations;
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.GraphicRenderer;
+import ca.mcmaster.cas.se2aa4.a2.visualizer.HeatmapRenderer;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.MeshDump;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.SVGCanvas;
 import org.apache.commons.cli.*;
@@ -69,7 +70,7 @@ public class configurations {
                     }
                     //Creating canvas to draw the mesh
                     Graphics2D canvas = SVGCanvas.build((int) Math.ceil(max_x), (int) Math.ceil(max_y));
-                    GraphicRenderer renderer = new GraphicRenderer();
+                    HeatmapRenderer renderer = new HeatmapRenderer();
 
                     if (line.hasOption("X")){
                         //Turn on debug mode

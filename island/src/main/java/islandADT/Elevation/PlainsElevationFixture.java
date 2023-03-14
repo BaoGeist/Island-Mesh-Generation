@@ -28,10 +28,12 @@ public class PlainsElevationFixture implements ElevationFixture{
             PolygonWrapper p = polygons.get(key);
             if(p.isLandornah()) {
                 List<Integer> p_segments = p.getSegments_group();
+                System.out.println(p_segments);
                 for(Integer segment_id: p_segments) {
                     SegmentWrapper s = segments.get(segment_id);
                     //TODO B make a better method name/implementation
                     s.setLandornah(true);
+                    System.out.println("true");
                     vertices.get(s.getV1id()).setLandornah(true);
                     vertices.get(s.getV2id()).setLandornah(true);
                 }

@@ -82,28 +82,28 @@ Our Definition of Done includes the following criteria:
 
 ### Product Backlog
 
-| Id  | Feature title                                                           | Who?                  | Start      | End | Status |
-|:---:|-------------------------------------------------------------------------|-----------------------|------------|-----|--------|
-| F01 | Initial Island Generation for Step 1                                    | Daniel, Baoze         | 03.05.2023 |     | P      |
-| F02 | Generates a shaped island (circle)                                      | Baoze, Alexis, Daniel | 03.10.2023 |     | P      |
-| F03 | Generates multiple shapes of island (stars, rectangle)                  | Baoze, Alexis, Daniel |            |     | P      |
-| F04 | Generate island with plains elevation profile                           | Baoze, Alexis, Daniel |            |     | P      |
-| F05 | Generate island with random humidity values for tiles                   | Baoze, Alexis, Daniel |            |     | P      |
-| F06 | Generate island with more elevation profiles (volcanic, mountains)      | Baoze, Alexis, Daniel |            |     | P      |
-| F07 | Integrate reproducibility/seeds                                         | Baoze                 |            |     | P      |
-| F08 | Generate a lake at a random point                                       | Baoze                 |            |     | P      |
-| F09 | Generate multiple lakes with CLI input                                  | Baoze                 |            |     | P      |
-| F10 | Generate a river at a random point                                      | Daniel                |            |     | P      |
-| F11 | Generate multiple rivers                                                | Daniel                |            |     | P      |
-| F12 | Calculate river discharge, show changes                                 | Daniel                |            |     | P      |
-| F13 | Generate aquifers                                                       | Baoze                 |            |     | P      |
-| F14 | Calculate soil absorption with soil profile input                       | Daniel                |            |     | P      |
-| F15 | Generate biomes based on humidity + temperature                         | Alexis                |            |     | P      |
-| F16 | Generate islands based on Whittaker diagrams + CLI                      | Alexis                |            |     | P      |
-| F17 | Generate resources based on biome                                       | Daniel, Baoze         |            |     | P      |
-| F18 | Generate resources based on biome + humidity + elevation                | Daniel, Baoze         |            |     | P      |
-| F19 | Generate heatmap for one parameter(i.e. humidity)                       | Daniel, Baoze         |            |     | P      |
-| F20 | Generate heatmap for all parameters (humidity, elevation, resources)    | Daniel, Baoze         |            |     | P      |
+| Id  | Feature title                                                        | Who?                  | Start      | End        | Status |
+|:---:|----------------------------------------------------------------------|-----------------------|------------|------------|--------|
+| F01 | Initial Island Generation for Step 1                                 | Daniel, Baoze         | 03.05.2023 | 03.12.2023 | D      |
+| F02 | Generates a shaped island (circle)                                   | Baoze, Alexis, Daniel | 03.10.2023 |            | P      |
+| F03 | Generates multiple shapes of island (stars, rectangle)               | Baoze, Alexis, Daniel |            |            | B(F02) |
+| F04 | Generate island with plains elevation profile                        | Baoze, Alexis, Daniel | 03.14.2023 | 03.14.2023 | D      |
+| F05 | Generate island with random humidity values for tiles                | Baoze, Alexis, Daniel |            |            | P      |
+| F06 | Generate island with more elevation profiles (volcanic, mountains)   | Baoze, Alexis, Daniel |            |            | B(F04) |
+| F07 | Integrate reproducibility/seeds                                      | Baoze                 |            |            | P      |
+| F08 | Generate a lake at a random point                                    | Baoze                 |            |            | P      |
+| F09 | Generate multiple lakes with CLI input                               | Baoze                 |            |            | B(F08) |
+| F10 | Generate a river at a random point                                   | Daniel                |            |            | P      |
+| F11 | Generate multiple rivers                                             | Daniel                |            |            | B(F10) |
+| F12 | Calculate river discharge, show changes                              | Daniel                |            |            | B(F11) |
+| F13 | Generate aquifers                                                    | Baoze                 |            |            | P      |
+| F14 | Calculate soil absorption with soil profile input                    | Daniel                |            |            | B(F    |
+| F15 | Generate biomes based on humidity + temperature                      | Alexis                |            |            | P      |
+| F16 | Generate islands based on Whittaker diagrams + CLI                   | Alexis                |            |            | P      |
+| F17 | Generate resources based on biome                                    | Daniel, Baoze         |            |            | P      |
+| F18 | Generate resources based on biome + humidity + elevation             | Daniel, Baoze         |            |            | P      |
+| F19 | Generate heatmap for one parameter(i.e. elevation)                   | Daniel, Baoze         | 03.14.2023 | 03.14.2023 | D      |
+| F20 | Generate heatmap for all parameters (humidity, elevation, resources) | Daniel, Baoze         |            |            | P      |
 
 
 

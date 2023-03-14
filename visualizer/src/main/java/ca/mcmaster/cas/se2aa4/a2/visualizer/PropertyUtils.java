@@ -77,4 +77,14 @@ public class PropertyUtils {
         return new double[]{x, y};
     }
 
+    public static int extractHeight(List<Structs.Property> properties) {
+        String val = "0";
+        for(Structs.Property p: properties) {
+            if (p.getKey().equals("height")) {
+                val = p.getValue();
+            }
+        }
+        return Integer.parseInt(val);
+    }
+
 }
