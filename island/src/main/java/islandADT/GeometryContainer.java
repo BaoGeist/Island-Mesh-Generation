@@ -12,6 +12,7 @@ import java.util.*;
 
 import static meshcore.Utils.PropertyUtils.*;
 
+//TODO rename this to MeshWrapper
 public class GeometryContainer {
     private Map<Integer, VertexWrapper> vertices = new HashMap<>();
     private Map<Integer, SegmentWrapper> segments = new HashMap<>();

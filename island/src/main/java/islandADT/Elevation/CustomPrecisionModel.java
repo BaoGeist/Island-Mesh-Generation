@@ -3,7 +3,8 @@ package islandADT.Elevation;
 public class CustomPrecisionModel {
     private int scale;
 
-    //TODO easy test
+    //TODO B easy test
+    //TODO B make this not just int
     public CustomPrecisionModel(int scale) {
         this.scale = scale;
     }
