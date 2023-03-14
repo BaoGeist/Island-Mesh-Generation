@@ -17,7 +17,7 @@ public class GeometryContainer {
     private Map<Integer, SegmentWrapper> segments = new HashMap<>();
     private Map<Integer, PolygonWrapper> polygons = new HashMap<>();
 
-    //TODO maybe make all the adds the same call, but it sorts it into what it should be
+    //TODO B maybe make all the adds the same call, but it sorts it into what it should be
 
     // adds a new VertexWrapper to GeometryContainer
     public void add_vertex(VertexWrapper v) {vertices.put(v.get_id(), v);}
@@ -28,7 +28,7 @@ public class GeometryContainer {
     // adds a new PolygonWrapper to GeometryContainer
     public void add_polygon(PolygonWrapper p) {polygons.put(p.get_id(), p);}
 
-    //TODO make this abstraction leak minimal
+    //TODO B make this abstraction leak minimal
 
     // self-expla
     public Map<Integer, VertexWrapper> get_vertices() {

@@ -1,7 +1,7 @@
 package islandADT.Wrappers;
 
 
-//TODO add a library for all this and TileTypeWrapper so it's extendable
+//TODO B add a library for all this and TileTypeWrapper so it's extendable
 public class SegmentTypeWrapper {
     public enum SegmentType {
         Water, NotWater

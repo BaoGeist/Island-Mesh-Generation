@@ -27,8 +27,10 @@ public class SetPolygonTypes {
                 if (distance <= 150){
                     if (distance <= 50){
                         p.setTileType(lagoon);
+                        p.setLandornah(true);
                     } else {
                         p.setTileType(land);
+                        p.setLandornah(true);
                     }
                 } else {
                     p.setTileType(ocean);
@@ -41,6 +43,7 @@ public class SetPolygonTypes {
                         PolygonWrapper neighbor = PolygonList.get(p.get_neighbours().get(i));
                         if (neighbor.getTileType() == ocean || neighbor.getTileType() == lagoon){
                             p.setTileType(sand);
+                            p.setLandornah(true);
                         };
                     }
                 }

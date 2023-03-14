@@ -100,7 +100,7 @@ public class GraphicRenderer {
         canvas.setColor(Color.WHITE);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-//TODO add coordinates to polygon
+    //TODO B add coordinates to polygon
 //         Draws all polygons
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
 

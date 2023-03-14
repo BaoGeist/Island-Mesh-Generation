@@ -12,7 +12,7 @@ public class SegmentExtracter implements Extracter<Structs.Segment, SegmentWrapp
         int v2id = oldSegment.getV2Idx();
         SegmentWrapper newSegment = new SegmentWrapper(id_segment, v1id, v2id);
 
-        //TODO generate this elsewhere
+        //TODO B generate this elsewhere
         SegmentTypeWrapper segmentTypeWrapper = new SegmentTypeWrapper(SegmentTypeWrapper.SegmentType.Water);
         newSegment.setSegmentTypeWrapper(segmentTypeWrapper);
         return newSegment;

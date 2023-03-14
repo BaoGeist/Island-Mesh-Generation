@@ -14,7 +14,7 @@ public class TileTypeWrapper {
         color_decide();
     }
 
-    //TODO find better ways to implement this
+    //TODO B find better ways to implement this
     private void color_decide() {
         switch (tileType) {
             case Lagoon:
