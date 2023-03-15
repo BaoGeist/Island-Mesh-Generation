@@ -23,13 +23,20 @@ public class SetPolygonTypes {
 
     public void set_tile_type(GeometryContainer geometryContainer, String islandShape) {
 
-        switch(islandShape){
-            case "circle":
-                set_circle_tiles(geometryContainer);
-            case "oval":
-                set_oval_tiles(geometryContainer);
-            case "star":
-                set_star_tiles(geometryContainer);
+        if (islandShape == null){
+            set_circle_tiles(geometryContainer);
+        } else {
+            switch(islandShape){
+                case "circle":
+                    set_circle_tiles(geometryContainer);
+                    break;
+                case "oval":
+                    set_oval_tiles(geometryContainer);
+                    break;
+                case "star":
+                    set_star_tiles(geometryContainer);
+                    break;
+            }
         }
     }
 
