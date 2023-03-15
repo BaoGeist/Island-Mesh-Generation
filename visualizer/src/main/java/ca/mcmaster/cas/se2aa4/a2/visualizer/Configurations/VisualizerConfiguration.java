@@ -2,17 +2,54 @@ package ca.mcmaster.cas.se2aa4.a2.visualizer.Configurations;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import ca.mcmaster.cas.se2aa4.a2.visualizer.RenderOptions.GraphicRenderer;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.RenderOptions.HeatmapRenderer;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.MeshDump;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.SVGCanvas;
+import ca.mcmaster.cas.se2aa4.a2.visualizer.Specifications.VisualizerSpecification;
 import org.apache.commons.cli.*;
 
 import java.awt.*;
 import java.io.IOException;
 
-public class VisualizerConfigurations {
-    public static final String MESH = "mf";
+public class VisualizerConfiguration {
+    public static final String INPUT = "i";
+    public static final String OUTPUT = "o";
+    public static final String HELP = "help";
+    private static final String MODE = "mode";
+    private CommandLine cli;
+    public VisualizerConfiguration(String[] args) {
+        try {
+            this.cli = new DefaultParser().parse(options(), args);
+            if (cli.hasOption((HELP))) {
+                help();
+            }
+        } catch (ParseException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    public VisualizerSpecification getVisualizerSpecifications() {
+        String input = cli.getOptionValue(INPUT);
+        String output = cli.getOptionValue(OUTPUT);
+        String mode = cli.getOptionValue(MODE);
+
+        return new VisualizerSpecification(input, output, mode);
+    }
+
+    private Options options() {
+        Options options = new Options();
+        options.addOption(new Option(INPUT, true, "Input mesh file"));
+        options.addOption(new Option(OUTPUT, true, "Output mesh file"));
+        options.addOption(new Option(HELP, false, "Print help message"));
+        options.addOption(new Option(MODE, true, "Island shape"));
+        return options;
+    }
+
+    private void help() {
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.printHelp("java -jar visualizer.jar", options());
+        System.exit(0);
+    }
 
     public void runConfig(String[] args) {
 

@@ -11,7 +11,6 @@ import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.extractMinMaxHe
 public class HeatmapColourMan {
     private int increment, min, max;
 
-    //TODO B not make this all extractheight
     public HeatmapColourMan(Structs.Mesh aMesh) {
         double[] min_max = extractMinMaxHeights(aMesh.getPropertiesList());
         min = (int) min_max[0];
@@ -20,13 +19,15 @@ public class HeatmapColourMan {
     }
 
     public Color color_from_integer(int integer) {
-        if(integer > 0 && integer <= increment) return new Color(0,0,250);
+        if(integer > 0 && integer <= increment) return new Color(0,0,255);
         else if (integer > increment && integer <= 2*increment) return new Color(0, 0, 200);
         else if(integer > 2*increment && integer <= 3*increment) return new Color(0, 0, 150);
         else if(integer > 3*increment && integer <= 4*increment) return new Color(0,0,100);
         else if (integer > 4*increment) return new Color(0,0,50);
         else if (integer == 0) return new Color(255,255,255);
-        else return Color.green;
+        else {
+            return new Color(0,0,250);
+        }
 
     }
 }

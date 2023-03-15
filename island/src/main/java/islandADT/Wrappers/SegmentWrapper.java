@@ -8,7 +8,6 @@ public class SegmentWrapper {
     private SegmentTypeWrapper segmentTypeWrapper;
     private int height = 0;
 
-    //TODO B add structs.segment as an instance variable if needed
     public SegmentWrapper(int id_segment, int v1id, int v2id) {
         this.id_segment = id_segment;
         this.v1id = v1id;
