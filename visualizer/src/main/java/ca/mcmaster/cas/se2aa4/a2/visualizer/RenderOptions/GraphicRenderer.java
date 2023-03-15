@@ -21,7 +21,7 @@ public class GraphicRenderer implements Renderer{
     // renders our mesh
     public void render(Mesh aMesh, Graphics2D canvas) {
         canvas.setColor(Color.WHITE);
-        Stroke stroke = new BasicStroke(0.5f);
+        Stroke stroke = new BasicStroke(4f);
         canvas.setStroke(stroke);
         //Draws all polygons
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
@@ -49,7 +49,8 @@ public class GraphicRenderer implements Renderer{
 
             Color segment_color = PropertyUtils.extractColor(s.getPropertiesList());
 
-            canvas.setColor(Color.GRAY);
+            canvas.setColor(segment_color);
+            System.out.println(segment_color);
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
         }
         //Draws all vertices
@@ -60,7 +61,7 @@ public class GraphicRenderer implements Renderer{
             canvas.setColor(PropertyUtils.extractColor(v.getPropertiesList()));
             Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
             canvas.fill(point);
-            canvas.setColor(Color.BLACK);
+            //canvas.setColor(Color.BLACK);
         }
     }
 

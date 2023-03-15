@@ -1,10 +1,14 @@
 package islandADT.Wrappers;
 
+import java.util.Map;
+
 public class VertexWrapper {
     private int id_vertex;
     private boolean centroid_vertex;
     private double[] coords;
     private boolean landornah = false;
+
+    private boolean isSpringVertex = false;
     private int height = 0;
 
     //TODO B add structs.vertex as an instance variable if needed
@@ -32,6 +36,10 @@ public class VertexWrapper {
     public void setLandornah(boolean landornah) {
         this.landornah = landornah;
     }
+
+    public boolean isSpringVertex(){return this.isSpringVertex;}
+
+    public void setSpringVertex(boolean isSpringVertex){this.isSpringVertex = isSpringVertex;}
 
     public int getHeight() {
         return height;

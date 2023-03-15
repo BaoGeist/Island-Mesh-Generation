@@ -19,9 +19,9 @@ public class SegmentTypeWrapper {
     private void color_decide() {
         switch (segmentType) {
             case NotWater:
-                color[0] = 0;
-                color[1] = 0;
-                color[2] = 0;
+                color[0] = 255;
+                color[1] = 255;
+                color[2] = 255;
                 break;
             case Water:
                 color[0] = 0;
@@ -29,9 +29,9 @@ public class SegmentTypeWrapper {
                 color[2] = 148;
                 break;
             default:
-                color[0] = 0;
-                color[1] = 0;
-                color[2] = 0;
+                color[0] = 255;
+                color[1] = 255;
+                color[2] = 255;
         }
     }
 

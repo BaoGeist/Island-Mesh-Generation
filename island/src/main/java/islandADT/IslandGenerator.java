@@ -4,6 +4,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import islandADT.Elevation.CraterElevationFixture;
 import islandADT.Elevation.VolcanicElevationFixture;
+import islandADT.Rivers.River;
 import islandADT.Specifications.IslandSpecifications;
 import islandADT.Elevation.ElevationFixture;
 import islandADT.Elevation.PlainsElevationFixture;
@@ -45,7 +46,6 @@ public class IslandGenerator {
         SetPolygonTypes setter = new SetPolygonTypes();
         setter.set_tile_type(geometryContainer, islandSpecifications.getShape());
 
-
         // elevation setting
         ElevationFixture elevationFixture;
         switch(islandSpecifications.getElevation()) {
@@ -63,6 +63,9 @@ public class IslandGenerator {
                 break;
         }
         elevationFixture.set_elevation(geometryContainer);
+
+        River river = new River();
+        river.generateRiver(geometryContainer);
 
         // exporting
         Exporter finalExporter = new MeshExporter();
