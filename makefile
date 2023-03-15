@@ -12,6 +12,4 @@ runiv:
 
 runic:
 	cd island && java -jar island.jar -i new.mesh -o island.mesh -altitude crater
-runi:
-	cd island && java -jar island.jar -mf temp.mesh -of island.mesh -shape star
 	cd visualizer && java -jar visualizer.jar -mf ../island/island.mesh -of island.svg

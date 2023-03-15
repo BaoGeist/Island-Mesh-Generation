@@ -79,6 +79,7 @@ public class SetPolygonTypes {
                     PolygonWrapper neighbor = PolygonList.get(p.get_neighbours().get(i));
                     if (neighbor.getTileType() == ocean){
                         p.setTileType(sand);
+                        p.setLandornah(true);
                     };
                 }
             }
