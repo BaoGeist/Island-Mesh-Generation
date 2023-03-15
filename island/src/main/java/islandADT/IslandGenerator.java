@@ -11,6 +11,7 @@ import islandADT.Exporter.Exporter;
 import islandADT.Exporter.MeshExporter;
 import islandADT.Extracter.Extracter;
 import islandADT.Extracter.MeshExtracter;
+import islandADT.Wrappers.TileTypeWrapperCreator;
 
 import java.io.IOException;
 
@@ -40,7 +41,7 @@ public class IslandGenerator {
         //TODO B move these elsewhere
          // shape setting
 
-        // circle island shape
+        TileTypeWrapperCreator.create_tile_types();
 
         SetPolygonTypes setter = new SetPolygonTypes();
         setter.set_tile_type(geometryContainer, islandSpecifications.getShape());

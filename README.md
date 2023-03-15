@@ -91,7 +91,7 @@ Our Definition of Done includes the following criteria:
 | F05 | Generate island with random humidity values for tiles                | Baoze, Alexis, Daniel |            |            | P      |
 | F06 | Generate island with more elevation profiles (volcanic, mountains)   | Baoze, Alexis, Daniel | 03.14.2023 | 03.14.2023 | D      |
 | F07 | Integrate reproducibility/seeds                                      | Baoze                 |            |            | P      |
-| F08 | Generate a lake at a random point                                    | Baoze                 |            |            | P      |
+| F08 | Generate a lake at a random point                                    | Baoze                 | 03.15.2023 |            | P      |
 | F09 | Generate multiple lakes with CLI input                               | Baoze                 |            |            | B(F08) |
 | F10 | Generate a river at a random point                                   | Daniel                |            |            | P      |
 | F11 | Generate multiple rivers                                             | Daniel                |            |            | B(F10) |

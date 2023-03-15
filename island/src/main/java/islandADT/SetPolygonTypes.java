@@ -15,13 +15,11 @@ import org.locationtech.jts.geom.Point;
 import java.util.List;
 import java.util.Map;
 
-import static islandADT.Wrappers.TileTypeWrapper.TileType.*;
-
 public class SetPolygonTypes {
 
-    private TileTypeWrapper ocean = new TileTypeWrapper(Ocean);
-    private TileTypeWrapper sand = new TileTypeWrapper(Sand);
-    private TileTypeWrapper land = new TileTypeWrapper(Land);
+    private TileTypeWrapper ocean = new TileTypeWrapper("Ocean");
+    private TileTypeWrapper sand = new TileTypeWrapper("Sand");
+    private TileTypeWrapper land = new TileTypeWrapper("Land");
 
     private void set_segment_vertex_land(PolygonWrapper p, GeometryContainer geometryContainer) {
         List<Integer> p_segments = p.getSegments_group();

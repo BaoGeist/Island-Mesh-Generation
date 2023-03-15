@@ -53,8 +53,6 @@ public class VisualizerConfiguration {
 
     public void runConfig(String[] args) {
 
-
-
         Option input = Option.builder("mf")
                 .argName("mesh_file")
                 .hasArg()
