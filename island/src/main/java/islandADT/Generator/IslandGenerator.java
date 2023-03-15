@@ -1,9 +1,11 @@
-package islandADT;
+package islandADT.Generator;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import islandADT.Elevation.CraterElevationFixture;
 import islandADT.Elevation.VolcanicElevationFixture;
+import islandADT.GeometryContainer;
+import islandADT.SetPolygonTypes;
 import islandADT.Specifications.IslandSpecifications;
 import islandADT.Elevation.ElevationFixture;
 import islandADT.Elevation.PlainsElevationFixture;
@@ -36,6 +38,9 @@ public class IslandGenerator {
 
         // gets a geometry container with hashsets of all geometries
         GeometryContainer geometryContainer = (GeometryContainer) extracter.extract(m);
+
+        // creates a random seed
+        RandomSeed.set_randomseed();
 
         //TODO B make an encapsulation of shape and elevation setting into package called configuration
         //TODO B move these elsewhere

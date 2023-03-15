@@ -16,7 +16,7 @@ public class VolcanicElevationFixture implements ElevationFixture{
 
     private int height_from_center(VertexWrapper v) {
         double[] coords = v.getCoords();
-        return distance_between_centre(coords, precisionModel);
+        return 155 - distance_between_centre(coords, precisionModel);
     }
     public void set_elevation(GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
@@ -25,8 +25,6 @@ public class VolcanicElevationFixture implements ElevationFixture{
 
         int min_elevation = 1;
         int max_elevation = 10;
-
-        Random random = new Random();
 
         for (Integer key : vertices.keySet()) {
             VertexWrapper v = vertices.get(key);

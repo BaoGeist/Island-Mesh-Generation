@@ -26,8 +26,6 @@ public class CraterElevationFixture implements ElevationFixture{
         int min_elevation = 1;
         int max_elevation = 10;
 
-        Random random = new Random();
-
         for(Integer key: vertices.keySet()) {
             VertexWrapper v = vertices.get(key);
             if(v.isLandornah()) {
