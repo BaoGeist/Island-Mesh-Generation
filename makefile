@@ -1,5 +1,5 @@
 run:
-	cd generator && java -jar generator.jar -mf temp.mesh -mv irregular
+	cd generator && java -jar generator.jar -mf temp.mesh -mv irregular -num 1000
 	cd visualizer && java -jar visualizer.jar -mf ../generator/sample.mesh -of sample.svg
 
 runi:

@@ -87,4 +87,17 @@ public class PropertyUtils {
         return Integer.parseInt(val);
     }
 
+    public static double[] extractMinMaxHeights(List<Structs.Property> properties) {
+        String val = null;
+        for(Structs.Property p: properties) {
+            if (p.getKey().equals("min_max")) {
+                val = p.getValue();
+            }
+        }
+        String[] raw = val.split(",");
+        Double min = Double.parseDouble(raw[0].replace("[","").replace(" ", "").replace("]",""));
+        Double max = Double.parseDouble(raw[1].replace("[","").replace(" ", "").replace("]",""));
+        return new double[]{min, max};
+    }
+
 }

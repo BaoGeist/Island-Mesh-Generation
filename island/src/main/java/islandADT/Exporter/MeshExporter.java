@@ -7,10 +7,20 @@ import islandADT.Wrappers.SegmentWrapper;
 import islandADT.Wrappers.VertexWrapper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class MeshExporter implements Exporter<GeometryContainer, Structs.Mesh> {
+    private double[] get_min_max_from_vertices(Map<Integer, VertexWrapper> vertices) {
+        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+        for(VertexWrapper v: vertices.values()) {
+            if(v.getHeight() < min) min = v.getHeight();
+            if(v.getHeight() > max) max = v.getHeight();
+        }
+        return new double[]{min, max};
+    }
+
     public Structs.Mesh export(GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
@@ -45,6 +55,10 @@ public class MeshExporter implements Exporter<GeometryContainer, Structs.Mesh> {
 //            System.out.println(p.get_id());
             vertices_output.add((Structs.Vertex) vertexExporter.export(entry.getValue()));
         }
-        return Structs.Mesh.newBuilder().addAllPolygons(polygons_output).addAllSegments(segments_output).addAllVertices(vertices_output).build();
+
+        double[] min_max = get_min_max_from_vertices(vertices);
+        Structs.Property min_max_p = Structs.Property.newBuilder().setKey("min_max").setValue(Arrays.toString(min_max)).build();
+
+        return Structs.Mesh.newBuilder().addProperties(min_max_p).addAllPolygons(polygons_output).addAllSegments(segments_output).addAllVertices(vertices_output).build();
     }
 }

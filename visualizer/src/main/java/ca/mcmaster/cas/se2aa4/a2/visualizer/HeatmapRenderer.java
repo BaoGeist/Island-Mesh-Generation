@@ -6,6 +6,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 
 import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.extractHeight;
+import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.extractMinMaxHeights;
 
 public class HeatmapRenderer {
     private static final int THICKNESS = 3;
@@ -20,17 +21,23 @@ public class HeatmapRenderer {
         return new Color(0, 0, height/2);
     }
 
+    //TODO B make this into a separate class to call
+
+
     public void render(Structs.Mesh aMesh, Graphics2D canvas) {
         canvas.setColor(Color.WHITE);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
         //TODO B add coordinates to polygon
 //         Draws all polygons
+
+        HeatmapColourMan Van_Gogh = new HeatmapColourMan(aMesh);
+
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
 
 //            Color polygon_color = PropertyUtils.extractColor(p.getPropertiesList());
-            Color height_color = color_from_height_vol(extractHeight(p.getPropertiesList()));
-            System.out.println(extractHeight(p.getPropertiesList()));
+//            Color height_color = color_from_height_vol(extractHeight(p.getPropertiesList()));
+            Color heat_color = Van_Gogh.color_from_integer(extractHeight(p.getPropertiesList()));
             float[] x_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(0);
             float[] y_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(1);
 
@@ -43,7 +50,7 @@ public class HeatmapRenderer {
             path.lineTo(x_coords[0], y_coords[0]);
             path.closePath();
 
-            canvas.setColor(height_color);
+            canvas.setColor(heat_color);
             canvas.fill(path);
         }
         // Draws all segments
@@ -53,19 +60,9 @@ public class HeatmapRenderer {
 
             Color segment_color = PropertyUtils.extractColor(s.getPropertiesList());
 
-            canvas.setColor(Color.GRAY);
+            canvas.setColor(Color.WHITE);
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
         }
-        //Draws all vertices
-//        for (Structs.Vertex v: aMesh.getVerticesList()) {
-//            double centre_x = v.getX() - (THICKNESS/2.0d);
-//            double centre_y = v.getY() - (THICKNESS/2.0d);
-//            Color old = canvas.getColor();
-//            canvas.setColor(PropertyUtils.extractColor(v.getPropertiesList()));
-//            Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
-//            canvas.fill(point);
-//            canvas.setColor(Color.BLACK);
-//        }
     }
 
     public void debug(Structs.Mesh aMesh, Graphics2D canvas) {

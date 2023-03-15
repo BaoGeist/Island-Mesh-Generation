@@ -1,4 +1,4 @@
-package islandcore.Configurations;
+package islandADT.Configurations;
 
 import org.apache.commons.cli.*;
 
