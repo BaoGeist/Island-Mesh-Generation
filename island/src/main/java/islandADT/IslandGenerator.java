@@ -39,8 +39,11 @@ public class IslandGenerator {
         //TODO B make an encapsulation of shape and elevation setting into package called configuration
         //TODO B move these elsewhere
          // shape setting
+
+        // circle island shape
+
         SetPolygonTypes setter = new SetPolygonTypes();
-        setter.set_tile_type(geometryContainer);
+        setter.set_tile_type(geometryContainer, islandSpecifications.getShape());
 
 
         // elevation setting

@@ -6,8 +6,8 @@ import org.apache.commons.cli.*;
 public class IslandConfiguration {
     public static final String INPUT = "i";
     public static final String OUTPUT = "o";
-    public static final String SHAPE = "s";
-    public static final String ELEVATION = "e";
+    public static final String SHAPE = "shape";
+    public static final String ELEVATION = "altitude";
     public static final String HELP = "help";
 
     private CommandLine cli;

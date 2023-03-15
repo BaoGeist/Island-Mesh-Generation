@@ -22,7 +22,6 @@ public class HeatmapRenderer implements Renderer {
         HeatmapColourMan Van_Gogh = new HeatmapColourMan(aMesh);
 
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
-
 //            Color polygon_color = PropertyUtils.extractColor(p.getPropertiesList());
 //            Color height_color = color_from_height_vol(extractHeight(p.getPropertiesList()));
             Color heat_color = Van_Gogh.color_from_integer(extractHeight(p.getPropertiesList()));

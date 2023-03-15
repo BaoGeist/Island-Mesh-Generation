@@ -24,7 +24,7 @@ public class HeatmapColourMan {
         else if (integer > increment && integer <= 2*increment) return new Color(0, 0, 200);
         else if(integer > 2*increment && integer <= 3*increment) return new Color(0, 0, 150);
         else if(integer > 3*increment && integer <= 4*increment) return new Color(0,0,100);
-        else if (integer > 4*increment && integer <= max) return new Color(0,0,50);
+        else if (integer > 4*increment) return new Color(0,0,50);
         else if (integer == 0) return new Color(255,255,255);
         else return Color.green;
 
