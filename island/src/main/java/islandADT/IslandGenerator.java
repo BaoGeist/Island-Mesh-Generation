@@ -2,10 +2,11 @@ package islandADT;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.Elevation.ElevationFixture;
 import islandADT.Elevation.CraterElevationFixture;
-import islandADT.Elevation.PlainsElevationFixture;
 import islandADT.Elevation.VolcanicElevationFixture;
+import islandADT.Specifications.IslandSpecifications;
+import islandADT.Elevation.ElevationFixture;
+import islandADT.Elevation.PlainsElevationFixture;
 import islandADT.Exporter.Exporter;
 import islandADT.Exporter.MeshExporter;
 import islandADT.Extracter.Extracter;
@@ -15,7 +16,20 @@ import java.io.IOException;
 
 public class IslandGenerator {
 
-    public void create_island(Structs.Mesh m) {
+    private IslandSpecifications islandSpecifications;
+    private Structs.Mesh m;
+
+    public IslandGenerator(IslandSpecifications islandSpecifications) {
+        this.islandSpecifications = islandSpecifications;
+        try {
+            this.m = new MeshFactory().read(islandSpecifications.getInput());
+        }
+        catch (IOException e) {
+            System.out.println("heh");
+        }
+    }
+
+    public void create_island() {
         // creates a new extracter
         Extracter extracter = new MeshExtracter();
 
@@ -23,13 +37,29 @@ public class IslandGenerator {
         GeometryContainer geometryContainer = (GeometryContainer) extracter.extract(m);
 
         //TODO B make an encapsulation of shape and elevation setting into package called configuration
+        //TODO B move these elsewhere
          // shape setting
         SetPolygonTypes setter = new SetPolygonTypes();
         setter.set_tile_type(geometryContainer);
 
+
         // elevation setting
-        ElevationFixture elevationfixture = new PlainsElevationFixture();
-        elevationfixture.set_elevation(geometryContainer);
+        ElevationFixture elevationFixture;
+        switch(islandSpecifications.getElevation()) {
+            case "plains":
+                elevationFixture = new PlainsElevationFixture();
+                break;
+            case "volcanic":
+                elevationFixture = new VolcanicElevationFixture();
+                break;
+            case "crater":
+                elevationFixture = new CraterElevationFixture();
+                break;
+            default:
+                elevationFixture = new PlainsElevationFixture();
+                break;
+        }
+        elevationFixture.set_elevation(geometryContainer);
 
         // exporting
         Exporter finalExporter = new MeshExporter();

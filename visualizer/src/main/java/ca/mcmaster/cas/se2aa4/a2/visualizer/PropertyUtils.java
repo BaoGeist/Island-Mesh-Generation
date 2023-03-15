@@ -9,7 +9,7 @@ import java.util.List;
 public class PropertyUtils {
 
     // Extracts color
-    protected static Color extractColor(java.util.List<Structs.Property> properties) {
+    public static Color extractColor(java.util.List<Structs.Property> properties) {
         String val = null;
         for(Structs.Property p: properties) {
             if (p.getKey().equals("rgb_color")) {
@@ -26,7 +26,7 @@ public class PropertyUtils {
     }
 
     //Extracts the coordinates for all polygons
-    protected static ArrayList<float[]> extractCoordsforPolygons(java.util.List<Structs.Property> properties) {
+    public static ArrayList<float[]> extractCoordsforPolygons(java.util.List<Structs.Property> properties) {
         String x_coords = null, y_coords = null;
         for(Structs.Property p: properties) {
             if (p.getKey().equals("x_coords")) {

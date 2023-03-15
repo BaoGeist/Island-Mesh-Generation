@@ -23,7 +23,7 @@ public class VolcanicElevationFixture implements ElevationFixture{
     }
     private int height_from_center(VertexWrapper v) {
         double[] coords = v.getCoords();
-        return 256 - distance_between_centre(coords);
+        return 156 - distance_between_centre(coords);
     }
     public void set_elevation(GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();

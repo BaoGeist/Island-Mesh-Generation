@@ -2,8 +2,7 @@ package ca.mcmaster.cas.se2aa4.a2.visualizer.Configurations;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import ca.mcmaster.cas.se2aa4.a2.visualizer.GraphicRenderer;
-import ca.mcmaster.cas.se2aa4.a2.visualizer.HeatmapRenderer;
+import ca.mcmaster.cas.se2aa4.a2.visualizer.RenderOptions.HeatmapRenderer;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.MeshDump;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.SVGCanvas;
 import org.apache.commons.cli.*;
@@ -11,9 +10,12 @@ import org.apache.commons.cli.*;
 import java.awt.*;
 import java.io.IOException;
 
-public class configurations {
+public class VisualizerConfigurations {
+    public static final String MESH = "mf";
 
-    public static void runConfig(String[] args) {
+    public void runConfig(String[] args) {
+
+
 
         Option input = Option.builder("mf")
                 .argName("mesh_file")

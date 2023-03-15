@@ -1,27 +1,15 @@
-package ca.mcmaster.cas.se2aa4.a2.visualizer;
+package ca.mcmaster.cas.se2aa4.a2.visualizer.RenderOptions;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils;
+
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 
 import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.extractHeight;
-import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.extractMinMaxHeights;
 
-public class HeatmapRenderer {
+public class HeatmapRenderer implements Renderer {
     private static final int THICKNESS = 3;
-
-    //TODO B put this method responsibility elsewhere
-    private Color color_from_height(int height) {
-        return new Color(0, 0, height*50);
-    }
-
-    //TODO B make height have a min and max input for heatmaps
-    private Color color_from_height_vol(int height) {
-        return new Color(0, 0, height/2);
-    }
-
-    //TODO B make this into a separate class to call
 
 
     public void render(Structs.Mesh aMesh, Graphics2D canvas) {
