@@ -41,10 +41,13 @@ public class SetPolygonTypes {
         switch(islandShape){
             case "circle":
                 set_circle_tiles(geometryContainer);
+                break;
             case "oval":
                 set_oval_tiles(geometryContainer);
+                break;
             case "star":
                 set_star_tiles(geometryContainer);
+                break;
         }
     }
 
