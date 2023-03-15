@@ -40,7 +40,7 @@ public class IslandGenerator {
         GeometryContainer geometryContainer = (GeometryContainer) extracter.extract(m);
 
         // creates a random seed
-        RandomSeed.set_randomseed();
+        RandomSeed.set_randomseed(islandSpecifications.getSeed());
 
         //TODO B make an encapsulation of shape and elevation setting into package called configuration
         //TODO B move these elsewhere

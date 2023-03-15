@@ -1,5 +1,6 @@
 package islandADT.Generator;
 
+import java.util.Optional;
 import java.util.Random;
 
 public class RandomSeed {
@@ -8,14 +9,17 @@ public class RandomSeed {
 
     static Random randomseedrandom = new Random(randomseed);
 
-    protected static void set_randomseed(int seed) {
-        randomseedrandom = new Random(randomseed);
-        randomseed = seed;
-    }
+    //TODO B better implementation of this
+    protected static void set_randomseed(String seed) {
+        if(seed != "") {
+            randomseedrandom = new Random(randomseed);
+            randomseed = Integer.parseInt(seed);
+        } else {
+            Random random = new Random();
+            randomseed = random.nextInt();
+            System.out.println(randomseed);
+        }
 
-    protected static void set_randomseed() {
-        Random random = new Random();
-        randomseed =  random.nextInt();
     }
 
     public static int randomInt() {
