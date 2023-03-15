@@ -16,7 +16,6 @@ public class PolygonWrapper {
     private boolean landornah;
     private int height;
 
-    //TODO B add structs.polygon as an instance variable if needed
     public PolygonWrapper(int id_polygon, ArrayList<float[]> x_y_coords, List<Integer> neighbours, int id_centroid, List<Integer> segments_group) {
         this.id_polygon = id_polygon;
         this.x_y_coords = x_y_coords;

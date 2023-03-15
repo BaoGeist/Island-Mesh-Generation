@@ -4,12 +4,12 @@ run:
 
 runip:
 	cd island && java -jar island.jar -i new.mesh -o island.mesh -altitude plains
-	cd visualizer && java -jar visualizer.jar -mf ../island/island.mesh -of island.svg
+	cd visualizer && java -jar visualizer.jar -i ../island/island.mesh -o island.svg
 
 runiv:
 	cd island && java -jar island.jar -i new.mesh -o island.mesh -altitude volcanic -shape star
-	cd visualizer && java -jar visualizer.jar -mf ../island/island.mesh -of island.svg
+	cd visualizer && java -jar visualizer.jar -i ../island/island.mesh -o island.svg -mode heatmap_altitude
 
 runic:
 	cd island && java -jar island.jar -i new.mesh -o island.mesh -altitude crater
-	cd visualizer && java -jar visualizer.jar -mf ../island/island.mesh -of island.svg
+	cd visualizer && java -jar visualizer.jar -i ../island/island.mesh -o island.svg -mode heatmap_altitude

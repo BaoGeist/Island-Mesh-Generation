@@ -22,31 +22,12 @@ public class PlainsElevationFixture implements ElevationFixture{
 
         CustomPrecisionModel precisionModel = new CustomPrecisionModel(1);
 
-        //NOTE sets vertices and segments to land if polygons are land
-        //TODO B should be moved to when land tiles are set
-        for(Integer key: polygons.keySet()) {
-            PolygonWrapper p = polygons.get(key);
-            if(p.isLandornah()) {
-                List<Integer> p_segments = p.getSegments_group();
-                System.out.println(p_segments);
-                for(Integer segment_id: p_segments) {
-                    SegmentWrapper s = segments.get(segment_id);
-                    //TODO B make a better method name/implementation
-                    s.setLandornah(true);
-                    System.out.println("true");
-                    vertices.get(s.getV1id()).setLandornah(true);
-                    vertices.get(s.getV2id()).setLandornah(true);
-                }
-            }
-        }
-
         for(Integer key: vertices.keySet()) {
             VertexWrapper v = vertices.get(key);
             if(v.isLandornah()) {
                 int randomHeight = random.nextInt(min_elevation, max_elevation);
                 v.setHeight(randomHeight);
             } else {
-                //FIXME B default height is 0
                 v.setHeight(0);
             }
         }
@@ -59,7 +40,6 @@ public class PlainsElevationFixture implements ElevationFixture{
                 Integer average_height = precisionModel.makePrecise((head.getHeight() + tail.getHeight())/2);
                 s.setHeight(average_height);
             } else {
-                //FIXME B default height is 0
                 s.setHeight(0);
             }
         }
@@ -78,7 +58,6 @@ public class PlainsElevationFixture implements ElevationFixture{
                 total /= count;
                 p.setHeight(precisionModel.makePrecise(total));
             } else {
-                //FIXME B ditto
                 p.setHeight(0);
             }
         }

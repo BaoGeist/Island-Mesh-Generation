@@ -5,21 +5,36 @@ import islandADT.Shapes.OvalShape;
 import islandADT.Shapes.Shape;
 import islandADT.Shapes.StarShape;
 import islandADT.Wrappers.PolygonWrapper;
+import islandADT.Wrappers.SegmentWrapper;
 import islandADT.Wrappers.TileTypeWrapper;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 
+import java.util.List;
 import java.util.Map;
 
 import static islandADT.Wrappers.TileTypeWrapper.TileType.*;
 
-
 public class SetPolygonTypes {
+
     private TileTypeWrapper ocean = new TileTypeWrapper(Ocean);
     private TileTypeWrapper sand = new TileTypeWrapper(Sand);
     private TileTypeWrapper land = new TileTypeWrapper(Land);
+
+    private void set_segment_vertex_land(PolygonWrapper p, GeometryContainer geometryContainer) {
+        List<Integer> p_segments = p.getSegments_group();
+        System.out.println(p_segments);
+        for(Integer segment_id: p_segments) {
+            SegmentWrapper s = geometryContainer.get_segments().get(segment_id);
+            //TODO B make a better method name/implementation
+            s.setLandornah(true);
+            System.out.println("true");
+            geometryContainer.get_vertices().get(s.getV1id()).setLandornah(true);
+            geometryContainer.get_vertices().get(s.getV2id()).setLandornah(true);
+        }
+    }
 
     public void set_tile_type(GeometryContainer geometryContainer, String islandShape) {
 
@@ -68,6 +83,7 @@ public class SetPolygonTypes {
             if (IslandShape.contains(PolygonCenter)){
                 p.setTileType(land);
                 p.setLandornah(true);
+                set_segment_vertex_land(p, geometryContainer);
             } else {
                 p.setTileType(ocean);
             }
@@ -80,6 +96,7 @@ public class SetPolygonTypes {
                     if (neighbor.getTileType() == ocean){
                         p.setTileType(sand);
                         p.setLandornah(true);
+                        set_segment_vertex_land(p, geometryContainer);
                     };
                 }
             }

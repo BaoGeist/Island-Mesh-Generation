@@ -16,8 +16,7 @@ public class HeatmapRenderer implements Renderer {
         canvas.setColor(Color.WHITE);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-        //TODO B add coordinates to polygon
-//         Draws all polygons
+        //Draws all polygons
 
         HeatmapColourMan Van_Gogh = new HeatmapColourMan(aMesh);
 
