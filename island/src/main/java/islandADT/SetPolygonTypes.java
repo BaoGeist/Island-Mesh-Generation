@@ -25,12 +25,10 @@ public class SetPolygonTypes {
 
     private void set_segment_vertex_land(PolygonWrapper p, GeometryContainer geometryContainer) {
         List<Integer> p_segments = p.getSegments_group();
-        System.out.println(p_segments);
         for(Integer segment_id: p_segments) {
             SegmentWrapper s = geometryContainer.get_segments().get(segment_id);
             //TODO B make a better method name/implementation
             s.setLandornah(true);
-            System.out.println("true");
             geometryContainer.get_vertices().get(s.getV1id()).setLandornah(true);
             geometryContainer.get_vertices().get(s.getV2id()).setLandornah(true);
         }

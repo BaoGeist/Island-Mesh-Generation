@@ -27,6 +27,7 @@ public class River {
                 break;
             }
         }
+
         VertexWrapper springVertex = vertices.get(springVertex_id);
         springVertex.setSpringVertex(true);
     }
@@ -71,15 +72,14 @@ public class River {
             lowestVertex = Math.min(vertex.getHeight(), lowestVertex);
         }
 
-        int riverFlowVertexID = 0;
         for (VertexWrapper vertex : neighboringVertices.values()) {
             System.out.println("Neighbor height: " + vertex.getHeight());
             if (vertex.getHeight() == lowestVertex) {
-                riverFlowVertexID = vertex.get_id();
-                break;
+                return vertex.get_id();
             }
         }
-        return riverFlowVertexID;
+        System.out.println("If you see this, error in line 81 of River.java");
+        return 0;
     }
 
     private boolean isEndOfRiver(VertexWrapper riverFlowVertex, GeometryContainer geometryContainer){
@@ -119,14 +119,12 @@ public class River {
                     seg.setSegmentTypeWrapper(water);
                     key++;
                     System.out.println("segment colored");
-                    System.out.println(seg.getSegmentTypeWrapper());
                 }
             } else if (seg.getV1id() == secondRiverVertexID){
                 if (seg.getV2id() == firstRiverVertexID){
                     seg.setSegmentTypeWrapper(water);
                     key++;
                     System.out.println("segment colored v2");
-                    System.out.println(seg.getSegmentTypeWrapper());
                 }
             }
         }
