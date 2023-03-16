@@ -46,12 +46,13 @@ public class River {
                 VertexWrapper riverFlowVertex = vertices.get(riverFlowVertexID);
                 System.out.println("Second point height = " + riverFlowVertex.getHeight());
                 river.add(riverFlowVertex);
+
                 boolean isEnd = isEndOfRiver(riverFlowVertex, geometryContainer);
                 while (isEnd){
-                    int newRiverFlowVertexID = generate_flow(riverFlowVertex, geometryContainer);
-                    VertexWrapper newRiverFlowVertex = vertices.get(newRiverFlowVertexID);
-                    river.add(newRiverFlowVertex);
-                    isEnd = isEndOfRiver(newRiverFlowVertex, geometryContainer);
+                    riverFlowVertexID = generate_flow(riverFlowVertex, geometryContainer);
+                    riverFlowVertex = vertices.get(riverFlowVertexID);
+                    river.add(riverFlowVertex);
+                    isEnd = isEndOfRiver(riverFlowVertex, geometryContainer);
                     System.out.println("Next point height = " + riverFlowVertex.getHeight());
                 }
                 setRiverSegmentType(river, geometryContainer);
@@ -73,9 +74,6 @@ public class River {
     }
 
     private int generate_flow(VertexWrapper v, GeometryContainer geometryContainer) {
-        geometryContainer.clear_vertexNeighbors();
-        geometryContainer.set_vertexNeighbors(v);
-
         Map<Integer, VertexWrapper> neighboringVertices = geometryContainer.getVertexNeighbors(v);
 
         int lowestVertex = 1000;
@@ -110,7 +108,6 @@ public class River {
 
     private void setRiverSegmentType(ArrayList<VertexWrapper> river, GeometryContainer geometryContainer){
         Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
-        int key = 0;
         SegmentTypeWrapper water = new SegmentTypeWrapper(Water);
         SegmentTypeWrapper notWater = new SegmentTypeWrapper(NotWater);
         int firstRiverVertexID;
@@ -120,25 +117,21 @@ public class River {
             seg.setSegmentTypeWrapper(notWater);
         }
 
-        for (SegmentWrapper seg: segments.values()){
-            if (key >= river.size()-1){
-                break;
-            }
-
+        for(int key = 0; key < river.size()-1; key++) {
             firstRiverVertexID = river.get(key).get_id();
             secondRiverVertexID = river.get(key+1).get_id();
 
-            if (seg.getV1id() == firstRiverVertexID){
-                if (seg.getV2id() == secondRiverVertexID){
-                    seg.setSegmentTypeWrapper(water);
-                    key++;
-                    System.out.println("segment colored");
-                }
-            } else if (seg.getV1id() == secondRiverVertexID){
-                if (seg.getV2id() == firstRiverVertexID){
-                    seg.setSegmentTypeWrapper(water);
-                    key++;
-                    System.out.println("segment colored v2");
+            for(SegmentWrapper seg: segments.values()) {
+                if (seg.getV1id() == firstRiverVertexID) {
+                    if (seg.getV2id() == secondRiverVertexID) {
+                        seg.setSegmentTypeWrapper(water);
+                        System.out.println("segment colored");
+                    }
+                } else if (seg.getV1id() == secondRiverVertexID) {
+                    if (seg.getV2id() == firstRiverVertexID) {
+                        seg.setSegmentTypeWrapper(water);
+                        System.out.println("segment colored v2");
+                    }
                 }
             }
         }

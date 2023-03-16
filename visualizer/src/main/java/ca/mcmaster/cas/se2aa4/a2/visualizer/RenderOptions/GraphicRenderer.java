@@ -50,7 +50,7 @@ public class GraphicRenderer implements Renderer{
             Color segment_color = PropertyUtils.extractColor(s.getPropertiesList());
 
             canvas.setColor(segment_color);
-            System.out.println(segment_color);
+//            System.out.println(segment_color);
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
         }
         //Draws all vertices
