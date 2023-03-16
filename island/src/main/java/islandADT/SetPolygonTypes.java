@@ -1,9 +1,6 @@
 package islandADT;
 
-import islandADT.Shapes.CircleShape;
-import islandADT.Shapes.OvalShape;
-import islandADT.Shapes.Shape;
-import islandADT.Shapes.StarShape;
+import islandADT.Shapes.*;
 import islandADT.Wrappers.PolygonWrapper;
 import islandADT.Wrappers.SegmentWrapper;
 import islandADT.Wrappers.TileTypeWrapper;
@@ -46,6 +43,9 @@ public class SetPolygonTypes {
             case "star":
                 set_star_tiles(geometryContainer);
                 break;
+            case "country":
+                set_new_tiles(geometryContainer);
+                break;
         }
     }
 
@@ -67,6 +67,14 @@ public class SetPolygonTypes {
     private void set_star_tiles(GeometryContainer geometryContainer){
 
         Shape star = new StarShape();
+        Geometry starIsland = star.generateIsland(200);
+        set_tiles_inside_shape(geometryContainer, starIsland);
+
+    }
+
+    private void set_new_tiles(GeometryContainer geometryContainer){
+
+        Shape star = new UkraineShape();
         Geometry starIsland = star.generateIsland(200);
         set_tiles_inside_shape(geometryContainer, starIsland);
 

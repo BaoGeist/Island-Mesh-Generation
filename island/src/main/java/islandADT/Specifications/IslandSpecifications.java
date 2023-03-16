@@ -12,7 +12,9 @@ public class IslandSpecifications {
         this.output = output;
         this.shape = shape;
         this.elevation = elevation;
-        this.seed = seed;
+        if(seed == null) {
+            this.seed = "";
+        } else this.seed = seed;
     }
 
     public String getInput() {
