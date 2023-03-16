@@ -34,6 +34,10 @@ public class RandomSeed {
         return randomseedrandom.nextInt(min, max);
     }
 
+    public static double randomDouble() {return randomseedrandom.nextDouble(); }
+
+    public static double randomDouble(double min, double max) {return randomseedrandom.nextDouble(min, max); }
+
     public static int get_seed() {
         return randomseed;
     }

@@ -13,6 +13,8 @@ import islandADT.Exporter.Exporter;
 import islandADT.Exporter.MeshExporter;
 import islandADT.Extracter.Extracter;
 import islandADT.Extracter.MeshExtracter;
+import islandADT.Water.LakeGenerate;
+import islandADT.Water.WaterBody;
 import islandADT.Wrappers.TileTypeWrapperCreator;
 
 import java.io.IOException;
@@ -70,9 +72,14 @@ public class IslandGenerator {
         }
         elevationFixture.set_elevation(geometryContainer);
 
+        WaterBody lakeGenerator = new LakeGenerate();
+        lakeGenerator.generate(geometryContainer);
+
         // exporting
         Exporter finalExporter = new MeshExporter();
         Structs.Mesh finalMesh = (Structs.Mesh) finalExporter.export(geometryContainer);
+
+
 
         // TODO B dynamic file output name
         String meshfile = "island.mesh";
