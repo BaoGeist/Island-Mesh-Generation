@@ -15,8 +15,8 @@ public class PlainsElevationFixture implements ElevationFixture{
         Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
 
-        int min_elevation = 1;
-        int max_elevation = 10;
+        int min_elevation = 10;
+        int max_elevation = 40;
 
         Random random = new Random();
 

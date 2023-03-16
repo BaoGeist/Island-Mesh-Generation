@@ -43,7 +43,10 @@ public class GeometryContainer {
                 vertexNeighbors.put(v1_id, vertices.get(v1_id));
             }
         }
+    }
 
+    public void clear_vertexNeighbors(){
+        vertexNeighbors.clear();
     }
 
     //TODO B make this abstraction leak minimal

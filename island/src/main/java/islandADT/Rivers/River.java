@@ -1,6 +1,7 @@
 package islandADT.Rivers;
 
 import islandADT.GeometryContainer;
+import islandADT.Wrappers.PolygonWrapper;
 import islandADT.Wrappers.SegmentTypeWrapper;
 import islandADT.Wrappers.SegmentWrapper;
 import islandADT.Wrappers.VertexWrapper;
@@ -27,12 +28,9 @@ public class River {
                 break;
             }
         }
-
         VertexWrapper springVertex = vertices.get(springVertex_id);
         springVertex.setSpringVertex(true);
     }
-
-    // Todo D: make this be able to generate more than 1 spring, (check if highest vertex is already spring, if yes, move on)
 
     public void generateRiver(GeometryContainer geometryContainer){
         generateSpring(geometryContainer);
@@ -48,20 +46,34 @@ public class River {
                 VertexWrapper riverFlowVertex = vertices.get(riverFlowVertexID);
                 System.out.println("Second point height = " + riverFlowVertex.getHeight());
                 river.add(riverFlowVertex);
-
-                while (isEndOfRiver(riverFlowVertex, geometryContainer)){
-                    riverFlowVertexID = generate_flow(riverFlowVertex, geometryContainer);
-                    riverFlowVertex = vertices.get(riverFlowVertexID);
-                    river.add(riverFlowVertex);
+                boolean isEnd = isEndOfRiver(riverFlowVertex, geometryContainer);
+                while (isEnd){
+                    int newRiverFlowVertexID = generate_flow(riverFlowVertex, geometryContainer);
+                    VertexWrapper newRiverFlowVertex = vertices.get(newRiverFlowVertexID);
+                    river.add(newRiverFlowVertex);
+                    isEnd = isEndOfRiver(newRiverFlowVertex, geometryContainer);
                     System.out.println("Next point height = " + riverFlowVertex.getHeight());
                 }
                 setRiverSegmentType(river, geometryContainer);
                 System.out.println("river size = " + river.size());
+                //createLake(river, geometryContainer);
             }
         }
     }
 
+    private void createLake(ArrayList<VertexWrapper> river, GeometryContainer geometryContainer) {
+        Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
+        VertexWrapper endOfRiverVertex = river.get(river.size()-1);
+
+        ArrayList<PolygonWrapper> neighboringPolygons = new ArrayList<>();
+        for (PolygonWrapper p : polygons.values()){
+
+        }
+
+    }
+
     private int generate_flow(VertexWrapper v, GeometryContainer geometryContainer) {
+        geometryContainer.clear_vertexNeighbors();
         geometryContainer.set_vertexNeighbors(v);
 
         Map<Integer, VertexWrapper> neighboringVertices = geometryContainer.getVertexNeighbors(v);
@@ -87,10 +99,12 @@ public class River {
         Map<Integer, VertexWrapper> neighboringVertices = geometryContainer.getVertexNeighbors(riverFlowVertex);
 
         for (VertexWrapper vertex : neighboringVertices.values()) {
+            System.out.print(vertex.getHeight() + " ");
             if (vertex.getHeight() < currentElevation){
                 return true;
             }
         }
+        System.out.println("Next line and no lower elevation");
         return false;
     }
 
