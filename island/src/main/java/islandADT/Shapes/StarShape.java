@@ -1,5 +1,6 @@
 package islandADT.Shapes;
 
+import islandADT.Generator.RandomSeed;
 import org.locationtech.jts.geom.*;
 
 import java.util.Random;
@@ -9,10 +10,9 @@ public class StarShape implements Shape{
     private Polygon Star;
 
     public Geometry generateIsland(int radius) {
-        Random random = new Random();
         GeometryFactory factory = new GeometryFactory();
         Coordinate center = new Coordinate(250, 250);
-        int numPoints = random.nextInt(5, 12);  // number of points in the star
+        int numPoints = RandomSeed.randomInt(5, 12);  // number of points in the star
         double innerRadius = radius/2;  // radius of the inner points
         Coordinate[] vertices = new Coordinate[numPoints * 2+1];
         for (int i = 0; i <= numPoints * 2; i++) {

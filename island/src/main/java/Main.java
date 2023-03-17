@@ -1,6 +1,6 @@
 import islandADT.Configurations.IslandConfiguration;
 import islandADT.Specifications.IslandSpecifications;
-import islandADT.IslandGenerator;
+import islandADT.Generator.IslandGenerator;
 
 import java.io.IOException;
 

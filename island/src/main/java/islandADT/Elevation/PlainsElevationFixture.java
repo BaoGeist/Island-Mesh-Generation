@@ -1,5 +1,6 @@
 package islandADT.Elevation;
 
+import islandADT.Generator.RandomSeed;
 import islandADT.GeometryContainer;
 import islandADT.Wrappers.PolygonWrapper;
 import islandADT.Wrappers.SegmentWrapper;
@@ -18,14 +19,12 @@ public class PlainsElevationFixture implements ElevationFixture{
         int min_elevation = 10;
         int max_elevation = 40;
 
-        Random random = new Random();
-
         CustomPrecisionModel precisionModel = new CustomPrecisionModel(1);
 
         for(Integer key: vertices.keySet()) {
             VertexWrapper v = vertices.get(key);
             if(v.isLandornah()) {
-                int randomHeight = random.nextInt(min_elevation, max_elevation);
+                int randomHeight = RandomSeed.randomInt(min_elevation, max_elevation);
                 v.setHeight(randomHeight);
             } else {
                 v.setHeight(0);

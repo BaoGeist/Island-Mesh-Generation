@@ -1,5 +1,6 @@
 package islandADT.Shapes;
 
+import islandADT.Generator.RandomSeed;
 import org.locationtech.jts.geom.*;
 
 import java.util.Random;
@@ -9,11 +10,10 @@ public class OvalShape implements Shape{
     private Polygon Oval;
 
     public Geometry generateIsland(int radius) {
-        Random random = new Random();
         GeometryFactory factory = new GeometryFactory();
         Coordinate center = new Coordinate(250, 250);
         int numPoints = 1000;
-        double radiusX = random.nextDouble(radius-50, radius+50);
+        double radiusX = RandomSeed.randomDouble(radius-50, radius+50);
         double radiusY = (radiusX > radius ? radiusX-50 : radiusX+50);
         Coordinate[] vertices = new Coordinate[numPoints];
         for (int i = 0; i < numPoints; i++) {

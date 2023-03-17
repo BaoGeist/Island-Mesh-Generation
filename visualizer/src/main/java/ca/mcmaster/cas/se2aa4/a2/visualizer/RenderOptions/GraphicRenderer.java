@@ -21,7 +21,7 @@ public class GraphicRenderer implements Renderer{
     // renders our mesh
     public void render(Mesh aMesh, Graphics2D canvas) {
         canvas.setColor(Color.WHITE);
-        Stroke stroke = new BasicStroke(4f);
+        Stroke stroke = new BasicStroke(1f);
         canvas.setStroke(stroke);
         //Draws all polygons
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
@@ -53,16 +53,17 @@ public class GraphicRenderer implements Renderer{
 //            System.out.println(segment_color);
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
         }
-        //Draws all vertices
-        for (Vertex v: aMesh.getVerticesList()) {
-            double centre_x = v.getX() - (THICKNESS/2.0d);
-            double centre_y = v.getY() - (THICKNESS/2.0d);
-            Color old = canvas.getColor();
-            canvas.setColor(PropertyUtils.extractColor(v.getPropertiesList()));
-            Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
-            canvas.fill(point);
-            //canvas.setColor(Color.BLACK);
-        }
+
+//        //Draws all vertices
+//        for (Vertex v: aMesh.getVerticesList()) {
+//            double centre_x = v.getX() - (THICKNESS/2.0d);
+//            double centre_y = v.getY() - (THICKNESS/2.0d);
+//            Color old = canvas.getColor();
+//            canvas.setColor(PropertyUtils.extractColor(v.getPropertiesList()));
+//            Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
+//            canvas.fill(point);
+//            canvas.setColor(Color.BLACK);
+//        }
     }
 
 }

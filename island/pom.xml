@@ -18,6 +18,7 @@
 
     <properties>
         <jts.version>1.16.1</jts.version>
+        <json.version>28.2</json.version>
     </properties>
 
     <dependencies>
@@ -31,6 +32,7 @@
             <artifactId>jts-core</artifactId>
             <version>${jts.version}</version>
         </dependency>
+
         <dependency>
             <groupId>io.github.ace-design</groupId>
             <artifactId>2aa4.mesh.meshadt</artifactId>
