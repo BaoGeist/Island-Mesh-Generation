@@ -47,21 +47,43 @@ public class River {
                 System.out.println("Second point height = " + riverFlowVertex.getHeight());
                 river.add(riverFlowVertex);
 
+                boolean inNotOcean = true;
+
                 boolean isEnd = isEndOfRiver(riverFlowVertex, geometryContainer);
                 while (isEnd){
                     riverFlowVertexID = generate_flow(riverFlowVertex, geometryContainer);
                     riverFlowVertex = vertices.get(riverFlowVertexID);
-                    river.add(riverFlowVertex);
-                    isEnd = isEndOfRiver(riverFlowVertex, geometryContainer);
-                    System.out.println("Next point height = " + riverFlowVertex.getHeight());
+
+                    inNotOcean = checkIfInOcean(geometryContainer, riverFlowVertex);
+
+                    if (!inNotOcean){
+                        isEnd = false;
+                    } else {
+                        river.add(riverFlowVertex);
+                        isEnd = isEndOfRiver(riverFlowVertex, geometryContainer);
+                        System.out.println("Next point height = " + riverFlowVertex.getHeight());
+                    }
                 }
                 setRiverSegmentType(river, geometryContainer);
                 System.out.println("river size = " + river.size());
-                //createLake(river, geometryContainer);
+                if (inNotOcean){
+                    createLake(river, geometryContainer);
+                }
             }
         }
     }
 
+    private boolean checkIfInOcean(GeometryContainer geometryContainer, VertexWrapper riverFlowVertex){
+        Map<Integer, VertexWrapper> neighboringVertices = geometryContainer.getVertexNeighbors(riverFlowVertex);
+        boolean somebool = true;
+        for (VertexWrapper vertex : neighboringVertices.values()){
+            if (!vertex.isLandornah()){
+                somebool = false;
+                break;
+            }
+        }
+        return somebool;
+    }
     private void createLake(ArrayList<VertexWrapper> river, GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         VertexWrapper endOfRiverVertex = river.get(river.size()-1);
