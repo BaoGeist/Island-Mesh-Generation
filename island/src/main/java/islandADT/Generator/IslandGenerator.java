@@ -4,7 +4,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import islandADT.Elevation.CraterElevationFixture;
 import islandADT.Elevation.VolcanicElevationFixture;
-import islandADT.Rivers.River;
+import islandADT.Water.River;
 import islandADT.GeometryContainer;
 import islandADT.SetPolygonTypes;
 import islandADT.Specifications.IslandSpecifications;
@@ -73,7 +73,7 @@ public class IslandGenerator {
         elevationFixture.set_elevation(geometryContainer);
 
         River river = new River();
-        river.generateRiver(geometryContainer);
+        river.generate(geometryContainer);
 
         WaterBody lakeGenerator = new LakeGenerate();
         lakeGenerator.generate(geometryContainer);

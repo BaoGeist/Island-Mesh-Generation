@@ -1,4 +1,4 @@
-package islandADT.Rivers;
+package islandADT.Water;
 
 import islandADT.GeometryContainer;
 import islandADT.Wrappers.PolygonWrapper;
@@ -12,7 +12,7 @@ import java.util.Map;
 import static islandADT.Wrappers.SegmentTypeWrapper.SegmentType.NotWater;
 import static islandADT.Wrappers.SegmentTypeWrapper.SegmentType.Water;
 
-public class River {
+public class River implements WaterBody{
     private void generateSpring(GeometryContainer geometryContainer){
 
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
@@ -32,7 +32,7 @@ public class River {
         springVertex.setSpringVertex(true);
     }
 
-    public void generateRiver(GeometryContainer geometryContainer){
+    public void generate(GeometryContainer geometryContainer){
         generateSpring(geometryContainer);
 
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
