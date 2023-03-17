@@ -46,7 +46,6 @@ public class UkraineShape implements Shape{
             Double new_x = (x_coords[i] - x_min) * x_increment;
             Double new_y = 400-(y_coords[i] - x_min) * x_increment;
             vertices[i] = new Coordinate(new_x, new_y);
-            System.out.println("" + new_x + " " + new_y);
         }
 
         LinearRing shell = factory.createLinearRing(vertices);
