@@ -1,9 +1,6 @@
 package islandADT;
 
-import islandADT.Shapes.CircleShape;
-import islandADT.Shapes.OvalShape;
-import islandADT.Shapes.Shape;
-import islandADT.Shapes.StarShape;
+import islandADT.Shapes.*;
 import islandADT.Wrappers.PolygonWrapper;
 import islandADT.Wrappers.SegmentWrapper;
 import islandADT.Wrappers.TileTypeWrapper;
@@ -15,13 +12,11 @@ import org.locationtech.jts.geom.Point;
 import java.util.List;
 import java.util.Map;
 
-import static islandADT.Wrappers.TileTypeWrapper.TileType.*;
-
 public class SetPolygonTypes {
 
-    private TileTypeWrapper ocean = new TileTypeWrapper(Ocean);
-    private TileTypeWrapper sand = new TileTypeWrapper(Sand);
-    private TileTypeWrapper land = new TileTypeWrapper(Land);
+    private TileTypeWrapper ocean = new TileTypeWrapper("Ocean");
+    private TileTypeWrapper sand = new TileTypeWrapper("Sand");
+    private TileTypeWrapper land = new TileTypeWrapper("Land");
 
     private void set_segment_vertex_land(PolygonWrapper p, GeometryContainer geometryContainer) {
         List<Integer> p_segments = p.getSegments_group();
@@ -36,10 +31,11 @@ public class SetPolygonTypes {
 
     public void set_tile_type(GeometryContainer geometryContainer, String islandShape) {
 
+
         if (islandShape == null){
             set_circle_tiles(geometryContainer);
         } else {
-            switch(islandShape){
+            switch (islandShape) {
                 case "circle":
                     set_circle_tiles(geometryContainer);
                     break;
@@ -49,6 +45,10 @@ public class SetPolygonTypes {
                 case "star":
                     set_star_tiles(geometryContainer);
                     break;
+                case "country":
+                    set_new_tiles(geometryContainer);
+                    break;
+
             }
         }
     }
@@ -71,6 +71,14 @@ public class SetPolygonTypes {
     private void set_star_tiles(GeometryContainer geometryContainer){
 
         Shape star = new StarShape();
+        Geometry starIsland = star.generateIsland(200);
+        set_tiles_inside_shape(geometryContainer, starIsland);
+
+    }
+
+    private void set_new_tiles(GeometryContainer geometryContainer){
+
+        Shape star = new UkraineShape();
         Geometry starIsland = star.generateIsland(200);
         set_tiles_inside_shape(geometryContainer, starIsland);
 
