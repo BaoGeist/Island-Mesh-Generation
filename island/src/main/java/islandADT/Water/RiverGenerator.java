@@ -24,7 +24,7 @@ public class RiverGenerator implements WaterBody{
         amount_of_rivers = Integer.parseInt(islandSpecifications.getRivers());
     }
 
-    private void generateSpring(GeometryContainer geometryContainer){
+    private void generateSprings(GeometryContainer geometryContainer){
 
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
 
@@ -58,7 +58,7 @@ public class RiverGenerator implements WaterBody{
     }
 
     public void generate(GeometryContainer geometryContainer) {
-        generateSpring(geometryContainer);
+        generateSprings(geometryContainer);
 
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
         setRiverInitialSegmentType(geometryContainer);
@@ -103,7 +103,7 @@ public class RiverGenerator implements WaterBody{
         boolean bool = true;
         List<PolygonWrapper> polygonListWithVertex = getPolygonsContainingVertex(geometryContainer, riverFlowVertex);
         for (PolygonWrapper p: polygonListWithVertex){
-            if (!p.isWaterOrNah()){
+            if (p.isWaterOrNah()){
                 bool = false;
             }
         }
