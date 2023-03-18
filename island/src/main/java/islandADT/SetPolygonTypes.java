@@ -93,7 +93,6 @@ public class SetPolygonTypes {
 
             if (IslandShape.contains(PolygonCenter)){
                 p.setTileType(land);
-                p.setLandornah(true);
                 set_segment_vertex_land(p, geometryContainer);
             } else {
                 p.setTileType(ocean);
@@ -106,7 +105,6 @@ public class SetPolygonTypes {
                     PolygonWrapper neighbor = PolygonList.get(p.get_neighbours().get(i));
                     if (neighbor.getTileType() == ocean){
                         p.setTileType(sand);
-                        p.setLandornah(true);
                         set_segment_vertex_land(p, geometryContainer);
                     };
                 }

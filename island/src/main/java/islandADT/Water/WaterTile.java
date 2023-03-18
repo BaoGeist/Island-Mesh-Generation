@@ -15,4 +15,8 @@ public abstract class WaterTile implements WaterBody{
         }
 
     }
+
+    protected void moisturize(GeometryContainer geometryContainer) {
+
+    }
 }

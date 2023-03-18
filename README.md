@@ -62,7 +62,7 @@ mosser@azrael visualizer % ls -lh sample.svg
 -rw-r--r--  1 mosser  staff    56K 29 Jan 10:53 sample.svg
 mosser@azrael visualizer %
 ```
-To viualize the SVG file:
+To visualize the SVG file:
 
   - Open it with a web browser
   - Convert it into something else with tool slike `rsvg-convert`
@@ -88,7 +88,7 @@ Our Definition of Done includes the following criteria:
 | F02 | Generates a shaped island (circle)                                   | Baoze, Alexis, Daniel | 03.10.2023 | 03.11.2023 | D      |
 | F03 | Generates multiple shapes of island (stars, rectangle)               | Baoze, Alexis, Daniel | 03.11.2023 | 03.14.2023 | D      |
 | F04 | Generate island with plains elevation profile                        | Baoze, Alexis, Daniel | 03.14.2023 | 03.14.2023 | D      |
-| F05 | Generate island with random humidity values for tiles                | Baoze, Alexis, Daniel |            |            | P      |
+| F05 | Generate island with assigned humidity values for tiles              | Baoze, Alexis, Daniel | 03.18.2023 | 03.18.2023 | D      |
 | F06 | Generate island with more elevation profiles (volcanic, mountains)   | Baoze, Alexis, Daniel | 03.14.2023 | 03.14.2023 | D      |
 | F07 | Integrate reproducibility/seeds                                      | Baoze                 | 03.15.2023 | 03.15.2023 | D      |
 | F08 | Generate a lake at a random point                                    | Baoze                 | 03.15.2023 | 03.18.2023 | D      |
@@ -96,14 +96,14 @@ Our Definition of Done includes the following criteria:
 | F10 | Generate a river at a random point                                   | Daniel                |            |            | P      |
 | F11 | Generate multiple rivers                                             | Daniel                |            |            | B(F10) |
 | F12 | Calculate river discharge, show changes                              | Daniel                |            |            | B(F11) |
-| F13 | Generate aquifers                                                    | Baoze                 |            |            | P      |
+| F13 | Generate aquifers                                                    | Baoze                 | 03.18.2023 | 03.18.2023 | D      |
 | F14 | Calculate soil absorption with soil profile input                    | Daniel                |            |            | B(F    |
 | F15 | Generate biomes based on humidity + temperature                      | Alexis                |            |            | P      |
 | F16 | Generate islands based on Whittaker diagrams + CLI                   | Alexis                |            |            | P      |
 | F17 | Generate resources based on biome                                    | Daniel, Baoze         |            |            | P      |
 | F18 | Generate resources based on biome + humidity + elevation             | Daniel, Baoze         |            |            | P      |
 | F19 | Generate heatmap for one parameter(i.e. elevation)                   | Daniel, Baoze         | 03.14.2023 | 03.14.2023 | D      |
-| F20 | Generate heatmap for all parameters (humidity, elevation, resources) | Daniel, Baoze         |            |            | P      |
+| F20 | Generate heatmap for all parameters (humidity, elevation, resources) | Daniel, Baoze         | 03.18.2023 |            | P      |
 
 
 

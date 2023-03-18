@@ -103,7 +103,7 @@ public class RiverGenerator implements WaterBody{
         boolean bool = true;
         List<PolygonWrapper> polygonListWithVertex = getPolygonsContainingVertex(geometryContainer, riverFlowVertex);
         for (PolygonWrapper p: polygonListWithVertex){
-            if (!p.isLandornah()){
+            if (!p.isWaterOrNah()){
                 bool = false;
             }
         }

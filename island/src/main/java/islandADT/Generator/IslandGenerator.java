@@ -4,7 +4,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import islandADT.Elevation.CraterElevationFixture;
 import islandADT.Elevation.VolcanicElevationFixture;
-import islandADT.Water.RiverGenerator;
+import islandADT.Water.*;
 import islandADT.GeometryContainer;
 import islandADT.SetPolygonTypes;
 import islandADT.Specifications.IslandSpecifications;
@@ -14,8 +14,6 @@ import islandADT.Exporter.Exporter;
 import islandADT.Exporter.MeshExporter;
 import islandADT.Extracter.Extracter;
 import islandADT.Extracter.MeshExtracter;
-import islandADT.Water.LakeGenerator;
-import islandADT.Water.WaterBody;
 import islandADT.TypeWrappers.TileTypeWrapperCreator;
 
 import java.io.IOException;
@@ -39,6 +37,8 @@ public class IslandGenerator {
         // creates a new extracter
         Extracter extracter = new MeshExtracter();
 
+        TileTypeWrapperCreator.create_tile_types();
+
         // gets a geometry container with hashsets of all geometries
         GeometryContainer geometryContainer = (GeometryContainer) extracter.extract(m);
 
@@ -49,11 +49,12 @@ public class IslandGenerator {
         //TODO B move these elsewhere
          // shape setting
 
-        TileTypeWrapperCreator.create_tile_types();
+
 
         SetPolygonTypes setter = new SetPolygonTypes();
         setter.set_tile_type(geometryContainer, islandSpecifications.getShape());
 
+        //TODO B fix this
         // elevation setting
         ElevationFixture elevationFixture;
         switch(islandSpecifications.getElevation()) {
@@ -72,11 +73,17 @@ public class IslandGenerator {
         }
         elevationFixture.set_elevation(geometryContainer);
 
-        RiverGenerator river = new RiverGenerator(islandSpecifications);
+        WaterBody river = new RiverGenerator(islandSpecifications);
         river.generate(geometryContainer);
 
         WaterBody lakeGenerator = new LakeGenerator(islandSpecifications);
         lakeGenerator.generate(geometryContainer);
+
+        WaterBody aquiferGenerator = new AquiferGenerator(islandSpecifications);
+        aquiferGenerator.generate(geometryContainer);
+
+        MoistMan.setWaterSources(geometryContainer);
+        MoistMan.calculateMoisture(geometryContainer);
 
         // exporting
         Exporter finalExporter = new MeshExporter();

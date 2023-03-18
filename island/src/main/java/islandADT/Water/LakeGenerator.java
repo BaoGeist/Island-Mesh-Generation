@@ -15,6 +15,7 @@ import static islandADT.GeometryContainerCalculator.*;
 
 public class LakeGenerator extends WaterTile{
     int amount_of_lakes = 0;
+
     public LakeGenerator(IslandSpecifications islandSpecifications) {
         amount_of_lakes = Integer.parseInt(islandSpecifications.getLakes());
     }
@@ -56,14 +57,15 @@ public class LakeGenerator extends WaterTile{
             }
 
             polygons.get(lake_id).setTileType(Lake);
-            polygons.get(lake_id).setLandornah(false);
             lakes.add(polygons.get(lake_id));
+            //TODO B 10 is temporary
+            polygons.get(lake_id).setMoisture(10);
 
             for(PolygonWrapper neighbour: polygon_neighbours_objects(geometryContainer, lake_id)) {
                 if(RandomSeed.randomBoolean() && polygon_no_ocean_neighbours(geometryContainer, neighbour.get_id())) {
                     neighbour.setTileType(Lake);
-                    neighbour.setLandornah(false);
                     lakes.add(neighbour);
+                    neighbour.setMoisture(10);
                 }
             }
 
