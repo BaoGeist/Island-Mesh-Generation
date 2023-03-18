@@ -7,19 +7,19 @@ import java.util.Map;
 public class TileTypeWrapper {
 
     //TODO B REDO
-    private static Map<String, TileTuple> tuple_map = new HashMap<String, TileTuple>();
+    private static Map<String, TileThruple> tuple_map = new HashMap<String, TileThruple>();
 
-    private TileTuple<int[], Boolean> tileTuple;
+    private TileThruple<int[], Boolean, Boolean> tileThruple;
 
-    public static void add_biome(String type, int[] color, boolean landOrNah) {
-        tuple_map.put(type, new TileTuple(color, landOrNah));
+    public static void add_biome(String type, int[] color, boolean landOrNah, boolean waterOrNah) {
+        tuple_map.put(type, new TileThruple(color, landOrNah, waterOrNah));
     }
 
     private int[] color = new int[3];
 
 
     public TileTypeWrapper(String tile) {
-        tileTuple = tuple_map.get(tile);
+        tileThruple = tuple_map.get(tile);
         color_decide(tile);
     }
 
@@ -32,7 +32,11 @@ public class TileTypeWrapper {
     }
 
     public boolean isLandOrNah() {
-        return tileTuple.getSecond();
+        return tileThruple.getSecond();
+    }
+
+    public boolean isWaterOrNah() {
+        return tileThruple.getThird();
     }
 
     public boolean isEquals(Object o) {

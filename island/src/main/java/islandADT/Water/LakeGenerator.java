@@ -58,11 +58,14 @@ public class LakeGenerator extends WaterTile{
 
             polygons.get(lake_id).setTileType(Lake);
             lakes.add(polygons.get(lake_id));
+            //TODO B 10 is temporary
+            polygons.get(lake_id).setMoisture(10);
 
             for(PolygonWrapper neighbour: polygon_neighbours_objects(geometryContainer, lake_id)) {
                 if(RandomSeed.randomBoolean() && polygon_no_ocean_neighbours(geometryContainer, neighbour.get_id())) {
                     neighbour.setTileType(Lake);
                     lakes.add(neighbour);
+                    neighbour.setMoisture(10);
                 }
             }
 

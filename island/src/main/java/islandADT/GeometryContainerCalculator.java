@@ -74,4 +74,14 @@ public class GeometryContainerCalculator {
         }
         return vertexNeighbors;
     }
+
+    public static List<PolygonWrapper> getDryLandPolygons(GeometryContainer geometryContainer) {
+        List<PolygonWrapper> return_array = new ArrayList<>();
+        for (PolygonWrapper p: geometryContainer.get_polygons().values()){
+            if(p.isLandornah() && !p.isWaterOrNah()) {
+                return_array.add(p);
+            }
+        }
+        return return_array;
+    }
 }

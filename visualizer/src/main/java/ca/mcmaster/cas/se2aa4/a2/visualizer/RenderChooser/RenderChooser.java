@@ -3,10 +3,7 @@ package ca.mcmaster.cas.se2aa4.a2.visualizer.RenderChooser;
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.MeshDump;
-import ca.mcmaster.cas.se2aa4.a2.visualizer.RenderOptions.DebugRenderer;
-import ca.mcmaster.cas.se2aa4.a2.visualizer.RenderOptions.GraphicRenderer;
-import ca.mcmaster.cas.se2aa4.a2.visualizer.RenderOptions.HeatmapRenderer;
-import ca.mcmaster.cas.se2aa4.a2.visualizer.RenderOptions.Renderer;
+import ca.mcmaster.cas.se2aa4.a2.visualizer.RenderOptions.*;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.SVGCanvas;
 import ca.mcmaster.cas.se2aa4.a2.visualizer.Specifications.VisualizerSpecification;
 
@@ -40,7 +37,7 @@ public class RenderChooser {
                 renderer = new DebugRenderer();
                 break;
             case "heatmap_altitude":
-                renderer = new HeatmapRenderer();
+                renderer = new Moistttttttttttttttttt();
                 break;
             case "graphic":
                 renderer = new GraphicRenderer();

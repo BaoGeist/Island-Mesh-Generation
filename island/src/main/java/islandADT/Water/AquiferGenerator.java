@@ -37,11 +37,13 @@ public class AquiferGenerator extends WaterTile{
 
             polygons.get(aquifer_id).setTileType(Aquifer);
             aquifers.add(polygons.get(aquifer_id));
+            polygons.get(aquifer_id).setMoisture(10);
 
             for(PolygonWrapper neighbour: polygon_neighbours_objects(geometryContainer, aquifer_id)) {
                 if(RandomSeed.randomBoolean() && polygon_no_ocean_neighbours(geometryContainer, neighbour.get_id())) {
                     neighbour.setTileType(Aquifer);
                     aquifers.add(neighbour);
+                    neighbour.setMoisture(10);
                 }
             }
         }

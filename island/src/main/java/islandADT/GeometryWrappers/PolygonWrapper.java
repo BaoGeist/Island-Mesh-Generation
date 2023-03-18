@@ -1,6 +1,7 @@
 package islandADT.GeometryWrappers;
 
 import islandADT.TypeWrappers.TileTypeWrapper;
+import islandADT.Water.Moisture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class PolygonWrapper {
     private int id_centroid;
     private TileTypeWrapper tileType;
     private List<Integer> segments_group;
+    private Moisture moisture;
     // set this boolean somewhere
     private int height;
 
@@ -22,6 +24,7 @@ public class PolygonWrapper {
         this.id_centroid = id_centroid;
         this.segments_group = segments_group;
         this.tileType = tileType;
+        this.moisture = new Moisture(0);
     }
 
     public List<Integer> getSegments_group() {
@@ -54,6 +57,7 @@ public class PolygonWrapper {
 
     public boolean isLandornah() {return tileType.isLandOrNah(); }
 
+    public boolean isWaterOrNah() {return tileType.isWaterOrNah(); }
 
     public int getHeight() {
         return height;
@@ -61,5 +65,13 @@ public class PolygonWrapper {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public double getMoisture() {
+        return moisture.getValue();
+    }
+
+    public void setMoisture(double moisture) {
+        this.moisture.setValue(moisture);
     }
 }

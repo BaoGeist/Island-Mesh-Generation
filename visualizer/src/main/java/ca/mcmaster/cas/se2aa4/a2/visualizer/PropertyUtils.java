@@ -100,4 +100,14 @@ public class PropertyUtils {
         return new double[]{min, max};
     }
 
+    public static double extractMoisture(List<Structs.Property> properties) {
+        String val = "0";
+        for(Structs.Property p: properties) {
+            if (p.getKey().equals("moisture")) {
+                val = p.getValue();
+            }
+        }
+        return Double.parseDouble(val);
+    }
+
 }
