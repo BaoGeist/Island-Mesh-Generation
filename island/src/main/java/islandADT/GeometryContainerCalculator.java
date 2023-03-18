@@ -27,9 +27,20 @@ public class GeometryContainerCalculator {
         List<Integer> neighbours = p.get_neighbours();
         for(Object n_id: neighbours) {
             neighbours_objects.add(polygons.get(n_id));
-
         }
         return neighbours_objects;
+    }
+
+    public static List<PolygonWrapper> getPolygonsContainingVertex(GeometryContainer geometryContainer, VertexWrapper v){
+        Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
+        List<PolygonWrapper> polygonsWithVertex = new ArrayList<>();
+        for(PolygonWrapper polygon: polygons.values()){
+            List<VertexWrapper> verticesOfPolygon = vertices_of_a_polygon(geometryContainer, polygon);
+            if (verticesOfPolygon.contains(v)){
+                polygonsWithVertex.add(polygon);
+            }
+        }
+        return polygonsWithVertex;
     }
 
     public static List<VertexWrapper> vertices_of_a_polygon(GeometryContainer geometryContainer, PolygonWrapper p) {

@@ -8,8 +8,10 @@ import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.GeometryWrappers.VertexWrapper;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import static islandADT.GeometryContainerCalculator.*;
 import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.NotWater;
 import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.Water;
 
@@ -40,6 +42,8 @@ public class RiverGenerator implements WaterBody{
 
         for (VertexWrapper v: vertices.values()){
             ArrayList<VertexWrapper> river = new ArrayList<>();
+            ArrayList<Boolean> bools = new ArrayList<>();
+            bools.add(true);
             if (v.isSpringVertex()){
                 river.add(v);
                 System.out.println("First point height = "+ v.getHeight());
@@ -56,8 +60,9 @@ public class RiverGenerator implements WaterBody{
                     riverFlowVertex = vertices.get(riverFlowVertexID);
 
                     inNotOcean = checkIfInOcean(geometryContainer, riverFlowVertex);
+                    bools.add(inNotOcean);
 
-                    if (!inNotOcean){
+                    if (!bools.get(bools.size()-2)){
                         isEnd = false;
                     } else {
                         river.add(riverFlowVertex);
@@ -69,21 +74,21 @@ public class RiverGenerator implements WaterBody{
                 System.out.println("river size = " + river.size());
                 if (inNotOcean){
                     createLake(river, geometryContainer);
+                    System.out.println("not in ocean");
                 }
             }
         }
     }
 
     private boolean checkIfInOcean(GeometryContainer geometryContainer, VertexWrapper riverFlowVertex){
-        Map<Integer, VertexWrapper> neighboringVertices = GeometryContainerCalculator.getVertexNeighbors(geometryContainer, riverFlowVertex);
-        boolean somebool = true;
-        for (VertexWrapper vertex : neighboringVertices.values()){
-            if (!vertex.isLandornah()){
-                somebool = false;
-                break;
+        boolean bool = true;
+        List<PolygonWrapper> polygonListWithVertex = getPolygonsContainingVertex(geometryContainer, riverFlowVertex);
+        for (PolygonWrapper p: polygonListWithVertex){
+            if (!p.isLandornah()){
+                bool = false;
             }
         }
-        return somebool;
+        return bool;
     }
     private void createLake(ArrayList<VertexWrapper> river, GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
