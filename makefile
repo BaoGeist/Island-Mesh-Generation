@@ -1,6 +1,11 @@
-run:
+rung1000:
+	cd generator && java -jar generator.jar -mf temp.mesh -mv irregular -num 1000
+
+rung2000:
 	cd generator && java -jar generator.jar -mf temp.mesh -mv irregular -num 2000
-	cd visualizer && java -jar visualizer.jar -mf ../generator/sample.mesh -of sample.svg
+
+rung100:
+	cd generator && java -jar generator.jar -mf temp.mesh -mv irregular -num 200
 
 runip:
 	cd island && java -jar island.jar -i new.mesh -o island.mesh -altitude plains -shape circle

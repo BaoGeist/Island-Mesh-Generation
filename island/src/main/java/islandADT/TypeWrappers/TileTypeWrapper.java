@@ -1,5 +1,6 @@
 package islandADT.TypeWrappers;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,5 +26,12 @@ public class TileTypeWrapper {
 
     public int[] getColor() {
         return color;
+    }
+
+    public boolean isEquals(Object o) {
+        if(this == o) return true;
+        if(!(o instanceof TileTypeWrapper)) return false;
+        TileTypeWrapper compare = (TileTypeWrapper) o;
+        return Arrays.equals(this.color, compare.getColor());
     }
 }

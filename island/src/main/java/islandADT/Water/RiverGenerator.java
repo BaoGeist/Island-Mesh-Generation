@@ -13,7 +13,7 @@ import java.util.Map;
 import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.NotWater;
 import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.Water;
 
-public class River implements WaterBody{
+public class RiverGenerator implements WaterBody{
     private void generateSpring(GeometryContainer geometryContainer){
 
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();

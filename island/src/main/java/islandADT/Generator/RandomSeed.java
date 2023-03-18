@@ -39,6 +39,8 @@ public class RandomSeed {
 
     public static double randomDouble(double min, double max) {return randomFactory.nextDouble(min, max); }
 
+    public static boolean randomBoolean() {return randomFactory.nextBoolean(); }
+
     public static int get_seed() {
         return randomseed;
     }
