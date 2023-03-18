@@ -1,9 +1,9 @@
 package islandADT.Water;
 
 import islandADT.GeometryContainer;
-import islandADT.Wrappers.PolygonWrapper;
-import islandADT.Wrappers.TileTypeWrapper;
-import islandADT.Wrappers.VertexWrapper;
+import islandADT.GeometryWrappers.PolygonWrapper;
+import islandADT.TypeWrappers.TileTypeWrapper;
+import islandADT.GeometryWrappers.VertexWrapper;
 
 import java.util.Arrays;
 import java.util.Map;

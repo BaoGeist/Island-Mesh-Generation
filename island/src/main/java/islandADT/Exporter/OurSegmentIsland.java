@@ -1,10 +1,8 @@
 package islandADT.Exporter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.Wrappers.SegmentTypeWrapper;
-import meshcore.ADT.OurSegment;
+import islandADT.TypeWrappers.SegmentTypeWrapper;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class OurSegmentIsland{

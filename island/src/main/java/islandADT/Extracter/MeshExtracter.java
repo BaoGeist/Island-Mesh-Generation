@@ -2,9 +2,9 @@ package islandADT.Extracter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import islandADT.GeometryContainer;
-import islandADT.Wrappers.PolygonWrapper;
-import islandADT.Wrappers.SegmentWrapper;
-import islandADT.Wrappers.VertexWrapper;
+import islandADT.GeometryWrappers.PolygonWrapper;
+import islandADT.GeometryWrappers.SegmentWrapper;
+import islandADT.GeometryWrappers.VertexWrapper;
 
 public class MeshExtracter implements Extracter<Structs.Mesh, GeometryContainer>{
 

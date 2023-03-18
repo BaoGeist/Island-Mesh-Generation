@@ -1,6 +1,5 @@
-package islandADT.Wrappers;
+package islandADT.TypeWrappers;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 

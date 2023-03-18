@@ -16,7 +16,7 @@ import islandADT.Extracter.Extracter;
 import islandADT.Extracter.MeshExtracter;
 import islandADT.Water.LakeGenerate;
 import islandADT.Water.WaterBody;
-import islandADT.Wrappers.TileTypeWrapperCreator;
+import islandADT.TypeWrappers.TileTypeWrapperCreator;
 
 import java.io.IOException;
 

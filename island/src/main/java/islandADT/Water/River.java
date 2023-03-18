@@ -1,16 +1,16 @@
 package islandADT.Water;
 
 import islandADT.GeometryContainer;
-import islandADT.Wrappers.PolygonWrapper;
-import islandADT.Wrappers.SegmentTypeWrapper;
-import islandADT.Wrappers.SegmentWrapper;
-import islandADT.Wrappers.VertexWrapper;
+import islandADT.GeometryWrappers.PolygonWrapper;
+import islandADT.TypeWrappers.SegmentTypeWrapper;
+import islandADT.GeometryWrappers.SegmentWrapper;
+import islandADT.GeometryWrappers.VertexWrapper;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-import static islandADT.Wrappers.SegmentTypeWrapper.SegmentType.NotWater;
-import static islandADT.Wrappers.SegmentTypeWrapper.SegmentType.Water;
+import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.NotWater;
+import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.Water;
 
 public class River implements WaterBody{
     private void generateSpring(GeometryContainer geometryContainer){

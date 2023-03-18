@@ -1,4 +1,4 @@
-package islandADT.Wrappers;
+package islandADT.TypeWrappers;
 
 public class TileTypeWrapperCreator {
     public static void create_tile_types() {

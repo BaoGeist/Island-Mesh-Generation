@@ -2,13 +2,11 @@ package islandADT.Elevation;
 
 import islandADT.Generator.RandomSeed;
 import islandADT.GeometryContainer;
-import islandADT.Wrappers.PolygonWrapper;
-import islandADT.Wrappers.SegmentWrapper;
-import islandADT.Wrappers.VertexWrapper;
+import islandADT.GeometryWrappers.PolygonWrapper;
+import islandADT.GeometryWrappers.SegmentWrapper;
+import islandADT.GeometryWrappers.VertexWrapper;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class PlainsElevationFixture implements ElevationFixture{
     public void set_elevation(GeometryContainer geometryContainer) {

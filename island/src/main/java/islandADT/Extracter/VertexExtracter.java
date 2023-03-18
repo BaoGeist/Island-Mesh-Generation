@@ -1,7 +1,7 @@
 package islandADT.Extracter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.Wrappers.VertexWrapper;
+import islandADT.GeometryWrappers.VertexWrapper;
 import meshcore.Utils.PropertyUtils;
 
 public class VertexExtracter implements Extracter<Structs.Vertex, VertexWrapper> {

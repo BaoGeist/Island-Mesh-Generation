@@ -1,8 +1,8 @@
 package islandADT.Exporter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.Wrappers.PolygonWrapper;
-import islandADT.Wrappers.TileTypeWrapper;
+import islandADT.GeometryWrappers.PolygonWrapper;
+import islandADT.TypeWrappers.TileTypeWrapper;
 
 import java.util.List;
 

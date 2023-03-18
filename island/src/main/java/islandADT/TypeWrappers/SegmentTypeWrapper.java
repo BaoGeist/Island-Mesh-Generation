@@ -1,4 +1,4 @@
-package islandADT.Wrappers;
+package islandADT.TypeWrappers;
 
 
 //TODO B add a library for all this and TileTypeWrapper so it's extendable

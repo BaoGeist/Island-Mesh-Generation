@@ -1,9 +1,8 @@
 package islandADT.Exporter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.Wrappers.SegmentTypeWrapper;
-import islandADT.Wrappers.SegmentWrapper;
-import islandADT.Wrappers.TileTypeWrapper;
+import islandADT.TypeWrappers.SegmentTypeWrapper;
+import islandADT.GeometryWrappers.SegmentWrapper;
 
 public class OurSegmentExporter implements Exporter<SegmentWrapper, Structs.Segment> {
     public Structs.Segment export(SegmentWrapper s) {

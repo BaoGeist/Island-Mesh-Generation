@@ -1,6 +1,6 @@
-package islandADT.Wrappers;
+package islandADT.GeometryWrappers;
 
-import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import islandADT.TypeWrappers.TileTypeWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
