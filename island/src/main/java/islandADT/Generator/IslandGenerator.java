@@ -75,9 +75,7 @@ public class IslandGenerator {
         RiverGenerator river = new RiverGenerator();
         river.generate(geometryContainer);
 
-        WaterBody lakeGenerator = new LakeGenerator();
-        lakeGenerator.generate(geometryContainer);
-        lakeGenerator.generate(geometryContainer);
+        WaterBody lakeGenerator = new LakeGenerator(islandSpecifications);
         lakeGenerator.generate(geometryContainer);
 
         // exporting
@@ -87,7 +85,7 @@ public class IslandGenerator {
 
 
         // TODO B dynamic file output name
-        String meshfile = "island.mesh";
+        String meshfile = islandSpecifications.getOutput();
 
         MeshFactory factory = new MeshFactory();
         try {
