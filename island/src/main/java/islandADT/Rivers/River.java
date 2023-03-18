@@ -39,6 +39,8 @@ public class River {
 
         for (VertexWrapper v: vertices.values()){
             ArrayList<VertexWrapper> river = new ArrayList<>();
+            ArrayList<Boolean> bools = new ArrayList<>();
+            bools.add(true);
             if (v.isSpringVertex()){
                 river.add(v);
                 System.out.println("First point height = "+ v.getHeight());
@@ -55,8 +57,9 @@ public class River {
                     riverFlowVertex = vertices.get(riverFlowVertexID);
 
                     inNotOcean = checkIfInOcean(geometryContainer, riverFlowVertex);
+                    bools.add(inNotOcean);
 
-                    if (!inNotOcean){
+                    if (!bools.get(bools.size()-2)){
                         isEnd = false;
                     } else {
                         river.add(riverFlowVertex);
@@ -68,6 +71,7 @@ public class River {
                 System.out.println("river size = " + river.size());
                 if (inNotOcean){
                     createLake(river, geometryContainer);
+                    System.out.println("not in ocean");
                 }
             }
         }
@@ -80,6 +84,14 @@ public class River {
             if (!vertex.isLandornah()){
                 somebool = false;
                 break;
+            } else {
+                Map<Integer, VertexWrapper> nvertices = geometryContainer.getVertexNeighbors(vertex);
+                for (VertexWrapper v : nvertices.values()){
+                    if (!v.isLandornah()){
+                        somebool = false;
+                        break;
+                    }
+                }
             }
         }
         return somebool;
