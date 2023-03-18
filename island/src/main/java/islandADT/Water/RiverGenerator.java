@@ -8,8 +8,10 @@ import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.GeometryWrappers.VertexWrapper;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import static islandADT.GeometryContainerCalculator.*;
 import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.NotWater;
 import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.Water;
 
@@ -79,23 +81,14 @@ public class RiverGenerator implements WaterBody{
     }
 
     private boolean checkIfInOcean(GeometryContainer geometryContainer, VertexWrapper riverFlowVertex){
-        Map<Integer, VertexWrapper> neighboringVertices = GeometryContainerCalculator.getVertexNeighbors(geometryContainer, riverFlowVertex);
-        boolean somebool = true;
-        for (VertexWrapper vertex : neighboringVertices.values()){
-            if (!vertex.isLandornah()){
-                somebool = false;
-                break;
-            } else {
-                Map<Integer, VertexWrapper> nvertices = geometryContainer.getVertexNeighbors(vertex);
-                for (VertexWrapper v : nvertices.values()){
-                    if (!v.isLandornah()){
-                        somebool = false;
-                        break;
-                    }
-                }
+        boolean bool = true;
+        List<PolygonWrapper> polygonListWithVertex = getPolygonsContainingVertex(geometryContainer, riverFlowVertex);
+        for (PolygonWrapper p: polygonListWithVertex){
+            if (!p.isLandornah()){
+                bool = false;
             }
         }
-        return somebool;
+        return bool;
     }
     private void createLake(ArrayList<VertexWrapper> river, GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
