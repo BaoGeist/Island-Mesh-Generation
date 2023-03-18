@@ -3,9 +3,11 @@ package islandADT.Water;
 import islandADT.GeometryContainer;
 import islandADT.GeometryContainerCalculator;
 import islandADT.GeometryWrappers.PolygonWrapper;
+import islandADT.Specifications.IslandSpecifications;
 import islandADT.TypeWrappers.SegmentTypeWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.GeometryWrappers.VertexWrapper;
+import islandADT.TypeWrappers.TileTypeWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,71 +18,88 @@ import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.NotWater;
 import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.Water;
 
 public class RiverGenerator implements WaterBody{
+
+    int amount_of_rivers = 0;
+    public RiverGenerator(IslandSpecifications islandSpecifications) {
+        amount_of_rivers = Integer.parseInt(islandSpecifications.getRivers());
+    }
+
     private void generateSpring(GeometryContainer geometryContainer){
 
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
 
-        int highest_point = 0;
-        int springVertex_id = 0;
+        int springVertex_id;
+        int counter = 0;
+        List<Integer> highest_points = new ArrayList<>();
+        List<Integer> all_points = new ArrayList<>();
+
         for (VertexWrapper v : vertices.values()){
-            highest_point = Math.max(v.getHeight(), highest_point);
+            all_points.add(v.getHeight());
         }
+
+        for (int i = 0; i < amount_of_rivers; i ++){
+            int maxIndex = 0;
+            for (int j = 1; j < all_points.size(); j++) {
+                if (all_points.get(j) > all_points.get(maxIndex)) {
+                    maxIndex = j;
+                }
+            }
+            highest_points.add(all_points.remove(maxIndex));
+        }
+
         for (VertexWrapper v: vertices.values()){
-            if (v.getHeight() == highest_point && v.isSpringVertex() == false){
+            if (highest_points.contains(v.getHeight()) && v.isSpringVertex() == false && counter < amount_of_rivers){
                 springVertex_id = v.get_id();
-                break;
+                VertexWrapper springVertex = vertices.get(springVertex_id);
+                springVertex.setSpringVertex(true);
+                counter++;
             }
         }
-        VertexWrapper springVertex = vertices.get(springVertex_id);
-        springVertex.setSpringVertex(true);
     }
 
-    public void generate(GeometryContainer geometryContainer){
+    public void generate(GeometryContainer geometryContainer) {
         generateSpring(geometryContainer);
 
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
+        setRiverInitialSegmentType(geometryContainer);
 
-        for (VertexWrapper v: vertices.values()){
+        for (VertexWrapper v : vertices.values()) {
             ArrayList<VertexWrapper> river = new ArrayList<>();
-            ArrayList<Boolean> bools = new ArrayList<>();
-            bools.add(true);
-            if (v.isSpringVertex()){
+            boolean inNotWater = true;
+            if (v.isSpringVertex()) {
                 river.add(v);
-                System.out.println("First point height = "+ v.getHeight());
+
+                System.out.println("First point height = " + v.getHeight());
                 int riverFlowVertexID = generate_flow(v, geometryContainer);
                 VertexWrapper riverFlowVertex = vertices.get(riverFlowVertexID);
                 System.out.println("Second point height = " + riverFlowVertex.getHeight());
                 river.add(riverFlowVertex);
 
-                boolean inNotOcean = true;
-
                 boolean isEnd = isEndOfRiver(riverFlowVertex, geometryContainer);
-                while (isEnd){
+                while (isEnd) {
                     riverFlowVertexID = generate_flow(riverFlowVertex, geometryContainer);
                     riverFlowVertex = vertices.get(riverFlowVertexID);
-
-                    inNotOcean = checkIfInOcean(geometryContainer, riverFlowVertex);
-                    bools.add(inNotOcean);
-
-                    if (!bools.get(bools.size()-2)){
-                        isEnd = false;
-                    } else {
-                        river.add(riverFlowVertex);
+                    inNotWater = checkIfInWater(geometryContainer, riverFlowVertex);
+                    river.add(riverFlowVertex);
+                    if (inNotWater) {
                         isEnd = isEndOfRiver(riverFlowVertex, geometryContainer);
                         System.out.println("Next point height = " + riverFlowVertex.getHeight());
+                    } else {
+                        break;
                     }
                 }
                 setRiverSegmentType(river, geometryContainer);
                 System.out.println("river size = " + river.size());
-                if (inNotOcean){
+                if (inNotWater) {
                     createLake(river, geometryContainer);
-                    System.out.println("not in ocean");
+                    System.out.println("not in ocean or lake");
                 }
             }
         }
     }
 
-    private boolean checkIfInOcean(GeometryContainer geometryContainer, VertexWrapper riverFlowVertex){
+    private boolean checkIfInWater(GeometryContainer geometryContainer, VertexWrapper riverFlowVertex){
+        //if this returns true, it means that the vertex is not next to an ocean or lake
         boolean bool = true;
         List<PolygonWrapper> polygonListWithVertex = getPolygonsContainingVertex(geometryContainer, riverFlowVertex);
         for (PolygonWrapper p: polygonListWithVertex){
@@ -91,14 +110,21 @@ public class RiverGenerator implements WaterBody{
         return bool;
     }
     private void createLake(ArrayList<VertexWrapper> river, GeometryContainer geometryContainer) {
-        Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         VertexWrapper endOfRiverVertex = river.get(river.size()-1);
-
-        ArrayList<PolygonWrapper> neighboringPolygons = new ArrayList<>();
-        for (PolygonWrapper p : polygons.values()){
-
+        List<PolygonWrapper> polygonListWithVertex = getPolygonsContainingVertex(geometryContainer, endOfRiverVertex);
+        int lowest_elevation = 10000;
+        for (PolygonWrapper p: polygonListWithVertex){
+            lowest_elevation = Math.min(p.getHeight(), lowest_elevation);
         }
 
+        TileTypeWrapper RiverLake = new TileTypeWrapper("RiverLake");
+
+        for (PolygonWrapper p: polygonListWithVertex){
+            if (p.getHeight() == lowest_elevation){
+                p.setTileType(RiverLake);
+                break;
+            }
+        }
     }
 
     private int generate_flow(VertexWrapper v, GeometryContainer geometryContainer) {
@@ -111,7 +137,6 @@ public class RiverGenerator implements WaterBody{
         }
 
         for (VertexWrapper vertex : neighboringVertices.values()) {
-            System.out.println("Neighbor height: " + vertex.getHeight());
             if (vertex.getHeight() == lowestVertex) {
                 return vertex.get_id();
             }
@@ -130,20 +155,21 @@ public class RiverGenerator implements WaterBody{
                 return true;
             }
         }
-        System.out.println("Next line and no lower elevation");
         return false;
     }
 
-    private void setRiverSegmentType(ArrayList<VertexWrapper> river, GeometryContainer geometryContainer){
+    private void setRiverInitialSegmentType(GeometryContainer geometryContainer){
         Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
-        SegmentTypeWrapper water = new SegmentTypeWrapper(Water);
         SegmentTypeWrapper notWater = new SegmentTypeWrapper(NotWater);
-        int firstRiverVertexID;
-        int secondRiverVertexID;
-
         for (SegmentWrapper seg: segments.values()){
             seg.setSegmentTypeWrapper(notWater);
         }
+    }
+    private void setRiverSegmentType(ArrayList<VertexWrapper> river, GeometryContainer geometryContainer){
+        Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
+        SegmentTypeWrapper water = new SegmentTypeWrapper(Water);
+        int firstRiverVertexID;
+        int secondRiverVertexID;
 
         for(int key = 0; key < river.size()-1; key++) {
             firstRiverVertexID = river.get(key).get_id();
@@ -153,12 +179,10 @@ public class RiverGenerator implements WaterBody{
                 if (seg.getV1id() == firstRiverVertexID) {
                     if (seg.getV2id() == secondRiverVertexID) {
                         seg.setSegmentTypeWrapper(water);
-                        System.out.println("segment colored");
                     }
                 } else if (seg.getV1id() == secondRiverVertexID) {
                     if (seg.getV2id() == firstRiverVertexID) {
                         seg.setSegmentTypeWrapper(water);
-                        System.out.println("segment colored v2");
                     }
                 }
             }

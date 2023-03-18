@@ -30,8 +30,6 @@ public class SetPolygonTypes {
     }
 
     public void set_tile_type(GeometryContainer geometryContainer, String islandShape) {
-
-
         if (islandShape == null){
             set_circle_tiles(geometryContainer);
         } else {

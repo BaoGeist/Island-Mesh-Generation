@@ -8,7 +8,9 @@ public class IslandSpecifications {
     private String seed;
     private String lakes;
 
-    public IslandSpecifications(String input, String output, String shape, String elevation, String seed, String lakes) {
+    private String rivers;
+
+    public IslandSpecifications(String input, String output, String shape, String elevation, String seed, String lakes, String rivers) {
         this.input = input;
         this.output = output;
         this.shape = shape;
@@ -17,6 +19,7 @@ public class IslandSpecifications {
             this.seed = "";
         } else this.seed = seed;
         this.lakes = lakes;
+        this.rivers = rivers;
     }
 
     public String getInput() {
@@ -38,4 +41,6 @@ public class IslandSpecifications {
     public String getSeed() {return seed;}
 
     public String getLakes() {return lakes;}
+
+    public String getRivers() {return rivers;}
 }

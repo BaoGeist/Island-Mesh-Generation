@@ -72,7 +72,7 @@ public class IslandGenerator {
         }
         elevationFixture.set_elevation(geometryContainer);
 
-        RiverGenerator river = new RiverGenerator();
+        RiverGenerator river = new RiverGenerator(islandSpecifications);
         river.generate(geometryContainer);
 
         WaterBody lakeGenerator = new LakeGenerator(islandSpecifications);

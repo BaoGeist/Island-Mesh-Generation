@@ -11,6 +11,7 @@ public class IslandConfiguration {
     private static final String HELP = "help";
     private static final String SEED = "seed";
     private static final String LAKES = "lake";
+    private static final String RIVERS = "river";
     private CommandLine cli;
     public IslandConfiguration(String[] args) {
         try {
@@ -33,6 +34,7 @@ public class IslandConfiguration {
         options.addOption(new Option(ELEVATION, true, "Elevation profile"));
         options.addOption(new Option(SEED, true, "Seed"));
         options.addOption(new Option(LAKES, true, "Maximum number of lakes"));
+        options.addOption(new Option(RIVERS, true, "Total number of rivers"));
         return options;
     }
 
@@ -51,7 +53,8 @@ public class IslandConfiguration {
         String elevation = cli.getOptionValue(ELEVATION);
         String seed = cli.getOptionValue(SEED);
         String lakes = cli.getOptionValue(LAKES);
+        String rivers = cli.getOptionValue(RIVERS);
 
-        return new IslandSpecifications(input, output, shape, elevation, seed, lakes);
+        return new IslandSpecifications(input, output, shape, elevation, seed, lakes, rivers);
     }
 }
