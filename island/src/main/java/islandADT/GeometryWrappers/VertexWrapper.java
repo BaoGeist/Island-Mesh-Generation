@@ -1,6 +1,4 @@
-package islandADT.Wrappers;
-
-import java.util.Map;
+package islandADT.GeometryWrappers;
 
 public class VertexWrapper {
     private int id_vertex;

@@ -10,6 +10,7 @@ public class IslandConfiguration {
     private static final String ELEVATION = "altitude";
     private static final String HELP = "help";
     private static final String SEED = "seed";
+    private static final String LAKES = "lake";
     private CommandLine cli;
     public IslandConfiguration(String[] args) {
         try {
@@ -31,6 +32,7 @@ public class IslandConfiguration {
         options.addOption(new Option(SHAPE, true, "Island shape"));
         options.addOption(new Option(ELEVATION, true, "Elevation profile"));
         options.addOption(new Option(SEED, true, "Seed"));
+        options.addOption(new Option(LAKES, true, "Maximum number of lakes"));
         return options;
     }
 
@@ -43,10 +45,13 @@ public class IslandConfiguration {
     public IslandSpecifications getIslandSpecifications() {
         String input = cli.getOptionValue(INPUT);
         String output = cli.getOptionValue(OUTPUT);
+        System.out.println(output);
+        System.out.println();
         String shape = cli.getOptionValue(SHAPE);
         String elevation = cli.getOptionValue(ELEVATION);
         String seed = cli.getOptionValue(SEED);
+        String lakes = cli.getOptionValue(LAKES);
 
-        return new IslandSpecifications(input, output, shape, elevation, seed);
+        return new IslandSpecifications(input, output, shape, elevation, seed, lakes);
     }
 }

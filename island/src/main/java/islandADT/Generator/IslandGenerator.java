@@ -4,7 +4,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import islandADT.Elevation.CraterElevationFixture;
 import islandADT.Elevation.VolcanicElevationFixture;
-import islandADT.Rivers.River;
+import islandADT.Water.RiverGenerator;
 import islandADT.GeometryContainer;
 import islandADT.SetPolygonTypes;
 import islandADT.Specifications.IslandSpecifications;
@@ -14,9 +14,9 @@ import islandADT.Exporter.Exporter;
 import islandADT.Exporter.MeshExporter;
 import islandADT.Extracter.Extracter;
 import islandADT.Extracter.MeshExtracter;
-import islandADT.Water.LakeGenerate;
+import islandADT.Water.LakeGenerator;
 import islandADT.Water.WaterBody;
-import islandADT.Wrappers.TileTypeWrapperCreator;
+import islandADT.TypeWrappers.TileTypeWrapperCreator;
 
 import java.io.IOException;
 
@@ -72,10 +72,10 @@ public class IslandGenerator {
         }
         elevationFixture.set_elevation(geometryContainer);
 
-        River river = new River();
-        river.generateRiver(geometryContainer);
+        RiverGenerator river = new RiverGenerator();
+        river.generate(geometryContainer);
 
-        WaterBody lakeGenerator = new LakeGenerate();
+        WaterBody lakeGenerator = new LakeGenerator(islandSpecifications);
         lakeGenerator.generate(geometryContainer);
 
         // exporting
@@ -85,7 +85,7 @@ public class IslandGenerator {
 
 
         // TODO B dynamic file output name
-        String meshfile = "island.mesh";
+        String meshfile = islandSpecifications.getOutput();
 
         MeshFactory factory = new MeshFactory();
         try {

@@ -1,8 +1,8 @@
 package islandADT.Extracter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.Wrappers.SegmentTypeWrapper;
-import islandADT.Wrappers.SegmentWrapper;
+import islandADT.TypeWrappers.SegmentTypeWrapper;
+import islandADT.GeometryWrappers.SegmentWrapper;
 import meshcore.Utils.PropertyUtils;
 
 public class SegmentExtracter implements Extracter<Structs.Segment, SegmentWrapper> {

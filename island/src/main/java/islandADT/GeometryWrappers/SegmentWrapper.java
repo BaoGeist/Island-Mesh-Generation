@@ -1,4 +1,6 @@
-package islandADT.Wrappers;
+package islandADT.GeometryWrappers;
+
+import islandADT.TypeWrappers.SegmentTypeWrapper;
 
 public class SegmentWrapper {
     private int id_segment;

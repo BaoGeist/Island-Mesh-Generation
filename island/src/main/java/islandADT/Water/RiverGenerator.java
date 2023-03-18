@@ -1,18 +1,19 @@
-package islandADT.Rivers;
+package islandADT.Water;
 
 import islandADT.GeometryContainer;
-import islandADT.Wrappers.PolygonWrapper;
-import islandADT.Wrappers.SegmentTypeWrapper;
-import islandADT.Wrappers.SegmentWrapper;
-import islandADT.Wrappers.VertexWrapper;
+import islandADT.GeometryContainerCalculator;
+import islandADT.GeometryWrappers.PolygonWrapper;
+import islandADT.TypeWrappers.SegmentTypeWrapper;
+import islandADT.GeometryWrappers.SegmentWrapper;
+import islandADT.GeometryWrappers.VertexWrapper;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-import static islandADT.Wrappers.SegmentTypeWrapper.SegmentType.NotWater;
-import static islandADT.Wrappers.SegmentTypeWrapper.SegmentType.Water;
+import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.NotWater;
+import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.Water;
 
-public class River {
+public class RiverGenerator implements WaterBody{
     private void generateSpring(GeometryContainer geometryContainer){
 
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
@@ -32,7 +33,7 @@ public class River {
         springVertex.setSpringVertex(true);
     }
 
-    public void generateRiver(GeometryContainer geometryContainer){
+    public void generate(GeometryContainer geometryContainer){
         generateSpring(geometryContainer);
 
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
@@ -78,7 +79,7 @@ public class River {
     }
 
     private boolean checkIfInOcean(GeometryContainer geometryContainer, VertexWrapper riverFlowVertex){
-        Map<Integer, VertexWrapper> neighboringVertices = geometryContainer.getVertexNeighbors(riverFlowVertex);
+        Map<Integer, VertexWrapper> neighboringVertices = GeometryContainerCalculator.getVertexNeighbors(geometryContainer, riverFlowVertex);
         boolean somebool = true;
         for (VertexWrapper vertex : neighboringVertices.values()){
             if (!vertex.isLandornah()){
@@ -108,7 +109,7 @@ public class River {
     }
 
     private int generate_flow(VertexWrapper v, GeometryContainer geometryContainer) {
-        Map<Integer, VertexWrapper> neighboringVertices = geometryContainer.getVertexNeighbors(v);
+        Map<Integer, VertexWrapper> neighboringVertices = GeometryContainerCalculator.getVertexNeighbors(geometryContainer, v);
 
         int lowestVertex = 1000;
 
@@ -128,7 +129,7 @@ public class River {
 
     private boolean isEndOfRiver(VertexWrapper riverFlowVertex, GeometryContainer geometryContainer){
         int currentElevation = riverFlowVertex.getHeight();
-        Map<Integer, VertexWrapper> neighboringVertices = geometryContainer.getVertexNeighbors(riverFlowVertex);
+        Map<Integer, VertexWrapper> neighboringVertices = GeometryContainerCalculator.getVertexNeighbors(geometryContainer, riverFlowVertex);
 
         for (VertexWrapper vertex : neighboringVertices.values()) {
             System.out.print(vertex.getHeight() + " ");

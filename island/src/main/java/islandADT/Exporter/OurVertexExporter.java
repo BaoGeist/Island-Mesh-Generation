@@ -1,8 +1,7 @@
 package islandADT.Exporter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.Wrappers.SegmentWrapper;
-import islandADT.Wrappers.VertexWrapper;
+import islandADT.GeometryWrappers.VertexWrapper;
 
 public class OurVertexExporter implements Exporter<VertexWrapper, Structs.Vertex> {
 

@@ -1,7 +1,7 @@
 package islandADT.Exporter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.Wrappers.TileTypeWrapper;
+import islandADT.TypeWrappers.TileTypeWrapper;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,9 +1,9 @@
 package islandADT;
 
 import islandADT.Shapes.*;
-import islandADT.Wrappers.PolygonWrapper;
-import islandADT.Wrappers.SegmentWrapper;
-import islandADT.Wrappers.TileTypeWrapper;
+import islandADT.GeometryWrappers.PolygonWrapper;
+import islandADT.GeometryWrappers.SegmentWrapper;
+import islandADT.TypeWrappers.TileTypeWrapper;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;

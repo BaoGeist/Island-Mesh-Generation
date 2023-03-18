@@ -2,22 +2,41 @@ package islandADT.Elevation;
 
 import islandADT.Generator.RandomSeed;
 import islandADT.GeometryContainer;
-import islandADT.Wrappers.PolygonWrapper;
-import islandADT.Wrappers.SegmentWrapper;
-import islandADT.Wrappers.VertexWrapper;
+import islandADT.GeometryContainerCalculator;
+import islandADT.GeometryWrappers.PolygonWrapper;
+import islandADT.GeometryWrappers.SegmentWrapper;
+import islandADT.GeometryWrappers.VertexWrapper;
+import islandADT.Utils.MathUtils;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
+import java.util.stream.Collectors;
 
 public class PlainsElevationFixture implements ElevationFixture{
+    private void vertex_height_relaxation(GeometryContainer geometryContainer) {
+        Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
+        for(Integer key: vertices.keySet()) {
+            VertexWrapper v = vertices.get(key);
+            if(v.isLandornah()) {
+                Map<Integer, VertexWrapper> vertex_neighbours = GeometryContainerCalculator.getVertexNeighbors(geometryContainer, v);
+
+                List<Integer> heightList = vertex_neighbours.values().stream()
+                        .map(VertexWrapper::getHeight)
+                        .collect(Collectors.toList());
+
+                int new_height = MathUtils.average(heightList);
+                v.setHeight(new_height);
+            }
+        }
+    }
+
     public void set_elevation(GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
 
-        int min_elevation = 10;
-        int max_elevation = 40;
+        int min_elevation = 100;
+        int max_elevation = 300;
 
         CustomPrecisionModel precisionModel = new CustomPrecisionModel(1);
 
@@ -31,6 +50,13 @@ public class PlainsElevationFixture implements ElevationFixture{
             }
         }
 
+
+        int vertex_relaxation_value = 5;
+        for(int i = 0; i < vertex_relaxation_value; i++) {
+            vertex_height_relaxation(geometryContainer);
+        }
+
+
         for(Integer key: segments.keySet()) {
             SegmentWrapper s = segments.get(key);
             if(s.isLandornah()) {
@@ -42,6 +68,7 @@ public class PlainsElevationFixture implements ElevationFixture{
                 s.setHeight(0);
             }
         }
+
 
         for(Integer key: polygons.keySet()) {
             PolygonWrapper p = polygons.get(key);

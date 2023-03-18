@@ -1,16 +1,10 @@
 package islandADT;
 
-import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
-import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
-import islandADT.Wrappers.PolygonWrapper;
-import islandADT.Wrappers.SegmentWrapper;
-import islandADT.Wrappers.VertexWrapper;
-import org.locationtech.jts.geom.Coordinate;
+import islandADT.GeometryWrappers.PolygonWrapper;
+import islandADT.GeometryWrappers.SegmentWrapper;
+import islandADT.GeometryWrappers.VertexWrapper;
 
 import java.util.*;
-
-import static meshcore.Utils.PropertyUtils.*;
 
 //TODO rename this to MeshWrapper
 public class GeometryContainer {
@@ -30,22 +24,6 @@ public class GeometryContainer {
     // adds a new PolygonWrapper to GeometryContainer
     public void add_polygon(PolygonWrapper p) {polygons.put(p.get_id(), p);}
 
-    public Map<Integer, VertexWrapper> getVertexNeighbors(VertexWrapper v){
-        Map<Integer, VertexWrapper> vertexNeighbors = new HashMap<>();
-
-        for (SegmentWrapper seg: segments.values()){
-
-            int v1_id = seg.getV1id();
-            int v2_id = seg.getV2id();
-
-            if (v.get_id() == v1_id){
-                vertexNeighbors.put(v2_id, vertices.get(v2_id));
-            } else if (v.get_id() == v2_id){
-                vertexNeighbors.put(v1_id, vertices.get(v1_id));
-            }
-        }
-        return vertexNeighbors;
-    }
 
     //TODO B make this abstraction leak minimal
 
@@ -64,15 +42,5 @@ public class GeometryContainer {
         return polygons;
     }
 
-    public boolean polygon_no_ocean_neighbours(int i) {
-        PolygonWrapper p = polygons.get(i);
-        List neighbours = p.get_neighbours();
-        for(Object n_id: neighbours) {
-            int n_id_int = (Integer) n_id;
-            if(! polygons.get(n_id_int).isLandornah()) {
-                return false;
-            }
-        }
-        return true;
-    }
+
 }
