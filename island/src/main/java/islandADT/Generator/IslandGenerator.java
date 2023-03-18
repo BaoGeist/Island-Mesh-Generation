@@ -40,6 +40,8 @@ public class IslandGenerator {
         // creates a new extracter
         Extracter extracter = new MeshExtracter();
 
+        TileTypeWrapperCreator.create_tile_types();
+
         // gets a geometry container with hashsets of all geometries
         GeometryContainer geometryContainer = (GeometryContainer) extracter.extract(m);
 
@@ -50,7 +52,7 @@ public class IslandGenerator {
         //TODO B move these elsewhere
          // shape setting
 
-        TileTypeWrapperCreator.create_tile_types();
+
 
         SetPolygonTypes setter = new SetPolygonTypes();
         setter.set_tile_type(geometryContainer, islandSpecifications.getShape());
