@@ -96,7 +96,7 @@ Our Definition of Done includes the following criteria:
 | F10 | Generate a river at a random point                                   | Daniel                |            |            | P      |
 | F11 | Generate multiple rivers                                             | Daniel                |            |            | B(F10) |
 | F12 | Calculate river discharge, show changes                              | Daniel                |            |            | B(F11) |
-| F13 | Generate aquifers                                                    | Baoze                 |            |            | P      |
+| F13 | Generate aquifers                                                    | Baoze                 | 03.18.2023 | 03.18.2023 | D      |
 | F14 | Calculate soil absorption with soil profile input                    | Daniel                |            |            | B(F    |
 | F15 | Generate biomes based on humidity + temperature                      | Alexis                |            |            | P      |
 | F16 | Generate islands based on Whittaker diagrams + CLI                   | Alexis                |            |            | P      |

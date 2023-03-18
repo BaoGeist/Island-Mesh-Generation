@@ -15,6 +15,7 @@ import static islandADT.GeometryContainerCalculator.*;
 
 public class LakeGenerator extends WaterTile{
     int amount_of_lakes = 0;
+
     public LakeGenerator(IslandSpecifications islandSpecifications) {
         amount_of_lakes = Integer.parseInt(islandSpecifications.getLakes());
     }
