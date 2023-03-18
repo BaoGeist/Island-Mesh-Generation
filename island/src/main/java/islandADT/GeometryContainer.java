@@ -24,22 +24,6 @@ public class GeometryContainer {
     // adds a new PolygonWrapper to GeometryContainer
     public void add_polygon(PolygonWrapper p) {polygons.put(p.get_id(), p);}
 
-    public Map<Integer, VertexWrapper> getVertexNeighbors(VertexWrapper v){
-        Map<Integer, VertexWrapper> vertexNeighbors = new HashMap<>();
-
-        for (SegmentWrapper seg: segments.values()){
-
-            int v1_id = seg.getV1id();
-            int v2_id = seg.getV2id();
-
-            if (v.get_id() == v1_id){
-                vertexNeighbors.put(v2_id, vertices.get(v2_id));
-            } else if (v.get_id() == v2_id){
-                vertexNeighbors.put(v1_id, vertices.get(v1_id));
-            }
-        }
-        return vertexNeighbors;
-    }
 
     //TODO B make this abstraction leak minimal
 
