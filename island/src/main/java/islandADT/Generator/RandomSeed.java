@@ -18,7 +18,7 @@ public class RandomSeed {
             Random random = new Random();
             randomseed = random.nextInt();
             randomFactory = new Random(randomseed);
-            System.out.println(randomseed);
+            System.out.println("Island seed is: " + randomseed);
         }
 
     }

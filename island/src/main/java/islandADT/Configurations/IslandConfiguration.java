@@ -3,6 +3,9 @@ package islandADT.Configurations;
 import islandADT.Specifications.IslandSpecifications;
 import org.apache.commons.cli.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class IslandConfiguration {
     private static final String INPUT = "i";
     private static final String OUTPUT = "o";
@@ -20,10 +23,23 @@ public class IslandConfiguration {
             if (cli.hasOption((HELP))) {
                 help();
             }
+            if(! inputValidation()) System.exit(0);
         } catch (ParseException e) {
             throw new IllegalArgumentException(e);
         }
 
+    }
+
+    private boolean inputValidation() {
+        if(! cli.hasOption((INPUT))) {
+            System.out.println("Ensure an input file provided. Use -help as need");
+            return false;
+        }
+        if(! cli.hasOption((OUTPUT))) {
+            System.out.println("Ensure an output file provided");
+            return false;
+        }
+        return true;
     }
 
     private Options options() {
@@ -47,16 +63,21 @@ public class IslandConfiguration {
     }
 
     public IslandSpecifications getIslandSpecifications() {
+        Map<String, String> defaults = new HashMap<>();
+        defaults.put(SHAPE, "circle");
+        defaults.put(ELEVATION, "plain");
+        defaults.put(LAKES, "3");
+        defaults.put(RIVERS, "3");
+        defaults.put(AQUIFERS, "3");
+
         String input = cli.getOptionValue(INPUT);
         String output = cli.getOptionValue(OUTPUT);
-        System.out.println(output);
-        System.out.println();
-        String shape = cli.getOptionValue(SHAPE);
-        String elevation = cli.getOptionValue(ELEVATION);
+        String shape = cli.hasOption(SHAPE) ? cli.getOptionValue(SHAPE): defaults.get(SHAPE);
+        String elevation = cli.hasOption(ELEVATION) ? cli.getOptionValue(ELEVATION): defaults.get(ELEVATION);
         String seed = cli.getOptionValue(SEED);
-        String lakes = cli.getOptionValue(LAKES);
-        String rivers = cli.getOptionValue(RIVERS);
-        String aquifers = cli.getOptionValue(AQUIFERS);
+        String lakes = cli.hasOption(LAKES) ? cli.getOptionValue(LAKES) : defaults.get(LAKES);
+        String rivers = cli.hasOption(RIVERS) ? cli.getOptionValue(RIVERS) : defaults.get(RIVERS);
+        String aquifers = cli.hasOption(AQUIFERS) ? cli.getOptionValue(AQUIFERS) : defaults.get(AQUIFERS);
 
         return new IslandSpecifications(input, output, shape, elevation, seed, lakes, rivers, aquifers);
     }

@@ -10,26 +10,31 @@ rung100:
 runip:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 5 -seed 938610703
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg -mode graphic
-	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island1.svg -mode heatmap_altitude
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg -mode haltitude
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/moisture.svg -mode hmoisture
 
 runiv:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape circle -lake 3 -aquifer 3 -river 3
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg -mode graphic
-	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island1.svg -mode heatmap_altitude
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/moisture.svg -mode haltitude
 
 runic:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude crater -shape circle -lake 3 -river 3
-	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg -mode heatmap_altitude
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg -mode graphic
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg -mode haltitude
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/moisture.svg -mode hmoisture
 
 runcountry:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape country -lake 3 -aquifer 3 -river 3
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg -mode graphic
-	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island1.svg -mode heatmap_altitude
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg -mode haltitude
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/moisture.svg -mode hmoisture
 
 runivs:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape star -seed 593 -lake 3 -aquifer 3 -river 3
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg -mode graphic
-	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island1.svg -mode heatmap_altitude
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg -mode haltitude
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/moisture.svg -mode hmoisture
 
 runfullplains:
 	make rung1000

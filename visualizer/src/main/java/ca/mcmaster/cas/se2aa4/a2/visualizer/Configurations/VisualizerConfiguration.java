@@ -15,15 +15,37 @@ public class VisualizerConfiguration {
             if (cli.hasOption((HELP))) {
                 help();
             }
+            if(!inputValidation()) {
+                System.exit(0);
+            }
+
         } catch (ParseException e) {
             throw new IllegalArgumentException(e);
         }
     }
 
+    private boolean inputValidation() {
+        if(! cli.hasOption((INPUT))) {
+            System.out.println("Ensure an input file provided. Use -help as need");
+            return false;
+        }
+        if(! cli.hasOption((OUTPUT))) {
+            System.out.println("Ensure an output file provided");
+            return false;
+        }
+        return true;
+    }
+
     public VisualizerSpecification getVisualizerSpecifications() {
         String input = cli.getOptionValue(INPUT);
         String output = cli.getOptionValue(OUTPUT);
-        String mode = cli.getOptionValue(MODE);
+        String mode;
+        if(cli.hasOption(MODE)) {
+            mode = cli.getOptionValue(MODE);
+        } else {
+            mode = "graphic";
+        }
+
 
         return new VisualizerSpecification(input, output, mode);
     }
@@ -33,7 +55,7 @@ public class VisualizerConfiguration {
         options.addOption(new Option(INPUT, true, "Input mesh file"));
         options.addOption(new Option(OUTPUT, true, "Output mesh file"));
         options.addOption(new Option(HELP, false, "Print help message"));
-        options.addOption(new Option(MODE, true, "Island shape"));
+        options.addOption(new Option(MODE, true, "Renderer mode"));
         return options;
     }
 
