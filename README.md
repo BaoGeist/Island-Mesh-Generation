@@ -128,13 +128,13 @@ Our Definition of Done includes the following criteria:
 | F11 | Generate multiple rivers                                             | Daniel                |            |            | B(F10) |
 | F12 | Calculate river discharge, show changes                              | Daniel                |            |            | B(F11) |
 | F13 | Generate aquifers                                                    | Baoze                 | 03.18.2023 | 03.18.2023 | D      |
-| F14 | Calculate soil absorption with soil profile input                    | Daniel                |            |            | B(F    |
+| F14 | Calculate soil absorption with soil profile input                    | Daniel, Baoze         | 03.18.2023 |            | I      |
 | F15 | Generate biomes based on humidity + temperature                      | Alexis                |            |            | P      |
 | F16 | Generate islands based on Whittaker diagrams + CLI                   | Alexis                |            |            | P      |
 | F17 | Generate resources based on biome                                    | Daniel, Baoze         |            |            | P      |
 | F18 | Generate resources based on biome + humidity + elevation             | Daniel, Baoze         |            |            | P      |
 | F19 | Generate heatmap for one parameter(i.e. elevation)                   | Daniel, Baoze         | 03.14.2023 | 03.14.2023 | D      |
-| F20 | Generate heatmap for all parameters (humidity, elevation, resources) | Daniel, Baoze         | 03.18.2023 |            | P      |
+| F20 | Generate heatmap for all parameters (humidity, elevation, resources) | Daniel, Baoze         | 03.18.2023 |            | I      |
 
 
 

@@ -50,22 +50,24 @@ public class LakeGenerator extends WaterTile{
         for(int i = 0; i < amount_of_lakes; i++) {
             List<PolygonWrapper> lakes = new ArrayList<>();
             TileTypeWrapper Lake = new TileTypeWrapper("Lake");
+            Moisture lakeMoisture = new Moisture(20);
 
             int lake_id = random_start(geometryContainer);
             while(polygons.get(lake_id).getTileType().isEquals(Lake)) {
                 lake_id = random_start(geometryContainer);
             }
 
-            polygons.get(lake_id).setTileType(Lake);
-            lakes.add(polygons.get(lake_id));
+            PolygonWrapper new_lake  = polygons.get(lake_id);
+            new_lake.setTileType(Lake);
+            lakes.add(new_lake);
             //TODO B 10 is temporary
-            polygons.get(lake_id).setMoisture(10);
+            new_lake.newMoisture(lakeMoisture);
 
             for(PolygonWrapper neighbour: polygon_neighbours_objects(geometryContainer, lake_id)) {
                 if(RandomSeed.randomBoolean() && polygon_no_ocean_neighbours(geometryContainer, neighbour.get_id())) {
                     neighbour.setTileType(Lake);
                     lakes.add(neighbour);
-                    neighbour.setMoisture(10);
+                    neighbour.newMoisture(lakeMoisture);
                 }
             }
 

@@ -59,7 +59,7 @@ public class MoistureSetter {
                 GeometryFactory geometryFactory = new GeometryFactory();
                 Point point = geometryFactory.createPoint(v_coord);
                 double distance = point.distance(waterSource);
-                double weight = 10/distance;
+                double weight = 1/(distance);
 
                 totalMoisture += moisture * weight;
             }

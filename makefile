@@ -2,7 +2,7 @@ rung1000:
 	cd generator && java -jar generator.jar -mf ../img/new.mesh -mv irregular -num 1000 -ln 25
 
 rung2000:
-	cd generator && java -jar generator.jar -mf t../img/new.mesh -mv irregular -num 2000 -ln 25
+	cd generator && java -jar generator.jar -mf ../img/new.mesh -mv irregular -num 2000 -ln 25
 
 rung100:
 	cd generator && java -jar generator.jar -mf ../img/new.mesh -mv irregular -num 200 -ln 25

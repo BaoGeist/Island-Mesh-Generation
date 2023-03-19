@@ -74,4 +74,6 @@ public class PolygonWrapper {
     public void setMoisture(double moisture) {
         this.moisture.setValue(moisture);
     }
+
+    public void newMoisture(Moisture moisture) {this.moisture = moisture;}
 }
