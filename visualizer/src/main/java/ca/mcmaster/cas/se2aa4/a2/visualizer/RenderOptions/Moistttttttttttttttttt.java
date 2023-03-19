@@ -13,7 +13,7 @@ public class Moistttttttttttttttttt implements Renderer{
     private static final int THICKNESS = 3;
 
     private Color colorget(double moisture) {
-        return new Color(3, 7, (int) moisture*4);
+        return new Color(3, 7, (int) moisture);
     }
 
     public void render(Structs.Mesh aMesh, Graphics2D canvas) {

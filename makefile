@@ -8,7 +8,7 @@ rung100:
 	cd generator && java -jar generator.jar -mf ../img/new.mesh -mv irregular -num 200 -ln 25
 
 runip:
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 5
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 5 -seed 938610703
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg -mode graphic
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island1.svg -mode heatmap_altitude
 

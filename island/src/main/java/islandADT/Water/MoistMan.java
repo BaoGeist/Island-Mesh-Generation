@@ -3,6 +3,7 @@ package islandADT.Water;
 import islandADT.GeometryContainer;
 import islandADT.GeometryContainerCalculator;
 import islandADT.GeometryWrappers.PolygonWrapper;
+import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.GeometryWrappers.VertexWrapper;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -12,13 +13,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MoistMan {
-    private static Map<Point, Double> waterTileSources = new HashMap<>();
+    private static Map<Point, Double> waterSources = new HashMap<>();
 
     public static void setWaterSources(GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
+        Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
 
-        int counter = 0;
         for(PolygonWrapper p: polygons.values()) {
             if(p.isWaterOrNah()) {
                 VertexWrapper v = vertices.get(p.getId_centroid());
@@ -26,11 +27,22 @@ public class MoistMan {
                 GeometryFactory geometryFactory = new GeometryFactory();
                 Point point = geometryFactory.createPoint(v_coord);
 
-                waterTileSources.put(point, p.getMoisture());
+                waterSources.put(point, p.getMoisture());
             }
-            counter++;
         }
-        System.out.println(counter);
+
+        for (SegmentWrapper s: segments.values()){
+            if(s.getSegmentTypeWrapper().getFlow() > 0) {
+                VertexWrapper v = vertices.get(s.getV1id());
+                VertexWrapper v2 = vertices.get(s.getV2id());
+
+                Coordinate v_coord = new Coordinate((v.getCoords()[0]+v2.getCoords()[0])/2, (v.getCoords()[1]+v2.getCoords()[1])/2);
+                GeometryFactory geometryFactory = new GeometryFactory();
+                Point point = geometryFactory.createPoint(v_coord);
+
+                waterSources.put(point, (double)s.getSegmentTypeWrapper().getFlow()*5);
+            }
+        }
     }
 
     public static void calculateMoisture(GeometryContainer geometryContainer) {
@@ -38,7 +50,7 @@ public class MoistMan {
         for(PolygonWrapper p: GeometryContainerCalculator.getDryLandPolygons(geometryContainer)) {
             double totalMoisture = 0.0;
 
-            for(Map.Entry<Point, Double> entry : waterTileSources.entrySet()) {
+            for(Map.Entry<Point, Double> entry : waterSources.entrySet()) {
                 Point waterSource = entry.getKey();
                 double moisture = entry.getValue();
 
