@@ -22,15 +22,6 @@ runic:
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg -mode heatmap_altitude
 
 runcountry:
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape country -lake 3 -river 3
-	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg -mode graphic
-
-runivs:
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude crater -shape circle -lake 3 -aquifer 3 -river 3
-	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg -mode graphic
-	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island1.svg -mode heatmap_altitude
-
-runcountry:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape country -lake 3 -aquifer 3 -river 3
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg -mode graphic
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island1.svg -mode heatmap_altitude
@@ -39,3 +30,20 @@ runivs:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape star -seed 593 -lake 3 -aquifer 3 -river 3
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg -mode graphic
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island1.svg -mode heatmap_altitude
+
+runfullplains:
+	make rung1000
+	make runip
+
+runfullvolcano:
+	make rung1000
+	make runiv
+
+
+runfullcrater:
+	make rung1000
+	make runic
+
+runfullcountry:
+	make rung1000
+	make runcountry
