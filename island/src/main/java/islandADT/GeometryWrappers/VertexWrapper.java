@@ -6,6 +6,9 @@ public class VertexWrapper {
     private double[] coords;
     private boolean landornah = false;
 
+    private boolean isRiverVertex = false;
+
+    private int flow = 0;
     private boolean isSpringVertex = false;
     private int height = 0;
 
@@ -36,6 +39,14 @@ public class VertexWrapper {
     public boolean isSpringVertex(){return this.isSpringVertex;}
 
     public void setSpringVertex(boolean isSpringVertex){this.isSpringVertex = isSpringVertex;}
+
+    public boolean isRiverVertex(){return this.isRiverVertex;}
+
+    public void setRiverVertex(boolean isRiverVertex){this.isRiverVertex = isRiverVertex;}
+
+    public int getFlow(){return this.flow;}
+
+    public void setFlow(int flow){this.flow = flow;}
 
     public int getHeight() {
         return height;

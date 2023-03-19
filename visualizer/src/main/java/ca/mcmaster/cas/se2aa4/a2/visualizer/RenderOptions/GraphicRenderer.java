@@ -48,8 +48,11 @@ public class GraphicRenderer implements Renderer{
             Vertex v2 = aMesh.getVertices(s.getV2Idx());
 
             Color segment_color = PropertyUtils.extractColor(s.getPropertiesList());
+            Integer thickness = PropertyUtils.extractThickness(s.getPropertiesList());
 
             canvas.setColor(segment_color);
+            Stroke newStroke = new BasicStroke(thickness);
+            canvas.setStroke(newStroke);
 //            System.out.println(segment_color);
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
         }

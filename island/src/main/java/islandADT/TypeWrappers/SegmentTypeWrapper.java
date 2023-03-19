@@ -9,8 +9,7 @@ public class SegmentTypeWrapper {
 
     private SegmentType segmentType;
     private int[] color = new int[3];
-    private int flow = 1;
-
+    private int flow;
     public SegmentTypeWrapper(SegmentType segmentType) {
         this.segmentType = segmentType;
         color_decide();

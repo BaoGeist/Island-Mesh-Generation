@@ -87,6 +87,16 @@ public class PropertyUtils {
         return Integer.parseInt(val);
     }
 
+    public static int extractThickness(List<Structs.Property> properties){
+        String val = "1";
+        for (Structs.Property p: properties) {
+            if (p.getKey().equals("thicc")) {
+                val = p.getValue();
+            }
+        }
+        return Integer.parseInt(val);
+    }
+
     public static double[] extractMinMaxHeights(List<Structs.Property> properties) {
         String val = null;
         for(Structs.Property p: properties) {

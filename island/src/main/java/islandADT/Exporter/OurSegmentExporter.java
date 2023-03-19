@@ -10,7 +10,8 @@ public class OurSegmentExporter implements Exporter<SegmentWrapper, Structs.Segm
         int v1id = s.getV1id();
         int v2id = s.getV2id();
         int height = s.getHeight();
+        int dischargeLevel = s.getSegmentTypeWrapper().getFlow();
         OurSegmentIsland segmentIslandFactory = new OurSegmentIsland();
-        return segmentIslandFactory.create_geometry(v1id, v2id, segmentTypeWrapper, height);
+        return segmentIslandFactory.create_geometry(v1id, v2id, segmentTypeWrapper, height, dischargeLevel);
     }
 }
