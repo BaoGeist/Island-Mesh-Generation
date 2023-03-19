@@ -3,6 +3,7 @@ package islandADT.Utils;
 
 import islandADT.Elevation.CustomPrecisionModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MathUtils {
@@ -22,5 +23,12 @@ public class MathUtils {
             count++;
         }
         return total/count;
+    }
+
+    public static double distance_between_points(double[] coords, double[] otherCoords){
+        double intermezzo1 = Math.pow(otherCoords[0] - coords[0], 2);
+        double intermezzo2 = Math.pow(otherCoords[1] - coords[1], 2);
+        double return_double = Math.sqrt(intermezzo1 + intermezzo2);
+        return return_double;
     }
 }
