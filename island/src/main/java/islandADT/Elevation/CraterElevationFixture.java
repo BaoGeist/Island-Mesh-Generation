@@ -1,5 +1,6 @@
 package islandADT.Elevation;
 
+import islandADT.Generator.RandomSeed;
 import islandADT.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
@@ -7,27 +8,32 @@ import islandADT.GeometryWrappers.VertexWrapper;
 
 import java.util.Map;
 
+import static islandADT.GeometryContainerCalculator.getFurthestLandVertex;
 import static islandADT.Utils.MathUtils.distance_between_centre;
 
 public class CraterElevationFixture implements ElevationFixture{
     CustomPrecisionModel precisionModel = new CustomPrecisionModel(1);
 
-    private int height_from_center(VertexWrapper v) {
+    private int height_from_center(VertexWrapper v, int min, int max, int furthest) {
         double[] coords = v.getCoords();
-        return distance_between_centre(coords, precisionModel);
+        int distance = distance_between_centre(coords, precisionModel);
+        int height = distance * max / furthest;
+        return height;
     }
     public void set_elevation(GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
 
-        int min_elevation = 1;
-        int max_elevation = 10;
+
+        int min_elevation = RandomSeed.randomInt(1, 100);
+        int max_elevation = RandomSeed.randomInt(500,600);
+        int furthest_vertex = getFurthestLandVertex(geometryContainer, precisionModel);
 
         for(Integer key: vertices.keySet()) {
             VertexWrapper v = vertices.get(key);
             if(v.isLandornah()) {
-                int height = height_from_center(v);
+                int height = height_from_center(v, min_elevation, max_elevation, furthest_vertex);
                 v.setHeight(height);
             } else {
                 v.setHeight(0);

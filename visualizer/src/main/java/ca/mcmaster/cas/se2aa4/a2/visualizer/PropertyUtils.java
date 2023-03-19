@@ -97,16 +97,17 @@ public class PropertyUtils {
         return Integer.parseInt(val);
     }
 
-    public static double[] extractMinMaxHeights(List<Structs.Property> properties) {
+    public static double[] extractMinMax(List<Structs.Polygon> polygons, String type) {
         String val = null;
-        for(Structs.Property p: properties) {
-            if (p.getKey().equals("min_max")) {
-                val = p.getValue();
+        double min = Double.MAX_VALUE, max = Double.MIN_VALUE;
+        double height = 0;
+        for(Structs.Polygon p: polygons) {
+            for(Structs.Property property: p.getPropertiesList()) {
+                if(property.getKey().equals(type)) height = Double.parseDouble(property.getValue());
             }
+            min = Math.min(height, min);
+            max = Math.max(height, max);
         }
-        String[] raw = val.split(",");
-        Double min = Double.parseDouble(raw[0].replace("[","").replace(" ", "").replace("]",""));
-        Double max = Double.parseDouble(raw[1].replace("[","").replace(" ", "").replace("]",""));
         return new double[]{min, max};
     }
 

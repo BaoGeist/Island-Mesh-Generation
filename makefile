@@ -16,7 +16,8 @@ runip:
 runiv:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape circle -lake 3 -aquifer 3 -river 3
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg -mode graphic
-	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/moisture.svg -mode haltitude
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg -mode haltitude
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/moisture.svg -mode hmoisture
 
 runic:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude crater -shape circle -lake 3 -river 3

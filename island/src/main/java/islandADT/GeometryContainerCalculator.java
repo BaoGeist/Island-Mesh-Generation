@@ -1,10 +1,16 @@
 package islandADT;
 
+import islandADT.Elevation.CustomPrecisionModel;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.GeometryWrappers.VertexWrapper;
+import org.locationtech.jts.geom.PrecisionModel;
+
+import static islandADT.Utils.MathUtils.distance_between_centre;
 
 import java.util.*;
+
+import static islandADT.Utils.MathUtils.distance_between_centre;
 
 public class GeometryContainerCalculator {
     public static boolean polygon_no_ocean_neighbours(GeometryContainer geometryContainer, int i) {
@@ -94,5 +100,16 @@ public class GeometryContainerCalculator {
             }
         }
         return return_array;
+    }
+
+    public static int getFurthestLandVertex(GeometryContainer geometryContainer, CustomPrecisionModel precisionModel) {
+        Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
+        int furthest = 0;
+        for(VertexWrapper v: vertices.values()) {
+            if(v.isLandornah() && distance_between_centre(v.getCoords(), precisionModel) > furthest) {
+                furthest = distance_between_centre(v.getCoords(), precisionModel);
+            }
+        }
+        return furthest;
     }
 }

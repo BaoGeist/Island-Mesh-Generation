@@ -18,11 +18,9 @@ public class HAltitudeRenderer implements Renderer {
         canvas.setStroke(stroke);
         //Draws all polygons
 
-        HeatmapColourMan Van_Gogh = new HeatmapColourMan(aMesh);
+        HeatmapPainter Van_Gogh = new HeatmapPainter(aMesh, "height");
 
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
-//            Color polygon_color = PropertyUtils.extractColor(p.getPropertiesList());
-//            Color height_color = color_from_height_vol(extractHeight(p.getPropertiesList()));
             Color heat_color = Van_Gogh.color_from_integer(extractHeight(p.getPropertiesList()));
             float[] x_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(0);
             float[] y_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(1);
@@ -46,7 +44,7 @@ public class HAltitudeRenderer implements Renderer {
 
             Color segment_color = PropertyUtils.extractColor(s.getPropertiesList());
 
-            canvas.setColor(Color.WHITE);
+            canvas.setColor(Color.BLACK);
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
         }
     }

@@ -6,7 +6,6 @@ import ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils;
 import java.awt.*;
 import java.awt.geom.Path2D;
 
-import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.extractHeight;
 import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.extractMoisture;
 
 public class HMoistureRenderer implements Renderer{
@@ -22,11 +21,11 @@ public class HMoistureRenderer implements Renderer{
         canvas.setStroke(stroke);
         //Draws all polygons
 
-        HeatmapColourMan Van_Gogh = new HeatmapColourMan(aMesh);
+        HeatmapPainter Da_Vinci = new HeatmapPainter(aMesh, "moisture");
 
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
-            Color heat_color = Van_Gogh.color_from_integer(extractHeight(p.getPropertiesList()));
-            heat_color = colorget(extractMoisture(p.getPropertiesList()));
+            Color heat_color = Da_Vinci.color_from_integer(extractMoisture(p.getPropertiesList()));
+
             float[] x_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(0);
             float[] y_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(1);
 
@@ -49,7 +48,7 @@ public class HMoistureRenderer implements Renderer{
 
             Color segment_color = PropertyUtils.extractColor(s.getPropertiesList());
 
-            canvas.setColor(Color.WHITE);
+            canvas.setColor(Color.BLACK);
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
         }
     }
