@@ -7,14 +7,10 @@ import java.awt.*;
 import java.awt.geom.Path2D;
 
 import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.extractHeight;
-import static ca.mcmaster.cas.se2aa4.a2.visualizer.PropertyUtils.extractMoisture;
 
-public class Moistttttttttttttttttt implements Renderer{
+public class HAltitudeRenderer implements Renderer {
     private static final int THICKNESS = 3;
 
-    private Color colorget(double moisture) {
-        return new Color(3, 7, (int) moisture);
-    }
 
     public void render(Structs.Mesh aMesh, Graphics2D canvas) {
         canvas.setColor(Color.WHITE);
@@ -25,8 +21,9 @@ public class Moistttttttttttttttttt implements Renderer{
         HeatmapColourMan Van_Gogh = new HeatmapColourMan(aMesh);
 
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
+//            Color polygon_color = PropertyUtils.extractColor(p.getPropertiesList());
+//            Color height_color = color_from_height_vol(extractHeight(p.getPropertiesList()));
             Color heat_color = Van_Gogh.color_from_integer(extractHeight(p.getPropertiesList()));
-            heat_color = colorget(extractMoisture(p.getPropertiesList()));
             float[] x_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(0);
             float[] y_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(1);
 
@@ -53,4 +50,5 @@ public class Moistttttttttttttttttt implements Renderer{
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
         }
     }
+
 }
