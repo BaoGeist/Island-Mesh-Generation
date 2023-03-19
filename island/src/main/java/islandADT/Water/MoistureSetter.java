@@ -12,7 +12,7 @@ import org.locationtech.jts.geom.Point;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MoistMan {
+public class MoistureSetter {
     private static Map<Point, Double> waterSources = new HashMap<>();
 
     public static void setWaterSources(GeometryContainer geometryContainer) {

@@ -52,26 +52,8 @@ public class IslandGenerator {
 
 
         SetPolygonTypes setter = new SetPolygonTypes();
-        setter.set_tile_type(geometryContainer, islandSpecifications.getShape());
-
-        //TODO B fix this
-        // elevation setting
-        ElevationFixture elevationFixture;
-        switch(islandSpecifications.getElevation()) {
-            case "plains":
-                elevationFixture = new PlainsElevationFixture();
-                break;
-            case "volcanic":
-                elevationFixture = new VolcanicElevationFixture();
-                break;
-            case "crater":
-                elevationFixture = new CraterElevationFixture();
-                break;
-            default:
-                elevationFixture = new PlainsElevationFixture();
-                break;
-        }
-        elevationFixture.set_elevation(geometryContainer);
+        setter.set_island_shape(geometryContainer, islandSpecifications);
+        setter.set_island_elevation(geometryContainer, islandSpecifications);
 
         WaterBody lakeGenerator = new LakeGenerator(islandSpecifications);
         lakeGenerator.generate(geometryContainer);
@@ -82,8 +64,8 @@ public class IslandGenerator {
         WaterBody aquiferGenerator = new AquiferGenerator(islandSpecifications);
         aquiferGenerator.generate(geometryContainer);
 
-        MoistMan.setWaterSources(geometryContainer);
-        MoistMan.calculateMoisture(geometryContainer);
+        MoistureSetter.setWaterSources(geometryContainer);
+        MoistureSetter.calculateMoisture(geometryContainer);
 
         // exporting
         Exporter finalExporter = new MeshExporter();

@@ -1,8 +1,14 @@
 package islandADT;
 
+import islandADT.Configurations.IslandConfiguration;
+import islandADT.Elevation.CraterElevationFixture;
+import islandADT.Elevation.ElevationFixture;
+import islandADT.Elevation.PlainsElevationFixture;
+import islandADT.Elevation.VolcanicElevationFixture;
 import islandADT.Shapes.*;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
+import islandADT.Specifications.IslandSpecifications;
 import islandADT.TypeWrappers.TileTypeWrapper;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
@@ -29,26 +35,42 @@ public class SetPolygonTypes {
         }
     }
 
-    public void set_tile_type(GeometryContainer geometryContainer, String islandShape) {
-        if (islandShape == null){
-            set_circle_tiles(geometryContainer);
-        } else {
-            switch (islandShape) {
-                case "circle":
-                    set_circle_tiles(geometryContainer);
-                    break;
-                case "oval":
-                    set_oval_tiles(geometryContainer);
-                    break;
-                case "star":
-                    set_star_tiles(geometryContainer);
-                    break;
-                case "country":
-                    set_new_tiles(geometryContainer);
-                    break;
-
-            }
+    public void set_island_shape(GeometryContainer geometryContainer, IslandSpecifications islandSpecifications) {
+        String islandShape = islandSpecifications.getShape();
+        switch (islandShape) {
+            case "circle":
+                set_circle_tiles(geometryContainer);
+                break;
+            case "oval":
+                set_oval_tiles(geometryContainer);
+                break;
+            case "star":
+                set_star_tiles(geometryContainer);
+                break;
+            case "country":
+                set_new_tiles(geometryContainer);
+                break;
         }
+
+    }
+
+    public void set_island_elevation(GeometryContainer geometryContainer, IslandSpecifications islandSpecifications) {
+        ElevationFixture elevationFixture;
+        switch(islandSpecifications.getElevation()) {
+            case "plains":
+                elevationFixture = new PlainsElevationFixture();
+                break;
+            case "volcanic":
+                elevationFixture = new VolcanicElevationFixture();
+                break;
+            case "crater":
+                elevationFixture = new CraterElevationFixture();
+                break;
+            default:
+                elevationFixture = new PlainsElevationFixture();
+                break;
+        }
+        elevationFixture.set_elevation(geometryContainer);
     }
 
     private void set_circle_tiles(GeometryContainer geometryContainer) {
