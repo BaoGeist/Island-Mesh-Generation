@@ -22,6 +22,7 @@ public class HAltitudeRenderer implements Renderer {
 
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
             Color heat_color = Van_Gogh.color_from_integer(extractHeight(p.getPropertiesList()));
+
             float[] x_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(0);
             float[] y_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(1);
 
