@@ -124,11 +124,11 @@ Our Definition of Done includes the following criteria:
 | F07 | Integrate reproducibility/seeds                                      | Baoze                 | 03.15.2023 | 03.15.2023 | D      |
 | F08 | Generate a lake at a random point                                    | Baoze                 | 03.15.2023 | 03.18.2023 | D      |
 | F09 | Generate multiple lakes with CLI input                               | Baoze                 | 03.18.2023 | 03.18.2023 | D      |
-| F10 | Generate a river at a random point                                   | Daniel                |            |            | P      |
-| F11 | Generate multiple rivers                                             | Daniel                |            |            | B(F10) |
-| F12 | Calculate river discharge, show changes                              | Daniel                |            |            | B(F11) |
+| F10 | Generate a river at a random point                                   | Daniel                | 03.15.2023 | 03.16.2023 | D      |
+| F11 | Generate multiple rivers                                             | Daniel                | 03.16.2023 | 03.18.2023 | D      |
+| F12 | Calculate river discharge, show changes                              | Daniel                | 03.16.2023 | 03.19.2023 | D      |
 | F13 | Generate aquifers                                                    | Baoze                 | 03.18.2023 | 03.18.2023 | D      |
-| F14 | Calculate soil absorption with soil profile input                    | Daniel, Baoze         | 03.18.2023 |            | I      |
+| F14 | Calculate soil absorption with soil profile input                    | Daniel, Baoze         | 03.18.2023 | 03.21.2023 | D      |
 | F15 | Generate biomes based on humidity + temperature                      | Alexis                |            |            | P      |
 | F16 | Generate islands based on Whittaker diagrams + CLI                   | Alexis                |            |            | P      |
 | F17 | Generate resources based on biome                                    | Daniel, Baoze         |            |            | P      |
