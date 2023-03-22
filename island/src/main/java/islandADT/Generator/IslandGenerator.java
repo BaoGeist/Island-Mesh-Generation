@@ -64,8 +64,9 @@ public class IslandGenerator {
         WaterBody aquiferGenerator = new AquiferGenerator(islandSpecifications);
         aquiferGenerator.generate(geometryContainer);
 
-        MoistureSetter.setWaterSources(geometryContainer);
-        MoistureSetter.calculateMoisture(geometryContainer);
+        MoistureSetter moistureSetter = new MoistureSetter(islandSpecifications);
+        moistureSetter.setWaterSources(geometryContainer);
+        moistureSetter.calculateMoisture(geometryContainer);
 
         // exporting
         Exporter finalExporter = new MeshExporter();

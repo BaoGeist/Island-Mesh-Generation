@@ -16,6 +16,7 @@ public class IslandConfiguration {
     private static final String LAKES = "lake";
     private static final String RIVERS = "river";
     private static final String AQUIFERS = "aquifer";
+    private static final String SOIL = "soil";
     private CommandLine cli;
     public IslandConfiguration(String[] args) {
         try {
@@ -53,6 +54,7 @@ public class IslandConfiguration {
         options.addOption(new Option(LAKES, true, "Maximum number of lakes"));
         options.addOption(new Option(RIVERS, true, "Total number of rivers"));
         options.addOption(new Option(AQUIFERS, true, "Maximum number of aquifers"));
+        options.addOption(new Option(SOIL, true, "Soil type and moisture absorption levels"));
         return options;
     }
 
@@ -69,6 +71,7 @@ public class IslandConfiguration {
         defaults.put(LAKES, "3");
         defaults.put(RIVERS, "3");
         defaults.put(AQUIFERS, "3");
+        defaults.put(SOIL, "fertile");
 
         String input = cli.getOptionValue(INPUT);
         String output = cli.getOptionValue(OUTPUT);
@@ -78,7 +81,8 @@ public class IslandConfiguration {
         String lakes = cli.hasOption(LAKES) ? cli.getOptionValue(LAKES) : defaults.get(LAKES);
         String rivers = cli.hasOption(RIVERS) ? cli.getOptionValue(RIVERS) : defaults.get(RIVERS);
         String aquifers = cli.hasOption(AQUIFERS) ? cli.getOptionValue(AQUIFERS) : defaults.get(AQUIFERS);
+        String soil = cli.hasOption(SOIL) ? cli.getOptionValue(SOIL) : defaults.get(SOIL);
 
-        return new IslandSpecifications(input, output, shape, elevation, seed, lakes, rivers, aquifers);
+        return new IslandSpecifications(input, output, shape, elevation, seed, lakes, rivers, aquifers, soil);
     }
 }

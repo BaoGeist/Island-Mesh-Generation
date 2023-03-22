@@ -100,13 +100,13 @@ public class PropertyUtils {
     public static double[] extractMinMax(List<Structs.Polygon> polygons, String type) {
         String val = null;
         double min = Double.MAX_VALUE, max = Double.MIN_VALUE;
-        double height = 0;
+        double typething = 0;
         for(Structs.Polygon p: polygons) {
             for(Structs.Property property: p.getPropertiesList()) {
-                if(property.getKey().equals(type)) height = Double.parseDouble(property.getValue());
+                if(property.getKey().equals(type)) typething = Double.parseDouble(property.getValue());
             }
-            min = Math.min(height, min);
-            max = Math.max(height, max);
+            min = Math.min(typething, min);
+            max = Math.max(typething, max);
         }
         return new double[]{min, max};
     }
@@ -120,5 +120,4 @@ public class PropertyUtils {
         }
         return Double.parseDouble(val);
     }
-
 }
