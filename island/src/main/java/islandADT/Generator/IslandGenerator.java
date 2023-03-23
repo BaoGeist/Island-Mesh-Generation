@@ -15,6 +15,7 @@ import islandADT.Exporter.MeshExporter;
 import islandADT.Extracter.Extracter;
 import islandADT.Extracter.MeshExtracter;
 import islandADT.TypeWrappers.TileTypeWrapperCreator;
+import islandADT.Biomes.*;
 
 import java.io.IOException;
 

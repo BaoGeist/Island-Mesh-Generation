@@ -10,8 +10,9 @@ public class IslandSpecifications {
     private String aquifers;
     private String soil;
     private String rivers;
+    private String biomes;
 
-    public IslandSpecifications(String input, String output, String shape, String elevation, String seed, String lakes, String rivers, String aquifers, String soil) {
+    public IslandSpecifications(String input, String output, String shape, String elevation, String seed, String lakes, String rivers, String aquifers, String soil, String biomes) {
         this.input = input;
         this.output = output;
         this.shape = shape;
@@ -23,6 +24,7 @@ public class IslandSpecifications {
         this.rivers = rivers;
         this.aquifers = aquifers;
         this.soil = soil;
+        this.biomes = biomes;
     }
 
     public String getInput() {
@@ -42,4 +44,5 @@ public class IslandSpecifications {
     public String getSoil() {return soil;}
     public String getRivers() {return rivers;}
     public String getAquifers() {return aquifers;}
+    public String getBiomes() {return biomes;}
 }

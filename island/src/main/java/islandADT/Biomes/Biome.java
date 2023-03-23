@@ -1,0 +1,5 @@
+package islandADT.Biomes;
+
+public enum Biome {
+    TUNDRA, TAIGA, DESERT, SAVANNAH, FOREST, RAINFOREST, GRASSLAND, MOUNTAIN, WATER;
+}
