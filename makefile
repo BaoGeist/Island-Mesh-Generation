@@ -5,18 +5,18 @@ rung2000:
 	cd generator && java -jar generator.jar -mf ../img/new.mesh -mv irregular -num 2000 -ln 25
 
 rung100:
-	cd generator && java -jar generator.jar -mf ../img/new.mesh -mv irregular -num 200 -ln 25
+	cd generator && java -jar generator.jar -mf ../img/new.mesh -mv irregular -num 100 -ln 25
 
 runip:
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil arid -mode moisture
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape star -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil arid -mode moisture
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
 
 runiv:
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape circle -lake 3 -aquifer 3 -river 6 -mode normal
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 3 -river 6 -mode normal
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
 
 runivmoisture:
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape circle -lake 3 -aquifer 3 -river 6 -seed 127540672 -mode height
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape star -lake 3 -aquifer 3 -river 6 -seed 127540672 -mode height
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island1.svg
 
 runivmoisturen:
@@ -51,3 +51,6 @@ runfullcrater:
 runfullcountry:
 	make rung1000
 	make runcountry
+
+runtest:
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains

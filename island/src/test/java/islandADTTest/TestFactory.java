@@ -8,7 +8,7 @@ public class TestFactory {
     public Test build(Class suite) {
         TestSuite result = new TestSuite();
         for(Method candidate: suite.getMethods()) {
-            if(candidate.isAnnotationPresent(islandADTTest.tags.Test.class)) {
+            if(candidate.isAnnotationPresent(islandADTTest.tags.TestActual.class)) {
                 result.add(new TestCase (suite, candidate));
             }
         }

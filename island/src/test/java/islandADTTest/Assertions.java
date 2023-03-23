@@ -18,4 +18,10 @@ public class Assertions {
         assertFalse(left.equals(right));
     }
 
+    public static void assertNotNull(Object middle) {
+        if(middle == null) {
+            throw new AssertionError("Mesh is null");
+        }
+    }
+
 }
