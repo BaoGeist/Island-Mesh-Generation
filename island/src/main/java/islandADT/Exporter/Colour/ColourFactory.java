@@ -16,7 +16,12 @@ public class ColourFactory {
 
     public static ColourExporter create(IslandSpecifications islandSpecifications) {
         String mode = islandSpecifications.getMode();
-        return colorBindings.get(mode);
+        try {
+            return colorBindings.get(mode);
+        } catch (NullPointerException ne) {
+            return colorBindings.get("normal");
+        }
+
     }
 
 }

@@ -18,7 +18,8 @@ public class CraterElevationFixture implements ElevationFixture{
         double[] coords = v.getCoords();
         int distance = distance_between_centre(coords, precisionModel);
         int height = distance * max / furthest;
-        return height;
+        int random_adjustment = RandomSeed.randomInt(-3, 3);
+        return height + random_adjustment;
     }
     public void set_elevation(GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();

@@ -28,6 +28,10 @@ public class LakeGenerator extends WaterTile{
             }
         }
 
+        if(min_height - 50 == 0) {
+            min_height += 1;
+        }
+
         for(PolygonWrapper lake: lakes) {
             lake.setHeight(min_height - 50);
 

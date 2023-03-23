@@ -64,28 +64,6 @@ public class PropertyUtils {
         return Boolean.parseBoolean(val);
     }
 
-    public static double[] extractCentroidCoords(List<Structs.Property> properties) {
-        String val = null;
-        for(Structs.Property p: properties) {
-            if (p.getKey().equals("centroid_coords")) {
-                val = p.getValue();
-            }
-        }
-        String[] raw = val.split(",");
-        Double x = Double.parseDouble(raw[0].replace("[","").replace(" ", "").replace("]",""));
-        Double y = Double.parseDouble(raw[1].replace("[","").replace(" ", "").replace("]",""));
-        return new double[]{x, y};
-    }
-
-    public static int extractHeight(List<Structs.Property> properties) {
-        String val = "0";
-        for(Structs.Property p: properties) {
-            if (p.getKey().equals("height")) {
-                val = p.getValue();
-            }
-        }
-        return Integer.parseInt(val);
-    }
 
     public static int extractThickness(List<Structs.Property> properties){
         String val = "1";
@@ -97,27 +75,4 @@ public class PropertyUtils {
         return Integer.parseInt(val);
     }
 
-    public static double[] extractMinMax(List<Structs.Polygon> polygons, String type) {
-        String val = null;
-        double min = Double.MAX_VALUE, max = Double.MIN_VALUE;
-        double typething = 0;
-        for(Structs.Polygon p: polygons) {
-            for(Structs.Property property: p.getPropertiesList()) {
-                if(property.getKey().equals(type)) typething = Double.parseDouble(property.getValue());
-            }
-            min = Math.min(typething, min);
-            max = Math.max(typething, max);
-        }
-        return new double[]{min, max};
-    }
-
-    public static double extractMoisture(List<Structs.Property> properties) {
-        String val = "0";
-        for(Structs.Property p: properties) {
-            if (p.getKey().equals("moisture")) {
-                val = p.getValue();
-            }
-        }
-        return Double.parseDouble(val);
-    }
 }

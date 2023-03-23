@@ -3,7 +3,6 @@ package islandADT.Exporter;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import islandADT.Exporter.Colour.ColourExporter;
 import islandADT.Exporter.Colour.ColourFactory;
-import islandADT.Exporter.Colour.ColourGenerator;
 import islandADT.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
@@ -50,15 +49,12 @@ public class MeshExporter implements Exporter<GeometryContainer, Structs.Mesh> {
         List<Structs.Segment> segments_output = new ArrayList<>();
         List<Structs.Vertex> vertices_output = new ArrayList<>();
 
-        ColourGenerator colourFactory = new ColourGenerator(islandSpecifications.getMode());
-        colourFactory.set_increments(polygons);
-
         ColourFactory colourFactory1 = new ColourFactory();
         ColourExporter colour = colourFactory1.create(islandSpecifications);
         colour.set_increments(polygons);
 
         Exporter polygonExporter = new OurPolygonExporter(colour);
-        Exporter segmentExporter = new OurSegmentExporter();
+        Exporter segmentExporter = new OurSegmentExporter(islandSpecifications);
         Exporter vertexExporter = new OurVertexExporter();
 
         for(Map.Entry<Integer, PolygonWrapper> entry: polygons.entrySet()) {

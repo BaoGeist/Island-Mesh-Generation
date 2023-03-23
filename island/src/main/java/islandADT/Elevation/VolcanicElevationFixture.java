@@ -9,17 +9,24 @@ import islandADT.GeometryWrappers.VertexWrapper;
 import java.util.Map;
 
 import static islandADT.GeometryContainerCalculator.getFurthestLandVertex;
-import static islandADT.Utils.MathUtils.distance_between_centre;
+import static islandADT.Utils.MathUtils.*;
 
 public class VolcanicElevationFixture implements ElevationFixture{
     CustomPrecisionModel precisionModel = new CustomPrecisionModel(1);
 
-    private int height_from_center(VertexWrapper v, int min, int max, int furthest) {
+    private int height_from_center(VertexWrapper v, int min, int max, int furthest, double[] peak) {
         double[] coords = v.getCoords();
-        int distance = distance_between_centre(coords, precisionModel);
-//        int lower_bound_distance = Math.max(max - distance, min);
-        int height = max - distance * max/furthest;
-        return height;
+        double distance = distance_between_points(coords, peak);
+        int height = (int) (max - distance * max/furthest);
+        int random_adjustment = RandomSeed.randomInt(-3, 3);
+        return Math.max(height + random_adjustment, min + random_adjustment);
+    }
+
+    private double[] highest_vertex(int furthest) {
+        double peak_distance = RandomSeed.randomDouble(furthest*0.8);
+        double angle = RandomSeed.randomDouble(0, 2*Math.PI);
+        double[] peak_coord = cartesian_from_polar(new double[]{peak_distance, angle});
+        return peak_coord;
     }
 
 
@@ -28,14 +35,15 @@ public class VolcanicElevationFixture implements ElevationFixture{
         Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
 
-            int min_elevation = RandomSeed.randomInt(1, 100);
-            int max_elevation = RandomSeed.randomInt(500,600);
+        int min_elevation = RandomSeed.randomInt(1, 100);
+        int max_elevation = RandomSeed.randomInt(500,600);
         int furthest_vertex = getFurthestLandVertex(geometryContainer, precisionModel);
+        double[] peak = highest_vertex(furthest_vertex);
 
         for (Integer key : vertices.keySet()) {
             VertexWrapper v = vertices.get(key);
             if (v.isLandornah()) {
-                int height = height_from_center(v, min_elevation, max_elevation, furthest_vertex);
+                int height = height_from_center(v, min_elevation, max_elevation, furthest_vertex, peak);
                 v.setHeight(height);
             } else {
                 v.setHeight(0);
