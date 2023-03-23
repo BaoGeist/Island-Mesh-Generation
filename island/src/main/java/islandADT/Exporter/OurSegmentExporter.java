@@ -1,10 +1,13 @@
 package islandADT.Exporter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import islandADT.Exporter.Colour.ColourExporter;
+import islandADT.Specifications.IslandSpecifications;
 import islandADT.TypeWrappers.SegmentTypeWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
 
 public class OurSegmentExporter implements Exporter<SegmentWrapper, Structs.Segment> {
+
     public Structs.Segment export(SegmentWrapper s) {
         SegmentTypeWrapper segmentTypeWrapper = s.getSegmentTypeWrapper();
         int v1id = s.getV1id();

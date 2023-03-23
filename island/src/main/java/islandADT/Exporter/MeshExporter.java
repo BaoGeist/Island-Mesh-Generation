@@ -1,10 +1,14 @@
 package islandADT.Exporter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import islandADT.Exporter.Colour.ColourExporter;
+import islandADT.Exporter.Colour.ColourFactory;
+import islandADT.Exporter.Colour.ColourGenerator;
 import islandADT.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.GeometryWrappers.VertexWrapper;
+import islandADT.Specifications.IslandSpecifications;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 public class MeshExporter implements Exporter<GeometryContainer, Structs.Mesh> {
+    IslandSpecifications islandSpecifications;
+    public MeshExporter(IslandSpecifications islandSpecifications) {
+        this.islandSpecifications = islandSpecifications;
+    }
+
     private double[] get_min_max_height_from_vertices(Map<Integer, VertexWrapper> vertices) {
         int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
         for(VertexWrapper v: vertices.values()) {
@@ -30,6 +39,8 @@ public class MeshExporter implements Exporter<GeometryContainer, Structs.Mesh> {
         return new double[]{min, max};
     }
 
+
+
     public Structs.Mesh export(GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
@@ -39,7 +50,14 @@ public class MeshExporter implements Exporter<GeometryContainer, Structs.Mesh> {
         List<Structs.Segment> segments_output = new ArrayList<>();
         List<Structs.Vertex> vertices_output = new ArrayList<>();
 
-        Exporter polygonExporter = new OurPolygonExporter();
+        ColourGenerator colourFactory = new ColourGenerator(islandSpecifications.getMode());
+        colourFactory.set_increments(polygons);
+
+        ColourFactory colourFactory1 = new ColourFactory();
+        ColourExporter colour = colourFactory1.create(islandSpecifications);
+        colour.set_increments(polygons);
+
+        Exporter polygonExporter = new OurPolygonExporter(colour);
         Exporter segmentExporter = new OurSegmentExporter();
         Exporter vertexExporter = new OurVertexExporter();
 

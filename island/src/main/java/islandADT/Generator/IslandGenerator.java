@@ -69,7 +69,7 @@ public class IslandGenerator {
         moistureSetter.calculateMoisture(geometryContainer);
 
         // exporting
-        Exporter finalExporter = new MeshExporter();
+        Exporter finalExporter = new MeshExporter(islandSpecifications);
         Structs.Mesh finalMesh = (Structs.Mesh) finalExporter.export(geometryContainer);
 
 
