@@ -8,7 +8,7 @@ rung100:
 	cd generator && java -jar generator.jar -mf ../img/new.mesh -mv irregular -num 100 -ln 25
 
 runip:
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape star -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil arid -mode moisture
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape star -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil fertile -mode moisture
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
 
 runiv:
