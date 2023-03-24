@@ -23,7 +23,7 @@ public class VolcanicElevationFixture implements ElevationFixture{
     }
 
     private double[] highest_vertex(int furthest) {
-        double peak_distance = RandomSeed.randomDouble(furthest*0.8);
+        double peak_distance = RandomSeed.randomDouble(furthest*0.5);
         double angle = RandomSeed.randomDouble(0, 2*Math.PI);
         double[] peak_coord = cartesian_from_polar(new double[]{peak_distance, angle});
         return peak_coord;
@@ -35,7 +35,7 @@ public class VolcanicElevationFixture implements ElevationFixture{
         Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
 
-        int min_elevation = RandomSeed.randomInt(1, 100);
+        int min_elevation = RandomSeed.randomInt(5, 100);
         int max_elevation = RandomSeed.randomInt(500,600);
         int furthest_vertex = getFurthestLandVertex(geometryContainer, precisionModel);
         double[] peak = highest_vertex(furthest_vertex);
