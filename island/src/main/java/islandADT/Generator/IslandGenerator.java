@@ -2,19 +2,17 @@ package islandADT.Generator;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.Elevation.CraterElevationFixture;
-import islandADT.Elevation.VolcanicElevationFixture;
 import islandADT.Water.*;
 import islandADT.GeometryContainer;
 import islandADT.SetPolygonTypes;
 import islandADT.Specifications.IslandSpecifications;
-import islandADT.Elevation.ElevationFixture;
-import islandADT.Elevation.PlainsElevationFixture;
 import islandADT.Exporter.Exporter;
 import islandADT.Exporter.MeshExporter;
 import islandADT.Extracter.Extracter;
 import islandADT.Extracter.MeshExtracter;
 import islandADT.TypeWrappers.TileTypeWrapperCreator;
+import islandADT.Water.Moisture.Moisture;
+import islandADT.Water.Moisture.MoistureProfileFactory;
 
 import java.io.IOException;
 
@@ -64,9 +62,12 @@ public class IslandGenerator {
         WaterBody aquiferGenerator = new AquiferGenerator(islandSpecifications);
         aquiferGenerator.generate(geometryContainer);
 
-        MoistureSetter moistureSetter = new MoistureSetter(islandSpecifications);
-        moistureSetter.setWaterSources(geometryContainer);
-        moistureSetter.calculateMoisture(geometryContainer);
+//        MoistureSetterT moistureSetter = new MoistureSetterT(islandSpecifications);
+//        moistureSetter.setWaterSources(geometryContainer);
+//        moistureSetter.calculateMoisture(geometryContainer);
+
+        Moisture moistureProfile = MoistureProfileFactory.createMoistureProfile(islandSpecifications);
+        moistureProfile.calculateMoisture(geometryContainer);
 
         // exporting
         Exporter finalExporter = new MeshExporter(islandSpecifications);
