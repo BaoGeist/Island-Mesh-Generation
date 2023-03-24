@@ -31,6 +31,8 @@ public class PlainsElevationFixture implements ElevationFixture{
     }
 
     public void set_elevation(GeometryContainer geometryContainer) {
+        RandomSeed instanceRandom = RandomSeed.getInstance();
+
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
@@ -43,7 +45,7 @@ public class PlainsElevationFixture implements ElevationFixture{
         for(Integer key: vertices.keySet()) {
             VertexWrapper v = vertices.get(key);
             if(v.isLandornah()) {
-                int randomHeight = RandomSeed.randomInt(min_elevation, max_elevation);
+                int randomHeight = instanceRandom.randomInt(min_elevation, max_elevation);
                 v.setHeight(randomHeight);
             } else {
                 v.setHeight(0);

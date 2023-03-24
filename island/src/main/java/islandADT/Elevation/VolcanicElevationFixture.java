@@ -18,25 +18,29 @@ public class VolcanicElevationFixture implements ElevationFixture{
         double[] coords = v.getCoords();
         double distance = distance_between_points(coords, peak);
         int height = (int) (max - distance * max/furthest);
-        int random_adjustment = RandomSeed.randomInt(-3, 3);
+        RandomSeed instanceRandom = RandomSeed.getInstance();
+        int random_adjustment = instanceRandom.randomInt(-3, 3);
         return Math.max(height + random_adjustment, min + random_adjustment);
     }
 
     private double[] highest_vertex(int furthest) {
-        double peak_distance = RandomSeed.randomDouble(furthest*0.5);
-        double angle = RandomSeed.randomDouble(0, 2*Math.PI);
+        RandomSeed instanceRandom = RandomSeed.getInstance();
+        double peak_distance = instanceRandom.randomDouble(furthest*0.5);
+        double angle = instanceRandom.randomDouble(0, 2*Math.PI);
         double[] peak_coord = cartesian_from_polar(new double[]{peak_distance, angle});
         return peak_coord;
     }
 
 
     public void set_elevation(GeometryContainer geometryContainer) {
+        RandomSeed instanceRandom = RandomSeed.getInstance();
+
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
 
-        int min_elevation = RandomSeed.randomInt(5, 100);
-        int max_elevation = RandomSeed.randomInt(500,600);
+        int min_elevation = instanceRandom.randomInt(5, 100);
+        int max_elevation = instanceRandom.randomInt(500,600);
         int furthest_vertex = getFurthestLandVertex(geometryContainer, precisionModel);
         double[] peak = highest_vertex(furthest_vertex);
 

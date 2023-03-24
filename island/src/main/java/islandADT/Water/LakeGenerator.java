@@ -28,12 +28,8 @@ public class LakeGenerator extends WaterTile{
             }
         }
 
-        if(min_height - 50 == 0) {
-            min_height += 1;
-        }
-
         for(PolygonWrapper lake: lakes) {
-            lake.setHeight(min_height - 50);
+            lake.setHeight(Math.max(min_height - 50, 1));
 
             List<VertexWrapper> vertices = vertices_of_a_polygon(geometryContainer, lake);
             List<SegmentWrapper> segments = segments_of_a_polygon(geometryContainer, lake);
@@ -49,6 +45,8 @@ public class LakeGenerator extends WaterTile{
     }
 
     public void generate(GeometryContainer geometryContainer) {
+        RandomSeed instanceRandom = RandomSeed.getInstance();
+
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
         for(int i = 0; i < amount_of_lakes; i++) {
@@ -68,7 +66,7 @@ public class LakeGenerator extends WaterTile{
             new_lake.setMoisture(lakeMoisture);
 
             for(PolygonWrapper neighbour: polygon_neighbours_objects(geometryContainer, lake_id)) {
-                if(RandomSeed.randomBoolean() && polygon_no_ocean_neighbours(geometryContainer, neighbour.get_id())) {
+                if(instanceRandom.randomBoolean() && polygon_no_ocean_neighbours(geometryContainer, neighbour.get_id())) {
                     neighbour.setTileType(Lake);
                     lakes.add(neighbour);
                     neighbour.setMoisture(lakeMoisture);

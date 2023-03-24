@@ -10,10 +10,12 @@ public class OvalShape implements Shape{
     private Polygon Oval;
 
     public Geometry generateIsland(int radius) {
+        RandomSeed instanceRandom = RandomSeed.getInstance();
+
         GeometryFactory factory = new GeometryFactory();
         Coordinate center = new Coordinate(250, 250);
         int numPoints = 1000;
-        double radiusX = RandomSeed.randomDouble(radius-50, radius+50);
+        double radiusX = instanceRandom.randomDouble(radius-50, radius+50);
         double radiusY = (radiusX > radius ? radiusX-50 : radiusX+50);
         Coordinate[] vertices = new Coordinate[numPoints];
         for (int i = 0; i < numPoints; i++) {

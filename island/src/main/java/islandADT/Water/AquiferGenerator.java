@@ -23,6 +23,8 @@ public class AquiferGenerator extends WaterTile{
     }
 
     public void generate(GeometryContainer geometryContainer) {
+        RandomSeed instanceRandom = RandomSeed.getInstance();
+
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
         for(int i = 0; i < amount_of_aquifers; i++) {
@@ -40,7 +42,7 @@ public class AquiferGenerator extends WaterTile{
             polygons.get(aquifer_id).setMoisture(20);
 
             for(PolygonWrapper neighbour: polygon_neighbours_objects(geometryContainer, aquifer_id)) {
-                if(RandomSeed.randomBoolean() && polygon_no_ocean_neighbours(geometryContainer, neighbour.get_id())) {
+                if(instanceRandom.randomBoolean() && polygon_no_ocean_neighbours(geometryContainer, neighbour.get_id())) {
                     neighbour.setTileType(Aquifer);
                     aquifers.add(neighbour);
                     neighbour.setMoisture(20);

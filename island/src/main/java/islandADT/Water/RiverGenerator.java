@@ -67,6 +67,8 @@ public class RiverGenerator implements WaterBody{
     }
 
     public void generate(GeometryContainer geometryContainer) {
+        RandomSeed instanceRandom = RandomSeed.getInstance();
+
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
 
         setRiverInitialSegmentType(geometryContainer);
@@ -81,7 +83,7 @@ public class RiverGenerator implements WaterBody{
             ArrayList<VertexWrapper> river = new ArrayList<>();
             boolean inNotWater = true;
             if (v.isSpringVertex() && counter < amount_of_rivers) {
-                int dischargeLevel = RandomSeed.randomInt(1,3);
+                int dischargeLevel = instanceRandom.randomInt(1,3);
 
                 river.add(v);
                 v.setFlow(dischargeLevel);
