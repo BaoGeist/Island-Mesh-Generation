@@ -1,10 +1,9 @@
 package islandADTTest;
 
 
+import islandADTTest.tests.IslandGeneratorTest;
 import islandADTTest.tests.MathUtilsTest;
 import org.junit.jupiter.api.Test;
-
-import static islandADTTest.Assertions.assertEquals;
 
 public class TestMain {
     @Test
