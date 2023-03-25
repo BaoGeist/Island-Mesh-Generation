@@ -6,6 +6,7 @@ import islandADT.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;
 import islandADT.Specifications.IslandSpecifications;
+import ArcticBiomeSetter;
 
 public class BiomeSetter {
     private String biomeType;
