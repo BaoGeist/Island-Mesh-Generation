@@ -5,6 +5,6 @@ import org.locationtech.jts.geom.Geometry;
 
 public interface Shape {
 
-    public Geometry generateIsland(int radius);
+    Geometry generateIsland(int radius);
 
 }

@@ -1,48 +1,61 @@
 package islandADT.Generator;
 
+import islandADT.Specifications.IslandSpecifications;
+
 import java.util.Optional;
 import java.util.Random;
 
 public class RandomSeed {
 
-    static int randomseed;
+    private static int seed;
 
-    static Random randomFactory = new Random(randomseed);
+    private static Random randomFactory = null;
 
     //TODO B better implementation of this
-    protected static void set_randomseed(String seed) {
-        if(seed != "") {
-            randomseed = Integer.parseInt(seed);
-            randomFactory = new Random(randomseed);
-        } else {
-            Random random = new Random();
-            randomseed = random.nextInt();
-            randomFactory = new Random(randomseed);
-            System.out.println("Island seed is: " + randomseed);
-        }
 
+    private static RandomSeed onlyInstance = null;
+
+    private RandomSeed() {
+            randomFactory = new Random(seed);
+    }
+
+    protected static void set_randomseed(IslandSpecifications islandSpecifications) {
+        String seedString = islandSpecifications.getSeed();
+        if(seedString == "") {
+            seed = new Random().nextInt();
+        } else {
+            seed = Integer.parseInt(seedString);
+        }
+    }
+
+    public static RandomSeed getInstance() {
+        if(onlyInstance == null) {
+            onlyInstance = new RandomSeed();
+        }
+        return onlyInstance;
     }
 
     public static int randomInt() {
        return randomFactory.nextInt();
     }
 
-    public static int randomInt(int max) {
+    public int randomInt(int max) {
         return randomFactory.nextInt(max);
     }
 
-    public static int randomInt(int min, int max) {
+    public int randomInt(int min, int max) {
         return randomFactory.nextInt(min, max);
     }
 
-    public static double randomDouble() {return randomFactory.nextDouble(); }
+    public double randomDouble() {return randomFactory.nextDouble(); }
 
-    public static double randomDouble(double min, double max) {return randomFactory.nextDouble(min, max); }
+    public double randomDouble(double min, double max) {return randomFactory.nextDouble(min, max); }
+    public double randomDouble(double max) {return randomFactory.nextDouble(max); }
 
-    public static boolean randomBoolean() {return randomFactory.nextBoolean(); }
+    public boolean randomBoolean() {return randomFactory.nextBoolean(); }
 
-    public static int get_seed() {
-        return randomseed;
+    public int get_seed() {
+        return seed;
     }
 
 

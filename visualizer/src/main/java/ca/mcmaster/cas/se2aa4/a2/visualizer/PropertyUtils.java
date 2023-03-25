@@ -64,28 +64,6 @@ public class PropertyUtils {
         return Boolean.parseBoolean(val);
     }
 
-    public static double[] extractCentroidCoords(List<Structs.Property> properties) {
-        String val = null;
-        for(Structs.Property p: properties) {
-            if (p.getKey().equals("centroid_coords")) {
-                val = p.getValue();
-            }
-        }
-        String[] raw = val.split(",");
-        Double x = Double.parseDouble(raw[0].replace("[","").replace(" ", "").replace("]",""));
-        Double y = Double.parseDouble(raw[1].replace("[","").replace(" ", "").replace("]",""));
-        return new double[]{x, y};
-    }
-
-    public static int extractHeight(List<Structs.Property> properties) {
-        String val = "0";
-        for(Structs.Property p: properties) {
-            if (p.getKey().equals("height")) {
-                val = p.getValue();
-            }
-        }
-        return Integer.parseInt(val);
-    }
 
     public static int extractThickness(List<Structs.Property> properties){
         String val = "1";

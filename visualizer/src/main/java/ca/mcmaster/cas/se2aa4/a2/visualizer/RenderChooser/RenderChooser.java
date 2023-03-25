@@ -36,12 +36,6 @@ public class RenderChooser {
             case "debug":
                 renderer = new DebugRenderer();
                 break;
-            case "haltitude":
-                renderer = new HAltitudeRenderer();
-                break;
-            case "hmoisture":
-                renderer = new HMoistureRenderer();
-                break;
             case "graphic":
                 renderer = new GraphicRenderer();
                 break;

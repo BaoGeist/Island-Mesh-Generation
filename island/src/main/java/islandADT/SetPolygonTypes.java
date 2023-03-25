@@ -50,6 +50,9 @@ public class SetPolygonTypes {
             case "country":
                 set_new_tiles(geometryContainer);
                 break;
+            default:
+                set_circle_tiles(geometryContainer);
+                break;
         }
 
     }

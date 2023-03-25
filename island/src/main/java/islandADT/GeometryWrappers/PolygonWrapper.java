@@ -1,8 +1,11 @@
 package islandADT.GeometryWrappers;
 
 import islandADT.TypeWrappers.TileTypeWrapper;
+<<<<<<< HEAD
 import islandADT.Water.Moisture;
 import islandADT.Biomes.*;
+=======
+>>>>>>> 93cfdafdd3f9771f9f23699b2765775e0521c18f
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +17,7 @@ public class PolygonWrapper {
     private int id_centroid;
     private TileTypeWrapper tileType;
     private List<Integer> segments_group;
-    private Moisture moisture;
+    private double moisture;
     // set this boolean somewhere
     private int height;
     private Biome biome_name;
@@ -26,8 +29,12 @@ public class PolygonWrapper {
         this.id_centroid = id_centroid;
         this.segments_group = segments_group;
         this.tileType = tileType;
+<<<<<<< HEAD
         this.moisture = new Moisture(0);
         this.biome = new Biome();
+=======
+        this.moisture = 0;
+>>>>>>> 93cfdafdd3f9771f9f23699b2765775e0521c18f
     }
 
     public List<Integer> getSegments_group() {
@@ -71,11 +78,10 @@ public class PolygonWrapper {
     }
 
     public double getMoisture() {
-        return moisture.getValue();
-    }
+        return this.moisture;    }
 
     public void setMoisture(double moisture) {
-        this.moisture.setValue(moisture);
+        this.moisture = moisture;
     }
 
     public void newMoisture(Moisture moisture) {this.moisture = moisture;}

@@ -18,16 +18,19 @@ public class CraterElevationFixture implements ElevationFixture{
         double[] coords = v.getCoords();
         int distance = distance_between_centre(coords, precisionModel);
         int height = distance * max / furthest;
-        return height;
+        RandomSeed instanceRandom = RandomSeed.getInstance();
+        int random_adjustment = instanceRandom.randomInt(-3, 3);
+        return height + random_adjustment;
     }
     public void set_elevation(GeometryContainer geometryContainer) {
+        RandomSeed instanceRandom = RandomSeed.getInstance();
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
 
 
-        int min_elevation = RandomSeed.randomInt(1, 100);
-        int max_elevation = RandomSeed.randomInt(500,600);
+        int min_elevation = instanceRandom.randomInt(1, 100);
+        int max_elevation = instanceRandom.randomInt(500,600);
         int furthest_vertex = getFurthestLandVertex(geometryContainer, precisionModel);
 
         for(Integer key: vertices.keySet()) {

@@ -6,8 +6,7 @@ import islandADT.TypeWrappers.SegmentTypeWrapper;
 import java.util.Arrays;
 
 public class OurSegmentIsland{
-    public Structs.Segment create_geometry(int v1id, int v2id, SegmentTypeWrapper segmentTypeWrapper, int height, int dischargeLevel) {
-        int[] color = segmentTypeWrapper.getColor();
+    public Structs.Segment create_geometry(int v1id, int v2id, int[] color, int height, int dischargeLevel) {
         int thickness = dischargeLevel;
         Structs.Property color_p = Structs.Property.newBuilder().setKey("rgb_color").setValue(Arrays.toString(color)).build();
         Structs.Property thickness_p = Structs.Property.newBuilder().setKey("thicc").setValue(String.valueOf(thickness)).build();

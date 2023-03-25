@@ -11,6 +11,7 @@ import islandADT.GeometryWrappers.VertexWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class RiverGenerator implements WaterBody{
             all_points.add(v.getHeight());
         }
 
-        for (int i = 0; i < amount_of_rivers+20; i ++){
+        for (int i = 0; i < amount_of_rivers+100; i ++){
             int maxIndex = 0;
             for (int j = 1; j < all_points.size(); j++) {
                 if (all_points.get(j) > all_points.get(maxIndex)) {
@@ -45,8 +46,10 @@ public class RiverGenerator implements WaterBody{
             }
             highest_points.add(all_points.remove(maxIndex));
         }
+        Collections.shuffle(highest_points);
         return highest_points;
     }
+
 
     private void generateSpring(GeometryContainer geometryContainer, List<Integer> randomPoints){
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
@@ -64,18 +67,23 @@ public class RiverGenerator implements WaterBody{
     }
 
     public void generate(GeometryContainer geometryContainer) {
+        RandomSeed instanceRandom = RandomSeed.getInstance();
+
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
 
-        List<Integer> randomPoints = initSprings(geometryContainer);
         setRiverInitialSegmentType(geometryContainer);
+
+        List<Integer> randomPoints = initSprings(geometryContainer);
+
         generateSpring(geometryContainer, randomPoints);
+
         int counter = 0;
 
         for (VertexWrapper v : vertices.values()) {
             ArrayList<VertexWrapper> river = new ArrayList<>();
             boolean inNotWater = true;
             if (v.isSpringVertex() && counter < amount_of_rivers) {
-                int dischargeLevel = RandomSeed.randomInt(1,3);
+                int dischargeLevel = instanceRandom.randomInt(1,3);
 
                 river.add(v);
                 v.setFlow(dischargeLevel);
@@ -134,6 +142,7 @@ public class RiverGenerator implements WaterBody{
             riverFlowVertex.setFlow(dischargeLevel);
         }
     }
+
     private boolean checkIfInWater(GeometryContainer geometryContainer, VertexWrapper riverFlowVertex){
         //if this returns true, it means that the vertex is not next to an ocean or lake
         boolean bool = true;
@@ -145,6 +154,7 @@ public class RiverGenerator implements WaterBody{
         }
         return bool;
     }
+
     private void createLake(ArrayList<VertexWrapper> river, GeometryContainer geometryContainer) {
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
 

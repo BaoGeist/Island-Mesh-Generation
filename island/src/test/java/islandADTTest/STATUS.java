@@ -1,7 +1,7 @@
 package islandADTTest;
 
 public enum STATUS {
-    PASSED('X'), FAILED('O'), ERROR('!');
+    PASSED('P'), FAILED('X'), ERROR('!');
 
     private char symbol;
 

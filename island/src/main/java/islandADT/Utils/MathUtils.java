@@ -31,4 +31,12 @@ public class MathUtils {
         double return_double = Math.sqrt(intermezzo1 + intermezzo2);
         return return_double;
     }
+
+    public static double[] cartesian_from_polar(double[] polar) {
+        double x = 250 + polar[0] * Math.cos(polar[1]);
+        double y = 250 + polar[0] * Math.sin(polar[1]);
+
+        return new double[]{x, y};
+
+    }
 }

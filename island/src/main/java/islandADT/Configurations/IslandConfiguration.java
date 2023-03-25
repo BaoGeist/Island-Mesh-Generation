@@ -18,6 +18,7 @@ public class IslandConfiguration {
     private static final String AQUIFERS = "aquifer";
     private static final String SOIL = "soil";
     private static final String BIOMES = "biomes";
+    private static final String MODE = "mode";
     private CommandLine cli;
     public IslandConfiguration(String[] args) {
         try {
@@ -56,6 +57,7 @@ public class IslandConfiguration {
         options.addOption(new Option(RIVERS, true, "Total number of rivers"));
         options.addOption(new Option(AQUIFERS, true, "Maximum number of aquifers"));
         options.addOption(new Option(SOIL, true, "Soil type and moisture absorption levels"));
+        options.addOption(new Option(MODE, true, "Type of mesh for rendering"));
         return options;
     }
 
@@ -73,7 +75,11 @@ public class IslandConfiguration {
         defaults.put(RIVERS, "3");
         defaults.put(AQUIFERS, "3");
         defaults.put(SOIL, "fertile");
+<<<<<<< HEAD
         defaults.put(BIOMES, "forest");
+=======
+        defaults.put(MODE, "normal");
+>>>>>>> 93cfdafdd3f9771f9f23699b2765775e0521c18f
 
         String input = cli.getOptionValue(INPUT);
         String output = cli.getOptionValue(OUTPUT);
@@ -84,8 +90,14 @@ public class IslandConfiguration {
         String rivers = cli.hasOption(RIVERS) ? cli.getOptionValue(RIVERS) : defaults.get(RIVERS);
         String aquifers = cli.hasOption(AQUIFERS) ? cli.getOptionValue(AQUIFERS) : defaults.get(AQUIFERS);
         String soil = cli.hasOption(SOIL) ? cli.getOptionValue(SOIL) : defaults.get(SOIL);
+<<<<<<< HEAD
         String biomes = cli.hasOption(BIOMES) ? cli.getOptionValue(BIOMES) : defaults.get(BIOMES);
 
         return new IslandSpecifications(input, output, shape, elevation, seed, lakes, rivers, aquifers, soil, biomes);
+=======
+        String mode = cli.hasOption(MODE) ? cli.getOptionValue(MODE) : defaults.get(MODE);
+
+        return new IslandSpecifications(input, output, shape, elevation, seed, lakes, rivers, aquifers, soil, mode);
+>>>>>>> 93cfdafdd3f9771f9f23699b2765775e0521c18f
     }
 }

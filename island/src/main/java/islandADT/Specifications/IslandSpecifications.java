@@ -11,8 +11,9 @@ public class IslandSpecifications {
     private String soil;
     private String rivers;
     private String biomes;
+    private String mode;
 
-    public IslandSpecifications(String input, String output, String shape, String elevation, String seed, String lakes, String rivers, String aquifers, String soil, String biomes) {
+    public IslandSpecifications(String input, String output, String shape, String elevation, String seed, String lakes, String rivers, String aquifers, String soil, String biomes, String mode) {
         this.input = input;
         this.output = output;
         this.shape = shape;
@@ -25,6 +26,7 @@ public class IslandSpecifications {
         this.aquifers = aquifers;
         this.soil = soil;
         this.biomes = biomes;
+        this.mode = mode;
     }
 
     public String getInput() {
@@ -39,6 +41,11 @@ public class IslandSpecifications {
     public String getElevation() {
         return elevation;
     }
+
+    public String getMode() {
+        return mode;
+    }
+
     public String getSeed() {return seed;}
     public String getLakes() {return lakes;}
     public String getSoil() {return soil;}
