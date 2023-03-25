@@ -1,12 +1,23 @@
-package islandADT.Biomes;
+package islandADT.BiomeSetter;
 
-import islandADT.Water.Moisture;
+import java.util.Map;
+
+import islandADT.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
+import islandADT.TypeWrappers.TileTypeWrapper;
+import islandADT.Specifications.IslandSpecifications;
 
-public class Biome {
+public class BiomeSetter {
     private String biomeType;
+    private IslandSpecifications islandSpecifications;
 
-    public String setBiome(double moisture, int height) {
+    public BiomeSetter(IslandSpecifications islandSpecifications) {
+        this.islandSpecifications = islandSpecifications;
+    }
+
+    public String calculateBiome(PolygonWrapper p) {
+        double moisture = p.getMoisture();
+        int height = p.getHeight();
         int score = 0;
 
         if (moisture < 4) {score += 1;}
@@ -36,26 +47,36 @@ public class Biome {
             case 2:
             case 3: {
                 biomeType = "desert";
+                TileTypeWrapper Desert = new TileTypeWrapper("Desert");
+                p.setTileType(Desert);
                 break;
             }
             case 4:
             case 9: {
                 biomeType = "taiga";
+                TileTypeWrapper Taiga = new TileTypeWrapper("Taiga");
+                p.setTileType(Taiga);
                 break;
             }
             case 5:
             case 10: {
                 biomeType = "tundra";
+                TileTypeWrapper Tundra = new TileTypeWrapper("Tundra");
+                p.setTileType(Tundra);
                 break;
             }
             case 6:
             case 11: {
                 biomeType = "savannah";
+                TileTypeWrapper Savannah = new TileTypeWrapper("Savannah");
+                p.setTileType(Savannah);
                 break;
             }
             case 7:
             case 8: {
                 biomeType = "grassland";
+                TileTypeWrapper Grassland = new TileTypeWrapper("Grassland");
+                p.setTileType(Grassland);
                 break;
             }
             case 12:
@@ -66,12 +87,16 @@ public class Biome {
             case 23:
             case 24: {
                 biomeType = "forest";
+                TileTypeWrapper Forest = new TileTypeWrapper("Forest");
+                p.setTileType(Forest);
                 break;
             }
             case 15:
             case 20:
             case 25: {
                 biomeType = "mountain";
+                TileTypeWrapper Mountain = new TileTypeWrapper("Mountain");
+                p.setTileType(Mountain);
                 break;
             }
             case 16:
@@ -79,12 +104,23 @@ public class Biome {
             case 21:
             case 22: {
                 biomeType = "rainforest";
+                TileTypeWrapper Rainforest = new TileTypeWrapper("Rainforest");
+                p.setTileType(Rainforest);
                 break;
             }
             default: {biomeType = "forest";}
         }
         
         return biomeType;
+    }
+
+    public void setMultipleBiomes(GeometryContainer geometryContainer) {
+        Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
+        for (PolygonWrapper p: polygons.values()) {
+            if (!p.isWaterOrNah() && p.isLandornah()) {
+                calculateBiome(p);
+            }
+        }
     }
 
 }

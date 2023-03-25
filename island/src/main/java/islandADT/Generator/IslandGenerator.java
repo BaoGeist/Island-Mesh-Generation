@@ -7,6 +7,7 @@ import islandADT.Elevation.VolcanicElevationFixture;
 import islandADT.Water.*;
 import islandADT.GeometryContainer;
 import islandADT.SetPolygonTypes;
+import islandADT.BiomeSetter.*;
 import islandADT.Specifications.IslandSpecifications;
 import islandADT.Elevation.ElevationFixture;
 import islandADT.Elevation.PlainsElevationFixture;
@@ -15,7 +16,6 @@ import islandADT.Exporter.MeshExporter;
 import islandADT.Extracter.Extracter;
 import islandADT.Extracter.MeshExtracter;
 import islandADT.TypeWrappers.TileTypeWrapperCreator;
-import islandADT.Biomes.*;
 
 import java.io.IOException;
 
@@ -67,6 +67,9 @@ public class IslandGenerator {
 
         MoistureSetter moistureSetter = new MoistureSetter(islandSpecifications);
         moistureSetter.calculateMoisture(geometryContainer);
+
+        BiomeSetter biomeSetter = new BiomeSetter(islandSpecifications);
+        biomeSetter.setMultipleBiomes(geometryContainer);
 
         // exporting
         Exporter finalExporter = new MeshExporter(islandSpecifications);

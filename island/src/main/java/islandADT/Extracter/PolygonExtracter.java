@@ -1,9 +1,9 @@
 package islandADT.Extracter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import islandADT.BiomeSetter.*;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;
-import islandADT.Biomes.*;
 import meshcore.Utils.PropertyUtils;
 
 import java.util.ArrayList;
