@@ -3,6 +3,7 @@ package islandADT.Exporter;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;
+import islandADT.Biomes.*;
 
 import java.util.List;
 
@@ -18,7 +19,8 @@ public class OurPolygonExporter implements Exporter<PolygonWrapper, Structs.Poly
         TileTypeWrapper tileType = p.getTileType();
         int height = p.getHeight();
         double moisture = p.getMoisture();
+        String biome = p.getBiome(moisture, height);
         // refactor ourpolygon to not need alpha or thickness
-        return polygonIslandFactory.create_geometry(segments, tileType, centroid, neighbours, coords, height, moisture);
+        return polygonIslandFactory.create_geometry(segments, tileType, centroid, neighbours, coords, height, moisture, biome);
     }
 }

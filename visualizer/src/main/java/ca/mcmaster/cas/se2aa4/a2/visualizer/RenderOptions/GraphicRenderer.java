@@ -26,6 +26,7 @@ public class GraphicRenderer implements Renderer{
         //Draws all polygons
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
 
+            String biome = PropertyUtils.extractBiome(p.getPropertiesList());
             Color polygon_color = PropertyUtils.extractColor(p.getPropertiesList());
             float[] x_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(0);
             float[] y_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(1);

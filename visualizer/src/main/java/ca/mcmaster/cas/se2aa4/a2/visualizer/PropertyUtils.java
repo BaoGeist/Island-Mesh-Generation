@@ -120,4 +120,14 @@ public class PropertyUtils {
         }
         return Double.parseDouble(val);
     }
+
+    public static String extractBiome(List<Structs.Property> properties) {
+        String val = "0";
+        for (Structs.Property p: properties) {
+            if (p.getKey().equals("biome")) {
+                val = p.getValue();
+            }
+        }
+        return val;
+    }
 }
