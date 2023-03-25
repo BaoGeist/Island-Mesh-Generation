@@ -56,6 +56,7 @@ public class IslandConfiguration {
         options.addOption(new Option(RIVERS, true, "Total number of rivers"));
         options.addOption(new Option(AQUIFERS, true, "Maximum number of aquifers"));
         options.addOption(new Option(SOIL, true, "Soil type and moisture absorption levels"));
+        options.addOption(new Option(BIOMES, true, "Whittaker biome type"));
         return options;
     }
 
