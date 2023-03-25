@@ -7,7 +7,7 @@ public class TileTypeWrapperCreator {
         TileTypeWrapper.add_biome("Sand", new int[]{194, 178, 128}, true, false);
         TileTypeWrapper.add_biome("Land", new int[]{39, 150, 33}, true, false);
         TileTypeWrapper.add_biome("RiverLake", new int[]{46, 162, 205}, true, true);
-        TileTypeWrapper.add_biome("Aquifer", new int[]{255, 255, 255}, true, true);
+        TileTypeWrapper.add_biome("Aquifer", new int[]{39, 150, 33}, true, true);
 
         
         TileTypeWrapper.add_biome("Desert", new int[]{212, 177, 21}, true, false);
@@ -15,8 +15,11 @@ public class TileTypeWrapperCreator {
         TileTypeWrapper.add_biome("Grassland", new int[]{131, 148, 01}, true, false);
         TileTypeWrapper.add_biome("Forest", new int[]{5, 97, 29}, true, false);
         TileTypeWrapper.add_biome("Rainforest", new int[] {13, 224, 70}, true, false);
-        TileTypeWrapper.add_biome("Taiga", new int[]{6, 140, 118}, true, false);
+        TileTypeWrapper.add_biome("Taiga", new int[]{69, 186, 81}, true, false);
         TileTypeWrapper.add_biome("Tundra", new int[]{39, 5, 161}, true, false);
         TileTypeWrapper.add_biome("Mountain", new int[]{127, 126, 130}, true, false);
+        TileTypeWrapper.add_biome("Swamp", new int[]{75, 92, 79}, true, false);
+        TileTypeWrapper.add_biome("Bamboo Mountain", new int[]{212, 240, 211}, true, false);
+        TileTypeWrapper.add_biome("Mushroom", new int[]{235, 38, 38}, true, false); //we like minecraft
     }
 }
