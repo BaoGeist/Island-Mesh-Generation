@@ -10,7 +10,7 @@ import islandADT.Specifications.IslandSpecifications;
 public class DesertBiomeSetter {
     private IslandSpecifications islandSpecifications;
 
-    public DesertBiomeSetter(IslandSpecifications islandSpecifications) {
+    private DesertBiomeSetter(IslandSpecifications islandSpecifications) {
         this.islandSpecifications = islandSpecifications;
     }
 
@@ -74,7 +74,7 @@ public class DesertBiomeSetter {
 
     }
 
-    public void setDesertBiomes(GeometryContainer geometryContainer) {
+    public void setBiomes(GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         for (PolygonWrapper p: polygons.values()) {
             if (!p.isWaterOrNah() && p.isLandornah()) {

@@ -7,14 +7,14 @@ import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;
 import islandADT.Specifications.IslandSpecifications;
 
-public class ArcticBiomeSetter {
+public class ArcticBiomeSetter{
     private IslandSpecifications islandSpecifications;
 
     public ArcticBiomeSetter(IslandSpecifications islandSpecifications) {
         this.islandSpecifications = islandSpecifications;
     }
 
-    public void calculateArcticBiome(PolygonWrapper p) {
+    private void calculateArcticBiome(PolygonWrapper p) {
         double moisture = p.getMoisture();
         int height = p.getHeight();
         int[] coords = new int[2];
@@ -55,7 +55,7 @@ public class ArcticBiomeSetter {
 
     }
 
-    public void setArcticBiomes(GeometryContainer geometryContainer) {
+    public void setBiomes (GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         for (PolygonWrapper p: polygons.values()) {
             if (!p.isWaterOrNah() && p.isLandornah()) {

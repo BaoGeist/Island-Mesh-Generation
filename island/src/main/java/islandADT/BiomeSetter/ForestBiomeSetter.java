@@ -14,7 +14,7 @@ public class ForestBiomeSetter {
         this.islandSpecifications = islandSpecifications;
     }
 
-    public void calculateForestBiome(PolygonWrapper p) {
+    private void calculateForestBiome(PolygonWrapper p) {
         double moisture = p.getMoisture();
         int height = p.getHeight();
         int[] coords = new int[2];
@@ -75,7 +75,7 @@ public class ForestBiomeSetter {
 
     }
 
-    public void setForestBiomes(GeometryContainer geometryContainer) {
+    public void setBiomes(GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         for (PolygonWrapper p: polygons.values()) {
             if (!p.isWaterOrNah() && p.isLandornah()) {
