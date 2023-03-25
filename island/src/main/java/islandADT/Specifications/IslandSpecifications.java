@@ -10,10 +10,10 @@ public class IslandSpecifications {
     private String aquifers;
     private String soil;
     private String rivers;
-    private String biomes;
+    private String whittaker;
     private String mode;
 
-    public IslandSpecifications(String input, String output, String shape, String elevation, String seed, String lakes, String rivers, String aquifers, String soil, String biomes, String mode) {
+    public IslandSpecifications(String input, String output, String shape, String elevation, String seed, String lakes, String rivers, String aquifers, String soil, String whittaker, String mode) {
         this.input = input;
         this.output = output;
         this.shape = shape;
@@ -25,7 +25,7 @@ public class IslandSpecifications {
         this.rivers = rivers;
         this.aquifers = aquifers;
         this.soil = soil;
-        this.biomes = biomes;
+        this.whittaker = whittaker;
         this.mode = mode;
     }
 
@@ -51,5 +51,5 @@ public class IslandSpecifications {
     public String getSoil() {return soil;}
     public String getRivers() {return rivers;}
     public String getAquifers() {return aquifers;}
-    public String getBiomes() {return biomes;}
+    public String getWhittaker() {return whittaker;}
 }

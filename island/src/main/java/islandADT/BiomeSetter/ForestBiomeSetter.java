@@ -6,17 +6,15 @@ import islandADT.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;
 import islandADT.Specifications.IslandSpecifications;
-import ArcticBiomeSetter;
 
-public class BiomeSetter {
-    private String biomeType;
+public class ForestBiomeSetter {
     private IslandSpecifications islandSpecifications;
 
-    public BiomeSetter(IslandSpecifications islandSpecifications) {
+    public ForestBiomeSetter(IslandSpecifications islandSpecifications) {
         this.islandSpecifications = islandSpecifications;
     }
 
-    private void calculateBiome(PolygonWrapper p) {
+    private void calculateForestBiome(PolygonWrapper p) {
         double moisture = p.getMoisture();
         int height = p.getHeight();
         int[] coords = new int[2];
@@ -33,105 +31,45 @@ public class BiomeSetter {
         else if (moisture < 16) {coords[1] = 4;}
         else if (moisture < 20) {coords[1] = 5;}
 
-        TileTypeWrapper Desert = new TileTypeWrapper("Desert");
         TileTypeWrapper Taiga = new TileTypeWrapper("Taiga");
-        TileTypeWrapper Tundra = new TileTypeWrapper("Tundra");
-        TileTypeWrapper Savannah = new TileTypeWrapper("Savannah");
         TileTypeWrapper Grassland = new TileTypeWrapper("Grassland");
         TileTypeWrapper Swamp = new TileTypeWrapper("Swamp");
         TileTypeWrapper Mushroom = new TileTypeWrapper("Mushroom");
-        TileTypeWrapper Mountain = new TileTypeWrapper("Mountain");
         TileTypeWrapper Rainforest = new TileTypeWrapper("Rainforest");
         TileTypeWrapper Forest = new TileTypeWrapper("Forest");
         TileTypeWrapper Bamboo = new TileTypeWrapper("Bamboo Mountain");
         
-
-
         if (coords[0] == 1) {
-            if (coords[1] <= 3) {
-                
-                p.setTileType(Desert);
+            if (coords[1] == 1) {
+                p.setTileType(Swamp);
             }
-            else if (coords[1] == 4) {
-                
-                p.setTileType(Taiga);
+            else if (coords[1] <= 4) {
+                p.setTileType(Grassland);
             }
             else {
-                
-                p.setTileType(Tundra);
+                p.setTileType(Taiga);
             }
         }
         else if (coords[0] == 2) {
             if (coords[1] == 1) {
-                
-                p.setTileType(Savannah);
-            }
-            else if (coords[1] == 2 || coords[1] == 3) {
-                
-                p.setTileType(Grassland);
-            }
-            else if (coords[1] == 4) {
-                p.setTileType(Taiga);
-            }
-            else {
-                p.setTileType(Tundra);
-            }
-        }
-        else if (coords[0] == 3) {
-            if (coords[1] == 1) {
-                p.setTileType(Savannah);
-            }
-            else if (coords[1] == 2) {
-                
                 p.setTileType(Swamp);
             }
-            else if (coords[1] == 3 || coords[1] == 4) {
-                
+            else if (coords[1] <= 4) {
                 p.setTileType(Mushroom);
             }
             else {
-                
-                p.setTileType(Mountain);
-            }
-        }
-        else if (coords[0] == 4) {
-            if (coords[1] == 1) {
-                
-                p.setTileType(Rainforest);
-            }
-            else if (coords[1] == 2) {
-                
-                p.setTileType(Swamp);
-            }
-            else if (coords[1] == 3) {
-                
-                p.setTileType(Forest);
-            }
-            else if (coords[1] == 4) {
-                
-                p.setTileType(Bamboo);
-            }
-            else {
-                
-                p.setTileType(Mountain);
+                p.setTileType(Taiga);
             }
         }
         else {
-            if (coords[1] <= 2) {
-                
+            if (coords[1] == 1) {
                 p.setTileType(Rainforest);
             }
-            else if (coords[1] == 3) {
-                
+            else if (coords[1] <= 4) {
                 p.setTileType(Forest);
             }
-            else if (coords[1] == 4) {
-                
-                p.setTileType(Bamboo);
-            }
             else {
-                
-                p.setTileType(Mountain);
+                p.setTileType(Bamboo);
             }
         }
 
@@ -141,9 +79,8 @@ public class BiomeSetter {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         for (PolygonWrapper p: polygons.values()) {
             if (!p.isWaterOrNah() && p.isLandornah()) {
-                calculateBiome(p);
+                calculateForestBiome(p);
             }
         }
     }
-
 }
