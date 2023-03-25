@@ -1,13 +1,11 @@
 package islandADTTest;
 
 
-import islandADTTest.tests.IslandGeneratorTest;
-import islandADTTest.tests.MathUtilsTest;
-import islandADTTest.tests.RiverTest;
-import islandADTTest.tests.ShapeTest;
+import islandADTTest.tests.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class TestMain {
@@ -33,6 +31,10 @@ public class TestMain {
         testClasses.add(MathUtilsTest.class);
         testClasses.add(RiverTest.class);
         testClasses.add(ShapeTest.class);
+        testClasses.add(ConcurrentModificationException.class);
+        testClasses.add(HeightRenderTest.class);
+        testClasses.add(NormalRenderTest.class);
+        testClasses.add(MoistureRenderTest.class);
     }
 
 }
