@@ -28,6 +28,6 @@ public class OurPolygonExporter implements Exporter<PolygonWrapper, Structs.Poly
         int height = p.getHeight();
         double moisture = p.getMoisture();
         // refactor ourpolygon to not need alpha or thickness
-        return polygonIslandFactory.create_geometry(segments, tileType, centroid, neighbours, coords, height, moisture);
+        return polygonIslandFactory.create_geometry(segments, color, centroid, neighbours, coords, height, moisture);
     }
 }

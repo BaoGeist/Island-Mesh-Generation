@@ -10,7 +10,7 @@ public class PolygonWrapper {
     private ArrayList<float[]> x_y_coords;
     private List<Integer> neighbours;
     private int id_centroid;
-    private TileTypeWrapper tileType;
+    private TileTypeWrapper[] tileType_group = new TileTypeWrapper[2];
     private List<Integer> segments_group;
     private double moisture;
     // set this boolean somewhere
@@ -22,7 +22,7 @@ public class PolygonWrapper {
         this.neighbours = neighbours;
         this.id_centroid = id_centroid;
         this.segments_group = segments_group;
-        this.tileType = tileType;
+        this.tileType_group[0] = tileType;
         this.moisture = 0;
     }
 
@@ -31,11 +31,24 @@ public class PolygonWrapper {
     }
 
     public TileTypeWrapper getTileType() {
-        return tileType;
+        if(tileType_group[1] == null) {
+            return tileType_group[0];
+        } else {
+            return tileType_group[1];
+        }
     }
 
     public void setTileType(TileTypeWrapper tileType) {
-        this.tileType = tileType;
+        TileTypeWrapper Lake = new TileTypeWrapper("Lake");
+        TileTypeWrapper Aquifer = new TileTypeWrapper("Aquifer");
+        TileTypeWrapper Ocean = new TileTypeWrapper("Ocean");
+        TileTypeWrapper Land = new TileTypeWrapper("Land");
+        if(tileType.isEqualsMultiple(Lake, Aquifer, Ocean, Land)) {
+            tileType_group[0] = tileType;
+        }
+        else {
+            tileType_group[1] = tileType;
+        }
     }
 
     public int get_id() {return this.id_polygon;}
@@ -54,9 +67,9 @@ public class PolygonWrapper {
 
     public List<Integer> get_neighbours() {return this.neighbours;}
 
-    public boolean isLandornah() {return tileType.isLandOrNah(); }
+    public boolean isLandornah() {return tileType_group[0].isLandOrNah(); }
 
-    public boolean isWaterOrNah() {return tileType.isWaterOrNah(); }
+    public boolean isWaterOrNah() {return tileType_group[0].isWaterOrNah(); }
 
     public int getHeight() {
         return height;
