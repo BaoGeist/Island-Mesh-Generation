@@ -31,8 +31,9 @@ public class IslandGeneratorTest {
             System.out.println("fuck");
         }
 
+
         try {
-            inputMesh = new MeshFactory().read("test.mesh");
+            inputMesh = new MeshFactory().read("testInput.mesh");
         } catch (Exception e) {
 
         }

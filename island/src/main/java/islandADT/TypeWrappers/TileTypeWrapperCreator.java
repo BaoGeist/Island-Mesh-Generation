@@ -12,7 +12,7 @@ public class TileTypeWrapperCreator {
         
         TileTypeWrapper.add_biome("Desert", new int[]{212, 177, 21}, true, false);
         TileTypeWrapper.add_biome("Savannah", new int[]{212, 126, 21}, true, false);
-        TileTypeWrapper.add_biome("Grassland", new int[]{131, 148, 01}, true, false);
+        TileTypeWrapper.add_biome("Grassland", new int[]{131, 148, 1}, true, false);
         TileTypeWrapper.add_biome("Forest", new int[]{5, 97, 29}, true, false);
         TileTypeWrapper.add_biome("Rainforest", new int[] {13, 224, 70}, true, false);
         TileTypeWrapper.add_biome("Taiga", new int[]{69, 186, 81}, true, false);
