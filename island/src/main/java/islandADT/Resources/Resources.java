@@ -4,11 +4,16 @@ import islandADT.BiomeSetter.*;
 import islandADT.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.*;
+import islandADT.Specifications.IslandSpecifications;
 
 import java.util.Map;
 
 public class Resources {
-    String resourceType;
+    private IslandSpecifications islandSpecifications;
+
+    public Resources(IslandSpecifications islandSpecifications) {
+        this.islandSpecifications = islandSpecifications;
+    }
     
     public void setResources(GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons= geometryContainer.get_polygons();
@@ -28,31 +33,27 @@ public class Resources {
 
         for (PolygonWrapper p: polygons.values()) {
             if (p.getTileType() == Desert) {
-                resourceType = "sand";
+                p.setResource("sand");
             }
             else if (p.getTileType() == Taiga || p.getTileType() == Forest || p.getTileType() == Rainforest) {
-                resourceType = "wood";
+                p.setResource("wood");
             }
             else if (p.getTileType() == Tundra || p.getTileType() == Mountain) {
-                resourceType = "snow"; 
+                p.setResource("snow"); 
             }
             else if (p.getTileType() == Savannah || p.getTileType() == Grassland) {
-                resourceType = "livestock";
+                p.setResource("livestock");
             }
             else if (p.getTileType() == Swamp) {
-                resourceType = "berries"; 
+                p.setResource("berries"); 
             }
             else if (p.getTileType() == Mushroom) {
-                resourceType = "mushrooms"; //like we said we like minecraft
+                p.setResource("mushrooms"); //like we said we like minecraft
             }
             else {
-                resourceType = "bamboo";
+                p.setResource("bamboo");
             }
         }
-    }
-
-    public String getResources() {
-        return resourceType;
     }
 
 }

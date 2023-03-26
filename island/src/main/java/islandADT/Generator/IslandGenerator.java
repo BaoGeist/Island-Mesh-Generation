@@ -16,6 +16,7 @@ import islandADT.Exporter.MeshExporter;
 import islandADT.Extracter.Extracter;
 import islandADT.Extracter.MeshExtracter;
 import islandADT.TypeWrappers.TileTypeWrapperCreator;
+import islandADT.Resources.*;
 
 import java.io.IOException;
 
@@ -70,6 +71,12 @@ public class IslandGenerator {
 
         BiomeInterface biomeSetter = BiomeFactory.selectBiomeProfile(islandSpecifications);
         biomeSetter.setBiomes(geometryContainer);
+
+        Resources resources = new Resources(islandSpecifications);
+        resources.setResources(geometryContainer);
+
+        ResourceCalculator resourceCalculator = new ResourceCalculator(islandSpecifications);
+        resourceCalculator.calculateResources(geometryContainer);
 
         // exporting
         Exporter finalExporter = new MeshExporter(islandSpecifications);
