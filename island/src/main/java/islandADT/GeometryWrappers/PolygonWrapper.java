@@ -43,7 +43,8 @@ public class PolygonWrapper {
         TileTypeWrapper Aquifer = new TileTypeWrapper("Aquifer");
         TileTypeWrapper Ocean = new TileTypeWrapper("Ocean");
         TileTypeWrapper Land = new TileTypeWrapper("Land");
-        if(tileType.isEqualsMultiple(Lake, Aquifer, Ocean, Land)) {
+        TileTypeWrapper RiverLake = new TileTypeWrapper("RiverLake");
+        if(tileType.isEqualsMultiple(Lake, Aquifer, Ocean, Land, RiverLake)) {
             tileType_group[0] = tileType;
         }
         else {

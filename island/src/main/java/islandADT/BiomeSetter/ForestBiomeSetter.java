@@ -7,7 +7,7 @@ import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;
 import islandADT.Specifications.IslandSpecifications;
 
-public class ForestBiomeSetter implements BiomeInterface {
+public class ForestBiomeSetter extends BiomeSetterAbstract {
     private IslandSpecifications islandSpecifications;
 
     public ForestBiomeSetter(IslandSpecifications islandSpecifications) {
@@ -19,17 +19,17 @@ public class ForestBiomeSetter implements BiomeInterface {
         int height = p.getHeight();
         int[] coords = new int[2];
 
-        if (height < 100) {coords[0] = 1;}
-        else if (height < 200) {coords[0] = 2;}
-        else if (height < 300) {coords[0] = 3;}
-        else if (height < 400) {coords[0] = 4;}
+        if (height < 2*height_increment) {coords[0] = 1;}
+        else if (height < 4*height_increment) {coords[0] = 2;}
+        else if (height < 6*height_increment) {coords[0] = 3;}
+        else if (height < 8*height_increment) {coords[0] = 4;}
         else {coords[0] = 5;}
 
-        if (moisture < 4) {coords[1] = 1;}
-        else if (moisture < 8) {coords[1] = 2;}
-        else if (moisture < 12) {coords[1] = 3;}
-        else if (moisture < 16) {coords[1] = 4;}
-        else if (moisture < 20) {coords[1] = 5;}
+        if (moisture < 2*moisture_increment) {coords[1] = 1;}
+        else if (moisture < 4*moisture_increment) {coords[1] = 2;}
+        else if (moisture < 6*moisture_increment) {coords[1] = 3;}
+        else if (moisture < 8*moisture_increment) {coords[1] = 4;}
+        else if (moisture <= 10*moisture_increment) {coords[1] = 5;}
 
         TileTypeWrapper Taiga = new TileTypeWrapper("Taiga");
         TileTypeWrapper Grassland = new TileTypeWrapper("Grassland");

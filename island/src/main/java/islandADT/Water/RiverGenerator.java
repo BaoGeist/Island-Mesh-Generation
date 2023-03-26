@@ -178,6 +178,7 @@ public class RiverGenerator implements WaterBody{
             double distance = distance_between_points(riverCoords, polygonCoords);
             if (distance == furthestDistance){
                 p.setTileType(RiverLake);
+                p.setMoisture(20);
                 break;
             }
         }

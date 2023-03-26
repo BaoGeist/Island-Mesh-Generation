@@ -13,7 +13,7 @@ public class BiomeFactory {
             case "desert" :
                 return new DesertBiomeSetter(islandSpecifications);
             default:   
-                return new BiomeSetter(islandSpecifications);
+                return new NormalBiomeSetter(islandSpecifications);
         }
     }
 }

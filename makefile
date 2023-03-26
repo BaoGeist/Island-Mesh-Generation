@@ -8,19 +8,19 @@ rung100:
 	cd generator && java -jar generator.jar -mf ../img/new.mesh -mv irregular -num 100 -ln 25
 
 runip:
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 5 -seed 93861 -soil fertile -mode moisture
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 10 -seed 938610703 -soil fertile -mode moisture -biomes arctic
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/moisture.svg
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 5 -seed 93861 -soil fertile -mode normal
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 10 -seed 938610703 -soil fertile -mode normal -biomes arctic
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 5 -seed 93861 -soil fertile -mode height
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 10 -seed 938610703 -soil fertile -mode height
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg
 
 runiv:
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 3 -river 6 -seed 938610703 -mode normal
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 3 -river 6 -seed 938610703 -mode normal -biomes desert -soil fertile
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 3 -river 6 -seed 938610703 -mode moisture
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 3 -river 6 -seed 938610703 -mode moisture -soil fertile
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/moisture.svg
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 3 -river 6 -seed 938610703 -mode height
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 3 -river 6 -seed 938610703 -mode height -soil fertile
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg
 
 runivmoisture:
@@ -52,9 +52,9 @@ runarctic:
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg
 
 runforest:
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil fertile -biomes forest -mode moisture
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil fertile -biomes desert -mode moisture
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/moisture.svg
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil fertile -biomes forest -mode normal
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil fertile -biomes desert -mode normal
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil fertile -biomes forest -mode height
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg

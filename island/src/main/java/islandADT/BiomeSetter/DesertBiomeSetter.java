@@ -7,7 +7,7 @@ import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;
 import islandADT.Specifications.IslandSpecifications;
 
-public class DesertBiomeSetter implements BiomeInterface{
+public class DesertBiomeSetter extends BiomeSetterAbstract{
     private IslandSpecifications islandSpecifications;
 
     public DesertBiomeSetter(IslandSpecifications islandSpecifications) {
@@ -19,17 +19,17 @@ public class DesertBiomeSetter implements BiomeInterface{
         int height = p.getHeight();
         int[] coords = new int[2];
 
-        if (height < 100) {coords[0] = 1;}
-        else if (height < 200) {coords[0] = 2;}
-        else if (height < 300) {coords[0] = 3;}
-        else if (height < 400) {coords[0] = 4;}
+        if (height < 2*height_increment) {coords[0] = 1;}
+        else if (height < 4*height_increment) {coords[0] = 2;}
+        else if (height < 6*height_increment) {coords[0] = 3;}
+        else if (height < 8*height_increment) {coords[0] = 4;}
         else {coords[0] = 5;}
 
-        if (moisture < 4) {coords[1] = 1;}
-        else if (moisture < 8) {coords[1] = 2;}
-        else if (moisture < 12) {coords[1] = 3;}
-        else if (moisture < 16) {coords[1] = 4;}
-        else if (moisture < 20) {coords[1] = 5;}
+        if (moisture < 2*moisture_increment) {coords[1] = 1;}
+        else if (moisture < 4*moisture_increment) {coords[1] = 2;}
+        else if (moisture < 6*moisture_increment) {coords[1] = 3;}
+        else if (moisture < 8*moisture_increment) {coords[1] = 4;}
+        else if (moisture <= 10*moisture_increment) {coords[1] = 5;}
 
         TileTypeWrapper Grassland = new TileTypeWrapper("Grassland");
         TileTypeWrapper Swamp = new TileTypeWrapper("Swamp");
@@ -75,6 +75,7 @@ public class DesertBiomeSetter implements BiomeInterface{
     }
 
     public void setBiomes(GeometryContainer geometryContainer) {
+        set_increments(geometryContainer.get_polygons());
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         for (PolygonWrapper p: polygons.values()) {
             if (!p.isWaterOrNah() && p.isLandornah()) {
