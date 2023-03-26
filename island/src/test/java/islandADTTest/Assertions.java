@@ -1,5 +1,7 @@
 package islandADTTest;
 
+import java.util.List;
+
 public class Assertions {
     public static void assertTrue(boolean condition) {
         if (!condition)
@@ -22,6 +24,10 @@ public class Assertions {
         if(middle == null) {
             throw new AssertionError("Mesh is null");
         }
+    }
+
+    public static void asssertContainsString(List<String> parent, String child) {
+        assert(parent.contains(child));
     }
 
 }

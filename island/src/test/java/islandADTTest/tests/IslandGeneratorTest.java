@@ -18,31 +18,32 @@ public class IslandGeneratorTest {
     Structs.Mesh outputMesh;
     IslandSpecifications islandSpecifications;
 
-//    @Before
-//    public void setUpInputMesh() {
-//        System.out.println("generating");
-//        String pathToGenerator = "../generator/generator.jar";
-//        String[] GeneratorArgs = {"-mf", "testInput.mesh", "-mv", "irregular", "-num", "1000", "-ln", "25"};
-//        ProcessBuilder pb = new ProcessBuilder("java", "-jar", pathToGenerator);
-//        pb.command().addAll(Arrays.asList(GeneratorArgs));
-//        try {
-//            pb.start();
-//        } catch (IOException ioe) {
-//            System.out.println("fuck");
-//        }
-//
-//        try {
-//            inputMesh = new MeshFactory().read("test.mesh");
-//        } catch (Exception e) {
-//
-//        }
-//        System.out.println("run");
-//    }
+    @Before
+    public void setUpInputMesh() {
+        System.out.println("generating");
+        String pathToGenerator = "../generator/generator.jar";
+        String[] GeneratorArgs = {"-mf", "testInput.mesh", "-mv", "irregular", "-num", "1000", "-ln", "25"};
+        ProcessBuilder pb = new ProcessBuilder("java", "-jar", pathToGenerator);
+        pb.command().addAll(Arrays.asList(GeneratorArgs));
+        try {
+            pb.start();
+        } catch (IOException ioe) {
+            System.out.println("fuck");
+        }
 
-//    @TestActual
-//    public void testPreMesh() {
-//        assertNotNull(inputMesh);
-//    }
+
+        try {
+            inputMesh = new MeshFactory().read("testInput.mesh");
+        } catch (Exception e) {
+
+        }
+        System.out.println("run");
+    }
+
+    @TestActual
+    public void testPreMesh() {
+        assertNotNull(inputMesh);
+    }
 
 
     @Before
