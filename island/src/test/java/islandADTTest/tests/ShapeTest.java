@@ -10,8 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static islandADTTest.Assertions.assertNotNull;
-import static islandADTTest.Assertions.assertTrue;
+import static islandADTTest.tests.Assertions.assertNotNull;
 
 public class ShapeTest {
 

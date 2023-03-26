@@ -36,4 +36,32 @@ public abstract class TestRenders {
 
         }
     }
+
+    public Structs.Mesh setUpMeshMoisture(String moisture) {
+        inputs.add("-i");
+        inputs.add("testInput.mesh");
+        inputs.add("-o");
+        inputs.add("testOutput.mesh");
+        inputs.add("-mode");
+        inputs.add("moisture");
+        inputs.add("-soil");
+        inputs.add(moisture);
+
+        String[] arrayInputs = inputs.toArray(new String[0]);
+        IslandConfiguration islandConfiguration = new IslandConfiguration(arrayInputs);
+        this.islandSpecifications = islandConfiguration.getIslandSpecifications();
+
+        IslandGenerator islandGenerator = new IslandGenerator(islandSpecifications);
+        islandGenerator.create_island();
+
+        try {
+            outputMesh = new MeshFactory().read("testOutput.mesh");
+        } catch (Exception e) {
+
+        }
+
+        return outputMesh;
+
+
+    }
 }

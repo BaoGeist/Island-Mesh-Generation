@@ -1,4 +1,4 @@
-package islandADTTest;
+package islandADTTest.mossers;
 
 public class TestResult {
     private final String testName;

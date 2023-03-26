@@ -1,4 +1,4 @@
-package islandADTTest;
+package islandADTTest.mossers;
 
 import java.lang.reflect.Method;
 

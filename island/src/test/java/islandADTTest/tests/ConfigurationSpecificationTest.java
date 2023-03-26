@@ -8,7 +8,7 @@ import islandADTTest.tags.TestActual;
 import java.util.ArrayList;
 import java.util.List;
 
-import static islandADTTest.Assertions.*;
+import static islandADTTest.tests.Assertions.*;
 
 public class ConfigurationSpecificationTest {
 

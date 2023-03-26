@@ -8,7 +8,6 @@ public class TileTypeWrapperCreator {
         TileTypeWrapper.add_biome("Land", new int[]{39, 150, 33}, true, false);
         TileTypeWrapper.add_biome("RiverLake", new int[]{46, 162, 205}, true, true);
         TileTypeWrapper.add_biome("Aquifer", new int[]{39, 150, 33}, true, true);
-
         
         TileTypeWrapper.add_biome("Desert", new int[]{212, 177, 21}, true, false);
         TileTypeWrapper.add_biome("Savannah", new int[]{212, 126, 21}, true, false);

@@ -1,4 +1,4 @@
-package islandADTTest;
+package islandADTTest.tests;
 
 import java.util.List;
 
@@ -29,5 +29,7 @@ public class Assertions {
     public static void asssertContainsString(List<String> parent, String child) {
         assert(parent.contains(child));
     }
+
+    public static void assertNotZero(int integer) {assertNotEquals(integer, 0);}
 
 }

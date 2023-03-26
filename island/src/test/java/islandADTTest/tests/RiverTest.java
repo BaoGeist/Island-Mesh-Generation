@@ -8,7 +8,8 @@ import islandADTTest.tags.TestActual;
 import java.util.ArrayList;
 import java.util.List;
 
-import static islandADTTest.Assertions.assertNotNull;
+import static islandADTTest.tests.Assertions.assertNotNull;
+import static islandADTTest.tests.Assertions.assertNotZero;
 
 public class RiverTest {
     Structs.Mesh outputMesh;
@@ -27,7 +28,7 @@ public class RiverTest {
                     val = p.getValue();
                 }
             }
-            if (Integer.parseInt(val)>1){
+            if (Integer.parseInt(val)>=1){
                 Rivers.add(s.getV1Idx());
             }
         }
@@ -36,6 +37,6 @@ public class RiverTest {
 
     @TestActual
     public void testRivers() {
-        assertNotNull(Rivers);
+        assertNotZero(Rivers.size());
     }
 }

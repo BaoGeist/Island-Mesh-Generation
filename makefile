@@ -36,7 +36,7 @@ runic:
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
 
 runcountry:
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape country -lake 3 -aquifer 3 -river 3
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape country -lake 3 -aquifer 3 -river 3 -soil arid
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
 
 runivs:

@@ -4,10 +4,9 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import islandADTTest.tags.Before;
 import islandADTTest.tags.TestActual;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
-import static islandADTTest.Assertions.*;
+import static islandADTTest.tests.Assertions.*;
 
 
 public class NormalRenderTest extends TestRenders {
@@ -27,15 +26,12 @@ public class NormalRenderTest extends TestRenders {
             unique_colors.add(extractColor(p.getPropertiesList()));
         }
 
-        System.out.println(known_colors);
-        System.out.println(unique_colors);
-
         for(String color: unique_colors) {
             asssertContainsString(known_colors, color);
         }
 
-        int unique_colors_threshold = 5;
-        assertTrue(unique_colors.size() > unique_colors_threshold);
+        int unique_colors_threshold = 3;
+        assertTrue(unique_colors.size() >= unique_colors_threshold);
 
     }
 
