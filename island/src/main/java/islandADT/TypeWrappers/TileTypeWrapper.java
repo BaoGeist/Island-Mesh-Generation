@@ -58,4 +58,8 @@ public class TileTypeWrapper {
         }
         return false;
     }
+
+    public String getType() {
+        return getKey();
+    }
 }
