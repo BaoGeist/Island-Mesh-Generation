@@ -68,8 +68,8 @@ public class IslandGenerator {
         MoistureSetter moistureSetter = new MoistureSetter(islandSpecifications);
         moistureSetter.calculateMoisture(geometryContainer);
 
-        BiomeInterface biomeInterface = new BiomeInterface(islandSpecifications);
-        biomeInterface.setBiomes(geometryContainer);
+        BiomeInterface biomeSetter = BiomeFactory.selectBiomeProfile(islandSpecifications);
+        biomeSetter.setBiomes(geometryContainer);
 
         // exporting
         Exporter finalExporter = new MeshExporter(islandSpecifications);

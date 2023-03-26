@@ -51,6 +51,22 @@ runarctic:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 5 -seed 93861 -soil fertile -biomes arctic -mode height
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg
 
+runforest:
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil fertile -biomes forest -mode moisture
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/moisture.svg
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil fertile -biomes forest -mode normal
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil fertile -biomes forest -mode height
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg
+
+rundesert:
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude crater -shape star -lake 3 -aquifer 1 -river 5 -seed -519454777 -soil fertile -biomes desert -mode moisture
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/moisture.svg
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude crater -shape star -lake 3 -aquifer 1 -river 5 -seed -519454777 -soil fertile -biomes desert -mode normal
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude crater -shape star -lake 3 -aquifer 1 -river 5 -seed -519454777 -soil fertile -biomes desert -mode height
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg
+
 runfullplains:
 	make rung1000
 	make runip
