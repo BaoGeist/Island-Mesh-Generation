@@ -15,7 +15,7 @@ public class BiomeSetter {
     public BiomeSetter(IslandSpecifications islandSpecifications) {
         this.islandSpecifications = islandSpecifications;
     }
-
+    //i need to put implements somewhere methinks?? idk am i supposed to restructure these methods then :/
     private void calculateBiome(PolygonWrapper p) {
         double moisture = p.getMoisture();
         int height = p.getHeight();

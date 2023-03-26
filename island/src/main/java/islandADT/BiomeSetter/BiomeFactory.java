@@ -8,6 +8,12 @@ public class BiomeFactory {
         switch (biomeProfile) {
             case "arctic" :
                 return new ArcticBiomeSetter(islandSpecifications);
+            case "forest" :
+                return new ForestBiomeSetter(islandSpecifications);
+            case "desert" :
+                return new DesertBiomeSetter(islandSpecifications);
+            default:   
+                return new BiomeSetter(islandSpecifications);
         }
     }
 }
