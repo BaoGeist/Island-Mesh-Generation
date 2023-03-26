@@ -7,7 +7,7 @@ import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;
 import islandADT.Specifications.IslandSpecifications;
 
-public class ArcticBiomeSetter{
+public class ArcticBiomeSetter implements BiomeInterface {
     private IslandSpecifications islandSpecifications;
 
     public ArcticBiomeSetter(IslandSpecifications islandSpecifications) {

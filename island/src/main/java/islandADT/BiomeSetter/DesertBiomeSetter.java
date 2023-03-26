@@ -7,10 +7,10 @@ import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;
 import islandADT.Specifications.IslandSpecifications;
 
-public class DesertBiomeSetter {
+public class DesertBiomeSetter implements BiomeInterface{
     private IslandSpecifications islandSpecifications;
 
-    private DesertBiomeSetter(IslandSpecifications islandSpecifications) {
+    public DesertBiomeSetter(IslandSpecifications islandSpecifications) {
         this.islandSpecifications = islandSpecifications;
     }
 

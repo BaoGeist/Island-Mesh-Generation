@@ -4,7 +4,8 @@ import islandADT.Specifications.IslandSpecifications;
 
 public class BiomeFactory {
     public static BiomeInterface selectBiomeProfile(IslandSpecifications islandSpecifications) {
-        String biomeProfile = islandSpecifcations.getWhittaker();
+        String biomeProfile = islandSpecifications.getWhittaker();
+        System.out.println("ASDLFHEWIOAEHFWIOAHFIWEOHFIWOAEFHWIAFHALKDSFHASDKFHAKSDLFHKAEFHWIAHFEAW");
         switch (biomeProfile) {
             case "arctic" :
                 return new ArcticBiomeSetter(islandSpecifications);

@@ -7,7 +7,7 @@ import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;
 import islandADT.Specifications.IslandSpecifications;
 
-public class ForestBiomeSetter {
+public class ForestBiomeSetter implements BiomeInterface {
     private IslandSpecifications islandSpecifications;
 
     public ForestBiomeSetter(IslandSpecifications islandSpecifications) {

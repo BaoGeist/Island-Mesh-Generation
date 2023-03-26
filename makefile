@@ -43,6 +43,14 @@ runivs:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape star -seed 593 -lake 3 -aquifer 3 -river 3
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
 
+runarctic: 
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 5 -seed 93861 -soil fertile -biomes arctic -mode moisture
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/moisture.svg
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 5 -seed 93861 -soil fertile -biomes arctic -mode normal
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 5 -seed 93861 -soil fertile -biomes arctic -mode height
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg
+
 runfullplains:
 	make rung1000
 	make runip
