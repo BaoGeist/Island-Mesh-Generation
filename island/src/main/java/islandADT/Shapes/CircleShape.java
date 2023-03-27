@@ -1,6 +1,6 @@
 package islandADT.Shapes;
 
-import islandADT.GeometryContainer;
+import islandADT.Container.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;

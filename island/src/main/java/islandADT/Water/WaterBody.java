@@ -1,6 +1,6 @@
 package islandADT.Water;
 
-import islandADT.GeometryContainer;
+import islandADT.Container.GeometryContainer;
 
 public interface WaterBody {
     public void generate(GeometryContainer geometryContainer);

@@ -1,6 +1,8 @@
 package islandADTTest;
 
 
+import islandADTTest.mossers.TestFactory;
+import islandADTTest.mossers.TestReport;
 import islandADTTest.tests.*;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +18,7 @@ public class TestMain {
         System.out.println("Testing");
 
         addTestClasses();
+
         TestReport report  = new TestReport();
         TestFactory scanner = new TestFactory();
 
@@ -35,6 +38,9 @@ public class TestMain {
         testClasses.add(HeightRenderTest.class);
         testClasses.add(NormalRenderTest.class);
         testClasses.add(MoistureRenderTest.class);
+        testClasses.add(LakeTest.class);
+        testClasses.add(AquiferTest.class);
+        testClasses.add(SoilProfileTest.class);
     }
 
 }

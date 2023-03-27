@@ -1,8 +1,7 @@
 package islandADT.Water;
 
 import islandADT.Generator.RandomSeed;
-import islandADT.GeometryContainer;
-import islandADT.GeometryContainerCalculator;
+import islandADT.Container.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.Specifications.IslandSpecifications;
@@ -11,7 +10,7 @@ import islandADT.GeometryWrappers.VertexWrapper;
 
 import java.util.*;
 
-import static islandADT.GeometryContainerCalculator.*;
+import static islandADT.Container.GeometryContainerCalculator.*;
 
 public class LakeGenerator extends WaterTile{
     int amount_of_lakes = 0;

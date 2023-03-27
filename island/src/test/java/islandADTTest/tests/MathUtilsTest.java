@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static islandADT.Utils.MathUtils.*;
-import static islandADTTest.Assertions.assertTrue;
+import static islandADTTest.tests.Assertions.assertTrue;
 
 public class MathUtilsTest {
     List<Integer> integers = new ArrayList<>();

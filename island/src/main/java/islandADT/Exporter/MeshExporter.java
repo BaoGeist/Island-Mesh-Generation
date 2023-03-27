@@ -3,7 +3,7 @@ package islandADT.Exporter;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import islandADT.Exporter.Colour.ColourExporter;
 import islandADT.Exporter.Colour.ColourFactory;
-import islandADT.GeometryContainer;
+import islandADT.Container.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.GeometryWrappers.VertexWrapper;

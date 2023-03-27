@@ -1,7 +1,7 @@
 package islandADT.Shapes;
 
 import islandADT.Generator.RandomSeed;
-import islandADT.GeometryContainer;
+import islandADT.Container.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;
@@ -9,7 +9,6 @@ import org.locationtech.jts.geom.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class OvalShape implements Shape{
 

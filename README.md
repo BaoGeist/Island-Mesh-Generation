@@ -32,6 +32,9 @@ The island generation (along with visualization) commands are:
 - `make runic`, Runs Crater and creates an elevation and moisture heatmap
 - `make runcountry`, Runs Egypt and creates an elevation and moisture heatmap
 - `make runivs`, Runs Volcano and creates an elevation and moisture heatmap with a set seed of 593
+- `make runarctic`, Runs Arctic and creates an elevation and moisture heatmap
+- `make runforest`, Runs Forest and creates an elevation and moisture heatmap
+- `make rundesert`, Runs Desert and creates an elevation and moisutre heatmap
 
 
 ## Individual Run
@@ -74,6 +77,7 @@ To run island, go to `island` directory, and use `java -jar` to run the product.
 - `lake`, Specifies the maximum amount of lakes
 - `river`, Specifies the maximum amount of rivers
 - `aquifer`, Specifies the maximum amount of aquifers
+- `biomes`, Specifices the ecosystem the island is made of, options are `arctic`, `forest`, `desert`, or `default` (you can also leave the field blank for default)
 - `help`, Provides help
 
 Sample runs are provided below:
@@ -130,11 +134,11 @@ Our Definition of Done includes the following criteria:
 | F13 | Generate aquifers                                                    | Baoze                 | 03.18.2023 | 03.18.2023 | D      |
 | F14 | Calculate soil absorption with soil profile input                    | Daniel, Baoze         | 03.18.2023 | 03.21.2023 | D      |
 | F15 | Generate biomes based on humidity + temperature                      | Alexis                | 03.21.2023 | 03.25.2023 | D      |
-| F16 | Generate islands based on Whittaker diagrams + CLI                   | Alexis                |            |            | P      |
-| F17 | Generate resources based on biome                                    | Daniel, Baoze         |            |            | P      |
-| F18 | Generate resources based on biome + humidity + elevation             | Daniel, Baoze         |            |            | P      |
+| F16 | Generate islands based on Whittaker diagrams + CLI                   | Alexis                | 03.25.2023 | 03.26.2023 | D      |
+| F17 | Generate resources based on biome                                    | Alexis                | 03.26.2023 | 03.26.2023 | D      |
+| F18 | Generate resources based on biome + humidity + elevation             | Alexis                | 03.26.2023 | 03.26.2023 | D      |
 | F19 | Generate heatmap for one parameter(i.e. elevation)                   | Daniel, Baoze         | 03.14.2023 | 03.14.2023 | D      |
-| F20 | Generate heatmap for all parameters (humidity, elevation, resources) | Daniel, Baoze         | 03.18.2023 |            | I      |
+| F20 | Generate heatmap for all parameters (humidity, elevation, resources) | Daniel, Baoze, Alexis | 03.18.2023 |            | I      |
 
 
 

@@ -1,8 +1,8 @@
 package islandADT.Water;
 
 import islandADT.Generator.RandomSeed;
-import islandADT.GeometryContainer;
-import islandADT.GeometryContainerCalculator;
+import islandADT.Container.GeometryContainer;
+import islandADT.Container.GeometryContainerCalculator;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.Specifications.IslandSpecifications;
 import islandADT.TypeWrappers.SegmentTypeWrapper;
@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static islandADT.GeometryContainerCalculator.*;
+import static islandADT.Container.GeometryContainerCalculator.*;
 import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.NotWater;
 import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.Water;
 import static islandADT.Utils.MathUtils.distance_between_points;
@@ -178,6 +178,7 @@ public class RiverGenerator implements WaterBody{
             double distance = distance_between_points(riverCoords, polygonCoords);
             if (distance == furthestDistance){
                 p.setTileType(RiverLake);
+                p.setMoisture(20);
                 break;
             }
         }

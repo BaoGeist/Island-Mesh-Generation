@@ -4,10 +4,9 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import islandADTTest.tags.Before;
 import islandADTTest.tags.TestActual;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
-import static islandADTTest.Assertions.*;
+import static islandADTTest.tests.Assertions.*;
 
 
 public class HeightRenderTest extends TestRenders {

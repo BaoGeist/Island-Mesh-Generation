@@ -1,4 +1,4 @@
-package islandADTTest;
+package islandADTTest.mossers;
 
 public enum STATUS {
     PASSED('P'), FAILED('X'), ERROR('!');

@@ -1,7 +1,6 @@
 package islandADT.Shapes;
 
-import islandADT.GeometryContainer;
-import org.locationtech.jts.awt.PolygonShape;
+import islandADT.Container.GeometryContainer;
 import org.locationtech.jts.geom.Geometry;
 
 public interface Shape {

@@ -4,10 +4,9 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import islandADTTest.tags.Before;
 import islandADTTest.tags.TestActual;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
-import static islandADTTest.Assertions.*;
+import static islandADTTest.tests.Assertions.*;
 
 
 public class MoistureRenderTest extends TestRenders {
@@ -27,12 +26,8 @@ public class MoistureRenderTest extends TestRenders {
             unique_colors.add(extractColor(p.getPropertiesList()));
         }
 
-        System.out.println(unique_colors);
 
         for(String color: unique_colors) {
-            if(!known_colors.contains(color)) {
-                System.out.println(color);
-            }
             asssertContainsString(known_colors, color);
         }
 

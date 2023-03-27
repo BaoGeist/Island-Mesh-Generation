@@ -15,6 +15,8 @@ public class PolygonWrapper {
     private double moisture;
     // set this boolean somewhere
     private int height;
+    private String resource;
+    private int score;
 
     public PolygonWrapper(int id_polygon, ArrayList<float[]> x_y_coords, List<Integer> neighbours, int id_centroid, List<Integer> segments_group, TileTypeWrapper tileType) {
         this.id_polygon = id_polygon;
@@ -43,7 +45,8 @@ public class PolygonWrapper {
         TileTypeWrapper Aquifer = new TileTypeWrapper("Aquifer");
         TileTypeWrapper Ocean = new TileTypeWrapper("Ocean");
         TileTypeWrapper Land = new TileTypeWrapper("Land");
-        if(tileType.isEqualsMultiple(Lake, Aquifer, Ocean, Land)) {
+        TileTypeWrapper RiverLake = new TileTypeWrapper("RiverLake");
+        if(tileType.isEqualsMultiple(Lake, Aquifer, Ocean, Land, RiverLake)) {
             tileType_group[0] = tileType;
         }
         else {
@@ -84,6 +87,22 @@ public class PolygonWrapper {
 
     public void setMoisture(double moisture) {
         this.moisture = moisture;
+    }
+
+    public void setResource(String resource) {
+        this.resource = resource;
+    }
+
+    public String getResource() {
+        return resource;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getScore() {
+        return score;
     }
 
 }

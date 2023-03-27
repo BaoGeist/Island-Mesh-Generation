@@ -8,53 +8,50 @@ import islandADT.Specifications.IslandSpecifications;
 import islandADTTest.tags.Before;
 import islandADTTest.tags.TestActual;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
-import static islandADTTest.Assertions.assertNotNull;
+import static islandADTTest.tests.Assertions.assertNotNull;
 
 public class IslandGeneratorTest {
     Structs.Mesh inputMesh;
     Structs.Mesh outputMesh;
     IslandSpecifications islandSpecifications;
 
+    private void createInputMush() {
+        String inputMeshPath = "testInput.mesh";
+
+        File file = new File(inputMeshPath);
+        if(!file.exists()) {
+            System.out.println("Generating testInput.mesh as one is not detected");
+            String pathToGenerator = "../generator/generator.jar";
+            String[] GeneratorArgs = {"-mf", "testInput.mesh", "-mv", "irregular", "-num", "1000", "-ln", "25"};
+            ProcessBuilder pb = new ProcessBuilder("java", "-jar", pathToGenerator);
+            pb.command().addAll(Arrays.asList(GeneratorArgs));
+            try {
+                pb.start();
+            } catch (IOException ioe) {
+                System.out.println("fuck");
+            }
+        }
+        System.out.println("n'est pas existe");
+    }
+
     @Before
     public void setUpInputMesh() {
-        System.out.println("generating");
-        String pathToGenerator = "../generator/generator.jar";
-        String[] GeneratorArgs = {"-mf", "testInput.mesh", "-mv", "irregular", "-num", "1000", "-ln", "25"};
-        ProcessBuilder pb = new ProcessBuilder("java", "-jar", pathToGenerator);
-        pb.command().addAll(Arrays.asList(GeneratorArgs));
-        try {
-            pb.start();
-        } catch (IOException ioe) {
-            System.out.println("fuck");
-        }
+        createInputMush();
 
+        String[] args = new String[]{"-i", "testInput.mesh", "-o", "testOutput.mesh", "-altitude", "plains"};
+        IslandConfiguration islandConfiguration = new IslandConfiguration(args);
+        islandSpecifications = islandConfiguration.getIslandSpecifications();
 
         try {
             inputMesh = new MeshFactory().read("testInput.mesh");
         } catch (Exception e) {
 
         }
-        System.out.println("run");
-    }
 
-    @TestActual
-    public void testPreMesh() {
-        assertNotNull(inputMesh);
-    }
-
-
-    @Before
-    public void setUpMeshConfigAndSpecs() {
-        String[] args = new String[]{"-i", "testInput.mesh", "-o", "testOutput.mesh", "-altitude", "plains"};
-        IslandConfiguration islandConfiguration = new IslandConfiguration(args);
-        islandSpecifications = islandConfiguration.getIslandSpecifications();
-    }
-
-    @Before
-    public void setUpOutputMesh() {
         IslandGenerator islandGenerator = new IslandGenerator(islandSpecifications);
         islandGenerator.create_island();
 
@@ -64,6 +61,11 @@ public class IslandGeneratorTest {
 
         }
         System.out.println("run");
+    }
+
+    @TestActual
+    public void testPreMesh() {
+        assertNotNull(inputMesh);
     }
 
 

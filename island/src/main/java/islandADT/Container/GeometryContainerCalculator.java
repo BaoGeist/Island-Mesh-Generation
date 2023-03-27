@@ -1,16 +1,13 @@
-package islandADT;
+package islandADT.Container;
 
 import islandADT.Elevation.CustomPrecisionModel;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.GeometryWrappers.VertexWrapper;
-import org.locationtech.jts.geom.PrecisionModel;
 
 import static islandADT.Utils.MathUtils.distance_between_centre;
 
 import java.util.*;
-
-import static islandADT.Utils.MathUtils.distance_between_centre;
 
 public class GeometryContainerCalculator {
     public static boolean polygon_no_ocean_neighbours(GeometryContainer geometryContainer, int i) {

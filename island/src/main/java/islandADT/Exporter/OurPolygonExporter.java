@@ -1,7 +1,6 @@
 package islandADT.Exporter;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.BiomeSetter.*;
 import islandADT.Exporter.Colour.ColourExporter;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;

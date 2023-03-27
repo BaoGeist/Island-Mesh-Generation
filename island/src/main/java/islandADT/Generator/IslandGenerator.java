@@ -2,20 +2,17 @@ package islandADT.Generator;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.Elevation.CraterElevationFixture;
-import islandADT.Elevation.VolcanicElevationFixture;
 import islandADT.Water.*;
-import islandADT.GeometryContainer;
+import islandADT.Container.GeometryContainer;
 import islandADT.SetPolygonTypes;
-import islandADT.BiomeSetter.*;
+import islandADT.Biomes.*;
 import islandADT.Specifications.IslandSpecifications;
-import islandADT.Elevation.ElevationFixture;
-import islandADT.Elevation.PlainsElevationFixture;
 import islandADT.Exporter.Exporter;
 import islandADT.Exporter.MeshExporter;
 import islandADT.Extracter.Extracter;
 import islandADT.Extracter.MeshExtracter;
 import islandADT.TypeWrappers.TileTypeWrapperCreator;
+import islandADT.Resources.*;
 
 import java.io.IOException;
 
@@ -68,8 +65,14 @@ public class IslandGenerator {
         MoistureSetter moistureSetter = new MoistureSetter(islandSpecifications);
         moistureSetter.calculateMoisture(geometryContainer);
 
-        BiomeSetter biomeSetter = new BiomeSetter(islandSpecifications);
-        biomeSetter.setMultipleBiomes(geometryContainer);
+        BiomeInterface biomeSetter = BiomeFactory.selectBiomeProfile(islandSpecifications);
+        biomeSetter.setBiomes(geometryContainer);
+
+        Resources resources = new Resources(islandSpecifications);
+        resources.setResources(geometryContainer);
+
+        ResourceCalculator resourceCalculator = new ResourceCalculator(islandSpecifications);
+        resourceCalculator.calculateResources(geometryContainer);
 
         // exporting
         Exporter finalExporter = new MeshExporter(islandSpecifications);

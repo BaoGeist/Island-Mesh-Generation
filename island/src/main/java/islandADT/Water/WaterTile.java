@@ -1,8 +1,8 @@
 package islandADT.Water;
 
 import islandADT.Generator.RandomSeed;
-import islandADT.GeometryContainer;
-import islandADT.GeometryContainerCalculator;
+import islandADT.Container.GeometryContainer;
+import islandADT.Container.GeometryContainerCalculator;
 
 public abstract class WaterTile implements WaterBody{
     protected int random_start(GeometryContainer geometryContainer) {
