@@ -136,9 +136,9 @@ Our Definition of Done includes the following criteria:
 | F15 | Generate biomes based on humidity + temperature                      | Alexis                | 03.21.2023 | 03.25.2023 | D      |
 | F16 | Generate islands based on Whittaker diagrams + CLI                   | Alexis                | 03.25.2023 | 03.26.2023 | D      |
 | F17 | Generate resources based on biome                                    | Alexis                | 03.26.2023 | 03.26.2023 | D      |
-| F18 | Generate resources based on biome + humidity + elevation             | Alexis                | 03.26.2023 |            | P      |
+| F18 | Generate resources based on biome + humidity + elevation             | Alexis                | 03.26.2023 | 03.26.2023 | D      |
 | F19 | Generate heatmap for one parameter(i.e. elevation)                   | Daniel, Baoze         | 03.14.2023 | 03.14.2023 | D      |
-| F20 | Generate heatmap for all parameters (humidity, elevation, resources) | Daniel, Baoze         | 03.18.2023 |            | I      |
+| F20 | Generate heatmap for all parameters (humidity, elevation, resources) | Daniel, Baoze, Alexis | 03.18.2023 |            | I      |
 
 
 

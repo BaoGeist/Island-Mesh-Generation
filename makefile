@@ -14,6 +14,8 @@ runip:
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 10 -seed 938610703 -soil fertile -mode height
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 10 -seed 938610703 -soil fertile -mode resources
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/resources.svg
 
 runiv:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 3 -river 6 -seed 938610703 -mode normal -biomes desert -soil fertile
@@ -22,6 +24,8 @@ runiv:
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/moisture.svg
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 3 -river 6 -seed 938610703 -mode height -soil fertile
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 3 -river 6 -seed 938610703 -mode resources -soil fertile
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/resources.svg
 
 runivmoisture:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape star -lake 3 -aquifer 3 -river 6 -mode height -seed -519454777
@@ -50,6 +54,8 @@ runarctic:
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 5 -seed 93861 -soil fertile -biomes arctic -mode height
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude plains -shape circle -lake 3 -aquifer 1 -river 5 -seed 93861 -soil fertile -biomes arctic -mode resources
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/resources.svg
 
 runforest:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil fertile -biomes desert -mode moisture
@@ -58,6 +64,8 @@ runforest:
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil fertile -biomes forest -mode height
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 3 -aquifer 1 -river 5 -seed 938610703 -soil fertile -biomes forest -mode resources
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/resources.svg
 
 rundesert:
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude crater -shape star -lake 3 -aquifer 1 -river 5 -seed -519454777 -soil fertile -biomes desert -mode moisture
@@ -66,6 +74,8 @@ rundesert:
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
 	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude crater -shape star -lake 3 -aquifer 1 -river 5 -seed -519454777 -soil fertile -biomes desert -mode height
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg
+	d island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude crater -shape star -lake 3 -aquifer 1 -river 5 -seed -519454777 -soil fertile -biomes desert -mode resources
+	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/resources.svg
 
 runfullplains:
 	make rung1000

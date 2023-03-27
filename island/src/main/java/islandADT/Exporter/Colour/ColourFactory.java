@@ -12,6 +12,7 @@ public class ColourFactory {
         colorBindings.put("normal", new NormalColourExporter());
         colorBindings.put("height", new HeightColourExporter());
         colorBindings.put("moisture", new MoistureColourExporter());
+        colorBindings.put("resources", new ResourceColourExporter());
     }
 
     public static ColourExporter create(IslandSpecifications islandSpecifications) {

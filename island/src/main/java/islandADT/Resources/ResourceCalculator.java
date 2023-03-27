@@ -17,113 +17,116 @@ public class ResourceCalculator {
         Map<Integer, PolygonWrapper> polygons= geometryContainer.get_polygons();
 
         for (PolygonWrapper p: polygons.values()) {
-            int score = 0;
+            int resourceScore = 0;
             double moisture = p.getMoisture();
             double height = p.getHeight();
+            if (p.isWaterOrNah()) {
+                p.setScore(resourceScore);
+            }
             if (p.getResource() == "sand") { 
-                if (moisture <= 2) {score = 5;}
-                else if (moisture <= 4) {score = 4;}
-                else if (moisture <= 6) {score = 3;}
-                else if (moisture <= 8) {score = 2;}
-                else {score = 1;}
+                if (moisture <= 2) {resourceScore = 5;}
+                else if (moisture <= 4) {resourceScore = 4;}
+                else if (moisture <= 6) {resourceScore = 3;}
+                else if (moisture <= 8) {resourceScore = 2;}
+                else {resourceScore = 1;}
 
-                if (height < 100) {score += 5;}
-                else if (height < 200) {score += 4;}
-                else if (height < 300) {score += 3;}
-                else if (height < 400) {score += 2;}
-                else {score += 1;}
+                if (height < 100) {resourceScore += 5;}
+                else if (height < 200) {resourceScore += 4;}
+                else if (height < 300) {resourceScore += 3;}
+                else if (height < 400) {resourceScore += 2;}
+                else {resourceScore += 1;}
 
-                p.setScore(score);
+                p.setScore(resourceScore);
             }
             else if (p.getResource() == "wood") {
-                if (moisture <= 2) {score = 1;}
-                else if (moisture <= 4) {score = 3;}
-                else if (moisture <= 6) {score = 5;}
-                else if (moisture <= 8) {score = 4;}
-                else {score = 2;}
+                if (moisture <= 2) {resourceScore = 1;}
+                else if (moisture <= 4) {resourceScore = 3;}
+                else if (moisture <= 6) {resourceScore = 5;}
+                else if (moisture <= 8) {resourceScore = 4;}
+                else {resourceScore = 2;}
 
-                if (height < 100) {score += 1;}
-                else if (height < 200) {score += 3;}
-                else if (height < 300) {score += 5;}
-                else if (height < 400) {score += 4;}
-                else {score += 2;}
+                if (height < 100) {resourceScore += 1;}
+                else if (height < 200) {resourceScore += 3;}
+                else if (height < 300) {resourceScore += 5;}
+                else if (height < 400) {resourceScore += 4;}
+                else {resourceScore += 2;}
 
-                p.setScore(score);
+                p.setScore(resourceScore);
             }
             else if (p.getResource() == "snow") {
-                if (moisture <= 2) {score = 1;}
-                else if (moisture <= 4) {score = 2;}
-                else if (moisture <= 6) {score = 3;}
-                else if (moisture <= 8) {score = 4;}
-                else {score = 5;}
+                if (moisture <= 2) {resourceScore = 1;}
+                else if (moisture <= 4) {resourceScore = 2;}
+                else if (moisture <= 6) {resourceScore = 3;}
+                else if (moisture <= 8) {resourceScore = 4;}
+                else {resourceScore = 5;}
 
-                if (height < 100) {score += 1;}
-                else if (height < 200) {score += 2;}
-                else if (height < 300) {score += 3;}
-                else if (height < 400) {score += 4;}
-                else {score += 5;}
+                if (height < 100) {resourceScore += 1;}
+                else if (height < 200) {resourceScore += 2;}
+                else if (height < 300) {resourceScore += 3;}
+                else if (height < 400) {resourceScore += 4;}
+                else {resourceScore += 5;}
 
-                p.setScore(score);
+                p.setScore(resourceScore);
             }
             else if (p.getResource() == "livestock") {
-                if (moisture <= 2) {score = 1;}
-                else if (moisture <= 4) {score = 3;}
-                else if (moisture <= 6) {score = 5;}
-                else if (moisture <= 8) {score = 4;}
-                else {score = 2;}
+                if (moisture <= 2) {resourceScore = 1;}
+                else if (moisture <= 4) {resourceScore = 3;}
+                else if (moisture <= 6) {resourceScore = 5;}
+                else if (moisture <= 8) {resourceScore = 4;}
+                else {resourceScore = 2;}
 
-                if (height < 100) {score += 1;}
-                else if (height < 200) {score += 3;}
-                else if (height < 300) {score += 5;}
-                else if (height < 400) {score += 4;}
-                else {score += 2;}
+                if (height < 100) {resourceScore += 1;}
+                else if (height < 200) {resourceScore += 3;}
+                else if (height < 300) {resourceScore += 5;}
+                else if (height < 400) {resourceScore += 4;}
+                else {resourceScore += 2;}
 
-                p.setScore(score);
+                p.setScore(resourceScore);
             }
             else if (p.getResource() == "berries") {
-                if (moisture <= 2) {score = 1;}
-                else if (moisture <= 4) {score = 3;}
-                else if (moisture <= 6) {score = 5;}
-                else if (moisture <= 8) {score = 4;}
-                else {score = 2;}
+                if (moisture <= 2) {resourceScore = 1;}
+                else if (moisture <= 4) {resourceScore = 3;}
+                else if (moisture <= 6) {resourceScore = 5;}
+                else if (moisture <= 8) {resourceScore = 4;}
+                else {resourceScore = 2;}
 
-                if (height < 100) {score += 1;}
-                else if (height < 200) {score += 3;}
-                else if (height < 300) {score += 5;}
-                else if (height < 400) {score += 4;}
-                else {score += 2;}
+                if (height < 100) {resourceScore += 1;}
+                else if (height < 200) {resourceScore += 3;}
+                else if (height < 300) {resourceScore += 5;}
+                else if (height < 400) {resourceScore += 4;}
+                else {resourceScore += 2;}
 
-                p.setScore(score);
+                p.setScore(resourceScore);
             }
             else if (p.getResource() == "mushrooms") {
-                if (moisture <= 2) {score = 1;}
-                else if (moisture <= 4) {score = 3;}
-                else if (moisture <= 6) {score = 5;}
-                else if (moisture <= 8) {score = 4;}
-                else {score = 2;}
+                if (moisture <= 2) {resourceScore = 1;}
+                else if (moisture <= 4) {resourceScore = 3;}
+                else if (moisture <= 6) {resourceScore = 5;}
+                else if (moisture <= 8) {resourceScore = 4;}
+                else {resourceScore = 2;}
 
-                if (height < 100) {score += 1;}
-                else if (height < 200) {score += 3;}
-                else if (height < 300) {score += 5;}
-                else if (height < 400) {score += 4;}
-                else {score += 2;}
+                if (height < 100) {resourceScore += 1;}
+                else if (height < 200) {resourceScore += 3;}
+                else if (height < 300) {resourceScore += 5;}
+                else if (height < 400) {resourceScore += 4;}
+                else {resourceScore += 2;}
 
-                p.setScore(score);
+                p.setScore(resourceScore);
             }
             else {
-                if (moisture <= 2) {score = 1;}
-                else if (moisture <= 4) {score = 3;}
-                else if (moisture <= 6) {score = 5;}
-                else if (moisture <= 8) {score = 4;}
-                else {score = 2;}
+                if (moisture <= 2) {resourceScore = 1;}
+                else if (moisture <= 4) {resourceScore = 3;}
+                else if (moisture <= 6) {resourceScore = 5;}
+                else if (moisture <= 8) {resourceScore = 4;}
+                else {resourceScore = 2;}
 
-                if (height < 100) {score += 1;}
-                else if (height < 200) {score += 3;}
-                else if (height < 300) {score += 5;}
-                else if (height < 400) {score += 4;}
-                else {score += 2;}
+                if (height < 100) {resourceScore += 1;}
+                else if (height < 200) {resourceScore += 3;}
+                else if (height < 300) {resourceScore += 5;}
+                else if (height < 400) {resourceScore += 4;}
+                else {resourceScore += 2;}
 
-                p.setScore(score);
+                p.setScore(resourceScore);
             }
         }
     }
