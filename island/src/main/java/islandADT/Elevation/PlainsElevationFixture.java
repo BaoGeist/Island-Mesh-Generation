@@ -1,8 +1,8 @@
 package islandADT.Elevation;
 
 import islandADT.Generator.RandomSeed;
-import islandADT.GeometryContainer;
-import islandADT.GeometryContainerCalculator;
+import islandADT.Container.GeometryContainer;
+import islandADT.Container.GeometryContainerCalculator;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.GeometryWrappers.VertexWrapper;

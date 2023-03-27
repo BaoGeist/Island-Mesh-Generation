@@ -1,8 +1,8 @@
-package islandADT.BiomeSetter;
+package islandADT.Biomes;
 
 import java.util.Map;
 
-import islandADT.GeometryContainer;
+import islandADT.Container.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;
 import islandADT.Specifications.IslandSpecifications;

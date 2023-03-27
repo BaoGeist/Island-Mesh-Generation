@@ -2,15 +2,11 @@ package islandADT.Generator;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.Elevation.CraterElevationFixture;
-import islandADT.Elevation.VolcanicElevationFixture;
 import islandADT.Water.*;
-import islandADT.GeometryContainer;
+import islandADT.Container.GeometryContainer;
 import islandADT.SetPolygonTypes;
-import islandADT.BiomeSetter.*;
+import islandADT.Biomes.*;
 import islandADT.Specifications.IslandSpecifications;
-import islandADT.Elevation.ElevationFixture;
-import islandADT.Elevation.PlainsElevationFixture;
 import islandADT.Exporter.Exporter;
 import islandADT.Exporter.MeshExporter;
 import islandADT.Extracter.Extracter;

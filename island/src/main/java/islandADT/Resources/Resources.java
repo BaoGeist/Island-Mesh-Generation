@@ -1,7 +1,6 @@
 package islandADT.Resources;
 
-import islandADT.BiomeSetter.*;
-import islandADT.GeometryContainer;
+import islandADT.Container.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.*;
 import islandADT.Specifications.IslandSpecifications;

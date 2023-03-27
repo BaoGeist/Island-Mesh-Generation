@@ -1,4 +1,4 @@
-package islandADT.BiomeSetter;
+package islandADT.Biomes;
 
 import islandADT.Specifications.IslandSpecifications;
 

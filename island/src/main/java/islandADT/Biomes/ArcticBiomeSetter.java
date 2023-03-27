@@ -1,20 +1,20 @@
-package islandADT.BiomeSetter;
+package islandADT.Biomes;
 
 import java.util.Map;
 
-import islandADT.GeometryContainer;
+import islandADT.Container.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.TileTypeWrapper;
 import islandADT.Specifications.IslandSpecifications;
 
-public class ForestBiomeSetter extends BiomeSetterAbstract {
+public class ArcticBiomeSetter extends BiomeSetterAbstract {
     private IslandSpecifications islandSpecifications;
 
-    public ForestBiomeSetter(IslandSpecifications islandSpecifications) {
+    public ArcticBiomeSetter(IslandSpecifications islandSpecifications) {
         this.islandSpecifications = islandSpecifications;
     }
 
-    private void calculateForestBiome(PolygonWrapper p) {
+    private void calculateArcticBiome(PolygonWrapper p) {
         double moisture = p.getMoisture();
         int height = p.getHeight();
         int[] coords = new int[2];
@@ -32,54 +32,35 @@ public class ForestBiomeSetter extends BiomeSetterAbstract {
         else if (moisture <= 10*moisture_increment) {coords[1] = 5;}
 
         TileTypeWrapper Taiga = new TileTypeWrapper("Taiga");
-        TileTypeWrapper Grassland = new TileTypeWrapper("Grassland");
-        TileTypeWrapper Swamp = new TileTypeWrapper("Swamp");
-        TileTypeWrapper Mushroom = new TileTypeWrapper("Mushroom");
-        TileTypeWrapper Rainforest = new TileTypeWrapper("Rainforest");
-        TileTypeWrapper Forest = new TileTypeWrapper("Forest");
+        TileTypeWrapper Tundra = new TileTypeWrapper("Tundra");
+        TileTypeWrapper Mountain = new TileTypeWrapper("Mountain");
         TileTypeWrapper Bamboo = new TileTypeWrapper("Bamboo Mountain");
         
-        if (coords[0] == 1) {
-            if (coords[1] == 1) {
-                p.setTileType(Swamp);
-            }
-            else if (coords[1] <= 4) {
-                p.setTileType(Grassland);
-            }
-            else {
+        if (coords[0] <= 3) {
+            if (coords[1] <= 2) {
                 p.setTileType(Taiga);
             }
-        }
-        else if (coords[0] == 2) {
-            if (coords[1] == 1) {
-                p.setTileType(Swamp);
-            }
-            else if (coords[1] <= 4) {
-                p.setTileType(Mushroom);
-            }
             else {
-                p.setTileType(Taiga);
+                p.setTileType(Tundra);
             }
         }
         else {
             if (coords[1] == 1) {
-                p.setTileType(Rainforest);
-            }
-            else if (coords[1] <= 4) {
-                p.setTileType(Forest);
+                p.setTileType(Bamboo);
             }
             else {
-                p.setTileType(Bamboo);
+                p.setTileType(Mountain);
             }
         }
 
     }
 
-    public void setBiomes(GeometryContainer geometryContainer) {
+    public void setBiomes (GeometryContainer geometryContainer) {
+        set_increments(geometryContainer.get_polygons());
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         for (PolygonWrapper p: polygons.values()) {
             if (!p.isWaterOrNah() && p.isLandornah()) {
-                calculateForestBiome(p);
+                calculateArcticBiome(p);
             }
         }
     }

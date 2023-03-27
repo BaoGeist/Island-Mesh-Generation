@@ -1,9 +1,8 @@
 package islandADT.Water;
 
 import islandADT.Generator.RandomSeed;
-import islandADT.GeometryContainer;
+import islandADT.Container.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
-import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.GeometryWrappers.VertexWrapper;
 import islandADT.Specifications.IslandSpecifications;
 import islandADT.TypeWrappers.TileTypeWrapper;
@@ -12,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static islandADT.GeometryContainerCalculator.*;
-import static islandADT.GeometryContainerCalculator.polygon_no_ocean_neighbours;
+import static islandADT.Container.GeometryContainerCalculator.*;
+import static islandADT.Container.GeometryContainerCalculator.polygon_no_ocean_neighbours;
 
 public class AquiferGenerator extends WaterTile{
     int amount_of_aquifers = 0;

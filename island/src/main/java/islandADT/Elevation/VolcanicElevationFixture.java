@@ -1,14 +1,14 @@
 package islandADT.Elevation;
 
 import islandADT.Generator.RandomSeed;
-import islandADT.GeometryContainer;
+import islandADT.Container.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.GeometryWrappers.VertexWrapper;
 
 import java.util.Map;
 
-import static islandADT.GeometryContainerCalculator.getFurthestLandVertex;
+import static islandADT.Container.GeometryContainerCalculator.getFurthestLandVertex;
 import static islandADT.Utils.MathUtils.*;
 
 public class VolcanicElevationFixture implements ElevationFixture{

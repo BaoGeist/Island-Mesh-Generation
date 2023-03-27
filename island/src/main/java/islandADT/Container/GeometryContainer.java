@@ -1,4 +1,4 @@
-package islandADT;
+package islandADT.Container;
 
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;

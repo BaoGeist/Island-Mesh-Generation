@@ -1,6 +1,6 @@
 package islandADT.Resources;
 
-import islandADT.GeometryContainer;
+import islandADT.Container.GeometryContainer;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.Specifications.IslandSpecifications;
 

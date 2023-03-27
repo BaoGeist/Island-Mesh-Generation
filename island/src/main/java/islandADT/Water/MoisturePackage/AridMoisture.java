@@ -1,7 +1,7 @@
 package islandADT.Water.MoisturePackage;
 
-import islandADT.GeometryContainer;
-import islandADT.GeometryContainerCalculator;
+import islandADT.Container.GeometryContainer;
+import islandADT.Container.GeometryContainerCalculator;
 import islandADT.GeometryWrappers.PointWrapper;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.VertexWrapper;

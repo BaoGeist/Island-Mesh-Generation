@@ -1,6 +1,6 @@
 package islandADT.Water.MoisturePackage;
 
-import islandADT.GeometryContainer;
+import islandADT.Container.GeometryContainer;
 
 public interface MoistureInterface {
     void setMoisture(GeometryContainer geometryContainer);
