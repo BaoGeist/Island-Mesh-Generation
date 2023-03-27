@@ -138,8 +138,10 @@ Our Definition of Done includes the following criteria:
 | F17 | Generate resources based on biome                                    | Alexis                | 03.26.2023 | 03.26.2023 | D      |
 | F18 | Generate resources based on biome + humidity + elevation             | Alexis                | 03.26.2023 | 03.26.2023 | D      |
 | F19 | Generate heatmap for one parameter(i.e. elevation)                   | Daniel, Baoze         | 03.14.2023 | 03.14.2023 | D      |
-| F20 | Generate all heatmaps (humidity, elevation, resources (wood only))   | Daniel, Baoze, Alexis | 03.18.2023 | 03.26.2023 | D      |
+| F20 | Generate all heatmaps (humidity, elevation, resources (**wood only)) | Daniel, Baoze, Alexis | 03.18.2023 | 03.26.2023 | D      |
 
+
+## Note that island tests only work if you are in the island directory
 
 
 
