@@ -31,22 +31,22 @@ public class Resources {
 
 
         for (PolygonWrapper p: polygons.values()) {
-            if (p.getTileType().equals(Desert)) {
+            if (p.getTileType().isEquals(Desert)) {
                 p.setResource("sand");
             }
-            else if (p.getTileType().equals(Taiga) || p.getTileType().equals(Forest) || p.getTileType().equals(Rainforest)) {
+            else if (p.getTileType().isEquals(Taiga) || p.getTileType().isEquals(Forest) || p.getTileType().isEquals(Rainforest)) {
                 p.setResource("wood");
             }
-            else if (p.getTileType().equals(Tundra) || p.getTileType().equals(Mountain)) {
+            else if (p.getTileType().isEquals(Tundra) || p.getTileType().isEquals(Mountain)) {
                 p.setResource("snow"); 
             }
-            else if (p.getTileType().equals(Savannah) || p.getTileType().equals(Grassland)) {
+            else if (p.getTileType().isEquals(Savannah) || p.getTileType().isEquals(Grassland)) {
                 p.setResource("livestock");
             }
-            else if (p.getTileType().equals(Swamp)) {
+            else if (p.getTileType().isEquals(Swamp)) {
                 p.setResource("berries"); 
             }
-            else if (p.getTileType().equals(Mushroom)) {
+            else if (p.getTileType().isEquals(Mushroom)) {
                 p.setResource("mushrooms"); //like we said we like minecraft
             }
             else {

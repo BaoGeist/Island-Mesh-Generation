@@ -13,6 +13,7 @@ public class ResourceColourExporter extends ColourExporter {
     @Override
     public int[] export(PolygonWrapper p) {
         int value = p.getScore();
+        System.out.println(p.getResource());
         if(value <= 2 || p.isWaterOrNah()) return new int[]{0, 0, 0};
         if (p.getResource() == "snow") {
             if(value <= 3) return new int[]{188, 227, 255};
