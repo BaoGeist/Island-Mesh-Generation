@@ -67,8 +67,10 @@ mosser@azrael generator % ls -lh sample.mesh
 mosser@azrael generator % 
 ```
 
+## Note that island tests only work if you are in the island directory
+
 ### Individual Run - Island 
-To run island, go to `island` directory, and use `java -jar` to run the product. This must run after the above section. It takes up to ___ arguments in no particular order.
+To run island, go to `island` directory, and use `java -jar` to run the product. This must run after the above section. It takes up to 10 arguments in no particular order.
 - `i`, Specifies the relative address of the input mesh file
 - `o`, Specifies the relative address of the output mesh file 
 - `shape`, Specifies the shape profile of the island, options are `circle`, `star`, `country`, `oval`
@@ -141,7 +143,6 @@ Our Definition of Done includes the following criteria:
 | F20 | Generate all heatmaps (humidity, elevation, resources (**wood only)) | Daniel, Baoze, Alexis | 03.18.2023 | 03.26.2023 | D      |
 
 
-## Note that island tests only work if you are in the island directory
 
 
 
