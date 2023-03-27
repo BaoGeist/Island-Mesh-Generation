@@ -113,13 +113,10 @@ public class RiverFactory implements WaterBody{
                 setRiverSegmentType(river, geometryContainer);
 
                 for (VertexWrapper vert: river){
-                    System.out.println("River flow = " + vert.getFlow());
                 }
 
-                System.out.println("river size = " + river.size());
                 if (inNotWater) {
                     createLake(river, geometryContainer);
-                    System.out.println("End of river is not in ocean or lake");
                 }
                 counter++;
                 generateSpring(geometryContainer, randomPoints);
@@ -135,7 +132,6 @@ public class RiverFactory implements WaterBody{
             } else {
                 int newFlowLevel = previousFlowLevel + dischargeLevel;
                 riverFlowVertex.setFlow(newFlowLevel);
-                System.out.println("THERE WAS A MERGE, previous:  " + previousFlowLevel + ", old: " + newFlowLevel);
             }
         } else {
             riverFlowVertex.setRiverVertex(true);
@@ -198,7 +194,6 @@ public class RiverFactory implements WaterBody{
                 return vertex.get_id();
             }
         }
-        System.out.println("If you see this, error in line 81 of River.java");
         return 0;
     }
 
@@ -242,7 +237,6 @@ public class RiverFactory implements WaterBody{
                         int v2Flow = vertices.get(seg.getV2id()).getFlow();
 
                         int segFlow = Math.min(v1Flow, v2Flow);
-                        System.out.println("Segment flow = " + segFlow);
 
                         seg.getSegmentTypeWrapper().setFlow(segFlow);
                         break;
@@ -255,7 +249,6 @@ public class RiverFactory implements WaterBody{
                         int v2Flow = vertices.get(seg.getV2id()).getFlow();
 
                         int segFlow = Math.min(v1Flow, v2Flow);
-                        System.out.println("Segment flow = " + segFlow);
 
                         seg.getSegmentTypeWrapper().setFlow(segFlow);
 
