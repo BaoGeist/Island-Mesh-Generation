@@ -1,0 +1,66 @@
+@startuml
+
+participant Main
+
+-> Main : main()
+activate Main
+
+create IslandGenerator
+Main -> IslandGenerator
+activate IslandGenerator
+
+create RandomSeed
+IslandGenerator -> RandomSeed : set_randomseed(IslandSpecifications)
+activate RandomSeed
+RandomSeed --> IslandGenerator
+deactivate RandomSeed
+
+create islandGeographySetter
+IslandGenerator -> islandGeographySetter : set_island_type(GeometryContainer, IslandSpecifications)
+activate islandGeographySetter
+islandGeographySetter --> IslandGenerator
+deactivate islandGeographySetter
+IslandGenerator -> islandGeographySetter : set_island_elevation(GeometryContainer, IslandSpecifications)
+activate islandGeographySetter
+islandGeographySetter --> IslandGenerator
+deactivate islandGeographySetter
+
+create lakeGenerator
+IslandGenerator -> lakeGenerator : generate(GeometryContainer)
+activate lakeGenerator
+lakeGenerator --> IslandGenerator
+deactivate lakeGenerator
+
+create riverGenerator
+IslandGenerator -> riverGenerator : generate(GeometryContainer)
+activate riverGenerator
+riverGenerator --> IslandGenerator
+deactivate riverGenerator
+
+create aquiferGenerator
+IslandGenerator -> aquiferGenerator : generate(GeometryContainer)
+activate aquiferGenerator
+aquiferGenerator --> IslandGenerator
+deactivate aquiferGenerator
+
+create moistureSetter
+IslandGenerator -> moistureSetter : calculateMoisture(GeometryContainer)
+activate moistureSetter
+create moistureFactory
+moistureSetter -> moistureFactory: selectMoistureProfile(IslandSpecifications)
+moistureFactory --> moistureSetter
+deactivate moistureFactory
+moistureSetter --> IslandGenerator
+deactivate moistureSetter
+
+create biomeSetter
+IslandGenerator -> biomeSetter : setMultipleBiomes(GeometryContainer)
+activate biomeSetter
+create biomeFactory
+biomeSetter -> biomeFactory: selectBiomeProfile(IslandSpecifications)
+biomeFactory --> biomeSetter
+deactivate biomeFactory
+biomeSetter --> IslandGenerator
+deactivate biomeSetter
+
+@enduml
