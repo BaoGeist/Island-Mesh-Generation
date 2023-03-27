@@ -31,22 +31,22 @@ public class Resources {
 
 
         for (PolygonWrapper p: polygons.values()) {
-            if (p.getTileType() == Desert) {
+            if (p.getTileType().equals(Desert)) {
                 p.setResource("sand");
             }
-            else if (p.getTileType() == Taiga || p.getTileType() == Forest || p.getTileType() == Rainforest) {
+            else if (p.getTileType().equals(Taiga) || p.getTileType().equals(Forest) || p.getTileType().equals(Rainforest)) {
                 p.setResource("wood");
             }
-            else if (p.getTileType() == Tundra || p.getTileType() == Mountain) {
+            else if (p.getTileType().equals(Tundra) || p.getTileType().equals(Mountain)) {
                 p.setResource("snow"); 
             }
-            else if (p.getTileType() == Savannah || p.getTileType() == Grassland) {
+            else if (p.getTileType().equals(Savannah) || p.getTileType().equals(Grassland)) {
                 p.setResource("livestock");
             }
-            else if (p.getTileType() == Swamp) {
+            else if (p.getTileType().equals(Swamp)) {
                 p.setResource("berries"); 
             }
-            else if (p.getTileType() == Mushroom) {
+            else if (p.getTileType().equals(Mushroom)) {
                 p.setResource("mushrooms"); //like we said we like minecraft
             }
             else {
