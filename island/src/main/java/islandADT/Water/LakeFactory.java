@@ -12,10 +12,10 @@ import java.util.*;
 
 import static islandADT.Container.GeometryContainerCalculator.*;
 
-public class LakeGenerator extends WaterTile{
+public class LakeFactory extends WaterSourceFactory {
     int amount_of_lakes = 0;
 
-    public LakeGenerator(IslandSpecifications islandSpecifications) {
+    public LakeFactory(IslandSpecifications islandSpecifications) {
         amount_of_lakes = Integer.parseInt(islandSpecifications.getLakes());
     }
     private void lake_erosion(GeometryContainer geometryContainer, List<PolygonWrapper> lakes) {

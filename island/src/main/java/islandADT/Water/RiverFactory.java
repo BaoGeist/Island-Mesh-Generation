@@ -20,10 +20,10 @@ import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.NotWater;
 import static islandADT.TypeWrappers.SegmentTypeWrapper.SegmentType.Water;
 import static islandADT.Utils.MathUtils.distance_between_points;
 
-public class RiverGenerator implements WaterBody{
+public class RiverFactory implements WaterBody{
 
     int amount_of_rivers = 0;
-    public RiverGenerator(IslandSpecifications islandSpecifications) {
+    public RiverFactory(IslandSpecifications islandSpecifications) {
         amount_of_rivers = Integer.parseInt(islandSpecifications.getRivers());
     }
 

@@ -14,10 +14,10 @@ import java.util.Map;
 import static islandADT.Container.GeometryContainerCalculator.*;
 import static islandADT.Container.GeometryContainerCalculator.polygon_no_ocean_neighbours;
 
-public class AquiferGenerator extends WaterTile{
+public class AquiferFactory extends WaterSourceFactory {
     int amount_of_aquifers = 0;
 
-    public AquiferGenerator(IslandSpecifications islandSpecifications) {
+    public AquiferFactory(IslandSpecifications islandSpecifications) {
         amount_of_aquifers = Integer.parseInt(islandSpecifications.getAquifers());
     }
 

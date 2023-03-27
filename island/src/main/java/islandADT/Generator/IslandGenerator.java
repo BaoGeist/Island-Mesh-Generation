@@ -53,13 +53,13 @@ public class IslandGenerator {
         islandGeographySetter.set_island_shape(geometryContainer, islandSpecifications);
         islandGeographySetter.set_island_elevation(geometryContainer, islandSpecifications);
 
-        WaterBody lakeGenerator = new LakeGenerator(islandSpecifications);
+        WaterBody lakeGenerator = new LakeFactory(islandSpecifications);
         lakeGenerator.generate(geometryContainer);
 
-        WaterBody riverGenerator = new RiverGenerator(islandSpecifications);
-        riverGenerator.generate(geometryContainer);
+        WaterBody river = new RiverFactory(islandSpecifications);
+        river.generate(geometryContainer);
 
-        WaterBody aquiferGenerator = new AquiferGenerator(islandSpecifications);
+        WaterBody aquiferGenerator = new AquiferFactory(islandSpecifications);
         aquiferGenerator.generate(geometryContainer);
 
         MoistureSetter moistureSetter = new MoistureSetter(islandSpecifications);
