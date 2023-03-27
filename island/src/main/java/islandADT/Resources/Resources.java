@@ -30,29 +30,33 @@ public class Resources {
         TileTypeWrapper Bamboo = new TileTypeWrapper("Bamboo Mountain");
 
 
+
         for (PolygonWrapper p: polygons.values()) {
-            if (p.getTileType().isEquals(Desert)) {
-                p.setResource("sand");
+            if(p.isLandornah()) {
+                if (p.getTileType().getType().equals(Desert.getType())) {
+                    p.setResource("sand");
+                }
+                else if (p.getTileType().getType().equals(Taiga.getType()) || p.getTileType().getType().equals(Forest.getType()) || p.getTileType().getType().equals(Rainforest.getType())) {
+                    p.setResource("wood");
+                }
+                else if (p.getTileType().getType().equals(Tundra.getType()) || p.getTileType().getType().equals(Mountain.getType())) {
+                    p.setResource("snow");
+                }
+                else if (p.getTileType().getType().equals(Savannah.getType()) || p.getTileType().getType().equals(Grassland.getType())) {
+                    p.setResource("livestock");
+                }
+                else if (p.getTileType().getType().equals(Swamp.getType())) {
+                    p.setResource("berries");
+                }
+                else if (p.getTileType().getType().equals(Mushroom.getType())) {
+                    p.setResource("mushrooms"); //like we said we like minecraft
+                }
+                else {
+                    p.setResource("bamboo");
+                }
             }
-            else if (p.getTileType().isEquals(Taiga) || p.getTileType().isEquals(Forest) || p.getTileType().isEquals(Rainforest)) {
-                p.setResource("wood");
             }
-            else if (p.getTileType().isEquals(Tundra) || p.getTileType().isEquals(Mountain)) {
-                p.setResource("snow"); 
-            }
-            else if (p.getTileType().isEquals(Savannah) || p.getTileType().isEquals(Grassland)) {
-                p.setResource("livestock");
-            }
-            else if (p.getTileType().isEquals(Swamp)) {
-                p.setResource("berries"); 
-            }
-            else if (p.getTileType().isEquals(Mushroom)) {
-                p.setResource("mushrooms"); //like we said we like minecraft
-            }
-            else {
-                p.setResource("bamboo");
-            }
-        }
+
     }
 
 }
