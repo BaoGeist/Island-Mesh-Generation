@@ -49,15 +49,15 @@ public class IslandGenerator {
 
 
 
-        SetPolygonTypes setter = new SetPolygonTypes();
-        setter.set_island_shape(geometryContainer, islandSpecifications);
-        setter.set_island_elevation(geometryContainer, islandSpecifications);
+        SetPolygonTypes islandGeographySetter = new SetPolygonTypes();
+        islandGeographySetter.set_island_shape(geometryContainer, islandSpecifications);
+        islandGeographySetter.set_island_elevation(geometryContainer, islandSpecifications);
 
         WaterBody lakeGenerator = new LakeGenerator(islandSpecifications);
         lakeGenerator.generate(geometryContainer);
 
-        WaterBody river = new RiverGenerator(islandSpecifications);
-        river.generate(geometryContainer);
+        WaterBody riverGenerator = new RiverGenerator(islandSpecifications);
+        riverGenerator.generate(geometryContainer);
 
         WaterBody aquiferGenerator = new AquiferGenerator(islandSpecifications);
         aquiferGenerator.generate(geometryContainer);

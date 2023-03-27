@@ -1,0 +1,46 @@
+@startuml
+
+participant Main
+
+-> Main : main()
+activate Main
+
+create IslandGenerator
+Main -> IslandGenerator
+activate IslandGenerator
+
+create meshExporter
+IslandGenerator -> meshExporter : export(GeometryContainer)
+activate meshExporter
+create colourFactory
+meshExporter -> colourFactory : create(IslandSpecifications)
+activate colourFactory
+colourFactory --> meshExporter
+deactivate colourFactory
+create polygonExporter
+meshExporter -> polygonExporter : export(PolygonWrapper)
+activate polygonExporter
+polygonExporter -> colourExporter : export (PolygonWrapper)
+activate colourExporter
+colourExporter --> polygonExporter
+deactivate colourExporter
+polygonExporter --> meshExporter
+deactivate polygonExporter
+create segmentExporter
+meshExporter -> segmentExporter : export (SegmentWrapper)
+activate segmentExporter
+segmentExporter --> meshExporter
+deactivate segmentExporter
+create vertexExporter
+meshExporter -> vertexExporter : export (VertexWrapper)
+activate vertexExporter
+vertexExporter --> meshExporter
+deactivate vertexExporter
+meshExporter --> IslandGenerator
+deactivate meshExporter
+
+IslandGenerator --> Main
+deactivate IslandGenerator
+deactivate Main
+
+@enduml
