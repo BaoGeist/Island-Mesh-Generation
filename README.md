@@ -1,7 +1,5 @@
-# Assignment A3: Terrain Generator
-  - Author #1 linb44@mcmaster.ca
-  - Author #2 hus44@mcmaster.ca
-  - Author #3 moutafia@mcmaster.ca
+# Assignment A4: Terrain Generator
+  - Author: linb44@mcmaster.ca
 
 ## Installation instructions
 
@@ -12,7 +10,7 @@ To install the different tooling on your computer, simply run `mvn clean install
 After installation, you'll find:
 - an application named `generator.jar` in the `generator` directory
 - an application named `island.jar` in the `island` directory
-- an application named `visualizer.jar` in the `visualizer` directory. 
+- an application named `visualizer.jar` in the `visualizer` directory.
 
 ## Quick-Start Guide
 A make file with sample commands has been provided in the root project directory to demonstrate all functionalities. They will create .mesh and .svg files in the `img` directory. The easiest commands to run are:
@@ -113,34 +111,22 @@ mosser@azrael visualizer %
 ### Definition of Done
 Our Definition of Done includes the following criteria:
 - Testing functions reveals no defects
-- Both regular and irregular meshes generate and can be "played" around with
+- Project requirements are met
 - All other rubric criteria are hit from an A-tier to S-tier (hopefully)
 - Lecture Software Development concepts are applied
 
 ### Product Backlog
 
-| Id  | Feature title                                                        | Who?                  | Start      | End        | Status |
-|:---:|----------------------------------------------------------------------|-----------------------|------------|------------|--------|
-| F01 | Initial Island Generation for Step 1                                 | Daniel, Baoze         | 03.05.2023 | 03.12.2023 | D      |
-| F02 | Generates a shaped island (circle)                                   | Baoze, Alexis, Daniel | 03.10.2023 | 03.11.2023 | D      |
-| F03 | Generates multiple shapes of island (stars, rectangle)               | Baoze, Alexis, Daniel | 03.11.2023 | 03.14.2023 | D      |
-| F04 | Generate island with plains elevation profile                        | Baoze, Alexis, Daniel | 03.14.2023 | 03.14.2023 | D      |
-| F05 | Generate island with assigned humidity values for tiles              | Baoze, Alexis, Daniel | 03.18.2023 | 03.18.2023 | D      |
-| F06 | Generate island with more elevation profiles (volcanic, mountains)   | Baoze, Alexis, Daniel | 03.14.2023 | 03.14.2023 | D      |
-| F07 | Integrate reproducibility/seeds                                      | Baoze                 | 03.15.2023 | 03.15.2023 | D      |
-| F08 | Generate a lake at a random point                                    | Baoze                 | 03.15.2023 | 03.18.2023 | D      |
-| F09 | Generate multiple lakes with CLI input                               | Baoze                 | 03.18.2023 | 03.18.2023 | D      |
-| F10 | Generate a river at a random point                                   | Daniel                | 03.15.2023 | 03.16.2023 | D      |
-| F11 | Generate multiple rivers                                             | Daniel                | 03.16.2023 | 03.18.2023 | D      |
-| F12 | Calculate river discharge, show changes                              | Daniel                | 03.16.2023 | 03.19.2023 | D      |
-| F13 | Generate aquifers                                                    | Baoze                 | 03.18.2023 | 03.18.2023 | D      |
-| F14 | Calculate soil absorption with soil profile input                    | Daniel, Baoze         | 03.18.2023 | 03.21.2023 | D      |
-| F15 | Generate biomes based on humidity + temperature                      | Alexis                | 03.21.2023 | 03.25.2023 | D      |
-| F16 | Generate islands based on Whittaker diagrams + CLI                   | Alexis, Baoze         | 03.25.2023 | 03.26.2023 | D      |
-| F17 | Generate resources based on biome                                    | Alexis                | 03.26.2023 | 03.26.2023 | D      |
-| F18 | Generate resources based on biome + humidity + elevation             | Alexis                | 03.26.2023 | 03.26.2023 | D      |
-| F19 | Generate heatmap for one parameter(i.e. elevation)                   | Daniel, Baoze         | 03.14.2023 | 03.14.2023 | D      |
-| F20 | Generate all heatmaps (humidity, elevation, resources (**wood only)) | Daniel, Baoze, Alexis | 03.18.2023 | 03.26.2023 | D      |
+| Id  | Feature title                                                        | Start      | End        | Status |
+|:---:|----------------------------------------------------------------------|------------|------------|--------|
+| F01 | Created notion of Node, Edge and Graph                               | 03.31.2023 | 03.31.2023 | D      |
+| F02 | Create an interface contract for "finding path between two nodes"    | 03.31.2023 | 03.31.2023 | D      |
+| F03 | Implemented pathfinder algorithm to find a shortest path             |            |            | P      |
+| F04 | Generate islands with cities of different sizes                      |            |            | P      |
+| F05 | Create a "star network" of roads on the island                       |            |            | P      |
+| F06 | Provide CLI integration for user to control number of cities         |            |            | P      |
+| F07 | Implement Markov process for procedural generation of names          |            |            | P      |
+| F08 | Create non-star networks                                             |            |            | P      |
 
 
 

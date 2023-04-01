@@ -18,7 +18,8 @@
         <module>visualizer</module>
         <module>Island</module>
         <module>meshadt</module>
-    </modules>
+		<module>pathfinder</module>
+	</modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
