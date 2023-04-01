@@ -23,6 +23,9 @@ public class PathFinderShortest implements PathFinder {
         int adj_size = graphManager.get_adjacency_size();
 
         int[] path = new int[adj_size];
+        for(int i = 0; i < adj_size; i++) {
+            path[i] = -1;
+        }
         int[] cost = new int[adj_size];
         for(int i = 0; i < adj_size; i++) {
             cost[i] = Integer.MAX_VALUE;
@@ -37,6 +40,7 @@ public class PathFinderShortest implements PathFinder {
         while(!pq.isEmpty()) {
             Node m = pq.remove();
             Map<Integer, Integer> neighbours = m.getNeighbours();
+
             for(Integer n: neighbours.keySet()) {
                 Edge edge = graphManager.get_edge_from_int(neighbours.get(n));
                 if(cost[m.getId()] + edge.getWeight() < cost[n]) {
@@ -48,18 +52,20 @@ public class PathFinderShortest implements PathFinder {
             }
             System.out.println(pq);
         }
-        return path_to_string(path, sink);
+        return path_to_object(path, sink);
     }
 
-    private Path path_to_string(int[] path, int sink) {
+    private Path path_to_object(int[] path, int sink) {
         Path pathObj;
         if(path[sink] == sink) {
             pathObj = new Path();
             pathObj.addPath(graphManager.get_node_from_int(sink));
             return pathObj;
+        } else if(path[sink] == -1) {
+            return new Path();
         }
         else {
-            pathObj = path_to_string(path, path[sink]);
+            pathObj = path_to_object(path, path[sink]);
             pathObj.addPath(graphManager.get_node_from_int(sink));
         }
         return pathObj;

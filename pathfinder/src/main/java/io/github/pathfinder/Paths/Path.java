@@ -18,10 +18,14 @@ public class Path {
 
     @Override
     public String toString() {
-        String returnString = new String();
-        for(Node n: path_list) {
-            returnString += n.getId() + " ";
+        if(path_list.isEmpty()) {
+            return "No path.";
+        } else {
+            String returnString = new String();
+            for(Node n: path_list) {
+                returnString += n.getId() + " ";
+            }
+            return returnString;
         }
-        return returnString;
     }
 }
