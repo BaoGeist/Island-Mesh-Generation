@@ -1,4 +1,4 @@
-package io.github.pathfinder;
+package io.github.pathfinder.Graphs.Parts;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,15 +6,20 @@ import java.util.Map;
 public class Node implements Propertiable, Neighbourable<Integer, Integer> {
     private Map<String, Object> properties;
     private Map<Integer, Integer> neighbours;
+    private int id;
+    private int cost;
 
-    public Node() {
+    public Node(int id) {
         this.properties = new HashMap<>();
+        this.id = id;
     }
 
+    @Override
     public void add_property(String key, Object value) {
         this.properties.put(key, value);
     }
 
+    @Override
     public Map<String, Object> get_properties() {
         Map<String, Object> copiedProperties = new HashMap<>();
         for (Map.Entry<String, Object> entry : properties.entrySet()) {
@@ -23,7 +28,35 @@ public class Node implements Propertiable, Neighbourable<Integer, Integer> {
         return copiedProperties;
     }
 
+    @Override
     public void set_neighbours(Map<Integer, Integer> neighbours) {
         this.neighbours = neighbours;
     }
+
+    @Override
+    public Map<Integer, Integer> getNeighbours() {
+        return neighbours;
+    }
+
+    @Override
+    public String toString(){
+        String returnString = id + ": ";
+        for(Integer neighbour: neighbours.keySet()) {
+            returnString += neighbour + " ";
+        }
+        return returnString;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public int getId() {
+        return id;
+    }
 }
+

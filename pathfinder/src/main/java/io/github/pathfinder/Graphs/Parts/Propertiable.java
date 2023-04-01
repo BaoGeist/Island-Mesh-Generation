@@ -1,4 +1,4 @@
-package io.github.pathfinder;
+package io.github.pathfinder.Graphs.Parts;
 
 import java.util.Map;
 

@@ -1,0 +1,21 @@
+import io.github.pathfinder.Graphs.GraphADT;
+import io.github.pathfinder.Graphs.GraphMakerBasic;
+import io.github.pathfinder.Graphs.GraphMakerInterface;
+import io.github.pathfinder.Paths.PathFinder;
+import io.github.pathfinder.Paths.PathFinderShortest;
+
+public class Main {
+    public static void main(String[] args) {
+        GraphMakerInterface graphMaker = new GraphMakerBasic();
+        GraphADT graph = graphMaker.create_graph();
+
+        PathFinder graphTraveller = new PathFinderShortest(graph);
+
+        for(int i = 0; i < 9; i++) {
+            System.out.println("Path to " + i);
+            System.out.println(graphTraveller.path_find(0, i));
+        }
+
+    }
+
+}
