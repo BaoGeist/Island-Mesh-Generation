@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static io.github.pathfinder.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EdgeTest {
     Edge testEdge;

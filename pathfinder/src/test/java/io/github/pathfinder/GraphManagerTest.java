@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Random;
 
-import static io.github.pathfinder.Assertions.assertEquals;
-import static io.github.pathfinder.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GraphManagerTest {
     GraphManager graphManager;

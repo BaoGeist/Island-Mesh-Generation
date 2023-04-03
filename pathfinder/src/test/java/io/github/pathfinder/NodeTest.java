@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static io.github.pathfinder.Assertions.assertEquals;
-import static io.github.pathfinder.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class NodeTest {
     Node testNode;

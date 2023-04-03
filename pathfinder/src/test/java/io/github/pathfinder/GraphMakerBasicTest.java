@@ -5,10 +5,10 @@ import io.github.pathfinder.Graphs.GraphMakerBasic;
 import io.github.pathfinder.Graphs.GraphMakerInterface;
 import io.github.pathfinder.Graphs.GraphManager;
 import org.junit.jupiter.api.Test;
-import io.github.pathfinder.Assertions.*;
 
-import static io.github.pathfinder.Assertions.assertEquals;
-import static io.github.pathfinder.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class GraphMakerBasicTest {
     GraphADT testGraph;

@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.github.pathfinder.Assertions.assertEquals;
-import static io.github.pathfinder.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class GraphMakerBetterTest {
     GraphADT testGraph;

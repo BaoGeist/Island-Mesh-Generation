@@ -16,6 +16,10 @@ public class Path {
         path_list.add(n);
     }
 
+    public int length() {
+        return path_list.size();
+    }
+
     @Override
     public String toString() {
         if(path_list.isEmpty()) {
