@@ -28,11 +28,11 @@ public class GraphADT {
     }
 
     protected List<Node> get_adjacency_list() {
-        return adjacency_list;
+        return adjacency_list.isEmpty() ? null : adjacency_list;
     }
 
     protected List<Edge> getEdges() {
-        return edges;
+        return edges.isEmpty() ? null : edges;
     }
 
     @Override

@@ -23,8 +23,6 @@ public class GraphMakerBetter extends GraphMakerAbstract{
     @Override
     public void populate_edges() {
         new_edge(0, 0, 1, 1);
-        new_edge(1,0,2,1);
-        new_edge(0, 0, 1, 1);
         new_edge(1, 0, 2, 1);
         new_edge(2, 0, 3, 1);
         new_edge(3, 1, 4, 1);

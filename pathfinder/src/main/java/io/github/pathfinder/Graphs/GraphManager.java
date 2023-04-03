@@ -69,4 +69,9 @@ public class GraphManager {
 
         return adj_ids.contains(node_id);
     }
+
+    public boolean isEmpty() {
+        if(graph.getEdges() == null && graph.get_adjacency_list() == null) { return true; }
+        return false;
+    }
 }

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static io.github.pathfinder.Assertions.assertEquals;
+import static io.github.pathfinder.Assertions.assertFalse;
 
 public class GraphMakerBetterTest {
     GraphADT testGraph;
@@ -33,5 +34,57 @@ public class GraphMakerBetterTest {
         for(int i = 0; i < adj.size(); i++) {
             assertEquals(adj.get(i), adjCC.get(i));
         }
+    }
+
+    @Test
+    public void new_node_test() {
+        GraphMakerBetter graphMaker = new GraphMakerBetter();
+        graphMaker.populate_nodes();
+        GraphManager tempManager = new GraphManager(graphMaker.populate_graph());
+        int pre_nodes = tempManager.get_node_number();
+
+        graphMaker.new_node(14);
+        tempManager = new GraphManager(graphMaker.populate_graph());
+        int post_nodes = tempManager.get_node_number();
+
+        assertEquals(pre_nodes + 1, post_nodes);
+    }
+
+    @Test
+    public void new_edge_test() {
+        GraphMakerBetter graphMaker = new GraphMakerBetter();
+        graphMaker.populate_edges();
+        GraphManager tempManager = new GraphManager(graphMaker.populate_graph());
+        int pre_edges = tempManager.get_edge_number();
+
+        graphMaker.new_edge(14, 0, 13, 1);
+        tempManager = new GraphManager(graphMaker.populate_graph());
+        int post_edges = tempManager.get_edge_number();
+
+        assertEquals(pre_edges + 1, post_edges);
+    }
+
+    @Test
+    public void populate_nodes_test() {
+        set_up();
+
+        assertEquals(10, graphManager.get_node_number());
+    }
+
+    @Test
+    public void populate_edges_test() {
+        set_up();
+
+        System.out.println(graphManager.get_edge_number());
+        assertEquals(14, graphManager.get_edge_number());
+
+        System.out.println(testGraph);
+    }
+
+    @Test
+    public void populate_graph_test() {
+        set_up();
+
+        assertFalse(graphManager.isEmpty());
     }
 }
