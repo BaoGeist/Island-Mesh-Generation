@@ -51,9 +51,6 @@ public class GraphManager {
 
     public boolean contains_edge(int node1, int node2) {
         Node node1Object = get_node_from_int(node1);
-        Node node2Object = get_node_from_int(node2);
-
-        List<Node> adj = graph.get_adjacency_list();
 
         Map<Integer, Integer> neighbours = node1Object.getNeighbours();
 
@@ -68,6 +65,17 @@ public class GraphManager {
                 .collect(Collectors.toList());
 
         return adj_ids.contains(node_id);
+    }
+
+    public boolean contains_node(Node node) {
+        List<Node> adj = graph.get_adjacency_list();
+
+        for(Node node1 : adj) {
+            if(node.equals(node1)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isEmpty() {
