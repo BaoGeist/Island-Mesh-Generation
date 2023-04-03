@@ -14,7 +14,7 @@ public class GraphMakerBetter extends GraphMakerAbstract{
 
     @Override
     public void populate_nodes() {
-        int numberOfNodes = 11;
+        int numberOfNodes = 10;
         for(int i = 0; i < numberOfNodes; i++) {
             new_node(i);
         }

@@ -38,15 +38,6 @@ public class Node implements Propertiable, Neighbourable<Integer, Integer> {
         return neighbours;
     }
 
-    @Override
-    public String toString(){
-        String returnString = id + ": ";
-        for(Integer neighbour: neighbours.keySet()) {
-            returnString += neighbour + " ";
-        }
-        return returnString;
-    }
-
     public int getCost() {
         return cost;
     }
@@ -57,6 +48,27 @@ public class Node implements Propertiable, Neighbourable<Integer, Integer> {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString(){
+        String returnString = id + ": ";
+        for(Integer neighbour: neighbours.keySet()) {
+            returnString += neighbour + " ";
+        }
+        return returnString;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Node oObject = (Node) o;
+        return(this.getId() == oObject.getId());
     }
 }
 
