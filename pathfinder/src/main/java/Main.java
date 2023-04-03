@@ -12,7 +12,7 @@ public class Main {
 
         PathFinder graphTraveller = new PathFinderShortest(graph);
 
-        for(int i = 0; i < 11; i++) {
+        for(int i = 0; i < 10; i++) {
             System.out.println("Path to " + i);
             System.out.println(graphTraveller.path_find(0, i));
         }

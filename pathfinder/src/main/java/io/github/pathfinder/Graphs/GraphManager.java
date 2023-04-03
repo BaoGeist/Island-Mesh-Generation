@@ -25,4 +25,12 @@ public class GraphManager {
         List<Edge> edges = graph.getEdges();
         return edges.get(intEdge);
     }
+
+    public int get_edge_number() {
+        return graph.getEdges().size();
+    }
+
+    public int get_node_number() {
+        return graph.get_adjacency_list().size();
+    }
 }
