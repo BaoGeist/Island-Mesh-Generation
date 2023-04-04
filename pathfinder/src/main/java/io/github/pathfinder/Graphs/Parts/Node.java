@@ -33,6 +33,10 @@ public class Node implements Propertiable, Neighbourable<Integer, Integer> {
         this.neighbours = neighbours;
     }
 
+    public void set_neighbour(int node_id, int edge_id) {
+        this.neighbours.put(node_id, edge_id);
+    }
+
     @Override
     public Map<Integer, Integer> getNeighbours() {
         return neighbours;

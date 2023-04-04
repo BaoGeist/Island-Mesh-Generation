@@ -50,7 +50,6 @@ public class PathFinderShortest implements PathFinder {
                     pq.add(graphManager.get_node_from_int(n));
                 }
             }
-            System.out.println(pq);
         }
         return path_to_object(path, sink);
     }

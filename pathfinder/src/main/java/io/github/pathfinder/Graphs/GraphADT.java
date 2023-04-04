@@ -16,13 +16,13 @@ public class GraphADT {
         this.edges = new ArrayList<>();
     }
 
-    protected void add_node(Integer id, Map<Integer, Integer> neighbours) {
+    public void add_node(Integer id, Map<Integer, Integer> neighbours) {
         Node newNode = new Node(id);
         newNode.set_neighbours(neighbours);
         adjacency_list.add(newNode);
     }
 
-    protected void add_edge(int id, int weight) {
+    public void add_edge(int id, int weight) {
         Edge newEdge = new Edge(id, weight);
         edges.add(newEdge);
     }

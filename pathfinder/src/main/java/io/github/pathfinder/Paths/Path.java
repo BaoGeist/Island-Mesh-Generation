@@ -17,7 +17,7 @@ public class Path {
     }
 
     public int length() {
-        return path_list.size();
+        return path_list.size() == 0 ? 0 : path_list.size()-1;
     }
 
     @Override

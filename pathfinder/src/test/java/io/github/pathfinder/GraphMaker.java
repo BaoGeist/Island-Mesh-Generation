@@ -1,11 +1,13 @@
-package io.github.pathfinder.Graphs;
+package io.github.pathfinder;
+
+import io.github.pathfinder.Graphs.GraphADT;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class GraphMakerAbstract implements GraphMakerInterface{
+public class GraphMaker {
 
     public class TempEdge<Integer> {
         private Integer id;
@@ -61,10 +63,6 @@ public abstract class GraphMakerAbstract implements GraphMakerInterface{
         nodes.add(id);
     }
 
-    public abstract void populate_edges();
-
-    public abstract void populate_nodes();
-
     public GraphADT populate_graph() {
         GraphADT graph = new GraphADT();
 
@@ -86,5 +84,40 @@ public abstract class GraphMakerAbstract implements GraphMakerInterface{
 
         return graph;
     }
+
+
+    public GraphADT create_graph() {
+
+        populate_edges();
+        populate_nodes();
+
+
+        return populate_graph();
+    }
+
+    public void populate_nodes() {
+        int numberOfNodes = 10;
+        for(int i = 0; i < numberOfNodes; i++) {
+            new_node(i);
+        }
+    }
+
+    public void populate_edges() {
+        new_edge(0, 0, 1, 1);
+        new_edge(1, 0, 2, 1);
+        new_edge(2, 0, 3, 1);
+        new_edge(3, 1, 4, 1);
+        new_edge(4, 2, 3, 1);
+        new_edge(5, 3, 4, 1);
+        new_edge(6, 4, 5, 1);
+        new_edge(7, 3, 5, 1);
+        new_edge(8, 5, 7, 1);
+        new_edge(9, 6, 5, 1);
+        new_edge(10, 9, 6, 1);
+        new_edge(11, 9, 3, 1);
+        new_edge(12, 9, 8, 1);
+        new_edge(13, 8, 7, 1);
+    }
+
 
 }

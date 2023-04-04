@@ -1,8 +1,6 @@
 package io.github.pathfinder;
 
 import io.github.pathfinder.Graphs.GraphADT;
-import io.github.pathfinder.Graphs.GraphMakerBasic;
-import io.github.pathfinder.Graphs.GraphMakerInterface;
 import io.github.pathfinder.Graphs.GraphManager;
 import io.github.pathfinder.Graphs.Parts.Node;
 import org.junit.jupiter.api.Test;
@@ -17,7 +15,7 @@ public class GraphManagerTest {
     GraphManager graphManager;
     GraphADT testGraph;
     private void set_up() {
-        GraphMakerInterface graphMaker = new GraphMakerBasic();
+        GraphMaker graphMaker = new GraphMaker();
         testGraph = graphMaker.create_graph();
 
         graphManager = new GraphManager(testGraph);

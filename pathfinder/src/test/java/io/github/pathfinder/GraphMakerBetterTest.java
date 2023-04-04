@@ -13,7 +13,7 @@ public class GraphMakerBetterTest {
     GraphADT testGraph;
     GraphManager graphManager;
     private void set_up() {
-        GraphMakerInterface graphMaker = new GraphMakerBetter();
+        GraphMaker graphMaker = new GraphMaker();
         testGraph = graphMaker.create_graph();
 
         graphManager = new GraphManager(testGraph);
@@ -23,7 +23,7 @@ public class GraphMakerBetterTest {
     public void crosscheck_test() {
         set_up();
 
-        GraphMakerInterface graphMaker = new GraphMakerBasic();
+        GraphMaker graphMaker = new GraphMaker();
         GraphADT graphCC = graphMaker.create_graph();
 
         GraphManager graphManagerCC = new GraphManager(graphCC);
@@ -38,7 +38,7 @@ public class GraphMakerBetterTest {
 
     @Test
     public void new_node_test() {
-        GraphMakerBetter graphMaker = new GraphMakerBetter();
+        GraphMaker graphMaker = new GraphMaker();
         graphMaker.populate_nodes();
         GraphManager tempManager = new GraphManager(graphMaker.populate_graph());
         int pre_nodes = tempManager.get_node_number();
@@ -52,7 +52,7 @@ public class GraphMakerBetterTest {
 
     @Test
     public void new_edge_test() {
-        GraphMakerBetter graphMaker = new GraphMakerBetter();
+        GraphMaker graphMaker = new GraphMaker();
         graphMaker.populate_edges();
         GraphManager tempManager = new GraphManager(graphMaker.populate_graph());
         int pre_edges = tempManager.get_edge_number();
