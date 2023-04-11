@@ -35,7 +35,6 @@ public class IslandGeneratorTest {
                 System.out.println("fuck");
             }
         }
-        System.out.println("n'est pas existe");
     }
 
     @Before
