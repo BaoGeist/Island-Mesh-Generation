@@ -109,4 +109,14 @@ public class GeometryContainerCalculator {
         }
         return furthest;
     }
+
+    public static PolygonWrapper getPolygonFromCentroid(GeometryContainer geometryContainer, int id) {
+        Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
+        for(PolygonWrapper polygon : polygons.values()) {
+            if(polygon.getId_centroid() == id) {
+                return polygon;
+            }
+        }
+        return null;
+    }
 }

@@ -19,6 +19,7 @@ public class IslandConfiguration {
     private static final String SOIL = "soil";
     private static final String BIOMES = "biomes";
     private static final String MODE = "mode";
+    private static final String CITY = "";
     private CommandLine cli;
     public IslandConfiguration(String[] args) {
         try {
@@ -59,6 +60,7 @@ public class IslandConfiguration {
         options.addOption(new Option(SOIL, true, "Soil type and moisture absorption levels"));
         options.addOption(new Option(MODE, true, "Type of mesh for rendering"));
         options.addOption(new Option(BIOMES, true, "Whittaker biome type"));
+        options.addOption(new Option(CITY, true, "Urbanism expansion - number of cities generated"));
         return options;
     }
 
@@ -78,6 +80,7 @@ public class IslandConfiguration {
         defaults.put(SOIL, "fertile");
         defaults.put(BIOMES, "default");
         defaults.put(MODE, "normal");
+        defaults.put(CITY, "10");
 
         String input = cli.getOptionValue(INPUT);
         String output = cli.getOptionValue(OUTPUT);
@@ -90,7 +93,8 @@ public class IslandConfiguration {
         String soil = cli.hasOption(SOIL) ? cli.getOptionValue(SOIL) : defaults.get(SOIL);
         String biomes = cli.hasOption(BIOMES) ? cli.getOptionValue(BIOMES) : defaults.get(BIOMES);
         String mode = cli.hasOption(MODE) ? cli.getOptionValue(MODE) : defaults.get(MODE);
+        String city = cli.hasOption(CITY) ? cli.getOptionValue(CITY) : defaults.get(CITY);
 
-        return new IslandSpecifications(input, output, shape, elevation, seed, lakes, rivers, aquifers, soil, biomes, mode);
+        return new IslandSpecifications(input, output, shape, elevation, seed, lakes, rivers, aquifers, soil, biomes, mode, city);
     }
 }

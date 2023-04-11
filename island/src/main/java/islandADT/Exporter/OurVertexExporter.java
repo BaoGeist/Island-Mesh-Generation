@@ -11,7 +11,8 @@ public class OurVertexExporter implements Exporter<VertexWrapper, Structs.Vertex
         boolean centroid_or_nah = v.isCentroid_vertex();
         double[] coords = v.getCoords();
         int height = v.getHeight();
+        int population = v.getPopulation();
         OurVertexIsland vertexIslandFactory = new OurVertexIsland();
-        return vertexIslandFactory.create_geometry(centroid_or_nah, coords, height);
+        return vertexIslandFactory.create_geometry(centroid_or_nah, coords, height, population);
     }
 }

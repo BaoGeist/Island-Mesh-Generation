@@ -5,12 +5,11 @@ public class VertexWrapper {
     private boolean centroid_vertex;
     private double[] coords;
     private boolean landornah = false;
-
     private boolean isRiverVertex = false;
-
-    private int flow = 0;
     private boolean isSpringVertex = false;
+    private int flow = 0;
     private int height = 0;
+    private int population = 0;
 
     public VertexWrapper(int id_vertex, boolean centroid_vertex, double[] coords) {
         this.id_vertex = id_vertex;
@@ -54,5 +53,13 @@ public class VertexWrapper {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(int population) {
+        this.population = population;
     }
 }

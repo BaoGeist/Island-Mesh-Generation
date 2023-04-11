@@ -2,6 +2,8 @@ package islandADT.Generator;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import islandADT.Urbanism.CityGenerator;
+import islandADT.Urbanism.RoadWeb;
 import islandADT.Water.*;
 import islandADT.Container.GeometryContainer;
 import islandADT.SetPolygonTypes;
@@ -43,11 +45,6 @@ public class IslandGenerator {
         // creates a random seed
         RandomSeed.set_randomseed(islandSpecifications);
 
-        //TODO B make an encapsulation of shape and elevation setting into package called configuration
-        //TODO B move these elsewhere
-         // shape setting
-
-
 
         SetPolygonTypes islandGeographySetter = new SetPolygonTypes();
         islandGeographySetter.set_island_shape(geometryContainer, islandSpecifications);
@@ -73,6 +70,9 @@ public class IslandGenerator {
 
         ResourceCalculator resourceCalculator = new ResourceCalculator(islandSpecifications);
         resourceCalculator.calculateResources(geometryContainer);
+
+        RoadWeb roadWeb = new RoadWeb(islandSpecifications);
+        roadWeb.create_roads(geometryContainer);
 
         // exporting
         Exporter finalExporter = new MeshExporter(islandSpecifications);
