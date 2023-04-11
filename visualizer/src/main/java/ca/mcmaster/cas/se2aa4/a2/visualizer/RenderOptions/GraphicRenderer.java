@@ -26,7 +26,6 @@ public class GraphicRenderer implements Renderer{
         //Draws all polygons
         for (Structs.Polygon p: aMesh.getPolygonsList()) {
 
-            String biome = PropertyUtils.extractBiome(p.getPropertiesList());
             Color polygon_color = PropertyUtils.extractColor(p.getPropertiesList());
             float[] x_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(0);
             float[] y_coords = PropertyUtils.extractCoordsforPolygons(p.getPropertiesList()).get(1);
@@ -55,6 +54,21 @@ public class GraphicRenderer implements Renderer{
             Stroke newStroke = new BasicStroke(thickness);
             canvas.setStroke(newStroke);
             canvas.drawLine((int) v1.getX(), (int) v1.getY(), (int) v2.getX(), (int) v2.getY());
+        }
+        for (Structs.Vertex v : aMesh.getVerticesList()) {
+            //vertices and segments are drawn overtop of polygons
+            double centre_x = v.getX();
+            double centre_y = v.getY();
+            int size = extractSize(v.getPropertiesList());
+
+            Ellipse2D point = new Ellipse2D.Double(centre_x - (float) size/2, (float) centre_y - size/2, size, size);
+            boolean centroid_or_nah = extractCentroid(v.getPropertiesList());
+            if (centroid_or_nah == true) {
+                canvas.setColor(Color.RED);
+            } else {
+                canvas.setColor(Color.BLUE);
+            }
+            canvas.fill(point);
         }
     }
 

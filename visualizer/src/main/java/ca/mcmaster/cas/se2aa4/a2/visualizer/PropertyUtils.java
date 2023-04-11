@@ -89,23 +89,13 @@ public class PropertyUtils {
         return new double[]{min, max};
     }
 
-    public static double extractMoisture(List<Structs.Property> properties) {
-        String val = "0";
-        for(Structs.Property p: properties) {
-            if (p.getKey().equals("moisture")) {
-                val = p.getValue();
-            }
-        }
-        return Double.parseDouble(val);
-    }
-
-    public static String extractBiome(List<Structs.Property> properties) {
+    public static int extractSize(List<Structs.Property> properties) {
         String val = "0";
         for (Structs.Property p: properties) {
-            if (p.getKey().equals("biome")) {
+            if (p.getKey().equals("size")) {
                 val = p.getValue();
             }
         }
-        return val;
+        return Integer.parseInt(val);
     }
 }
