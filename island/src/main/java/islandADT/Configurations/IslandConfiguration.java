@@ -19,7 +19,7 @@ public class IslandConfiguration {
     private static final String SOIL = "soil";
     private static final String BIOMES = "biomes";
     private static final String MODE = "mode";
-    private static final String CITY = "";
+    private static final String CITY = "cities";
     private CommandLine cli;
     public IslandConfiguration(String[] args) {
         try {
