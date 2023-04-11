@@ -2,6 +2,7 @@ package islandADT.Generator;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
+import com.sun.security.jgss.GSSUtil;
 import islandADT.Urbanism.CityGenerator;
 import islandADT.Urbanism.RoadWeb;
 import islandADT.Water.*;
@@ -44,6 +45,7 @@ public class IslandGenerator {
 
         // creates a random seed
         RandomSeed.set_randomseed(islandSpecifications);
+        System.out.println("Random Seed: " + RandomSeed.getInstance().get_seed());
 
 
         SetPolygonTypes islandGeographySetter = new SetPolygonTypes();

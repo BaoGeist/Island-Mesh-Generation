@@ -3,16 +3,21 @@ package islandADT.Urbanism;
 import islandADT.Container.GeometryContainer;
 import islandADT.Elevation.CustomPrecisionModel;
 import islandADT.Generator.RandomSeed;
+import islandADT.GeometryWrappers.PointWrapper;
+import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.TypeWrappers.Cities;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.VertexWrapper;
 import islandADT.Specifications.IslandSpecifications;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import static islandADT.Container.GeometryContainerCalculator.getDryLandPolygons;
+import static islandADT.Container.GeometryContainerCalculator.getPolygonFromCentroid;
 import static islandADT.Utils.MathUtils.distance_between_centre;
 
 public class CityGenerator {
@@ -35,7 +40,8 @@ public class CityGenerator {
             PolygonWrapper potential_city_tile = polygons.get(instanceRandom.randomInt(polygons.size()));
             if(potential_city_tile.isLandornah()) {
                 VertexWrapper potential_city = vertices.get(potential_city_tile.getId_centroid());
-                if (potential_city.getPopulation() == 0) {
+                CityEvaluator cityEvaluator = new CityEvaluator();
+                if (potential_city.getPopulation() == 0 && cityEvaluator.suitable_city_placement(potential_city_tile.getId_centroid(), geometryContainer)) {
                     potential_city.setPopulation(potential_city_tile.getHeight() / 50);
                     cities[counter] = potential_city.get_id();
                     counter++;
@@ -59,4 +65,8 @@ public class CityGenerator {
 
         return new Cities(source, cities);
     }
+
+
+
+
 }

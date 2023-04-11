@@ -25,72 +25,51 @@ public class GraphAdapter {
     Cities cities;
 
     public GraphAdapter(GeometryContainer geometryContainer) {
-        populate_nodes(geometryContainer);
-        populate_edges(geometryContainer);
-        this.graph = populate_graph();
+        this.graph = populate_graph(geometryContainer);
     }
 
 
-    public void AdaptedPath(GeometryContainer geometryContainer, int source, int[] sinks) {
+    public void adapt_graph(GeometryContainer geometryContainer, int source, int[] sinks) {
         Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
-        Map<Integer, SegmentWrapper> new_segments = new HashMap<>();
 
-        PathFinder pathFinder = new PathFinderShortest(graph);
-
-        int segments_size = segments.size() * 2;
-
-
+        int pathSegmentsIndexes = segments.size() * 2;
 
         for(int sink: sinks) {
-            Path path = pathFinder.path_find(source, sink);
+            Path path = request_path_finder_shortest(source, sink);
             List<Integer> path_nodes = path.get_path_integer();
 
             for(int i = 0; i < path_nodes.size() - 1; i++) {
-                SegmentWrapper segment = new SegmentWrapper(segments_size, path_nodes.get(i), path_nodes.get(i+1));
+                SegmentWrapper segment = new SegmentWrapper(pathSegmentsIndexes, path_nodes.get(i), path_nodes.get(i+1));
 
                 SegmentTypeWrapper segment_info = new SegmentTypeWrapper(SegmentTypeWrapper.SegmentType.NotWater);
                 segment_info.setFlow(2);
                 segment.setSegmentTypeWrapper(segment_info);
 
-                segments.put(segments_size, segment);
+                segments.put(pathSegmentsIndexes, segment);
                 geometryContainer.add_segment(segment);
 
-                segments_size++;
-            }
-            System.out.println("--------------------------------------");
-        }
-
-        System.out.println(geometryContainer.get_segments().size());
-    }
-
-
-    private void new_node(int id) {
-        nodes.add(id);
-    }
-
-    private SegmentWrapper segment_from_nodes(int node1, int node2, GeometryContainer geometryContainer) {
-        Map<Integer, SegmentWrapper> segments = geometryContainer.get_segments();
-        for(SegmentWrapper segment: segments.values()) {
-            if(segment.getV1id() == node1 && segment.getV2id() == node2 || segment.getV1id() == node2 && segment.getV2id() == node1) {
-                return segment;
+                pathSegmentsIndexes++;
             }
         }
-        System.out.println("qofeijqfjoewifqf");
-        return null;
     }
+
+    private Path request_path_finder_shortest(int source, int sink) {
+        PathFinder pathFinder = new PathFinderShortest(graph);
+        return pathFinder.path_find(source, sink);
+    }
+
 
     private void populate_nodes(GeometryContainer geometryContainer) {
         List<PolygonWrapper> polygons = getDryLandPolygons(geometryContainer);
 
         for(PolygonWrapper polygon: polygons) {
             int centroid_id = polygon.getId_centroid();
-            new_node(centroid_id);
+            nodes.add(centroid_id);
         }
     }
 
     private void populate_edges(GeometryContainer geometryContainer) {
         Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
-        List<PolygonWrapper> polygons_land = getDryLandPolygons(geometryContainer);
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
 
         Set<Integer> outside_nodes = new HashSet<>();
@@ -98,8 +77,8 @@ public class GraphAdapter {
         for(Integer centroid_id: nodes) {
             PolygonWrapper polygon = getPolygonFromCentroid(geometryContainer, centroid_id);
             VertexWrapper centroid = vertices.get(centroid_id);
-            List<Integer> neighbour_polygons = polygon.get_neighbours();
 
+            List<Integer> neighbour_polygons = polygon.get_neighbours();
             for(int neighbour_polygon: neighbour_polygons) {
                 int neighbour_id = polygons.get(neighbour_polygon).getId_centroid();
                 VertexWrapper neighbour = vertices.get(neighbour_id);
@@ -107,7 +86,7 @@ public class GraphAdapter {
                 int edge_id = edges.size();
                 int height_distance = Math.abs(polygon.getHeight() - polygons.get(neighbour_polygon).getHeight());
                 double distance = distance_between_points(centroid.getCoords(), neighbour.getCoords());
-                int weight = Math.max(1, (int) (height_distance * distance + 10));
+                int weight = Math.max(1, (int) (5*height_distance + distance *2));
 
                 edges.add(new TempEdge(edge_id, centroid_id, neighbour_id , weight));
                 outside_nodes.add(neighbour_id);
@@ -117,7 +96,10 @@ public class GraphAdapter {
     }
 
 
-    private GraphADT populate_graph() {
+    private GraphADT populate_graph(GeometryContainer geometryContainer) {
+        populate_nodes(geometryContainer);
+        populate_edges(geometryContainer);
+
         GraphADT graph = new GraphADT();
 
         for (Integer node : nodes) {

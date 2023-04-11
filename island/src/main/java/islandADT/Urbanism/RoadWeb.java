@@ -14,6 +14,6 @@ public class RoadWeb {
         Cities cities = cityGenerator.generate_cities(geometryContainer);
 
         GraphAdapter graphAdapter = new GraphAdapter(geometryContainer);
-        graphAdapter.AdaptedPath(geometryContainer, cities.getCenter(), cities.getOthers());
+        graphAdapter.adapt_graph(geometryContainer, cities.getCenter(), cities.getOthers());
     }
 }
