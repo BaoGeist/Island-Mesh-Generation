@@ -21,7 +21,12 @@ public class GraphManager {
 
     public Node get_node_from_int(int intNode) {
         List<Node> adj = graph.get_adjacency_list();
-        return adj.get(intNode);
+        for(Node n: adj) {
+            if(n.getId() == intNode) {
+                return n;
+            }
+        }
+        return null;
     }
 
     public List<Node> get_adjacency_list() {
@@ -82,4 +87,16 @@ public class GraphManager {
         if(graph.getEdges() == null && graph.get_adjacency_list() == null) { return true; }
         return false;
     }
+
+    public List<Integer> getListNodes() {
+        List<Node> adj = graph.get_adjacency_list();
+
+        List<Integer> adj_ids = adj.stream()
+                .map(Node::getId)
+                .collect(Collectors.toList());
+
+        return adj_ids;
+    }
+
+
 }

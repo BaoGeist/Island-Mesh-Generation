@@ -39,26 +39,15 @@ public class GraphMaker {
         }
     }
 
-    Set<Integer> nodes = new HashSet<>();
     Set<TempEdge> edges = new HashSet<>();
+    Set<Integer> nodes = new HashSet<>();
 
-    /***
-     * Adds a new edge to the graph provided an integer id, node1 id, node2 id and weight. Will also add any nodes used into the graph
-     * @param id
-     * @param node1
-     * @param node2
-     * @param weight
-     */
     public void new_edge(int id, int node1, int node2, int weight) {
         edges.add(new TempEdge(id, node1, node2 , weight));
         nodes.add(node1);
         nodes.add(node2);
     }
 
-    /***
-     * Adds a new node to the graph
-     * @param id
-     */
     public void new_node(int id) {
         nodes.add(id);
     }

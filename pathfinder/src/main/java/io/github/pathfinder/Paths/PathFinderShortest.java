@@ -21,17 +21,17 @@ public class PathFinderShortest implements PathFinder {
     public Path path_find(Integer source, Integer sink) {
 
         int adj_size = graphManager.get_adjacency_size();
+        List<Integer> node_ids = graphManager.getListNodes();
 
-        int[] path = new int[adj_size];
+        Map<Integer, Integer> path = new HashMap<>();
+        Map<Integer, Integer> cost = new HashMap<>();
         for(int i = 0; i < adj_size; i++) {
-            path[i] = -1;
+            path.put(node_ids.get(i), -1);
+            cost.put(node_ids.get(i), Integer.MAX_VALUE);
         }
-        int[] cost = new int[adj_size];
-        for(int i = 0; i < adj_size; i++) {
-            cost[i] = Integer.MAX_VALUE;
-        }
-        path[source] = source;
-        cost[source] = 0;
+
+        path.put(source, source);
+        cost.put(source, 0);
         graphManager.get_node_from_int(source).setCost(0);
 
         PriorityQueue<Node> pq = new PriorityQueue<Node>(new NodeComparator());
@@ -43,10 +43,10 @@ public class PathFinderShortest implements PathFinder {
 
             for(Integer n: neighbours.keySet()) {
                 Edge edge = graphManager.get_edge_from_int(neighbours.get(n));
-                if(cost[m.getId()] + edge.getWeight() < cost[n]) {
-                    path[n] = m.getId();
-                    cost[n] = edge.getWeight() + cost[m.getId()];
-                    graphManager.get_node_from_int(n).setCost(cost[n]);
+                if(cost.get(m.getId()) + edge.getWeight() < cost.get(n)) {
+                    path.put(n, m.getId());
+                    cost.put(n, edge.getWeight() + cost.get(m.getId()));
+                    graphManager.get_node_from_int(n).setCost(cost.get(n));
                     pq.add(graphManager.get_node_from_int(n));
                 }
             }
@@ -54,17 +54,17 @@ public class PathFinderShortest implements PathFinder {
         return path_to_object(path, sink);
     }
 
-    private Path path_to_object(int[] path, int sink) {
+    private Path path_to_object(Map<Integer, Integer> path, int sink) {
         Path pathObj;
-        if(path[sink] == sink) {
+        if(path.get(sink) == sink) {
             pathObj = new Path();
             pathObj.addPath(graphManager.get_node_from_int(sink));
             return pathObj;
-        } else if(path[sink] == -1) {
+        } else if(path.get(sink) == -1) {
             return new Path();
         }
         else {
-            pathObj = path_to_object(path, path[sink]);
+            pathObj = path_to_object(path, path.get(sink));
             pathObj.addPath(graphManager.get_node_from_int(sink));
         }
         return pathObj;

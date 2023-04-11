@@ -39,8 +39,6 @@ public class PathFinderShortestTest {
         PathFinder pathFinder = new PathFinderShortest(graph);
         Path no_path = pathFinder.path_find(0, 1);
 
-        System.out.println(no_path.length());
-
         assertEquals(1, no_path.length());
     }
 

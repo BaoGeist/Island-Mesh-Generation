@@ -75,10 +75,8 @@ public class GraphMakerBetterTest {
     public void populate_edges_test() {
         set_up();
 
-        System.out.println(graphManager.get_edge_number());
         assertEquals(14, graphManager.get_edge_number());
 
-        System.out.println(testGraph);
     }
 
     @Test
