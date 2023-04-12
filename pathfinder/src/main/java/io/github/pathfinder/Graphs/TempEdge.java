@@ -1,6 +1,6 @@
-package islandADT.Urbanism;
+package io.github.pathfinder.Graphs;
 
-public class TempEdge {
+public class TempEdge{
     private Integer id;
     private Integer node1;
     private Integer node2;
@@ -29,4 +29,3 @@ public class TempEdge {
         return cost;
     }
 }
-

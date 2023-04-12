@@ -5,9 +5,9 @@ import islandADT.Generator.GenerateFeatureInterface;
 import islandADT.TypeWrappers.Cities;
 import islandADT.Specifications.IslandSpecifications;
 
-public class RoadWeb implements GenerateFeatureInterface {
+public class RoadFactory implements GenerateFeatureInterface {
     IslandSpecifications islandSpecifications;
-    public RoadWeb(IslandSpecifications islandSpecifications) {
+    public RoadFactory(IslandSpecifications islandSpecifications) {
         this.islandSpecifications = islandSpecifications;
     }
     public void generate(GeometryContainer geometryContainer) {

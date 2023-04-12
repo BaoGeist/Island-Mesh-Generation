@@ -5,12 +5,12 @@ participant Main
 -> Main : main()
 activate Main
 
-create IslandGenerator
-Main -> IslandGenerator
-activate IslandGenerator
+create islandGenerator
+Main -> islandGenerator
+activate islandGenerator
 
 create meshExporter
-IslandGenerator -> meshExporter : export(GeometryContainer)
+islandGenerator -> meshExporter : export(GeometryContainer)
 activate meshExporter
 create colourFactory
 meshExporter -> colourFactory : create(IslandSpecifications)
@@ -36,11 +36,11 @@ meshExporter -> vertexExporter : export (VertexWrapper)
 activate vertexExporter
 vertexExporter --> meshExporter
 deactivate vertexExporter
-meshExporter --> IslandGenerator
+meshExporter --> islandGenerator
 deactivate meshExporter
 
-IslandGenerator --> Main
-deactivate IslandGenerator
+islandGenerator --> Main
+deactivate islandGenerator
 deactivate Main
 
 @enduml

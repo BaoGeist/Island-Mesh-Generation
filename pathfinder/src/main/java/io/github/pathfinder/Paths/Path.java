@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Path {
-    List<Node> path_list;
+    private List<Node> path_list;
 
     public Path() {
         path_list = new ArrayList<>();

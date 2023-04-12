@@ -9,16 +9,23 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GraphManager {
-    GraphADT graph;
+    private GraphADT graph;
 
     public GraphManager(GraphADT graph) {
         this.graph = graph;
     }
 
+    /**
+     * @return size of the adjacency list in terms of nodes
+     */
     public int get_adjacency_size() {
         return graph.get_adjacency_list().size();
     }
 
+    /**
+     * @param intNode
+     * @return the node with the corresponding id to the one provided
+     */
     public Node get_node_from_int(int intNode) {
         List<Node> adj = graph.get_adjacency_list();
         for(Node n: adj) {
@@ -29,6 +36,9 @@ public class GraphManager {
         return null;
     }
 
+    /**
+     * @return a deep copy of the adjacency list
+     */
     public List<Node> get_adjacency_list() {
         List<Node> adj = graph.get_adjacency_list();
         List<Node> copyadj = new ArrayList<>();
@@ -41,6 +51,10 @@ public class GraphManager {
         return copyadj;
     }
 
+    /**
+     * @param intEdge
+     * @return returns a Edge object provided its index
+     */
     public Edge get_edge_from_int(int intEdge) {
         List<Edge> edges = graph.getEdges();
         for(Edge edge: edges) {
@@ -49,14 +63,25 @@ public class GraphManager {
         return null;
     }
 
+    /**
+     * @return the number of edges
+     */
     public int get_edge_number() {
         return graph.getEdges().size();
     }
 
+    /**
+     * @return the number of nodes
+     */
     public int get_node_number() {
         return graph.get_adjacency_list().size();
     }
 
+    /**
+     * @param node1
+     * @param node2
+     * @return boolean for if an edge is in the graph given its head and tail nodes
+     */
     public boolean contains_edge(int node1, int node2) {
         Node node1Object = get_node_from_int(node1);
 
@@ -65,6 +90,10 @@ public class GraphManager {
         return neighbours.containsKey(node2);
     }
 
+    /**
+     * @param node_id
+     * @return boolean for if a node exists given its index
+     */
     public boolean contains_node(int node_id) {
         List<Node> adj = graph.get_adjacency_list();
 
@@ -75,6 +104,10 @@ public class GraphManager {
         return adj_ids.contains(node_id);
     }
 
+    /**
+     * @param node
+     * @return boolean for if a note exists given the node
+     */
     public boolean contains_node(Node node) {
         List<Node> adj = graph.get_adjacency_list();
 
@@ -86,11 +119,16 @@ public class GraphManager {
         return false;
     }
 
+    /**
+     * @return if GraphADT is empty
+     */
     public boolean isEmpty() {
-        if(graph.getEdges() == null && graph.get_adjacency_list() == null) { return true; }
-        return false;
+        return graph.isEmpty();
     }
 
+    /**
+     * @return list of nodes represented by their ids
+     */
     public List<Integer> getListNodes() {
         List<Node> adj = graph.get_adjacency_list();
 

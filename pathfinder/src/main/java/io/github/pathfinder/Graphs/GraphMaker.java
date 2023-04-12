@@ -1,6 +1,4 @@
-package io.github.pathfinder;
-
-import io.github.pathfinder.Graphs.GraphADT;
+package io.github.pathfinder.Graphs;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,55 +7,40 @@ import java.util.Set;
 
 public class GraphMaker {
 
-    public class TempEdge<Integer> {
-        private Integer id;
-        private Integer node1;
-        private Integer node2;
-        private Integer cost;
+    private Set<TempEdge> edges = new HashSet<>();
+    private Set<Integer> nodes = new HashSet<>();
 
-        public TempEdge(Integer id, Integer node1, Integer node2, Integer cost) {
-            this.id = id;
-            this.node1 = node1;
-            this.node2 = node2;
-            this.cost = cost;
-        }
-
-        public Integer getId() {
-            return id;
-        }
-
-        public Integer getNode1() {
-            return node1;
-        }
-
-        public Integer getNode2() {
-            return node2;
-        }
-
-        public Integer getCost() {
-            return cost;
-        }
-    }
-
-    Set<TempEdge> edges = new HashSet<>();
-    Set<Integer> nodes = new HashSet<>();
-
+    /**
+     * adds a new edge to the GraphMaker set of edges, creates nodes if they are not in the set of nodes
+     * @param id
+     * @param node1
+     * @param node2
+     * @param weight
+     */
     public void new_edge(int id, int node1, int node2, int weight) {
         edges.add(new TempEdge(id, node1, node2 , weight));
         nodes.add(node1);
         nodes.add(node2);
     }
 
+    /**
+     * adds a node to the GraphMaker set of nodes
+     * @param id
+     */
     public void new_node(int id) {
         nodes.add(id);
     }
 
+    /**
+     * creates the GraphADT with nodes and edges already in the sets
+     * @return
+     */
     public GraphADT populate_graph() {
         GraphADT graph = new GraphADT();
 
         for(Integer node: nodes) {
             Map<Integer, Integer> nodeMap = new HashMap<>();
-            for(TempEdge<Integer> edge: edges) {
+            for(TempEdge edge: edges) {
                 if(edge.getNode1() == node) {
                     nodeMap.put(edge.getNode2(), edge.getId());
                 } else if (edge.getNode2() == node) {
@@ -67,31 +50,34 @@ public class GraphMaker {
             graph.add_node(node, nodeMap);
         }
 
-        for(TempEdge<Integer> edge: edges) {
+        for(TempEdge edge: edges) {
             graph.add_edge(edge.getId(), edge.getCost());
         }
 
         return graph;
     }
 
-
+    /**
+     * Sample run of the GraphMaker class
+     * @return a viable GraphADT to work with
+     */
     public GraphADT create_graph() {
 
-        populate_edges();
-        populate_nodes();
+        populate_edges_example();
+        populate_nodes_example();
 
 
         return populate_graph();
     }
 
-    public void populate_nodes() {
+    public void populate_nodes_example() {
         int numberOfNodes = 10;
         for(int i = 0; i < numberOfNodes; i++) {
             new_node(i);
         }
     }
 
-    public void populate_edges() {
+    public void populate_edges_example() {
         new_edge(0, 0, 1, 1);
         new_edge(1, 0, 2, 1);
         new_edge(2, 0, 3, 1);

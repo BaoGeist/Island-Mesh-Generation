@@ -1,9 +1,18 @@
 # Assignment A4: Terrain Generator
   - Author: linb44@mcmaster.ca
 
+## Rationale
+### City Generation Rationale
+Cities are represented as the centroid of land polygons. Since polygons 
+For the bonus, 
+### Road Generation Rationale
+Roads originally were generated with equal edge weights at 1. This meant that all segments between neighbouring centroids were created equal at first. 
+### Extension Explanation
+Island was enriched with and depended on the pathfinder module in order to 
+
 ## Installation instructions
 
-This product is handled by Maven, as a multi-module project. We assume here that you have cloned the project in a directory named `A3`
+This product is handled by Maven, as a multi-module project. We assume here that you have cloned the project in a directory named `A4`
 
 To install the different tooling on your computer, simply run `mvn clean install`
 
@@ -11,6 +20,9 @@ After installation, you'll find:
 - an application named `generator.jar` in the `generator` directory
 - an application named `island.jar` in the `island` directory
 - an application named `visualizer.jar` in the `visualizer` directory.
+
+
+
 
 ## Quick-Start Guide
 A make file with sample commands has been provided in the root project directory to demonstrate all functionalities. They will create .mesh and .svg files in the `img` directory. The easiest commands to run are:
@@ -49,7 +61,7 @@ If a mesh is ran with a square length that is not a factor of the width OR lengt
 If help is needed with the CLI, please use `-h` after `-mf` and `-mv`, as they are required arguments.
 
 ```
-mosser@azrael A2 % cd generator 
+mosser@azrael A4 % cd generator 
 mosser@azrael generator % java -jar generator.jar -mf sample.mesh -mv regular -s 500 -ss 25
 mosser@azrael generator % ls -lh sample.mesh
 -rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
@@ -58,7 +70,7 @@ mosser@azrael generator %
 
 The following will create an irregular 500x500 mesh with 200 polygons with a relaxation level of 5
 ```
-mosser@azrael A2 % cd generator 
+mosser@azrael A4 % cd generator 
 mosser@azrael generator % java -jar generator.jar -mf sample.mesh -mv irregular -s 500 -num 200 -ln 5
 mosser@azrael generator % ls -lh sample.mesh
 -rw-r--r--  1 mosser  staff    29K 29 Jan 10:52 sample.mesh
@@ -94,7 +106,7 @@ To visualize an existing mesh, go the `visualizer` directory, and use `java -jar
 - `help`, For help
 
 ```
-mosser@azrael A2 % cd visualizer 
+mosser@azrael A4 % cd visualizer 
 mosser@azrael visualizer % generator.jar -mf sample.mesh -mv irregular
 
 ... (lots of debug information printed to stdout) ...
@@ -103,32 +115,6 @@ mosser@azrael visualizer % ls -lh sample.svg
 -rw-r--r--  1 mosser  staff    56K 29 Jan 10:53 sample.svg
 mosser@azrael visualizer %
 ```
-
-
-
-## Backlog
-
-### Definition of Done
-Our Definition of Done includes the following criteria:
-- Testing functions reveals no defects
-- Project requirements are met
-- All other rubric criteria are hit from an A-tier to S-tier (hopefully)
-- Lecture Software Development concepts are applied
-
-### Product Backlog
-
-| Id  | Feature title                                                        | Start      | End        | Status |
-|:---:|----------------------------------------------------------------------|------------|------------|--------|
-| F01 | Created notion of Node, Edge and Graph                               | 03.31.2023 | 03.31.2023 | D      |
-| F02 | Create an interface contract for "finding path between two nodes"    | 03.31.2023 | 03.31.2023 | D      |
-| F03 | Implemented pathfinder algorithm to find a shortest path             |            |            | P      |
-| F04 | Generate islands with cities of different sizes                      |            |            | P      |
-| F05 | Create a "star network" of roads on the island                       |            |            | P      |
-| F06 | Provide CLI integration for user to control number of cities         |            |            | P      |
-| F07 | Implement Markov process for procedural generation of names          |            |            | P      |
-| F08 | Create non-star networks                                             |            |            | P      |
-
-
 
 
 

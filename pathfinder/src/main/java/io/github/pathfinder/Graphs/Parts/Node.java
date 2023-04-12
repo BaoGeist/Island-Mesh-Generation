@@ -1,9 +1,10 @@
 package io.github.pathfinder.Graphs.Parts;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Node implements Propertiable, Neighbourable<Integer, Integer> {
+public class Node implements Propertiable, Neighbourable<Integer, Integer>, Comparable<Node> {
     private Map<String, Object> properties;
     private Map<Integer, Integer> neighbours;
     private int id;
@@ -73,6 +74,17 @@ public class Node implements Propertiable, Neighbourable<Integer, Integer> {
         }
         Node oObject = (Node) o;
         return(this.getId() == oObject.getId());
+    }
+
+    @Override
+    public int compareTo(Node n2) {
+        if (this.getCost() < n2.getCost()) {
+            return -1;
+        } else if (this.getCost() > n2.getCost()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
 

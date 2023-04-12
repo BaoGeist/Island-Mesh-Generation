@@ -1,0 +1,111 @@
+@startuml
+
+package Graphs {
+    package Parts {
+        interface Neighbourable {
+            + void set_neighbours(neighbours)
+            + Map<Integer, Integer> getNeighbours()
+        }
+        interface Propertiable {
+            + void add_property(key, value)
+            + Map<String, Object> get_properties()
+        }
+        interface Comparable<T> {
+            + int compareTo(T)
+        }
+        class Edge implements Propertiable{
+            - Map<String, Object> properties
+            - int id;
+            - int cost;
+            + void add_property(key, value)
+            + Map<String, Object> get_properties()
+        }
+        class Node implements Propertiable, Neighbourable, Comparable{
+            - Map<String, Object> properties
+            - Map<Integer, Integer> neighbours
+            - int id;
+            - int cost;
+            + void add_property(key, value)
+            + Map<String, Object> get_properties()
+            + void set_neighbours(neighbours)
+            + Map<Integer, Integer> getNeighbours()
+            + int compareTo(n2)
+        }
+    }
+
+    class GraphADT {
+        - List<Node> adjacency_list
+        - List<Edge> edges
+        + void add_node(id, neighbours)
+        # void add_edge(id, weight)
+        # List<Node> get_adjacency_list()
+        # List<Edge> getEdges()
+        + boolean isEmpty()
+        + String toString()
+
+    }
+    GraphADT "1" *-up- "1..*" Node
+    GraphADT "1" *-up- "1..*" Edge
+
+    class GraphMaker {
+        - Set<TempEdge> edges
+        - Set<Integer> nodes
+        + void new_edge(id, node1, node2, weight)
+        + void new_node(id)
+        + GraphADT populate_graph()
+        + GraphADT create_graph()
+    }
+    GraphMaker -right[dashed]-> GraphADT
+    class  TempEdge {
+        - Integer id
+        - Integer node1
+        - Integer node2
+        - Integer cost
+        + Integer getId()
+        + Integer getNode1()
+        + Integer getNode2()
+        + Integer getCost()
+    }
+    GraphMaker -[dashed]-> TempEdge
+    class GraphManager {
+        - GraphADT graph
+        + int get_adjacency_size()
+        + Node get_node_from_int(intNode)
+        + Edge get_edge_from_int(intEdge)
+        + List<Node> get_adjacency_list()
+        + int get_edge_number()
+        + int get_node_number()
+        + contains_node(node)
+        + List<Integer> getListNodes()
+        + boolean isEmpty()
+    }
+    GraphManager "1" -up[dashed]-> "1" GraphADT
+
+}
+
+
+package Paths {
+    interface PathFinder {
+        + Path path_find(source, sink)
+    }
+    class Path {
+        - List<Node> path_list
+        + void addPath(n)
+        + int length()
+        + List<Integer> get_path_integer()
+        + String toString()
+    }
+    class PathFinderShortest implements PathFinder {
+        - GraphADT graph
+        - GraphManager graphManager
+        + Path path_find(source, sink)
+        - Path path_to_object(path, sink)
+    }
+    PathFinderShortest -[dashed]-> Path
+    PathFinderShortest "1" *-right- "1" GraphADT
+    PathFinderShortest "1" *-right- "1" GraphManager
+}
+
+
+
+@enduml

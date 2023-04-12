@@ -17,7 +17,7 @@ import static islandADT.Container.GeometryContainerCalculator.getDryLandPolygons
 import static islandADT.Container.GeometryContainerCalculator.getPolygonFromCentroid;
 import static islandADT.Utils.MathUtils.distance_between_points;
 
-public class GraphAdapter {
+public class GraphAdapter implements GraphAdapterInterface{
 
     Set<TempEdge> edges = new HashSet<>();
     Set<Integer> nodes = new HashSet<>();
@@ -53,7 +53,7 @@ public class GraphAdapter {
         }
     }
 
-    private Path request_path_finder_shortest(int source, int sink) {
+    public Path request_path_finder_shortest(int source, int sink) {
         PathFinder pathFinder = new PathFinderShortest(graph);
         return pathFinder.path_find(source, sink);
     }
@@ -66,7 +66,7 @@ public class GraphAdapter {
 
         for (Integer node : nodes) {
             Map<Integer, Integer> nodeMap = new HashMap<>();
-            for (TempEdge<Integer> edge : edges) {
+            for (TempEdge edge : edges) {
                 if (edge.getNode1() == node) {
                     nodeMap.put(edge.getNode2(), edge.getId());
 
@@ -78,7 +78,7 @@ public class GraphAdapter {
             graph.add_node(node, nodeMap);
         }
 
-        for (TempEdge<Integer> edge : edges) {
+        for (TempEdge edge : edges) {
             graph.add_edge(edge.getId(), edge.getCost());
         }
 

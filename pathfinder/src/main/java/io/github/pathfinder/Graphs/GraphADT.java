@@ -49,4 +49,10 @@ public class GraphADT {
         }
         return returnString;
     }
+
+    public boolean isEmpty() {
+        if(getEdges() == null && get_adjacency_list() == null) { return true; }
+
+        return false;
+    }
 }

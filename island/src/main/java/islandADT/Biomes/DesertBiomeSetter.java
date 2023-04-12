@@ -74,6 +74,10 @@ public class DesertBiomeSetter extends BiomeSetterAbstract{
 
     }
 
+    /**
+     * Assigns biome TileTypeWrappers to all land tiles of a mesh
+     * @param geometryContainer
+     */
     public void generate(GeometryContainer geometryContainer) {
         set_increments(geometryContainer.get_polygons());
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();

@@ -19,23 +19,23 @@ deactivate specification
 configuration --> Main
 deactivate configuration
 
-create IslandGenerator
-Main -> IslandGenerator : create_island()
-activate IslandGenerator
+create islandGenerator
+Main -> islandGenerator : create_island()
+activate islandGenerator
 
 create meshExtractor
-IslandGenerator -> meshExtractor
+islandGenerator -> meshExtractor
 activate meshExtractor
-meshExtractor --> IslandGenerator
+meshExtractor --> islandGenerator
 deactivate meshExtractor
 
 create TileTypeWrapperCreator
-IslandGenerator -> TileTypeWrapperCreator : create_tile_types()
+islandGenerator -> TileTypeWrapperCreator : create_tile_types()
 activate TileTypeWrapperCreator
-TileTypeWrapperCreator --> IslandGenerator
+TileTypeWrapperCreator --> islandGenerator
 deactivate TileTypeWrapperCreator
 
-IslandGenerator -> meshExtractor : extract(Structs.Mesh)
+islandGenerator -> meshExtractor : extract(Structs.Mesh)
 activate meshExtractor
 create polygonExtractor
 meshExtractor -> polygonExtractor : extract(Structs.Polygon)
@@ -52,9 +52,9 @@ meshExtractor -> vertexExtractor : extract(Structs.Vertex)
 activate vertexExtractor
 vertexExtractor --> meshExtractor
 deactivate vertexExtractor
-meshExtractor --> IslandGenerator
+meshExtractor --> islandGenerator
 deactivate meshExtractor
 
-IslandGenerator --> Main
+islandGenerator --> Main
 
 @enduml

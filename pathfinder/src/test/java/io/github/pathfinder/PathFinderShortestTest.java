@@ -1,6 +1,7 @@
 package io.github.pathfinder;
 
 import io.github.pathfinder.Graphs.GraphADT;
+import io.github.pathfinder.Graphs.GraphMaker;
 import io.github.pathfinder.Paths.Path;
 import io.github.pathfinder.Paths.PathFinderShortest;
 import io.github.pathfinder.Paths.PathFinder;
@@ -17,7 +18,7 @@ public class PathFinderShortestTest {
     @Test
     public void cardinality_zero_paths_test() {
         GraphMaker graphMaker = new GraphMaker();
-        graphMaker.populate_edges();
+        graphMaker.populate_edges_example();
 
         graphMaker.new_node(10);
 
@@ -34,7 +35,7 @@ public class PathFinderShortestTest {
     @Test
     public void cardinality_one_path_test() {
         GraphMaker graphMaker = new GraphMaker();
-        graphMaker.populate_edges();
+        graphMaker.populate_edges_example();
         graphMaker.populate_graph();
 
         GraphADT graph = graphMaker.create_graph();
@@ -48,7 +49,7 @@ public class PathFinderShortestTest {
     @Test
     public void cardinality_multiple_path_test() {
         GraphMaker graphMaker = new GraphMaker();
-        graphMaker.populate_edges();
+        graphMaker.populate_edges_example();
         graphMaker.populate_graph();
 
         GraphADT graph = graphMaker.create_graph();

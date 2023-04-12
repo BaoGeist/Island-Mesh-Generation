@@ -4,13 +4,12 @@ import io.github.pathfinder.Graphs.Parts.Edge;
 import io.github.pathfinder.Graphs.GraphADT;
 import io.github.pathfinder.Graphs.GraphManager;
 import io.github.pathfinder.Graphs.Parts.Node;
-import io.github.pathfinder.Graphs.Parts.NodeComparator;
 
 import java.util.*;
 
 public class PathFinderShortest implements PathFinder {
-    GraphADT graph;
-    GraphManager graphManager;
+    private GraphADT graph;
+    private GraphManager graphManager;
 
     public PathFinderShortest(GraphADT graph) {
         this.graph = graph;
@@ -18,6 +17,11 @@ public class PathFinderShortest implements PathFinder {
 
     }
 
+    /**
+     * @param source
+     * @param sink
+     * @return a Path object for the given source and sink node
+     */
     public Path path_find(Integer source, Integer sink) {
 
         int adj_size = graphManager.get_adjacency_size();
@@ -34,7 +38,7 @@ public class PathFinderShortest implements PathFinder {
         cost.put(source, 0);
         graphManager.get_node_from_int(source).setCost(0);
 
-        PriorityQueue<Node> pq = new PriorityQueue<Node>(new NodeComparator());
+        PriorityQueue<Node> pq = new PriorityQueue<Node>();
         pq.add(graphManager.get_node_from_int(source));
 
         Set<Integer> visited = new HashSet<>();
@@ -55,7 +59,6 @@ public class PathFinderShortest implements PathFinder {
                         pq.add(graphManager.get_node_from_int(n));
                     }
                 }
-
             }
         }
         return path_to_object(path, sink);

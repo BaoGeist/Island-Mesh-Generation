@@ -1,0 +1,43 @@
+@startuml
+
+participant Main
+
+-> Main : main()
+activate Main
+
+create configuration
+Main -> configuration
+activate configuration
+
+create specification
+configuration -> specification
+activate specification
+
+specification --> configuration
+deactivate specification
+
+configuration --> Main
+deactivate configuration
+
+create islandGenerator
+Main -> islandGenerator : create_island()
+activate islandGenerator
+
+islandGenerator -> islandGenerator : set_up_island()
+
+create GenerateFeatureInterface
+
+
+loop for all features
+    islandGenerator -> GenerateFeatureInterface : generate(geometryContainer)
+    activate GenerateFeatureInterface
+    GenerateFeatureInterface --> islandGenerator
+    deactivate GenerateFeatureInterface
+end
+deactivate GenerateFeatureInterface
+
+islandGenerator -> islandGenerator: export_island(geometryContainer)
+
+islandGenerator --> Main
+
+@enduml

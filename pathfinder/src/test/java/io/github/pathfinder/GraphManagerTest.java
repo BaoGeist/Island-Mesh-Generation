@@ -1,6 +1,7 @@
 package io.github.pathfinder;
 
 import io.github.pathfinder.Graphs.GraphADT;
+import io.github.pathfinder.Graphs.GraphMaker;
 import io.github.pathfinder.Graphs.GraphManager;
 import io.github.pathfinder.Graphs.Parts.Node;
 import org.junit.jupiter.api.Test;

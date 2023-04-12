@@ -1,0 +1,56 @@
+@startuml
+
+participant islandGenerator
+
+create islandGenerator
+-> islandGenerator : create_islands()
+activate islandGenerator
+
+islandGenerator -> roadFactory : generate(geometryContainer)
+activate roadFactory
+
+roadFactory -> cityGenerator : generate_cities(geometryContainer)
+activate cityGenerator
+
+create cityEvaluator
+
+loop number of cities
+    cityGenerator -> cityEvaluator : suitable_city_placement(city, geometryContainer)
+    activate cityEvaluator
+    cityEvaluator --> cityGenerator
+    deactivate cityEvaluator
+end
+
+cityGenerator --> roadFactory
+deactivate cityGenerator
+
+create graphAdapter
+
+roadFactory -> graphAdapter : adapt_graph(geometryContainer, source, sinks)
+activate graphAdapter
+
+create roadEvaluator
+
+graphAdapter -> roadEvaluator : calculate_road_weight(geometryContainer, polygon, polygons_neighbour, centroid, neighbour)
+activate roadEvaluator
+roadEvaluator --> graphAdapter
+deactivate roadEvaluator
+
+create Pathfinder_Library
+
+graphAdapter -> Pathfinder_Library : request_path_finder_shortest (source, sink)
+activate Pathfinder_Library
+Pathfinder_Library --> graphAdapter
+deactivate Pathfinder_Library
+
+
+
+graphAdapter --> roadFactory
+deactivate graphAdapter
+
+roadFactory --> islandGenerator
+deactivate roadFactory
+
+deactivate islandGenerator
+
+@enduml

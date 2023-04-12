@@ -75,6 +75,10 @@ public class ForestBiomeSetter extends BiomeSetterAbstract {
 
     }
 
+    /**
+     * Assigns biome TileTypeWrappers to all land tiles of a mesh
+     * @param geometryContainer
+     */
     public void generate(GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         for (PolygonWrapper p: polygons.values()) {

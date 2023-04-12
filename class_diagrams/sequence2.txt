@@ -5,62 +5,62 @@ participant Main
 -> Main : main()
 activate Main
 
-create IslandGenerator
-Main -> IslandGenerator
-activate IslandGenerator
+create islandGenerator
+Main -> islandGenerator
+activate islandGenerator
 
 create RandomSeed
-IslandGenerator -> RandomSeed : set_randomseed(IslandSpecifications)
+islandGenerator -> RandomSeed : set_randomseed(IslandSpecifications)
 activate RandomSeed
-RandomSeed --> IslandGenerator
+RandomSeed --> islandGenerator
 deactivate RandomSeed
 
 create islandGeographySetter
-IslandGenerator -> islandGeographySetter : set_island_type(GeometryContainer, IslandSpecifications)
+islandGenerator -> islandGeographySetter : set_island_type(GeometryContainer, IslandSpecifications)
 activate islandGeographySetter
-islandGeographySetter --> IslandGenerator
+islandGeographySetter --> islandGenerator
 deactivate islandGeographySetter
-IslandGenerator -> islandGeographySetter : set_island_elevation(GeometryContainer, IslandSpecifications)
+islandGenerator -> islandGeographySetter : set_island_elevation(GeometryContainer, IslandSpecifications)
 activate islandGeographySetter
-islandGeographySetter --> IslandGenerator
+islandGeographySetter --> islandGenerator
 deactivate islandGeographySetter
 
 create lakeGenerator
-IslandGenerator -> lakeGenerator : generate(GeometryContainer)
+islandGenerator -> lakeGenerator : generate(GeometryContainer)
 activate lakeGenerator
-lakeGenerator --> IslandGenerator
+lakeGenerator --> islandGenerator
 deactivate lakeGenerator
 
 create riverGenerator
-IslandGenerator -> riverGenerator : generate(GeometryContainer)
+islandGenerator -> riverGenerator : generate(GeometryContainer)
 activate riverGenerator
-riverGenerator --> IslandGenerator
+riverGenerator --> islandGenerator
 deactivate riverGenerator
 
 create aquiferGenerator
-IslandGenerator -> aquiferGenerator : generate(GeometryContainer)
+islandGenerator -> aquiferGenerator : generate(GeometryContainer)
 activate aquiferGenerator
-aquiferGenerator --> IslandGenerator
+aquiferGenerator --> islandGenerator
 deactivate aquiferGenerator
 
 create moistureSetter
-IslandGenerator -> moistureSetter : calculateMoisture(GeometryContainer)
+islandGenerator -> moistureSetter : calculateMoisture(GeometryContainer)
 activate moistureSetter
 create moistureFactory
 moistureSetter -> moistureFactory: selectMoistureProfile(IslandSpecifications)
 moistureFactory --> moistureSetter
 deactivate moistureFactory
-moistureSetter --> IslandGenerator
+moistureSetter --> islandGenerator
 deactivate moistureSetter
 
 create biomeSetter
-IslandGenerator -> biomeSetter : setMultipleBiomes(GeometryContainer)
+islandGenerator -> biomeSetter : setMultipleBiomes(GeometryContainer)
 activate biomeSetter
 create biomeFactory
 biomeSetter -> biomeFactory: selectBiomeProfile(IslandSpecifications)
 biomeFactory --> biomeSetter
 deactivate biomeFactory
-biomeSetter --> IslandGenerator
+biomeSetter --> islandGenerator
 deactivate biomeSetter
 
 @enduml

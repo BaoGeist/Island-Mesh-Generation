@@ -2,7 +2,7 @@ package islandADT.Generator;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import islandADT.Urbanism.RoadWeb;
+import islandADT.Urbanism.RoadFactory;
 import islandADT.Water.*;
 import islandADT.Container.GeometryContainer;
 import islandADT.SetPolygonTypes;
@@ -42,10 +42,24 @@ public class IslandGenerator {
         bindings.add(new MoistureSetter(islandSpecifications));
         bindings.add(BiomeFactory.selectBiomeProfile(islandSpecifications));
         bindings.add(new Resources(islandSpecifications));
-        bindings.add(new RoadWeb(islandSpecifications));
+        bindings.add(new RoadFactory(islandSpecifications));
     }
 
-    private GeometryContainer set_up() {
+    /**
+     * main call to create an island, uses islandSpecifications in the constructor to guide the process
+     */
+    public void create_island() {
+        GeometryContainer geometryContainer = set_up_island();
+
+
+        for(GenerateFeatureInterface featureGenerator: bindings) {
+            featureGenerator.generate(geometryContainer);
+        }
+
+        export_island(geometryContainer);
+    }
+
+    private GeometryContainer set_up_island() {
         // creates a new extracter
         Extracter extracter = new MeshExtracter();
 
@@ -66,18 +80,6 @@ public class IslandGenerator {
         create_bindings();
 
         return geometryContainer;
-    }
-
-    public void create_island() {
-        GeometryContainer geometryContainer = set_up();
-
-
-        for(GenerateFeatureInterface featureGenerator: bindings) {
-            featureGenerator.generate(geometryContainer);
-        }
-
-
-        export_island(geometryContainer);
     }
 
     private void export_island(GeometryContainer geometryContainer) {

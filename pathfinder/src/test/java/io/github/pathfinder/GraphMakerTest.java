@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class GraphMakerBetterTest {
+public class GraphMakerTest {
     GraphADT testGraph;
     GraphManager graphManager;
     private void set_up() {
@@ -39,7 +39,7 @@ public class GraphMakerBetterTest {
     @Test
     public void new_node_test() {
         GraphMaker graphMaker = new GraphMaker();
-        graphMaker.populate_nodes();
+        graphMaker.populate_nodes_example();
         GraphManager tempManager = new GraphManager(graphMaker.populate_graph());
         int pre_nodes = tempManager.get_node_number();
 
@@ -53,7 +53,7 @@ public class GraphMakerBetterTest {
     @Test
     public void new_edge_test() {
         GraphMaker graphMaker = new GraphMaker();
-        graphMaker.populate_edges();
+        graphMaker.populate_edges_example();
         GraphManager tempManager = new GraphManager(graphMaker.populate_graph());
         int pre_edges = tempManager.get_edge_number();
 
