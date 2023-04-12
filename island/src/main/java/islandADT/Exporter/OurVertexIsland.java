@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class OurVertexIsland{
 
-    public Structs.Vertex create_geometry(boolean centroid_or_nah, double[] coords, int height, int population, int[] color) {
+    public Structs.Vertex create_geometry(boolean centroid_or_nah, double[] coords, int population, int[] color) {
         Structs.Property centroid_or_nah_p = Structs.Property.newBuilder().setKey("centroid_or_nah").setValue(String.valueOf(centroid_or_nah)).build();
         Structs.Property population_p = Structs.Property.newBuilder().setKey("size").setValue(String.valueOf(population)).build();
         Structs.Property color_p = Structs.Property.newBuilder().setKey("rgb_color").setValue(Arrays.toString(color)).build();

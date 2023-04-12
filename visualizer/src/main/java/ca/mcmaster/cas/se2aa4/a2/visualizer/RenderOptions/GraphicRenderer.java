@@ -60,14 +60,11 @@ public class GraphicRenderer implements Renderer{
             double centre_x = v.getX();
             double centre_y = v.getY();
             int size = extractSize(v.getPropertiesList());
+            Color color = PropertyUtils.extractColor(v.getPropertiesList());
 
             Ellipse2D point = new Ellipse2D.Double(centre_x - (float) size/2, (float) centre_y - size/2, size, size);
             boolean centroid_or_nah = extractCentroid(v.getPropertiesList());
-            if (centroid_or_nah == true) {
-                canvas.setColor(Color.RED);
-            } else {
-                canvas.setColor(Color.BLUE);
-            }
+            canvas.setColor(color);
             canvas.fill(point);
         }
     }

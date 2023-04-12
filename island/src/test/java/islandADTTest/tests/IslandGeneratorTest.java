@@ -59,7 +59,6 @@ public class IslandGeneratorTest {
         } catch (Exception e) {
 
         }
-        System.out.println("run");
     }
 
     @TestActual

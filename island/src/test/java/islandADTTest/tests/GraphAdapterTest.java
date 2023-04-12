@@ -56,7 +56,6 @@ public class GraphAdapterTest {
                 }
             }
             if (Integer.parseInt(val)>=1 && val2.equals("[255, 255, 255]")){
-                System.out.println("debug debug");
                 Path.add(s.getV1Idx());
                 Path.add(s.getV2Idx());
             }

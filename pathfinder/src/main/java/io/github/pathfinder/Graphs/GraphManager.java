@@ -43,7 +43,10 @@ public class GraphManager {
 
     public Edge get_edge_from_int(int intEdge) {
         List<Edge> edges = graph.getEdges();
-        return edges.get(intEdge);
+        for(Edge edge: edges) {
+            if(edge.getId() == intEdge) {return edge;}
+        }
+        return null;
     }
 
     public int get_edge_number() {

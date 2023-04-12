@@ -37,18 +37,25 @@ public class PathFinderShortest implements PathFinder {
         PriorityQueue<Node> pq = new PriorityQueue<Node>(new NodeComparator());
         pq.add(graphManager.get_node_from_int(source));
 
+        Set<Integer> visited = new HashSet<>();
+        visited.add(source);
+
         while(!pq.isEmpty()) {
             Node m = pq.remove();
+            visited.add(m.getId());
             Map<Integer, Integer> neighbours = m.getNeighbours();
 
             for(Integer n: neighbours.keySet()) {
-                Edge edge = graphManager.get_edge_from_int(neighbours.get(n));
-                if(cost.get(m.getId()) + edge.getWeight() < cost.get(n)) {
-                    path.put(n, m.getId());
-                    cost.put(n, edge.getWeight() + cost.get(m.getId()));
-                    graphManager.get_node_from_int(n).setCost(cost.get(n));
-                    pq.add(graphManager.get_node_from_int(n));
+                if(!visited.contains(n)) {
+                    Edge edge = graphManager.get_edge_from_int(neighbours.get(n));
+                    if(cost.get(m.getId()) + edge.getWeight() < cost.get(n)) {
+                        path.put(n, m.getId());
+                        cost.put(n, edge.getWeight() + cost.get(m.getId()));
+                        graphManager.get_node_from_int(n).setCost(cost.get(n));
+                        pq.add(graphManager.get_node_from_int(n));
+                    }
                 }
+
             }
         }
         return path_to_object(path, sink);

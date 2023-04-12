@@ -14,6 +14,9 @@ public class Edge implements Propertiable {
         this.properties = new HashMap<>();
     }
 
+    public int getId() {
+        return id;
+    }
 
     @Override
     public void add_property(String key, Object value) {

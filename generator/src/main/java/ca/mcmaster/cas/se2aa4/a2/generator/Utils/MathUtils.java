@@ -4,6 +4,8 @@ import org.locationtech.jts.geom.Coordinate;
 
 import java.util.ArrayList;
 
+import static java.awt.geom.Line2D.linesIntersect;
+
 public class MathUtils {
     public static double calculate_length_of_segment(Coordinate c1, Coordinate c2) {
         return Math.sqrt(Math.pow((c1.x - c2.x),2) + (Math.pow((c1.y - c2.y),2)));
@@ -31,4 +33,5 @@ public class MathUtils {
         }
         return new Coordinate(x_total/area, y_total/area);
     }
+
 }

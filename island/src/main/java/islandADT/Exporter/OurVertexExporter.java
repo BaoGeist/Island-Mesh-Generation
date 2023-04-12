@@ -10,7 +10,6 @@ public class OurVertexExporter implements Exporter<VertexWrapper, Structs.Vertex
     public Structs.Vertex export(VertexWrapper v) {
         boolean centroid_or_nah = v.isCentroid_vertex();
         double[] coords = v.getCoords();
-        int height = v.getHeight();
         int population = v.getPopulation();
         OurVertexIsland vertexIslandFactory = new OurVertexIsland();
         int[] color;
@@ -21,6 +20,6 @@ public class OurVertexExporter implements Exporter<VertexWrapper, Structs.Vertex
         }
 
 
-        return vertexIslandFactory.create_geometry(centroid_or_nah, coords, height, population, color);
+        return vertexIslandFactory.create_geometry(centroid_or_nah, coords, population, color);
     }
 }

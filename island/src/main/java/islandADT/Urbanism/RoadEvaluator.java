@@ -6,13 +6,14 @@ import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
 import islandADT.GeometryWrappers.VertexWrapper;
 import islandADT.TypeWrappers.SegmentTypeWrapper;
+import meshcore.Utils.MathUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import static islandADT.Utils.MathUtils.distance_between_points;
-import static islandADT.Utils.MathUtils.intersection_between_lines;
+import static meshcore.Utils.MathUtils.intersection_between_lines;
 
 public class RoadEvaluator {
     List<SegmentWrapper> rivers = new ArrayList<>();
