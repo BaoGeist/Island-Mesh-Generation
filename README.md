@@ -3,12 +3,13 @@
 
 ## Rationale
 ### City Generation Rationale
-Cities are represented as the centroid of land polygons. Since polygons 
-For the bonus, 
+Cities are represented as the centroid of land polygons. Since polygons represent a singular section of land with uniform properties, it makes sense for cities to be assigned the centroid and to inherit the properties of the polygon. Segments connecting the centroid (neighbouring relations) are the roads.
+For the bonus, cities are rationalized to need flat land around them for establishing initial farmland and then city development, as well as being a set distance away from other cities to avoid overpopulation. Cities grow smaller as they move away lower in height, which is reflected when . The capital city of the island is one of the highest centroids, chosen since a high place is historically more strategically optimal in the dark ages.
 ### Road Generation Rationale
-Roads originally were generated with equal edge weights at 1. This meant that all segments between neighbouring centroids were created equal at first. 
+Roads originally were generated with equal edge weights at 1. This meant that all segments between neighbouring centroids were created equal at first. To support the bonus, the weights of the edges are assigned weights that are functions of height and distance between nodes. Crossing a river during the creation of a road is considered highly expensive, so is generally avoided when possible. Shown below is the result of the rationale, where roads tend stay on the same height level, and avoid crossing rivers.
+![img.png](img.png)
 ### Extension Explanation
-Island was enriched with and depended on the pathfinder module in order to 
+Island was enriched with and depended on the pathfinder module in order to demonstrate the extendability of features in island. Outside creating the actual logic for adapting to the pathfinder module, implementing roads and cities only needed an addition to the feature bindins of the islandGenerator. Additionally, it was an assignment requirement worth 10% of my mark.
 
 ## Installation instructions
 
@@ -89,7 +90,8 @@ To run island, go to `island` directory, and use `java -jar` to run the product.
 - `lake`, Specifies the maximum amount of lakes
 - `river`, Specifies the maximum amount of rivers
 - `aquifer`, Specifies the maximum amount of aquifers
-- `biomes`, Specifices the ecosystem the island is made of, options are `arctic`, `forest`, `desert`, or `default` (you can also leave the field blank for default)
+- `biomes`, Specifies the ecosystem the island is made of, options are `arctic`, `forest`, `desert`, or `default` (you can also leave the field blank for default)
+- `cities`, Specifies the number of cities to be included in the island generation. Shows up in the other render views as well
 - `help`, Provides help
 
 Sample runs are provided below:
