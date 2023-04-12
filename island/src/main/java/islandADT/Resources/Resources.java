@@ -1,20 +1,21 @@
 package islandADT.Resources;
 
 import islandADT.Container.GeometryContainer;
+import islandADT.Generator.GenerateFeatureInterface;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.TypeWrappers.*;
 import islandADT.Specifications.IslandSpecifications;
 
 import java.util.Map;
 
-public class Resources {
+public class Resources implements GenerateFeatureInterface {
     private IslandSpecifications islandSpecifications;
 
     public Resources(IslandSpecifications islandSpecifications) {
         this.islandSpecifications = islandSpecifications;
     }
     
-    public void setResources(GeometryContainer geometryContainer) {
+    public void generate(GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons= geometryContainer.get_polygons();
 
         TileTypeWrapper Desert = new TileTypeWrapper("Desert");

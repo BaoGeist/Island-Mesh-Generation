@@ -74,7 +74,7 @@ public class DesertBiomeSetter extends BiomeSetterAbstract{
 
     }
 
-    public void setBiomes(GeometryContainer geometryContainer) {
+    public void generate(GeometryContainer geometryContainer) {
         set_increments(geometryContainer.get_polygons());
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         for (PolygonWrapper p: polygons.values()) {

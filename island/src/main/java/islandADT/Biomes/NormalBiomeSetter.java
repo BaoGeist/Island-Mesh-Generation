@@ -136,7 +136,7 @@ public class NormalBiomeSetter extends BiomeSetterAbstract {
 
     }
 
-    public void setBiomes(GeometryContainer geometryContainer) {
+    public void generate(GeometryContainer geometryContainer) {
         Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
         for (PolygonWrapper p: polygons.values()) {
             if (!p.isWaterOrNah() && p.isLandornah()) {

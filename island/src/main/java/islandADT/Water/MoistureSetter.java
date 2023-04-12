@@ -1,6 +1,7 @@
 package islandADT.Water;
 
 import islandADT.Container.GeometryContainer;
+import islandADT.Generator.GenerateFeatureInterface;
 import islandADT.GeometryWrappers.PointWrapper;
 import islandADT.GeometryWrappers.PolygonWrapper;
 import islandADT.GeometryWrappers.SegmentWrapper;
@@ -11,7 +12,7 @@ import islandADT.Water.MoisturePackage.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MoistureSetter {
+public class MoistureSetter implements GenerateFeatureInterface {
     public static Map<PointWrapper, Double> waterSources = new HashMap<>();
     private IslandSpecifications islandSpecifications;
     public MoistureSetter(IslandSpecifications islandSpecifications) {
@@ -46,7 +47,7 @@ public class MoistureSetter {
         }
     }
 
-    public void calculateMoisture(GeometryContainer geometryContainer) {
+    public void generate(GeometryContainer geometryContainer) {
         setWaterSources(geometryContainer);
         MoistureInterface moisture = MoistureFactory.selectMoistureProfile(this.islandSpecifications);
         moisture.setMoisture(geometryContainer);

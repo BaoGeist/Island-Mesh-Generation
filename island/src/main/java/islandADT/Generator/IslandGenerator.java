@@ -38,9 +38,14 @@ public class IslandGenerator {
     private void create_bindings() {
         bindings.add(new LakeFactory(islandSpecifications));
         bindings.add(new RiverFactory(islandSpecifications));
+        bindings.add(new AquiferFactory(islandSpecifications));
+        bindings.add(new MoistureSetter(islandSpecifications));
+        bindings.add(BiomeFactory.selectBiomeProfile(islandSpecifications));
+        bindings.add(new Resources(islandSpecifications));
+        bindings.add(new RoadWeb(islandSpecifications));
     }
 
-    public void create_island() {
+    private GeometryContainer set_up() {
         // creates a new extracter
         Extracter extracter = new MeshExtracter();
 
@@ -60,41 +65,25 @@ public class IslandGenerator {
 
         create_bindings();
 
+        return geometryContainer;
+    }
+
+    public void create_island() {
+        GeometryContainer geometryContainer = set_up();
+
+
         for(GenerateFeatureInterface featureGenerator: bindings) {
             featureGenerator.generate(geometryContainer);
         }
 
-//        WaterBody lakeGenerator = new LakeFactory(islandSpecifications);
-//        lakeGenerator.generate(geometryContainer);
 
-        WaterBody river = new RiverFactory(islandSpecifications);
-        river.generate(geometryContainer);
+        export_island(geometryContainer);
+    }
 
-        WaterBody aquiferGenerator = new AquiferFactory(islandSpecifications);
-        aquiferGenerator.generate(geometryContainer);
-
-        MoistureSetter moistureSetter = new MoistureSetter(islandSpecifications);
-        moistureSetter.calculateMoisture(geometryContainer);
-
-        BiomeInterface biomeSetter = BiomeFactory.selectBiomeProfile(islandSpecifications);
-        biomeSetter.setBiomes(geometryContainer);
-
-        Resources resources = new Resources(islandSpecifications);
-        resources.setResources(geometryContainer);
-
-        ResourceCalculator resourceCalculator = new ResourceCalculator(islandSpecifications);
-        resourceCalculator.calculateResources(geometryContainer);
-
-        RoadWeb roadWeb = new RoadWeb(islandSpecifications);
-        roadWeb.generate(geometryContainer);
-
-        // exporting
+    private void export_island(GeometryContainer geometryContainer) {
         Exporter finalExporter = new MeshExporter(islandSpecifications);
         Structs.Mesh finalMesh = (Structs.Mesh) finalExporter.export(geometryContainer);
 
-
-
-        // TODO B dynamic file output name
         String meshfile = islandSpecifications.getOutput();
 
         MeshFactory factory = new MeshFactory();
@@ -103,6 +92,5 @@ public class IslandGenerator {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
