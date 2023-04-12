@@ -60,7 +60,7 @@ public class CityGenerator {
             }
         }
 
-        vertices.get(source).setPopulation(10);
+        vertices.get(source).setPopulation(12);
 
         return new Cities(source, cities);
     }

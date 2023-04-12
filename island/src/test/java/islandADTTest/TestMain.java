@@ -42,6 +42,7 @@ public class TestMain {
         testClasses.add(AquiferTest.class);
         testClasses.add(SoilProfileTest.class);
         testClasses.add(GraphAdapterTest.class);
+        testClasses.add(CityGenerationTest.class);
     }
 
 }

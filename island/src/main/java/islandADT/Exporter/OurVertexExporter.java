@@ -13,7 +13,7 @@ public class OurVertexExporter implements Exporter<VertexWrapper, Structs.Vertex
         int population = v.getPopulation();
         OurVertexIsland vertexIslandFactory = new OurVertexIsland();
         int[] color;
-        if(v.getPopulation() == 10) {
+        if(v.getPopulation() == 12) {
             color = new int[]{255,160,122};
         } else {
             color = new int[]{220,220,220};
