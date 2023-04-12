@@ -10,6 +10,7 @@ Roads originally were generated with equal edge weights at 1. This meant that al
 ![img.png](img.png)
 ### Extension Explanation
 Island was enriched with and depended on the pathfinder module in order to demonstrate the extendability of features in island. Outside creating the actual logic for adapting to the pathfinder module, implementing roads and cities only needed an addition to the feature bindins of the islandGenerator. Additionally, it was an assignment requirement worth 10% of my mark.
+**For best results upon running, use volcano or plains elevation, fertile soil profile and desert biome**
 
 ## Installation instructions
 
@@ -40,7 +41,6 @@ Separately, the above commands can be split into two parts: the mesh generation,
 The island generation (along with visualization) commands are:
 - `make runip`, Runs Plains and creates an elevation and moisture heatmap
 - `make runiv`, Runs Volcano and creates an elevation and moisture heatmap
-- `make runic`, Runs Crater and creates an elevation and moisture heatmap
 - `make runcountry`, Runs Egypt and creates an elevation and moisture heatmap
 - `make runivs`, Runs Volcano and creates an elevation and moisture heatmap with a set seed of 593
 - `make runarctic`, Runs Arctic and creates an elevation and moisture heatmap

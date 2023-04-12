@@ -42,7 +42,7 @@ public class CityGenerator {
                 VertexWrapper potential_city = vertices.get(potential_city_tile.getId_centroid());
                 CityEvaluator cityEvaluator = new CityEvaluator();
                 if (potential_city.getPopulation() == 0 && cityEvaluator.suitable_city_placement(potential_city_tile.getId_centroid(), geometryContainer)) {
-                    potential_city.setPopulation(potential_city_tile.getHeight() / 50);
+                    potential_city.setPopulation(Math.min(potential_city_tile.getHeight() / 50,1));
                     cities[counter] = potential_city.get_id();
                     counter++;
                 }
