@@ -22,8 +22,8 @@ public class RoadEvaluator {
     public int calculate_road_weight(GeometryContainer geometryContainer, PolygonWrapper polygon, PolygonWrapper neighbour_polygon, VertexWrapper centroid, VertexWrapper neighbour) {
         int height_distance = Math.abs(polygon.getHeight() - neighbour_polygon.getHeight());
         double distance = distance_between_points(centroid.getCoords(), neighbour.getCoords());
-        int riverCost = needs_bridge(centroid, neighbour, geometryContainer)? 1000 : 0;
-        int weight = Math.max(1, (int) (20*height_distance + distance *2) + riverCost);
+        int riverCost = needs_bridge(centroid, neighbour, geometryContainer)? 10000 : 0;
+        int weight = Math.max(1, (int) (5*height_distance) + riverCost);
         return weight;
     }
 
@@ -37,7 +37,7 @@ public class RoadEvaluator {
             double x3 = head.getCoords()[0], y3 = head.getCoords()[1];
             double x4 = tail.getCoords()[0], y4 = tail.getCoords()[1];
 
-            if(intersection_between_lines(x1, y1, x2, y2, x3, y3, x4, 4)) {
+            if(intersection_between_lines(x1, y1, x2, y2, x3, y3, x4, y4)) {
                 return true;
             }
         }

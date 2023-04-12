@@ -2,8 +2,6 @@ package islandADT.Generator;
 
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs;
-import com.sun.security.jgss.GSSUtil;
-import islandADT.Urbanism.CityGenerator;
 import islandADT.Urbanism.RoadWeb;
 import islandADT.Water.*;
 import islandADT.Container.GeometryContainer;
@@ -18,11 +16,14 @@ import islandADT.TypeWrappers.TileTypeWrapperCreator;
 import islandADT.Resources.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IslandGenerator {
 
     private IslandSpecifications islandSpecifications;
     private Structs.Mesh m;
+    private List<GenerateFeatureInterface> bindings = new ArrayList<>();
 
     public IslandGenerator(IslandSpecifications islandSpecifications) {
         this.islandSpecifications = islandSpecifications;
@@ -32,6 +33,11 @@ public class IslandGenerator {
         catch (IOException e) {
             System.out.println("heh");
         }
+    }
+
+    private void create_bindings() {
+        bindings.add(new LakeFactory(islandSpecifications));
+        bindings.add(new RiverFactory(islandSpecifications));
     }
 
     public void create_island() {
@@ -52,8 +58,14 @@ public class IslandGenerator {
         islandGeographySetter.set_island_shape(geometryContainer, islandSpecifications);
         islandGeographySetter.set_island_elevation(geometryContainer, islandSpecifications);
 
-        WaterBody lakeGenerator = new LakeFactory(islandSpecifications);
-        lakeGenerator.generate(geometryContainer);
+        create_bindings();
+
+        for(GenerateFeatureInterface featureGenerator: bindings) {
+            featureGenerator.generate(geometryContainer);
+        }
+
+//        WaterBody lakeGenerator = new LakeFactory(islandSpecifications);
+//        lakeGenerator.generate(geometryContainer);
 
         WaterBody river = new RiverFactory(islandSpecifications);
         river.generate(geometryContainer);
@@ -74,7 +86,7 @@ public class IslandGenerator {
         resourceCalculator.calculateResources(geometryContainer);
 
         RoadWeb roadWeb = new RoadWeb(islandSpecifications);
-        roadWeb.create_roads(geometryContainer);
+        roadWeb.generate(geometryContainer);
 
         // exporting
         Exporter finalExporter = new MeshExporter(islandSpecifications);

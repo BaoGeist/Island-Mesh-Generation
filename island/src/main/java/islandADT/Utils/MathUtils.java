@@ -6,6 +6,8 @@ import islandADT.Elevation.CustomPrecisionModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.awt.geom.Line2D.linesIntersect;
+
 public class MathUtils {
     public static int distance_between_centre(double[] coords, CustomPrecisionModel precisionModel) {
         int centre_x = 250, centre_y = 250;
@@ -41,22 +43,6 @@ public class MathUtils {
     }
 
     public static boolean intersection_between_lines(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
-        double m1 = (y2 - y1) / (x2 - x1);
-        double b1 = y1 - m1 * x1;
-        double m2 = (y4 - y3) / (x4 - x3);
-        double b2 = y3 - m2 * x3;
-
-        if (m1 == m2 && b1 != b2) { return false; }
-
-        double x = (y2 - y1 + b1 - b2) / (m1 - m2);
-
-        if ((x <= x1 || x >= x2) && (x <= x2 || x >= x1)) {
-            return false;
-        }
-        if ((x <= x3 || x >= x4) && (x <= x4 || x >= x3)) {
-            return false;
-        }
-
-        return true;
+        return linesIntersect(x1,y1,x2,y2,x3,y3,x4,y4);
     }
 }

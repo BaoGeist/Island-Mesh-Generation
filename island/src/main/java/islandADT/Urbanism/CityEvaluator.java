@@ -19,7 +19,7 @@ public class CityEvaluator {
     public static Map<PointWrapper, Double> waterSources = new HashMap<>();
 
     public boolean suitable_city_placement(int city, GeometryContainer geometryContainer) {
-        return suitable_city_moisture(city, geometryContainer) && suitable_city_flatland(city, geometryContainer) && suitable_city_overpopulation(city, geometryContainer);
+        return suitable_city_flatland(city, geometryContainer) && suitable_city_overpopulation(city, geometryContainer);
     }
 
     private boolean suitable_city_moisture(int city, GeometryContainer geometryContainer) {
