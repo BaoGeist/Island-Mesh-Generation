@@ -58,44 +58,6 @@ public class GraphAdapter {
         return pathFinder.path_find(source, sink);
     }
 
-
-    private void populate_nodes(GeometryContainer geometryContainer) {
-        List<PolygonWrapper> polygons = getDryLandPolygons(geometryContainer);
-
-        for(PolygonWrapper polygon: polygons) {
-            int centroid_id = polygon.getId_centroid();
-            nodes.add(centroid_id);
-        }
-    }
-
-    private void populate_edges(GeometryContainer geometryContainer) {
-        Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
-        Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
-
-        Set<Integer> outside_nodes = new HashSet<>();
-
-        for(Integer centroid_id: nodes) {
-            PolygonWrapper polygon = getPolygonFromCentroid(geometryContainer, centroid_id);
-            VertexWrapper centroid = vertices.get(centroid_id);
-
-            List<Integer> neighbour_polygons = polygon.get_neighbours();
-            for(int neighbour_polygon: neighbour_polygons) {
-                int neighbour_id = polygons.get(neighbour_polygon).getId_centroid();
-                VertexWrapper neighbour = vertices.get(neighbour_id);
-
-                int edge_id = edges.size();
-                int height_distance = Math.abs(polygon.getHeight() - polygons.get(neighbour_polygon).getHeight());
-                double distance = distance_between_points(centroid.getCoords(), neighbour.getCoords());
-                int weight = Math.max(1, (int) (5*height_distance + distance *2));
-
-                edges.add(new TempEdge(edge_id, centroid_id, neighbour_id , weight));
-                outside_nodes.add(neighbour_id);
-            }
-        }
-        nodes.addAll(outside_nodes);
-    }
-
-
     private GraphADT populate_graph(GeometryContainer geometryContainer) {
         populate_nodes(geometryContainer);
         populate_edges(geometryContainer);
@@ -122,5 +84,44 @@ public class GraphAdapter {
 
         return graph;
     }
+
+    private void populate_nodes(GeometryContainer geometryContainer) {
+        List<PolygonWrapper> polygons = getDryLandPolygons(geometryContainer);
+
+        for(PolygonWrapper polygon: polygons) {
+            int centroid_id = polygon.getId_centroid();
+            nodes.add(centroid_id);
+        }
+    }
+
+    private void populate_edges(GeometryContainer geometryContainer) {
+        Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
+        Map<Integer, PolygonWrapper> polygons = geometryContainer.get_polygons();
+
+        Set<Integer> outside_nodes = new HashSet<>();
+
+        for(Integer centroid_id: nodes) {
+            PolygonWrapper polygon = getPolygonFromCentroid(geometryContainer, centroid_id);
+            VertexWrapper centroid = vertices.get(centroid_id);
+
+            List<Integer> neighbour_polygons = polygon.get_neighbours();
+            for(int neighbour_polygon: neighbour_polygons) {
+                int neighbour_id = polygons.get(neighbour_polygon).getId_centroid();
+                VertexWrapper neighbour = vertices.get(neighbour_id);
+
+                int edge_id = edges.size();
+                RoadEvaluator roadEvaluator = new RoadEvaluator(geometryContainer);
+                int weight = roadEvaluator.calculate_road_weight(geometryContainer, polygon, polygons.get(neighbour_polygon), centroid, neighbour);
+
+
+                edges.add(new TempEdge(edge_id, centroid_id, neighbour_id , weight));
+                outside_nodes.add(neighbour_id);
+            }
+        }
+        nodes.addAll(outside_nodes);
+    }
+
+
+
 
 }

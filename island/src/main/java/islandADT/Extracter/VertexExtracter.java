@@ -9,7 +9,6 @@ public class VertexExtracter implements Extracter<Structs.Vertex, VertexWrapper>
         int id_vertex = PropertyUtils.extractID(oldVertex.getPropertiesList());
 
         boolean centroid_vertex = PropertyUtils.extractBoolean(oldVertex.getPropertiesList());
-//        boolean centroid_vertex = true;
         double[] coords = {oldVertex.getX(), oldVertex.getY()};
         VertexWrapper newVertex = new VertexWrapper(id_vertex, centroid_vertex, coords);
         return newVertex;

@@ -119,4 +119,17 @@ public class GeometryContainerCalculator {
         }
         return null;
     }
+
+    public static double[] getMoistureRange(GeometryContainer geometryContainer) {
+        List<PolygonWrapper> polygons = getDryLandPolygons(geometryContainer);
+        double min = Double.MAX_VALUE, max = Double.MIN_VALUE;
+        for(PolygonWrapper polygon: polygons) {
+            double moisture = polygon.getMoisture();
+            if(moisture != 20) {
+                min = Math.min(moisture, min);
+                max = Math.max(moisture, max);
+            }
+        }
+        return new double[]{min, max};
+    }
 }

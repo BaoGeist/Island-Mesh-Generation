@@ -12,8 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static islandADT.Container.GeometryContainerCalculator.getPolygonFromCentroid;
-import static islandADT.Container.GeometryContainerCalculator.polygon_neighbours_objects;
+import static islandADT.Container.GeometryContainerCalculator.*;
 
 public class CityEvaluator {
 
@@ -24,10 +23,11 @@ public class CityEvaluator {
     }
 
     private boolean suitable_city_moisture(int city, GeometryContainer geometryContainer) {
-        Map<Integer, VertexWrapper> vertices = geometryContainer.get_vertices();
-        VertexWrapper cityVertex = vertices.get(city);
         PolygonWrapper cityLocation = getPolygonFromCentroid(geometryContainer, city);
-        return cityLocation.getMoisture() > 3;
+
+        double[] minMax = getMoistureRange(geometryContainer);
+        double threshold = (minMax[1] - minMax[0])/5 + minMax[0];
+        return cityLocation.getMoisture() > threshold;
     }
 
     private boolean suitable_city_flatland(int city, GeometryContainer geometryContainer) {
@@ -37,7 +37,7 @@ public class CityEvaluator {
 
         List<PolygonWrapper> neighbours = polygon_neighbours_objects(geometryContainer, cityLocation.get_id());
         for (PolygonWrapper neighbour: neighbours) {
-            if(Math.abs(cityLocation.getHeight() - neighbour.getHeight()) > 30) {
+            if(Math.abs(cityLocation.getHeight() - neighbour.getHeight()) > 100) {
                 return false;
             }
         }

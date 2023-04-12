@@ -49,4 +49,8 @@ public class SegmentWrapper {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    public boolean isWaterornah() {
+        return this.segmentTypeWrapper.isWaterornah();
+    }
 }

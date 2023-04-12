@@ -53,4 +53,8 @@ public class SegmentTypeWrapper {
     public void setFlow(int flow) {
         this.flow = flow;
     }
+
+    public boolean isWaterornah() {
+        return getSegmentType().equals(SegmentType.Water);
+    }
 }

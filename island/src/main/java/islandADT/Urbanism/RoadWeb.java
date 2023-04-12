@@ -1,15 +1,16 @@
 package islandADT.Urbanism;
 
 import islandADT.Container.GeometryContainer;
+import islandADT.Generator.GenerateFeatureInterface;
 import islandADT.TypeWrappers.Cities;
 import islandADT.Specifications.IslandSpecifications;
 
-public class RoadWeb {
+public class RoadWeb implements GenerateFeatureInterface {
     IslandSpecifications islandSpecifications;
     public RoadWeb(IslandSpecifications islandSpecifications) {
         this.islandSpecifications = islandSpecifications;
     }
-    public void create_roads(GeometryContainer geometryContainer) {
+    public void generate(GeometryContainer geometryContainer) {
         CityGenerator cityGenerator = new CityGenerator(islandSpecifications);
         Cities cities = cityGenerator.generate_cities(geometryContainer);
 

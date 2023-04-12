@@ -13,6 +13,14 @@ public class OurVertexExporter implements Exporter<VertexWrapper, Structs.Vertex
         int height = v.getHeight();
         int population = v.getPopulation();
         OurVertexIsland vertexIslandFactory = new OurVertexIsland();
-        return vertexIslandFactory.create_geometry(centroid_or_nah, coords, height, population);
+        int[] color;
+        if(v.getPopulation() == 10) {
+            color = new int[]{255,160,122};
+        } else {
+            color = new int[]{220,220,220};
+        }
+
+
+        return vertexIslandFactory.create_geometry(centroid_or_nah, coords, height, population, color);
     }
 }
