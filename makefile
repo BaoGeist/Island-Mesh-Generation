@@ -14,7 +14,7 @@ runip:
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/elevation.svg
 
 runiv:
-	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 5 -aquifer 3 -river 6 -seed 938610703 -mode normal -biomes desert -soil fertile
+	cd island && java -jar island.jar -i ../img/new.mesh -o ../img/island.mesh -altitude volcanic -shape oval -lake 5 -aquifer 3 -river 6 -seed 9386107 -mode normal -biomes desert -soil fertile
 	cd visualizer && java -jar visualizer.jar -i ../img/island.mesh -o ../img/island.svg
 
 runivmoisture:
